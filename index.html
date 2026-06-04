@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Suvidha | Premium 3D Scroll Digital Marketing Agency</title>
+    <meta name="description" content="Design Suvidha — Premium digital marketing agency for small businesses. Video Creation, Meta Ads, Website Design, GMB, Graphic Design & Social Media.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- FIXED BACKGROUND: Scroll-Driven Video Frame Canvas (plays through ENTIRE page scroll) -->
+    <div class="global-frame-bg" id="global-frame-bg">
+        <img id="global-frame-img" src="frame 2/ezgif-frame-001.jpg" alt="" class="global-frame-img">
+        <div class="global-frame-overlay"></div>
+    </div>
+
+    <canvas id="particle-canvas" class="particle-bg"></canvas>
+    <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+    <!-- STICKY HEADER -->
+    <header id="main-header" class="header-nav">
+        <div class="container nav-container">
+            <a href="#home" class="logo" id="header-logo"><img src="design suvidha logo.png" alt="Design Suvidha Logo" class="nav-logo-img"></a>
+            <nav class="nav-menu" id="nav-links-container">
+                <a href="#services" class="nav-link active">Services</a>
+                <a href="#pricing" class="nav-link">Packages</a>
+                <a href="#case-studies" class="nav-link">Our Work</a>
+                <a href="#web-portfolio" class="nav-link">Portfolio</a>
+                <a href="#presence" class="nav-link">Branches</a>
+                <a href="#contact" class="nav-link cta-link">Get Free Audit</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="#contact" class="btn btn-primary btn-sm" id="nav-cta-btn">Free Consultation</a>
+                <button class="mobile-nav-toggle" id="menu-toggle-btn" aria-label="Toggle Menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav-drawer" id="mobile-drawer">
+        <nav class="mobile-nav-links">
+            <a href="#services" class="mobile-link">Services</a>
+            <a href="#pricing" class="mobile-link">Packages</a>
+            <a href="#case-studies" class="mobile-link">Our Work</a>
+            <a href="#web-portfolio" class="mobile-link">Portfolio</a>
+            <a href="#presence" class="mobile-link">Branches</a>
+            <a href="#contact" class="mobile-link">Get Free Audit</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- ====== SCENE 1: HERO — Full-Screen Cinematic Entry ====== -->
+        <section class="scene scene-hero" id="home">
+            <div class="scene-inner">
+                <div class="container hero-container-grid">
+                    <div class="hero-text-content" data-anim="tilt-in-left">
+                        <div class="glow-badge"><span class="badge-pulse"></span><span>⚡ Small Business Growth Partner</span></div>
+                        <h1 class="hero-mega-title">We Help Small Businesses <span class="gradient-text">Grow Big</span> Online.</h1>
+                        <p class="hero-subtitle">Premium Video Creation · Meta Ads · 3D Scroll Websites · GMB Domination · Graphic Design & Social Media Handling</p>
+                        <div class="hero-actions">
+                            <a href="#contact" class="btn btn-primary btn-lg">Get Free Growth Plan</a>
+                            <a href="#case-studies" class="btn btn-glass btn-lg">See Our Work</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual-content" data-anim="tilt-in-right">
+                        <div class="hero-mockup-wrapper card-3d">
+                            <div class="device-mockup">
+                                <div class="device-bezel">
+                                    <div class="device-camera"></div>
+                                    <div class="device-screen">
+                                        <img id="hero-frame-img" src="frame 2/ezgif-frame-001.jpg" alt="Scroll 3D Animation" class="hero-frame-img">
+                                    </div>
+                                </div>
+                                <div class="device-stand"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SCENE 2: STATS — Horizontal Reveal ====== -->
+        <section class="scene scene-stats" id="global-stats">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="stats-row" data-anim="stagger-up">
+                        <div class="stat-pill"><span class="sp-num">4.8x</span><span class="sp-lbl">Avg Client ROAS</span></div>
+                        <div class="stat-pill"><span class="sp-num">₹14Cr+</span><span class="sp-lbl">Client Revenue</span></div>
+                        <div class="stat-pill"><span class="sp-num">380%</span><span class="sp-lbl">GMB Growth</span></div>
+                        <div class="stat-pill"><span class="sp-num">150+</span><span class="sp-lbl">Happy Clients</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== CINEMATIC BREAK 1 ====== -->
+        <section class="scene scene-break" data-break-text="OUR SERVICES"></section>
+
+        <!-- ====== SCENE 3: SERVICES ====== -->
+        <section class="scene scene-services" id="services">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">WHAT WE DO</span>
+                        <h2 class="section-title">Our Growth Services</h2>
+                    </div>
+                    <div class="services-grid-v2">
+                        <div class="svc-card card-3d" data-anim="tilt-in-left">
+                            <div class="svc-num">01</div>
+                            <h3>Video Creation</h3>
+                            <p>Cinema-grade video ads and Reels that hook the audience. Specially designed for high engagement.</p>
+                            <div class="svc-price-tags">
+                                <span class="svc-price">Normal AI Video: ₹200</span>
+                                <span class="svc-price">Premium Creative: ₹500</span>
+                            </div>
+                        </div>
+                        <div class="svc-card card-3d" data-anim="tilt-in-right">
+                            <div class="svc-num">02</div>
+                            <h3>Meta Ads Management</h3>
+                            <p>Facebook & Instagram ad campaigns designed to maximize ROAS for small businesses.</p>
+                            <span class="svc-price">Custom Strategy Quote</span>
+                        </div>
+                        <div class="svc-card card-3d" data-anim="tilt-in-left">
+                            <div class="svc-num">03</div>
+                            <h3>Website Design (3D)</h3>
+                            <p>Stunning 3D animated websites with scroll-driven effects, parallax, and premium UX.</p>
+                            <span class="svc-price">₹5,000 — ₹15,000</span>
+                        </div>
+                        <div class="svc-card card-3d" data-anim="tilt-in-right">
+                            <div class="svc-num">04</div>
+                            <h3>Google My Business (GMB)</h3>
+                            <p>Complete GMB setup, local SEO optimization, Google Maps rank domination, and review management.</p>
+                            <div class="svc-price-tags">
+                                <span class="svc-price">GMB Creation: ₹2,000</span>
+                                <span class="svc-price">GMB Creation & SEO: ₹3,000</span>
+                            </div>
+                        </div>
+                        <div class="svc-card card-3d" data-anim="tilt-in-left">
+                            <div class="svc-num">05</div>
+                            <h3>Graphic Design</h3>
+                            <p>Social media posts, banners, brochures, business cards, and brand identity design.</p>
+                            <span class="svc-price">Starting ₹199 / Post</span>
+                        </div>
+                        <div class="svc-card card-3d" data-anim="tilt-in-right">
+                            <div class="svc-num">06</div>
+                            <h3>Social Media Handling</h3>
+                            <p>Complete social media management — content planning, posting, engagement & growth.</p>
+                            <span class="svc-price">Plans from ₹4,999 / month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== CINEMATIC BREAK 2 ====== -->
+        <section class="scene scene-break" data-break-text="PRICING PACKAGES"></section>
+
+        <!-- ====== SCENE 4: PRICING ====== -->
+        <section class="scene scene-pricing" id="pricing">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">AFFORDABLE PLANS</span>
+                        <h2 class="section-title">Packages for Small Businesses</h2>
+                        <p class="section-subtitle">Transparent pricing to scale your local brand. No hidden fees.</p>
+                    </div>
+                    <div class="pricing-grid">
+                        <!-- Starter -->
+                        <div class="pricing-card card-3d" data-anim="tilt-in-left">
+                            <div class="pricing-header"><h3 class="pack-title">Starter Setup</h3><span class="pack-target">For local business online launch</span></div>
+                            <div class="pricing-price-block">
+                                <span class="original-price">₹5,000</span>
+                                <div class="active-price-row"><span class="currency">₹</span><span class="price-val">2,999</span><span class="period">/month</span></div>
+                                <span class="save-tag">SAVE 40%</span>
+                            </div>
+                            <ul class="pack-features">
+                                <li><span class="bullet">✓</span> <strong>GMB Setup & Basic Local SEO</strong></li>
+                                <li><span class="bullet">✓</span> <strong>5 Normal AI Video Ads</strong></li>
+                                <li><span class="bullet">✓</span> 5 Graphic Design Posts</li>
+                                <li><span class="bullet">✓</span> Social Media Posting (2 platforms)</li>
+                                <li><span class="bullet">✓</span> Monthly Growth Performance Report</li>
+                            </ul>
+                            <div class="pricing-cta-row"><a href="https://wa.me/919509022983?text=Hi%20Design%20Suvidha,%20I%20want%20the%20Starter%20Setup%20Pack!" target="_blank" class="btn btn-glass btn-block">Inquire on WhatsApp</a></div>
+                        </div>
+                        <!-- Growth (Featured) -->
+                        <div class="pricing-card card-3d featured" data-anim="scale-up">
+                            <div class="featured-badge">MOST POPULAR</div>
+                            <div class="pricing-header"><h3 class="pack-title">Growth Accelerator</h3><span class="pack-target">For generating active local leads</span></div>
+                            <div class="pricing-price-block">
+                                <span class="original-price">₹12,000</span>
+                                <div class="active-price-row"><span class="currency">₹</span><span class="price-val">7,999</span><span class="period">/month</span></div>
+                                <span class="save-tag">SAVE 33%</span>
+                            </div>
+                            <ul class="pack-features">
+                                <li><span class="bullet">✓</span> <strong>GMB Optimization & SEO (with keywords)</strong></li>
+                                <li><span class="bullet">✓</span> <strong>10 Premium Ad Creative Videos</strong></li>
+                                <li><span class="bullet">✓</span> <strong>Meta Ads Setup & Management</strong></li>
+                                <li><span class="bullet">✓</span> 15 Graphic Design Posts</li>
+                                <li><span class="bullet">✓</span> Social Media Handling (Instagram & FB)</li>
+                                <li><span class="bullet">✓</span> Weekly Lead Reporting & Strategy Call</li>
+                            </ul>
+                            <div class="pricing-cta-row"><a href="https://wa.me/919509022983?text=Hi%20Design%20Suvidha,%20I%20want%20the%20Growth%20Accelerator%20Pack!" target="_blank" class="btn btn-primary btn-block">Scale Now via WhatsApp</a></div>
+                        </div>
+                        <!-- Elite -->
+                        <div class="pricing-card card-3d" data-anim="tilt-in-right">
+                            <div class="pricing-header"><h3 class="pack-title">Elite 3D Empire</h3><span class="pack-target">Complete premium digital domination</span></div>
+                            <div class="pricing-price-block">
+                                <span class="original-price">₹30,000</span>
+                                <div class="active-price-row"><span class="currency">₹</span><span class="price-val">19,999</span><span class="period">/month</span></div>
+                                <span class="save-tag">SAVE 33%</span>
+                            </div>
+                            <ul class="pack-features">
+                                <li><span class="bullet">✓</span> <strong>Premium 3D Animated Website</strong></li>
+                                <li><span class="bullet">✓</span> <strong>25 Premium Ad Creative Videos</strong></li>
+                                <li><span class="bullet">✓</span> Full Meta Ads (Setup, Run & Retarget)</li>
+                                <li><span class="bullet">✓</span> GMB Domination & Local Maps SEO</li>
+                                <li><span class="bullet">✓</span> Unlimited Graphic Design Posts</li>
+                                <li><span class="bullet">✓</span> Full Social Media Handling (All platforms)</li>
+                                <li><span class="bullet">✓</span> Dedicated Growth Specialist</li>
+                            </ul>
+                            <div class="pricing-cta-row"><a href="https://wa.me/919509022983?text=Hi%20Design%20Suvidha,%20I%20want%20the%20Elite%203D%20Empire%20Pack!" target="_blank" class="btn btn-glass btn-block">Inquire on WhatsApp</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== CINEMATIC BREAK 3 ====== -->
+        <section class="scene scene-break" data-break-text="OUR WORK"></section>
+
+        <!-- ====== SCENE 5: VIDEO CAMPAIGNS ====== -->
+        <section class="scene scene-portfolio" id="case-studies">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">REAL RESULTS</span>
+                        <h2 class="section-title">Client Video Campaigns</h2>
+                    </div>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item card-3d" data-anim="tilt-in-left">
+                            <div class="portfolio-media"><video class="case-video-player" preload="metadata" muted playsinline loop controls><source src="video creative our client project/Used Cars.mp4" type="video/mp4"></video><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Vanguard Pre-Owned Cars</span><h3 class="portfolio-item-title">240% Booking Increase</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.2x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">+240%</span><span class="m-lbl">Bookings</span></div></div></div>
+                        </div>
+                        <div class="portfolio-item card-3d" data-anim="tilt-in-right">
+                            <div class="portfolio-media"><video class="case-video-player" preload="metadata" muted playsinline loop controls><source src="video creative our client project/Bike Service.mp4" type="video/mp4"></video><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Apex Moto Care</span><h3 class="portfolio-item-title">3.1x Lead Boost</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.9x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">+310%</span><span class="m-lbl">Bookings</span></div></div></div>
+                        </div>
+                        <div class="portfolio-item card-3d" data-anim="tilt-in-left">
+                            <div class="portfolio-media"><video class="case-video-player" preload="metadata" muted playsinline loop controls><source src="video creative our client project/Car Washing (1).mp4" type="video/mp4"></video><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Sparkle Automobile Spa</span><h3 class="portfolio-item-title">5.1x ROAS Campaign</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">5.1x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">150k+</span><span class="m-lbl">Views</span></div></div></div>
+                        </div>
+                        <div class="portfolio-item card-3d" data-anim="tilt-in-right">
+                            <div class="portfolio-media"><video class="case-video-player" preload="metadata" muted playsinline loop controls><source src="video creative our client project/Real Estate.mp4" type="video/mp4"></video><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Royal Properties</span><h3 class="portfolio-item-title">38 Buyer Leads</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">3.8x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">38</span><span class="m-lbl">Leads</span></div></div></div>
+                        </div>
+                        <div class="portfolio-item card-3d" data-anim="tilt-in-left">
+                            <div class="portfolio-media"><video class="case-video-player" preload="metadata" muted playsinline loop controls><source src="video creative our client project/Caters.mp4" type="video/mp4"></video><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Gourmet Feast Caters</span><h3 class="portfolio-item-title">₹18L Revenue</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.5x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">₹18L</span><span class="m-lbl">Revenue</span></div></div></div>
+                        </div>
+                        <div class="portfolio-item card-3d" data-anim="tilt-in-right">
+                            <div class="portfolio-media"><video class="case-video-player" preload="metadata" muted playsinline loop controls><source src="video creative our client project/Interior Decoration.mp4" type="video/mp4"></video><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Luxe Spaces</span><h3 class="portfolio-item-title">₹24L Revenue</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">5.3x</span><span class="m-lbl">ROI</span></div><div class="metric"><span class="m-val-big">+180%</span><span class="m-lbl">Inquiries</span></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== CINEMATIC BREAK 4 ====== -->
+        <section class="scene scene-break" data-break-text="WEBSITE PORTFOLIO"></section>
+
+        <!-- ====== SCENE 6: WEBSITE PORTFOLIO ====== -->
+        <section class="scene scene-webfolio" id="web-portfolio">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">WEBSITES WE'VE BUILT</span>
+                        <h2 class="section-title">Website Portfolio</h2>
+                    </div>
+                    <div class="web-portfolio-grid">
+                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://wibify.agency/en&screenshot=true&meta=false&embed=screenshot.url" alt="Wibify Agency" loading="lazy"></div><div class="web-body"><span class="web-tag">Digital Agency</span><h3>Wibify Agency</h3><a href="https://wibify.agency/en" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-right"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://mira-dev.webflow.io/&screenshot=true&meta=false&embed=screenshot.url" alt="Mira Dev" loading="lazy"></div><div class="web-body"><span class="web-tag">SaaS Platform</span><h3>Mira Dev</h3><a href="https://mira-dev.webflow.io/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://blueprintapps.io/&screenshot=true&meta=false&embed=screenshot.url" alt="Blueprint Apps" loading="lazy"></div><div class="web-body"><span class="web-tag">App Development</span><h3>Blueprint Apps</h3><a href="https://blueprintapps.io/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-right"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://www.cravburgers.shop/&screenshot=true&meta=false&embed=screenshot.url" alt="Crav Burgers" loading="lazy"></div><div class="web-body"><span class="web-tag">Food &amp; Restaurant</span><h3>Crav Burgers</h3><a href="https://www.cravburgers.shop/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://www.monarch.us/&screenshot=true&meta=false&embed=screenshot.url" alt="Monarch" loading="lazy"></div><div class="web-body"><span class="web-tag">Premium Brand</span><h3>Monarch</h3><a href="https://www.monarch.us/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-right"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://oliviaharperhomes.com/&screenshot=true&meta=false&embed=screenshot.url" alt="Olivia Harper Homes" loading="lazy"></div><div class="web-body"><span class="web-tag">Real Estate</span><h3>Olivia Harper Homes</h3><a href="https://oliviaharperhomes.com/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://eatnaked.co/&screenshot=true&meta=false&embed=screenshot.url" alt="Eat Naked" loading="lazy"></div><div class="web-body"><span class="web-tag">Health &amp; Food</span><h3>Eat Naked</h3><a href="https://eatnaked.co/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== CINEMATIC BREAK 5 ====== -->
+        <section class="scene scene-break" data-break-text="TESTIMONIALS"></section>
+
+        <!-- ====== SCENE 7: TESTIMONIALS ====== -->
+        <section class="scene scene-testimonials" id="testimonials">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">150+ HAPPY CLIENTS</span>
+                        <h2 class="section-title">What Business Owners Say</h2>
+                    </div>
+                    <div class="testimonials-grid">
+                        <div class="testi-card card-3d" data-anim="tilt-in-left"><div class="stars">★★★★★</div><p>"Design Suvidha's video creatives scaled our custom wardrobe designs — 4.6x ROAS in 60 days."</p><div class="testi-author"><strong>Arun Kumar</strong><span>Luxe Closets</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-right"><div class="stars">★★★★★</div><p>"Localized video ads and GMB positioning changed our entire client flow. Consistent inquiries!"</p><div class="testi-author"><strong>Preeti Sharma</strong><span>Grobe Solutions</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-left"><div class="stars">★★★★★</div><p>"Their reels went viral locally — washing slots booked for 3 weeks straight!"</p><div class="testi-author"><strong>Rajesh Gupta</strong><span>Sparkle Auto Spa</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-right"><div class="stars">★★★★★</div><p>"Bike servicing video ad returned 4.9x ROAS. Best local agency we've worked with."</p><div class="testi-author"><strong>Amit Sharma</strong><span>Apex Moto Care</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-left"><div class="stars">★★★★★</div><p>"Meta Ads brought 45 new daily orders. My bakery is packed every day!"</p><div class="testi-author"><strong>Meena Patel</strong><span>Sweet Dreams Bakery</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-right"><div class="stars">★★★★★</div><p>"Gym went from 80 to 250 members — 6.2x ROAS after they restructured campaigns."</p><div class="testi-author"><strong>Manish Tiwari</strong><span>Iron Forge Fitness</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-left"><div class="stars">★★★★★</div><p>"Restaurant jumped to #1 on Google Maps — footfall increased 200%!"</p><div class="testi-author"><strong>Arjun Mehra</strong><span>Spice Junction</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-right"><div class="stars">★★★★★</div><p>"120 new enrollments in 2 months for our coaching institute. Best investment!"</p><div class="testi-author"><strong>Priya Saxena</strong><span>BrightPath Academy</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-left"><div class="stars">★★★★★</div><p>"Their premium video ads drove massive national orders for our dumbbell sets. Gained 10k+ followers organically!"</p><div class="testi-author"><strong>Karan Malhotra</strong><span>Malhotra Gym Gear, Ludhiana</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-right"><div class="stars">★★★★★</div><p>"GMB optimization got our boutique on the first page. Footfall increased by 150% in Pratap Nagar."</p><div class="testi-author"><strong>Shweta Jain</strong><span>Shweta Boutique, Jaipur</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-left"><div class="stars">★★★★★</div><p>"Meta ads and GMB reviews automation helped us get 60+ new patients in the first month alone."</p><div class="testi-author"><strong>Dr. Vivek Bansal</strong><span>Bansal Dental Clinic, Ludhiana</span></div></div>
+                        <div class="testi-card card-3d" data-anim="tilt-in-right"><div class="stars">★★★★★</div><p>"Got 45 new admissions through local social media campaigns. Very helpful and professional team."</p><div class="testi-author"><strong>Sunita Rao</strong><span>Little Angels School, Jaipur</span></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== CINEMATIC BREAK 6 ====== -->
+        <section class="scene scene-break" data-break-text="OUR BRANCHES"></section>
+
+        <!-- ====== SCENE 8: BRANCHES ====== -->
+        <section class="scene scene-branches" id="presence">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">DUAL PRESENCE</span>
+                        <h2 class="section-title">Our Branch Offices</h2>
+                    </div>
+                    <div class="presence-grid">
+                        <div class="presence-card card-3d" data-anim="tilt-in-left">
+                            <div class="presence-glow-icon">📍</div>
+                            <h3 class="branch-name">Jaipur (Headquarters)</h3>
+                            <div class="branch-details">
+                                <span class="d-item"><strong>Address:</strong> 79 3rd Floor, Godawari apartment, Pratap Nagar, Sector-29, Jaipur - 302033</span>
+                                <span class="d-item"><strong>Contact:</strong> Krishnakant Sharma</span>
+                                <span class="d-item"><strong>Mobile:</strong> <a href="tel:+918739904737">8739904737</a>, <a href="tel:+919509022983">9509022983</a></span>
+                            </div>
+                            <a href="https://maps.google.com/?q=Design+Suvidha+Jaipur" target="_blank" class="btn btn-glass btn-sm">Google Maps</a>
+                        </div>
+                        <div class="presence-card card-3d" data-anim="tilt-in-right">
+                            <div class="presence-glow-icon">✈</div>
+                            <h3 class="branch-name">Ludhiana (Digital Udaan Hub)</h3>
+                            <div class="branch-details">
+                                <span class="d-item"><strong>Address:</strong> Digital Udaan Hub, Ludhiana, Punjab</span>
+                                <span class="d-item"><strong>Contact:</strong> Sarvan Sharma</span>
+                                <span class="d-item"><strong>Mobile:</strong> <a href="tel:+916280404370">6280404370</a></span>
+                            </div>
+                            <a href="https://wa.me/916280404370?text=Hi%20Design%20Suvidha%20Ludhiana!" target="_blank" class="btn btn-glass btn-sm">WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== CINEMATIC BREAK 7 ====== -->
+        <section class="scene scene-break" data-break-text="GET IN TOUCH"></section>
+
+        <!-- ====== SCENE 9: CONTACT ====== -->
+        <section class="scene scene-contact" id="contact">
+            <div class="scene-inner">
+                <div class="container contact-container">
+                    <div class="contact-text-column" data-anim="tilt-in-left">
+                        <span class="section-tag">READY TO GROW?</span>
+                        <h2 class="section-title">Get Your Free Audit</h2>
+                        <p class="contact-desc">Stop guessing. We'll analyze your business and give you a step-by-step growth plan — absolutely free.</p>
+                        <div class="contact-bullet-points">
+                            <div class="point-item"><span class="point-bullet">✓</span><span>Competitor analysis & market research</span></div>
+                            <div class="point-item"><span class="point-bullet">✓</span><span>3 ready-to-use ad strategies</span></div>
+                            <div class="point-item"><span class="point-bullet">✓</span><span>Google Maps visibility audit</span></div>
+                        </div>
+                    </div>
+                    <div class="contact-form-column" data-anim="tilt-in-right">
+                        <div class="form-wrapper glass-panel card-3d">
+                            <h3 class="form-title">Schedule Free Session</h3>
+                            <form id="growth-audit-form" novalidate>
+                                <div class="form-group-custom"><label for="form-name" class="form-label-txt">Full Name</label><input type="text" id="form-name" class="form-input-field" placeholder="Your Name" required><span class="error-msg" id="name-error">Please enter your name</span></div>
+                                <div class="form-group-custom"><label for="form-phone" class="form-label-txt">Phone / WhatsApp</label><input type="tel" id="form-phone" class="form-input-field" placeholder="98XXXXXXXX" required><span class="error-msg" id="phone-error">Please enter your phone</span></div>
+                                <div class="form-group-custom"><label for="form-business" class="form-label-txt">Business Name</label><input type="text" id="form-business" class="form-input-field" placeholder="Your Business" required><span class="error-msg" id="business-error">Please enter your business</span></div>
+                                <div class="form-group-custom"><label for="form-message" class="form-label-txt">Tell Us About Your Business</label><textarea id="form-message" class="form-text-field" placeholder="What's your biggest challenge?" rows="3"></textarea></div>
+                                <button type="submit" class="btn btn-primary btn-block submit-btn" id="form-submit-button"><span class="btn-text" id="btn-submit-text">Get My Free Growth Audit</span><span class="loader" id="btn-submit-loader"></span></button>
+                                <div class="form-feedback-message success" id="form-success-container">🚀 Sent! We'll contact you within 24 hours.</div>
+                                <div class="form-feedback-message error" id="form-error-container">❌ Please fill required fields.</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-layout">
+        <div class="container footer-container">
+            <div class="footer-brand-info"><a href="#" class="logo footer-logo"><img src="design suvidha logo.png" alt="Design Suvidha" class="footer-logo-img"></a><p class="brand-bio">Helping small businesses grow with Video Creation, Meta Ads, Website Design, GMB, Graphic Design & Social Media Handling.</p></div>
+            <div class="footer-links-grid">
+                <div class="footer-link-col"><h4 class="footer-heading">Services</h4><ul class="footer-links"><li><a href="#services">Video Creation</a></li><li><a href="#services">Meta Ads</a></li><li><a href="#services">Website Design</a></li><li><a href="#services">GMB & SEO</a></li><li><a href="#services">Graphic Design</a></li><li><a href="#services">Social Media</a></li></ul></div>
+                <div class="footer-link-col"><h4 class="footer-heading">Agency</h4><ul class="footer-links"><li><a href="#pricing">Packages</a></li><li><a href="#case-studies">Video Campaigns</a></li><li><a href="#web-portfolio">Website Portfolio</a></li><li><a href="#contact">Free Audit</a></li></ul></div>
+            </div>
+        </div>
+        <div class="footer-bottom"><div class="container footer-bottom-container"><p class="copyright-txt">© 2026 Design Suvidha. All rights reserved.</p><div class="footer-socials"><a href="https://wa.me/919509022983" target="_blank" class="social-icon">WA</a><a href="#" class="social-icon">IG</a></div></div></div>
+    </footer>
+
+    <button class="back-to-top" id="scroll-to-top-btn" aria-label="Back to Top">▲</button>
+
+    <!-- WhatsApp Chatbot -->
+    <div class="whatsapp-chatbot-container" id="wa-chatbot-wrapper">
+        <button class="whatsapp-chat-trigger" id="wa-chat-toggle" aria-label="Chat on WhatsApp"><svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg><span class="chat-pulse"></span></button>
+        <div class="whatsapp-chat-panel" id="wa-chat-window">
+            <div class="chat-panel-header"><div class="agent-profile"><div class="agent-avatar-container"><img src="design suvidha logo.png" alt="" class="agent-avatar"><span class="online-indicator"></span></div><div class="agent-info"><span class="agent-name">Design Suvidha</span><span class="agent-status">Online</span></div></div><button class="chat-close-btn" id="wa-chat-close">×</button></div>
+            <div class="chat-panel-body"><div class="chat-bubble received"><p>👋 Namaste! Welcome to <strong>Design Suvidha</strong>.</p></div><div class="chat-bubble received"><p>Ready to grow? Choose:</p></div>
+                <div class="chat-options-stack">
+                    <button class="chat-opt-btn" data-msg="Hi, I want a Free Growth Audit!">🔍 Free Growth Audit</button>
+                    <button class="chat-opt-btn" data-msg="Hi, I need Video Creation services">🎬 Video Creation</button>
+                    <button class="chat-opt-btn" data-msg="Hi, I need Meta Ads Management">📈 Meta Ads</button>
+                    <button class="chat-opt-btn" data-msg="Hi, I need a Website Design">🌐 Website Design</button>
+                    <button class="chat-opt-btn" data-msg="Hi, I need GMB Setup">📍 GMB Setup</button>
+                </div>
+            </div>
+            <div class="chat-panel-footer"><input type="text" id="wa-custom-input" placeholder="Type a message..."><button id="wa-send-btn"><svg viewBox="0 0 24 24" fill="currentColor" class="send-icon"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

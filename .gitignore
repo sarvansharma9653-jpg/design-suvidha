@@ -1,0 +1,16 @@
+# Ignored files
+*.zip
+*.7z
+*.rar
+node_modules/
+
+# Ignore WordPress theme
+design-suvidha-theme/
+
+# Ignore local duplicate deployment folders
+netlify-deploy/
+
+# Ignore heavy media assets (frames, images, video campaigns)
+frame 2/
+video frames/
+video creative our client project/

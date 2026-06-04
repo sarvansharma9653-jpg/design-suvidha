@@ -14,16 +14,16 @@
 
     --bg-dark: hsl(232, 28%, 5%);
     --bg-darker: hsl(232, 25%, 3%);
-    --bg-card: hsla(232, 25%, 10%, 0.65);
-    --bg-card-hover: hsla(232, 25%, 14%, 0.75);
-    --bg-glass: hsla(232, 25%, 12%, 0.45);
+    --bg-card: hsla(232, 25%, 7%, 0.94);
+    --bg-card-hover: hsla(232, 25%, 10%, 0.98);
+    --bg-glass: hsla(232, 25%, 8%, 0.85);
 
     --text-white: hsl(0, 0%, 97%);
     --text-light: hsl(230, 20%, 78%);
-    --text-muted: hsl(230, 15%, 55%);
+    --text-muted: hsl(230, 20%, 68%);
 
-    --border-glass: hsla(230, 20%, 30%, 0.3);
-    --border-glass-hover: hsla(263, 70%, 58%, 0.4);
+    --border-glass: hsla(230, 20%, 35%, 0.45);
+    --border-glass-hover: hsla(263, 70%, 58%, 0.6);
 
     --radius-sm: 8px;
     --radius-md: 14px;

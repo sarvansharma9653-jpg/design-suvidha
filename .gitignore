@@ -11,6 +11,5 @@ design-suvidha-theme/
 netlify-deploy/
 
 # Ignore heavy media assets (frames, images, video campaigns)
-frame 2/
 video frames/
 video creative our client project/

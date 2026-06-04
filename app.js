@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.01,
+        rootMargin: '0px 0px 150px 0px'
     });
 
     animElements.forEach(el => animObserver.observe(el));

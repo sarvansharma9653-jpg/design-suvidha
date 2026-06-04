@@ -11,12 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //    Frames play throughout the ENTIRE page scroll
     // ============================================================
     const globalFrameImg = document.getElementById('global-frame-img');
-    const heroFrameImg = document.getElementById('hero-frame-img');
     const totalFrames = 40;
     const frameDir = 'frame 2';
     const frames = [];
-    let currentGlobalFrame = -1;
-    let currentHeroFrame = -1;
+    let currentFrame = -1;
 
     // Preload all frames
     for (let i = 1; i <= totalFrames; i++) {
@@ -26,44 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateGlobalFrame() {
+        if (!globalFrameImg) return;
         const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = Math.max(0, Math.min(1, scrollTop / docHeight));
+        const frameIndex = Math.min(totalFrames - 1, Math.floor(progress * totalFrames));
         
-        // 1. Update Global Background (plays slowly over the entire page scroll)
-        if (globalFrameImg) {
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = Math.max(0, Math.min(1, scrollTop / docHeight));
-            const frameIndex = Math.min(totalFrames - 1, Math.floor(progress * totalFrames));
-            
-            if (frameIndex !== currentGlobalFrame && frames[frameIndex] && frames[frameIndex].complete) {
-                globalFrameImg.src = frames[frameIndex].src;
-                currentGlobalFrame = frameIndex;
-            }
-        }
-
-        // 2. Update Hero Mockup Screen (plays actively over the first 1400px of scroll for natural speed)
-        if (heroFrameImg) {
-            const progress = Math.max(0, Math.min(1, scrollTop / 1400));
-            const frameIndex = Math.min(totalFrames - 1, Math.floor(progress * totalFrames));
-            
-            if (frameIndex !== currentHeroFrame && frames[frameIndex] && frames[frameIndex].complete) {
-                heroFrameImg.src = frames[frameIndex].src;
-                currentHeroFrame = frameIndex;
-            }
-        }
-    }
-
-    // ============================================================
-    // 1b. HERO 3D MOCKUP ROTATION ON SCROLL
-    // ============================================================
-    const heroMockup = document.querySelector('.hero-mockup-wrapper');
-    function updateHeroMockup3D() {
-        if (!heroMockup) return;
-        const scrollTop = window.scrollY;
-        if (scrollTop < 1400) {
-            const rotateY = -12 + (scrollTop / 1400) * 24; // -12deg to +12deg
-            const rotateX = 6 - (scrollTop / 1400) * 16;   // 6deg to -10deg
-            const translateZ = (scrollTop / 1400) * -40;   // 0px to -40px
-            heroMockup.style.transform = `perspective(1000px) rotateY(${rotateY}deg) rotateX(${rotateX}deg) translateZ(${translateZ}px)`;
+        if (frameIndex !== currentFrame && frames[frameIndex] && frames[frameIndex].complete) {
+            globalFrameImg.src = frames[frameIndex].src;
+            currentFrame = frameIndex;
         }
     }
 
@@ -376,7 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ticking) {
             requestAnimationFrame(() => {
                 updateGlobalFrame();
-                updateHeroMockup3D();
                 updateHeader();
                 updateActiveNav();
                 toggleBackToTop();
@@ -390,7 +358,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial calls
     updateHeader();
     updateGlobalFrame();
-    updateHeroMockup3D();
     toggleBackToTop();
 
     console.log('🚀 Design Suvidha 3D Scroll Engine Initialized');

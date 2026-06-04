@@ -278,14 +278,16 @@ ul { list-style: none; }
 }
 .scene-break::before {
     content: attr(data-break-text);
-    font-size: 80px;
+    font-size: 96px;
     font-weight: 800;
-    color: hsla(230, 20%, 30%, 0.08);
-    letter-spacing: 0.15em;
+    color: var(--text-white);
+    text-shadow: 0 0 25px var(--primary-glow);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     white-space: nowrap;
     user-select: none;
     pointer-events: none;
+    opacity: 0.9;
 }
 .scene-break::after {
     content: '';

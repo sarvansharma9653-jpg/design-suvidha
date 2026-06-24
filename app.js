@@ -360,5 +360,142 @@ document.addEventListener('DOMContentLoaded', () => {
     updateGlobalFrame();
     toggleBackToTop();
 
+    // ============================================================
+    // 13. LEAD GENERATION MODAL POPUP (Get Free Video)
+    // ============================================================
+    const modal = document.getElementById('free-video-modal');
+    const modalCloseTrigger = document.getElementById('modal-close-trigger');
+    const freeVideoNavBtn = document.getElementById('free-video-nav-btn');
+    const freeVideoMobileBtn = document.getElementById('free-video-mobile-btn');
+    const modalForm = document.getElementById('free-video-lead-form');
+
+    function openModal() {
+        if (modal) {
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent page scroll when modal is open
+        }
+    }
+
+    function closeModal() {
+        if (modal) {
+            modal.classList.remove('open');
+            document.body.style.overflow = ''; // Restore page scroll
+        }
+    }
+
+    // Trigger opening of modal
+    if (freeVideoNavBtn) freeVideoNavBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
+    if (freeVideoMobileBtn) freeVideoMobileBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
+    if (modalCloseTrigger) modalCloseTrigger.addEventListener('click', closeModal);
+
+    // Close modal when clicking on overlay background (outside the modal card)
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    // Escape key closes modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+            closeModal();
+        }
+    });
+
+    // Auto-pop modal logic: Trigger popup after 6 seconds
+    const POPUP_STORAGE_KEY = 'design_suvidha_free_video_popup_shown';
+    const hasShownPopup = sessionStorage.getItem(POPUP_STORAGE_KEY); // Using sessionStorage to reset per browser session
+
+    if (!hasShownPopup) {
+        setTimeout(() => {
+            // Check if another popup or form isn't actively focused/open
+            if (modal && !modal.classList.contains('open')) {
+                openModal();
+                sessionStorage.setItem(POPUP_STORAGE_KEY, 'true');
+            }
+        }, 6000); // 6 seconds delay
+    }
+
+    // Form submission via AJAX to Netlify Forms backend
+    if (modalForm) {
+        modalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nameInput = document.getElementById('modal-name');
+            const phoneInput = document.getElementById('modal-phone');
+            const emailInput = document.getElementById('modal-email');
+
+            let valid = true;
+
+            // Simple validation check
+            const validateField = (field, errorId) => {
+                const errorSpan = document.getElementById(errorId);
+                if (!field.value.trim() || (field.type === 'email' && !field.value.includes('@'))) {
+                    if (errorSpan) errorSpan.classList.add('visible');
+                    field.style.borderColor = 'hsl(330, 85%, 60%)';
+                    valid = false;
+                } else {
+                    if (errorSpan) errorSpan.classList.remove('visible');
+                    field.style.borderColor = '';
+                }
+            };
+
+            validateField(nameInput, 'modal-name-error');
+            validateField(phoneInput, 'modal-phone-error');
+            validateField(emailInput, 'modal-email-error');
+
+            if (!valid) {
+                return;
+            }
+
+            // Show submit loading state
+            const btnText = document.getElementById('modal-btn-text');
+            const btnLoader = document.getElementById('modal-btn-loader');
+            const submitBtn = document.getElementById('modal-submit-button');
+
+            if (btnText) btnText.style.display = 'none';
+            if (btnLoader) btnLoader.style.display = 'block';
+            if (submitBtn) submitBtn.disabled = true;
+
+            // Prepare Netlify Form submission data
+            const formData = new FormData(modalForm);
+            
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(response => {
+                if (response.ok) {
+                    const successEl = document.getElementById('modal-success-container');
+                    if (successEl) successEl.style.display = 'block';
+                    modalForm.reset();
+                    // Close the modal automatically after 3 seconds on success
+                    setTimeout(() => {
+                        closeModal();
+                        if (successEl) successEl.style.display = 'none';
+                    }, 3000);
+                } else {
+                    throw new Error('Network response not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Submission error:', error);
+                const errorEl = document.getElementById('modal-error-container');
+                if (errorEl) {
+                    errorEl.style.display = 'block';
+                    setTimeout(() => errorEl.style.display = 'none', 5000);
+                }
+            })
+            .finally(() => {
+                if (btnText) btnText.style.display = 'inline';
+                if (btnLoader) btnLoader.style.display = 'none';
+                if (submitBtn) submitBtn.disabled = false;
+            });
+        });
+    }
+
     console.log('🚀 Design Suvidha 3D Scroll Engine Initialized');
 });

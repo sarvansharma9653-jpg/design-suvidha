@@ -33,7 +33,7 @@
                 <a href="#contact" class="nav-link cta-link">Get Free Audit</a>
             </nav>
             <div class="nav-actions">
-                <button class="btn btn-primary btn-sm" id="free-video-nav-btn">Get Free Video 🎬</button>
+                <a href="#free-video" class="btn btn-primary btn-sm" id="free-video-nav-btn">Get Free Video 🎬</a>
                 <button class="mobile-nav-toggle" id="menu-toggle-btn" aria-label="Toggle Menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
             </div>
         </div>
@@ -47,7 +47,7 @@
             <a href="#web-portfolio" class="mobile-link">Portfolio</a>
             <a href="#presence" class="mobile-link">Branches</a>
             <a href="#contact" class="mobile-link">Get Free Audit</a>
-            <a href="#" class="mobile-link highlight-link" id="free-video-mobile-btn">Get Free Video 🎬</a>
+            <a href="#free-video" class="mobile-link highlight-link" id="free-video-mobile-btn">Get Free Video 🎬</a>
         </nav>
     </div>
 
@@ -419,6 +419,60 @@
             </div>
         </section>
 
+        <!-- ====== CINEMATIC BREAK 6.5 ====== -->
+        <section class="scene scene-break" data-break-text="FREE VIDEO OFFER"></section>
+
+        <!-- ====== SCENE 8.5: FREE VIDEO OFFER ====== -->
+        <section class="scene scene-free-video" id="free-video">
+            <div class="scene-inner">
+                <div class="container contact-container">
+                    <div class="contact-text-column" data-anim="tilt-in-left">
+                        <span class="section-tag">LIMITED TIME OFFER</span>
+                        <h2 class="section-title">Get Your Free Video Creative 🎬</h2>
+                        <p class="contact-desc">Want a premium, high-converting short video for your business? Fill out the form and we will design a custom short video creative for your brand for absolutely free — sent straight to your WhatsApp!</p>
+                        <div class="contact-bullet-points">
+                            <div class="point-item"><span class="point-bullet">✓</span><span>100% Custom concept for your niche</span></div>
+                            <div class="point-item"><span class="point-bullet">✓</span><span>Professional edits & local hooks</span></div>
+                            <div class="point-item"><span class="point-bullet">✓</span><span>Sent directly to your WhatsApp</span></div>
+                        </div>
+                    </div>
+                    <div class="contact-form-column" data-anim="tilt-in-right">
+                        <div class="form-wrapper glass-panel card-3d">
+                            <h3 class="form-title">Claim Your Free Video</h3>
+                            <form id="free-video-whatsapp-form" novalidate>
+                                <div class="form-group-custom">
+                                    <label for="fv-name" class="form-label-txt">Full Name</label>
+                                    <input type="text" id="fv-name" class="form-input-field" placeholder="Your Name" required>
+                                    <span class="error-msg" id="fv-name-error">Please enter your name</span>
+                                </div>
+                                <div class="form-group-custom">
+                                    <label for="fv-phone" class="form-label-txt">Phone / WhatsApp</label>
+                                    <input type="tel" id="fv-phone" class="form-input-field" placeholder="98XXXXXXXX" required>
+                                    <span class="error-msg" id="fv-phone-error">Please enter your phone</span>
+                                </div>
+                                <div class="form-group-custom">
+                                    <label for="fv-email" class="form-label-txt">Email Address</label>
+                                    <input type="email" id="fv-email" class="form-input-field" placeholder="name@business.com" required>
+                                    <span class="error-msg" id="fv-email-error">Please enter your email</span>
+                                </div>
+                                <div class="form-group-custom">
+                                    <label for="fv-business" class="form-label-txt">Business Niche / Details</label>
+                                    <input type="text" id="fv-business" class="form-input-field" placeholder="e.g. Gym, Cafe, Salon" required>
+                                    <span class="error-msg" id="fv-business-error">Please enter your business niche</span>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block submit-btn" id="fv-submit-button">
+                                    <span class="btn-text" id="fv-submit-text">Get My Free Video via WhatsApp</span>
+                                    <span class="loader" id="fv-submit-loader"></span>
+                                </button>
+                                <div class="form-feedback-message success" id="fv-success-container">🚀 Opening WhatsApp chat...</div>
+                                <div class="form-feedback-message error" id="fv-error-container">❌ Please fill required fields.</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ====== CINEMATIC BREAK 7 ====== -->
         <section class="scene scene-break" data-break-text="GET IN TOUCH"></section>
 
@@ -484,58 +538,6 @@
                 </div>
             </div>
             <div class="chat-panel-footer"><input type="text" id="wa-custom-input" placeholder="Type a message..."><button id="wa-send-btn"><svg viewBox="0 0 24 24" fill="currentColor" class="send-icon"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button></div>
-        </div>
-    </div>
-
-    <!-- ====== LEAD GENERATION MODAL POPUP (Get Free Video) ====== -->
-    <div class="modal-overlay" id="free-video-modal">
-        <div class="modal-card card-3d">
-            <button class="modal-close-btn" id="modal-close-trigger" aria-label="Close Modal">&times;</button>
-            <div class="modal-header">
-                <div class="modal-gift-icon">🎁</div>
-                <h3 class="modal-title">Fill the form and get your free video!</h3>
-                <p class="modal-subtitle">Claim your premium video creative to scale your business ads.</p>
-            </div>
-            <!-- Netlify Form integration -->
-            <form id="free-video-lead-form" name="free-video-leads" method="POST" data-netlify="true" novalidate>
-                <!-- Hidden inputs for Netlify forms submission -->
-                <input type="hidden" name="form-name" value="free-video-leads">
-                
-                <div class="form-group-custom">
-                    <label for="modal-name" class="form-label-txt">Full Name</label>
-                    <input type="text" id="modal-name" name="name" class="form-input-field" placeholder="Your Name" required>
-                    <span class="error-msg" id="modal-name-error">Please enter your name</span>
-                </div>
-                
-                <div class="form-group-custom">
-                    <label for="modal-phone" class="form-label-txt">Phone / WhatsApp Number</label>
-                    <input type="tel" id="modal-phone" name="phone" class="form-input-field" placeholder="98XXXXXXXX" required>
-                    <span class="error-msg" id="modal-phone-error">Please enter a valid phone number</span>
-                </div>
-                
-                <div class="form-group-custom">
-                    <label for="modal-email" class="form-label-txt">Email Address</label>
-                    <input type="email" id="modal-email" name="email" class="form-input-field" placeholder="name@business.com" required>
-                    <span class="error-msg" id="modal-email-error">Please enter a valid email address</span>
-                </div>
-
-                <div class="form-group-custom">
-                    <label for="modal-business" class="form-label-txt">Business Name / Niche</label>
-                    <input type="text" id="modal-business" name="business" class="form-input-field" placeholder="e.g. Gym, Bakery, Real Estate">
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block submit-btn" id="modal-submit-button">
-                    <span class="btn-text" id="modal-btn-text">Get My Free Video 🎬</span>
-                    <span class="loader" id="modal-btn-loader"></span>
-                </button>
-
-                <div class="form-feedback-message success" id="modal-success-container">
-                    🎉 Success! We have received your details. Your free video creative plan is on the way!
-                </div>
-                <div class="form-feedback-message error" id="modal-error-container">
-                    ❌ Something went wrong. Please check your fields and try again.
-                </div>
-            </form>
         </div>
     </div>
 

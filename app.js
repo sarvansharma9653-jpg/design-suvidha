@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const headerOffset = 80;
                 const targetPosition = targetEl.offsetTop - headerOffset;
                 window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                history.pushState(null, '', '/' + targetId);
+                history.pushState(null, '', '#' + targetId);
                 
                 // Close mobile drawer if open
                 const drawer = document.getElementById('mobile-drawer');
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (backToTop) {
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            history.pushState(null, '', '/');
+            history.pushState(null, '', '#');
         });
     }
 
@@ -432,6 +432,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 fvForm.reset();
             }, 1200);
         });
+    }
+
+    // Scroll to hash on page load with header offset
+    if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        const targetEl = document.getElementById(hash);
+        if (targetEl) {
+            setTimeout(() => {
+                const headerOffset = 80;
+                const targetPosition = targetEl.offsetTop - headerOffset;
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            }, 300);
+        }
     }
 
     console.log('🚀 Design Suvidha 3D Scroll Engine Initialized');

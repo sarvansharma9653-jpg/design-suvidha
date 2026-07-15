@@ -308,14 +308,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const waMsg = `New Growth Audit Request!\n\nName: ${name?.value}\nPhone: ${phone?.value}\nBusiness: ${business?.value}\nMessage: ${message?.value || 'N/A'}`;
 
-            setTimeout(() => {
+            // Hybrid Serverless Backend Submission (saves lead automatically in email/dashboard, then redirects to WhatsApp)
+            const web3FormsKey = 'YOUR_WEB3FORMS_ACCESS_KEY'; // Replace with Web3Forms access key
+            
+            const submitWhatsApp = () => {
                 window.open(`https://wa.me/${waPhone}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 if (btnText) btnText.style.display = 'inline';
                 if (btnLoader) btnLoader.style.display = 'none';
                 const successEl = document.getElementById('form-success-container');
                 if (successEl) { successEl.style.display = 'block'; setTimeout(() => successEl.style.display = 'none', 5000); }
                 form.reset();
-            }, 1200);
+            };
+
+            if (web3FormsKey && web3FormsKey !== 'YOUR_WEB3FORMS_ACCESS_KEY') {
+                const formData = {
+                    access_key: web3FormsKey,
+                    subject: `New Lead from Design Suvidha: ${name?.value}`,
+                    from_name: 'Design Suvidha Website',
+                    name: name?.value,
+                    phone: phone?.value,
+                    business: business?.value,
+                    message: message?.value || 'N/A'
+                };
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(async (response) => {
+                    if (response.ok) {
+                        console.log('Lead submitted to Web3Forms successfully');
+                    } else {
+                        console.error('Web3Forms submission failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error submitting lead to Web3Forms:', error);
+                })
+                .finally(() => {
+                    submitWhatsApp();
+                });
+            } else {
+                console.warn('Web3Forms access key is missing. Skipping backend lead saving. Redirecting to WhatsApp directly.');
+                submitWhatsApp();
+            }
         });
     }
 
@@ -360,79 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateGlobalFrame();
     toggleBackToTop();
 
-    // ============================================================
-    // 13. INLINE WHATSAPP LEAD FORM (Get Free Video)
-    // ============================================================
-    const fvForm = document.getElementById('free-video-whatsapp-form');
 
-    if (fvForm) {
-        fvForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const nameInput = document.getElementById('fv-name');
-            const phoneInput = document.getElementById('fv-phone');
-            const emailInput = document.getElementById('fv-email');
-            const businessInput = document.getElementById('fv-business');
-
-            let valid = true;
-
-            // Simple validation check
-            const validateField = (field, errorId) => {
-                const errorSpan = document.getElementById(errorId);
-                if (!field.value.trim() || (field.type === 'email' && !field.value.includes('@'))) {
-                    if (errorSpan) errorSpan.classList.add('visible');
-                    field.style.borderColor = 'hsl(330, 85%, 60%)';
-                    valid = false;
-                } else {
-                    if (errorSpan) errorSpan.classList.remove('visible');
-                    field.style.borderColor = '';
-                }
-            };
-
-            validateField(nameInput, 'fv-name-error');
-            validateField(phoneInput, 'fv-phone-error');
-            validateField(emailInput, 'fv-email-error');
-            validateField(businessInput, 'fv-business-error');
-
-            if (!valid) {
-                const errEl = document.getElementById('fv-error-container');
-                if (errEl) {
-                    errEl.style.display = 'block';
-                    setTimeout(() => errEl.style.display = 'none', 3000);
-                }
-                return;
-            }
-
-            // Show submit loading state
-            const btnText = document.getElementById('fv-submit-text');
-            const btnLoader = document.getElementById('fv-submit-loader');
-            const submitBtn = document.getElementById('fv-submit-button');
-
-            if (btnText) btnText.style.display = 'none';
-            if (btnLoader) btnLoader.style.display = 'block';
-            if (submitBtn) submitBtn.disabled = true;
-
-            // Format WhatsApp lead message
-            const waMsg = `Hi Design Suvidha, I want my Free Video Creative!\n\nName: ${nameInput.value}\nPhone: ${phoneInput.value}\nEmail: ${emailInput.value}\nBusiness Niche: ${businessInput.value}`;
-
-            setTimeout(() => {
-                // Open WhatsApp Web/App
-                window.open(`https://wa.me/${waPhone}?text=${encodeURIComponent(waMsg)}`, '_blank');
-
-                if (btnText) btnText.style.display = 'inline';
-                if (btnLoader) btnLoader.style.display = 'none';
-                if (submitBtn) submitBtn.disabled = false;
-
-                const successEl = document.getElementById('fv-success-container');
-                if (successEl) {
-                    successEl.style.display = 'block';
-                    setTimeout(() => successEl.style.display = 'none', 5000);
-                }
-                
-                fvForm.reset();
-            }, 1200);
-        });
-    }
 
     // Scroll to hash on page load with header offset
     if (window.location.hash) {

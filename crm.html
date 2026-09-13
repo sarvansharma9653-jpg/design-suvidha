@@ -72,6 +72,10 @@
                     <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                     Leads Pipeline (<span id="leads-count">3</span>)
                 </button>
+                <button class="tab-btn" id="tab-broadcast-btn" onclick="switchView('broadcast')">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M18 11v2h4v-2h-4zm-2 6.61c.96.71 2.21 1.65 3.2 2.39.4-.53.8-1.07 1.2-1.6-.99-.74-2.24-1.68-3.2-2.4-.4.54-.8 1.08-1.2 1.61zM20.4 4.6L19.2 3C18.21 3.74 16.96 4.68 16 5.4l1.2 1.61c.96-.72 2.21-1.66 3.2-2.41zM4 9c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1v4h2v-4h1l5 3V6L8 9H4zm11.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                    Bulk Broadcast 📢
+                </button>
             </nav>
 
             <div class="header-right">
@@ -233,6 +237,138 @@
                         <!-- Populated dynamically by crm.js -->
                     </tbody>
                 </table>
+            </div>
+        </main>
+
+        <!-- VIEW 3: BULK BROADCAST VIEW -->
+        <main class="crm-broadcast-view" id="view-broadcast" style="display: none;">
+            <div class="broadcast-container">
+                
+                <!-- LEFT COLUMN: CAMPAIGN SETUP -->
+                <div class="broadcast-col glass-panel">
+                    <div class="broadcast-section-header">
+                        <div class="section-title-wrap">
+                            <span class="section-icon">📢</span>
+                            <div>
+                                <h3 class="broadcast-title">Meta WhatsApp Broadcast</h3>
+                                <p class="broadcast-subtitle">Send bulk personalized template messages via Official WhatsApp Cloud API</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Source Controls -->
+                    <div class="broadcast-group">
+                        <div class="group-header-row">
+                            <label class="broadcast-label">1. Contact Audience List</label>
+                            <div class="contact-actions-bar">
+                                <button type="button" class="btn-xs-action" onclick="loadCrmLeadsToBroadcast()" title="Load all leads currently in CRM">
+                                    👥 Load CRM Leads
+                                </button>
+                                <label class="btn-xs-action btn-upload-csv" title="Upload CSV with Name,Phone">
+                                    📁 Upload CSV
+                                    <input type="file" id="broadcast-csv-file" accept=".csv,.txt" style="display:none;" onchange="handleCsvUpload(event)">
+                                </label>
+                                <button type="button" class="btn-xs-action btn-danger-text" onclick="clearBroadcastContacts()">
+                                    🗑️ Clear
+                                </button>
+                            </div>
+                        </div>
+                        <textarea id="broadcast-contacts-input" class="broadcast-textarea" placeholder="Enter contacts (one per line):&#10;Rajesh Kumar, 9876543210&#10;Amit Sharma, +919123456789&#10;Pooja Verma, 9823456781" oninput="updateBroadcastContactCount()"></textarea>
+                        <div class="contact-helper-info">
+                            <span id="broadcast-contact-count" class="badge-tag">0 Contacts Detected</span>
+                            <span class="text-muted-xs">Format: <code>Name, 10-digit Phone</code></span>
+                        </div>
+                    </div>
+
+                    <!-- Template Selection -->
+                    <div class="broadcast-group">
+                        <label class="broadcast-label">2. WhatsApp Message Template</label>
+                        <div class="template-select-row">
+                            <select id="broadcast-template-select" class="crm-input" onchange="toggleCustomTemplateInput(this.value)">
+                                <option value="hello_world">hello_world (Meta Default - en_US)</option>
+                                <option value="custom">-- Custom Approved Template --</option>
+                            </select>
+                            <input type="text" id="broadcast-custom-template" class="crm-input" placeholder="e.g. ds_offer_festive" style="display:none;">
+                        </div>
+                        <div class="template-lang-row" id="template-lang-row" style="display:none; margin-top:8px;">
+                            <label class="text-muted-xs">Language Code:</label>
+                            <input type="text" id="broadcast-template-lang" class="crm-input input-sm" value="en" placeholder="e.g. en, hi, en_US">
+                        </div>
+                        <div class="template-notice-box">
+                            <svg viewBox="0 0 24 24" width="16" height="16" style="flex-shrink:0; fill:#9d4edd;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                            <span>Meta mandates pre-approved templates for outgoing broadcasts. Contact name will automatically personalize <code>{{1}}</code> in templates with variables.</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Controls -->
+                    <div class="broadcast-action-row">
+                        <button type="button" class="btn-primary-gradient btn-broadcast-start" id="btn-start-broadcast" onclick="startBulkBroadcast()">
+                            🚀 Start Bulk Broadcast
+                        </button>
+                        <button type="button" class="btn-danger-outline btn-broadcast-stop" id="btn-stop-broadcast" onclick="stopBulkBroadcast()" style="display:none;">
+                            ⏹️ Stop Campaign
+                        </button>
+                    </div>
+                    <div class="broadcast-rate-badge">
+                        🛡️ Safe Throttle: 1.2s delay between messages to ensure WhatsApp account safety.
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: LIVE PROGRESS & CAMPAIGN CONSOLE -->
+                <div class="broadcast-col glass-panel">
+                    <div class="broadcast-section-header">
+                        <div class="section-title-wrap">
+                            <span class="section-icon">📊</span>
+                            <div>
+                                <h3 class="broadcast-title">Live Campaign Analytics</h3>
+                                <p class="broadcast-subtitle">Real-time delivery tracking & Meta Cloud API response logs</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metric Counter Cards -->
+                    <div class="broadcast-stats-grid">
+                        <div class="b-stat-card">
+                            <div class="b-stat-val text-info" id="b-stat-total">0</div>
+                            <div class="b-stat-label">Total Recipients</div>
+                        </div>
+                        <div class="b-stat-card">
+                            <div class="b-stat-val text-success" id="b-stat-sent">0</div>
+                            <div class="b-stat-label">Delivered / Sent</div>
+                        </div>
+                        <div class="b-stat-card">
+                            <div class="b-stat-val text-danger" id="b-stat-failed">0</div>
+                            <div class="b-stat-label">Failed</div>
+                        </div>
+                        <div class="b-stat-card">
+                            <div class="b-stat-val text-warning" id="b-stat-pending">0</div>
+                            <div class="b-stat-label">Remaining</div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="broadcast-progress-wrap">
+                        <div class="progress-info-row">
+                            <span class="progress-status-text" id="b-progress-status">Idle. Ready to launch.</span>
+                            <span class="progress-percent" id="b-progress-percent">0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="b-progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Live Terminal Logs -->
+                    <div class="broadcast-logs-wrap">
+                        <div class="logs-header-row">
+                            <span class="logs-title">Console Output</span>
+                            <button type="button" class="btn-xs-action" onclick="clearBroadcastLogs()">Clear Logs</button>
+                        </div>
+                        <div class="broadcast-terminal" id="broadcast-terminal">
+                            <div class="log-line log-muted">[System Ready] Broadcast engine idle. Configure audience and click "Start Bulk Broadcast".</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </main>
     </div>

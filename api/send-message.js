@@ -13,7 +13,8 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { to, message, type = 'text', templateName = 'hello_world', languageCode = 'en_US' } = req.body || {};
+    const { to, message, type = 'text', templateName = 'hello_world', languageCode, templateLang, parameters, components } = req.body || {};
+    const finalLang = languageCode || templateLang || (templateName === 'hello_world' ? 'en_US' : 'en');
 
     if (!to) {
       return res.status(400).json({ error: 'Recipient phone number ("to") is required.' });
@@ -28,8 +29,7 @@ module.exports = async (req, res) => {
     if (cleanPhone === '918949576878' || cleanPhone === '8949576878') {
       return res.status(400).json({
         success: false,
-        error: 'Cannot send to own business number',
-        meta_error: 'Aapne apne Business number (+91 89495 76878) par hi message bhej diya hai! WhatsApp Cloud API se usi number par message nahi aata jis se bheja ja raha hai. Kripya kisi doosre personal mobile number par bhejein.'
+        error: 'Cannot send WhatsApp message to the business sender number itself (+91 89495 76878). Please test with another personal WhatsApp number.'
       });
     }
 
@@ -45,8 +45,25 @@ module.exports = async (req, res) => {
       payload.type = 'template';
       payload.template = {
         name: templateName,
-        language: { code: languageCode }
+        language: { code: finalLang }
       };
+
+      // hello_world template has no variable parameters; custom templates do
+      if (templateName !== 'hello_world') {
+        if (components && Array.isArray(components)) {
+          payload.template.components = components;
+        } else if (parameters && Array.isArray(parameters) && parameters.length > 0) {
+          payload.template.components = [
+            {
+              type: 'body',
+              parameters: parameters.map(p => ({
+                type: 'text',
+                text: typeof p === 'string' ? p : (p.text || '')
+              }))
+            }
+          ];
+        }
+      }
     } else {
       payload.type = 'text';
       payload.text = {

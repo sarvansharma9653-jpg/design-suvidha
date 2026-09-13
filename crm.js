@@ -587,21 +587,31 @@ function deleteCurrentConversation() {
 function switchView(viewName) {
     const chatsView = document.getElementById('view-chats');
     const leadsView = document.getElementById('view-leads');
+    const broadcastView = document.getElementById('view-broadcast');
     const tabChats = document.getElementById('tab-chats-btn');
     const tabLeads = document.getElementById('tab-leads-btn');
+    const tabBroadcast = document.getElementById('tab-broadcast-btn');
+
+    // Hide all
+    if (chatsView) chatsView.style.display = 'none';
+    if (leadsView) leadsView.style.display = 'none';
+    if (broadcastView) broadcastView.style.display = 'none';
+    if (tabChats) tabChats.classList.remove('active');
+    if (tabLeads) tabLeads.classList.remove('active');
+    if (tabBroadcast) tabBroadcast.classList.remove('active');
 
     if (viewName === 'chats') {
-        chatsView.style.display = 'grid';
-        leadsView.style.display = 'none';
-        tabChats.classList.add('active');
-        tabLeads.classList.remove('active');
+        if (chatsView) chatsView.style.display = 'grid';
+        if (tabChats) tabChats.classList.add('active');
         renderConversations();
-    } else {
-        chatsView.style.display = 'none';
-        leadsView.style.display = 'block';
-        tabChats.classList.remove('active');
-        tabLeads.classList.add('active');
+    } else if (viewName === 'leads') {
+        if (leadsView) leadsView.style.display = 'block';
+        if (tabLeads) tabLeads.classList.add('active');
         renderLeadsTable();
+    } else if (viewName === 'broadcast') {
+        if (broadcastView) broadcastView.style.display = 'block';
+        if (tabBroadcast) tabBroadcast.classList.add('active');
+        updateBroadcastContactCount();
     }
 }
 
@@ -739,3 +749,283 @@ function escapeHtml(str) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
+
+// ========================================================================
+// 9. BULK WHATSAPP BROADCAST ENGINE
+// ========================================================================
+let isBroadcasting = false;
+
+function toggleCustomTemplateInput(val) {
+    const customInput = document.getElementById('broadcast-custom-template');
+    const langRow = document.getElementById('template-lang-row');
+    if (val === 'custom') {
+        if (customInput) customInput.style.display = 'block';
+        if (langRow) langRow.style.display = 'flex';
+    } else {
+        if (customInput) customInput.style.display = 'none';
+        if (langRow) langRow.style.display = 'none';
+    }
+}
+
+function parseBroadcastContacts() {
+    const rawText = document.getElementById('broadcast-contacts-input')?.value || '';
+    const lines = rawText.split('\n');
+    const contacts = [];
+
+    lines.forEach((line, index) => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
+
+        let name = 'Customer';
+        let phone = '';
+
+        if (trimmed.includes(',')) {
+            const parts = trimmed.split(',');
+            name = parts[0].trim() || 'Customer';
+            phone = parts.slice(1).join('').trim();
+        } else if (trimmed.includes('\t')) {
+            const parts = trimmed.split('\t');
+            name = parts[0].trim() || 'Customer';
+            phone = parts[1].trim();
+        } else {
+            const digitsOnly = trimmed.replace(/\D/g, '');
+            if (digitsOnly.length >= 10) {
+                phone = trimmed;
+            } else {
+                name = trimmed;
+            }
+        }
+
+        let cleanPhone = phone.replace(/[^0-9]/g, '');
+        if (cleanPhone.length === 10) {
+            cleanPhone = '91' + cleanPhone;
+        }
+
+        if (cleanPhone.length >= 10) {
+            contacts.push({
+                name: name,
+                phone: cleanPhone,
+                rawLine: trimmed,
+                index: index + 1
+            });
+        }
+    });
+
+    return contacts;
+}
+
+function updateBroadcastContactCount() {
+    const contacts = parseBroadcastContacts();
+    const countBadge = document.getElementById('broadcast-contact-count');
+    const totalStat = document.getElementById('b-stat-total');
+    const pendingStat = document.getElementById('b-stat-pending');
+
+    if (countBadge) countBadge.textContent = `${contacts.length} Contacts Detected`;
+    if (totalStat && !isBroadcasting) totalStat.textContent = contacts.length;
+    if (pendingStat && !isBroadcasting) pendingStat.textContent = contacts.length;
+}
+
+function loadCrmLeadsToBroadcast() {
+    if (!leads || leads.length === 0) {
+        alert('No leads found in CRM to load.');
+        return;
+    }
+
+    const lines = leads.map(l => `${l.name || 'Lead'}, ${l.phone}`);
+    const textarea = document.getElementById('broadcast-contacts-input');
+    if (textarea) textarea.value = lines.join('\n');
+    updateBroadcastContactCount();
+    appendBroadcastLog(`[Loaded] Successfully imported ${leads.length} leads from CRM pipeline.`, 'info');
+}
+
+function handleCsvUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const content = e.target.result;
+        const lines = content.split(/\r?\n/);
+        const parsed = [];
+
+        lines.forEach(line => {
+            const trimmed = line.trim();
+            if (!trimmed) return;
+            if (/^(name|phone|mobile|contact)/i.test(trimmed)) return;
+            parsed.push(trimmed);
+        });
+
+        const textarea = document.getElementById('broadcast-contacts-input');
+        if (textarea) textarea.value = parsed.join('\n');
+        updateBroadcastContactCount();
+        appendBroadcastLog(`[CSV Uploaded] ${file.name} processed. Found ${parsed.length} rows.`, 'info');
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
+
+function clearBroadcastContacts() {
+    if (isBroadcasting) {
+        alert('Cannot clear contacts while a campaign is running.');
+        return;
+    }
+    const textarea = document.getElementById('broadcast-contacts-input');
+    if (textarea) textarea.value = '';
+    updateBroadcastContactCount();
+    appendBroadcastLog('[Cleared] Contact list wiped.', 'muted');
+}
+
+function clearBroadcastLogs() {
+    const terminal = document.getElementById('broadcast-terminal');
+    if (terminal) terminal.innerHTML = '<div class="log-line log-muted">[Logs cleared] Ready for next campaign.</div>';
+}
+
+function appendBroadcastLog(message, type = 'info') {
+    const terminal = document.getElementById('broadcast-terminal');
+    if (!terminal) return;
+
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const line = document.createElement('div');
+    line.className = `log-line log-${type}`;
+    line.textContent = `[${time}] ${message}`;
+    terminal.appendChild(line);
+    terminal.scrollTop = terminal.scrollHeight;
+}
+
+function stopBulkBroadcast() {
+    if (!isBroadcasting) return;
+    isBroadcasting = false;
+    appendBroadcastLog('⚠️ Campaign STOP signal received. Halting after current message...', 'fail');
+    const startBtn = document.getElementById('btn-start-broadcast');
+    const stopBtn = document.getElementById('btn-stop-broadcast');
+    if (startBtn) startBtn.disabled = false;
+    if (stopBtn) stopBtn.style.display = 'none';
+}
+
+async function startBulkBroadcast() {
+    if (isBroadcasting) return;
+
+    const contacts = parseBroadcastContacts();
+    if (contacts.length === 0) {
+        alert('Please enter or upload at least 1 valid contact (Name, 10-digit Phone).');
+        return;
+    }
+
+    const select = document.getElementById('broadcast-template-select');
+    let templateName = 'hello_world';
+    let templateLang = 'en_US';
+
+    if (select && select.value === 'custom') {
+        const customName = document.getElementById('broadcast-custom-template')?.value.trim();
+        const customLang = document.getElementById('broadcast-template-lang')?.value.trim() || 'en';
+        if (!customName) {
+            alert('Please enter your approved Meta template name.');
+            document.getElementById('broadcast-custom-template')?.focus();
+            return;
+        }
+        templateName = customName;
+        templateLang = customLang;
+    } else {
+        templateName = 'hello_world';
+        templateLang = 'en_US';
+    }
+
+    const confirmed = confirm(
+        `Are you sure you want to broadcast "${templateName}" (${templateLang}) to ${contacts.length} recipients?\n\n` +
+        `• 1.2 second safe throttle will be applied between sends.\n` +
+        `• Recipient names will be personalized where supported.`
+    );
+    if (!confirmed) return;
+
+    isBroadcasting = true;
+    const startBtn = document.getElementById('btn-start-broadcast');
+    const stopBtn = document.getElementById('btn-stop-broadcast');
+    if (startBtn) startBtn.disabled = true;
+    if (stopBtn) stopBtn.style.display = 'inline-block';
+
+    const totalCount = contacts.length;
+    let sentCount = 0;
+    let failedCount = 0;
+
+    const statTotal = document.getElementById('b-stat-total');
+    const statSent = document.getElementById('b-stat-sent');
+    const statFailed = document.getElementById('b-stat-failed');
+    const statPending = document.getElementById('b-stat-pending');
+    const progressFill = document.getElementById('b-progress-fill');
+    const progressPercent = document.getElementById('b-progress-percent');
+    const progressStatus = document.getElementById('b-progress-status');
+
+    if (statTotal) statTotal.textContent = totalCount;
+    if (statSent) statSent.textContent = '0';
+    if (statFailed) statFailed.textContent = '0';
+    if (statPending) statPending.textContent = totalCount;
+    if (progressFill) progressFill.style.width = '0%';
+    if (progressPercent) progressPercent.textContent = '0%';
+    if (progressStatus) progressStatus.textContent = `Broadcasting 0 of ${totalCount}...`;
+
+    appendBroadcastLog(`🚀 [CAMPAIGN LAUNCHED] Template: "${templateName}" | Total Recipients: ${totalCount}`, 'info');
+
+    for (let i = 0; i < totalCount; i++) {
+        if (!isBroadcasting) {
+            appendBroadcastLog(`🛑 Campaign stopped by user. Processed ${sentCount + failedCount} of ${totalCount}.`, 'fail');
+            break;
+        }
+
+        const contact = contacts[i];
+        const progressNum = i + 1;
+
+        if (progressStatus) progressStatus.textContent = `Sending ${progressNum} of ${totalCount}: ${contact.name}...`;
+
+        try {
+            const payload = {
+                to: contact.phone,
+                type: 'template',
+                templateName: templateName,
+                templateLang: templateLang,
+                parameters: [contact.name]
+            };
+
+            const response = await fetch('/api/send-message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const resData = await response.json();
+
+            if (resData.success) {
+                sentCount++;
+                if (statSent) statSent.textContent = sentCount;
+                appendBroadcastLog(`✅ [${progressNum}/${totalCount}] Delivered to ${contact.name} (+${contact.phone}) - Msg ID: ${resData.messageId || 'OK'}`, 'success');
+            } else {
+                failedCount++;
+                if (statFailed) statFailed.textContent = failedCount;
+                const errDetail = resData.error || resData.details?.error?.message || 'Meta API Error';
+                appendBroadcastLog(`❌ [${progressNum}/${totalCount}] Failed for ${contact.name} (+${contact.phone}): ${errDetail}`, 'fail');
+            }
+        } catch (err) {
+            failedCount++;
+            if (statFailed) statFailed.textContent = failedCount;
+            appendBroadcastLog(`❌ [${progressNum}/${totalCount}] Network error for ${contact.name}: ${err.message}`, 'fail');
+        }
+
+        const remaining = totalCount - (sentCount + failedCount);
+        if (statPending) statPending.textContent = remaining;
+        const percent = Math.round(((sentCount + failedCount) / totalCount) * 100);
+        if (progressFill) progressFill.style.width = `${percent}%`;
+        if (progressPercent) progressPercent.textContent = `${percent}%`;
+
+        // 1.2 second safe throttle
+        if (i < totalCount - 1 && isBroadcasting) {
+            await new Promise(resolve => setTimeout(resolve, 1200));
+        }
+    }
+
+    isBroadcasting = false;
+    if (startBtn) startBtn.disabled = false;
+    if (stopBtn) stopBtn.style.display = 'none';
+    if (progressStatus) progressStatus.textContent = `Completed! ${sentCount} sent, ${failedCount} failed.`;
+
+    appendBroadcastLog(`🏁 [CAMPAIGN FINISHED] Total: ${totalCount} | Sent: ${sentCount} | Failed: ${failedCount}`, sentCount > 0 ? 'success' : 'fail');
+}
+

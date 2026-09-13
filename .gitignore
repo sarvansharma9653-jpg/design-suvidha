@@ -3,6 +3,7 @@
 *.7z
 *.rar
 node_modules/
+whatsapp_log.txt
 
 # Ignore WordPress theme
 design-suvidha-theme/

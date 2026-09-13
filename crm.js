@@ -395,11 +395,13 @@ async function sendCurrentMessage() {
             newMsg.status = 'delivered';
             console.log('WhatsApp message sent successfully:', data);
         } else {
+            newMsg.status = 'failed';
             console.warn('API message failed or 24hr window closed:', data);
-            alert(`WhatsApp API Notice: ${data.meta_error || 'Free text window expired. Send a pre-approved template instead!'}`);
+            alert(`WhatsApp Notice: ${data.meta_error || 'Free text window expired. Send a pre-approved template instead!'}`);
         }
     } catch (err) {
         console.error('Network error sending message:', err);
+        alert('Network Error: ' + err.message);
     } finally {
         sendBtn.disabled = false;
         saveLeadsState();

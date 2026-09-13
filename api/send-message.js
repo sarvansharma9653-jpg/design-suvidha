@@ -20,7 +20,18 @@ module.exports = async (req, res) => {
     }
 
     // Clean phone number (remove +, spaces, hyphens)
-    const cleanPhone = to.toString().replace(/[^0-9]/g, '');
+    let cleanPhone = to.toString().replace(/[^0-9]/g, '');
+    if (cleanPhone.length === 10) {
+      cleanPhone = '91' + cleanPhone;
+    }
+
+    if (cleanPhone === '918949576878' || cleanPhone === '8949576878') {
+      return res.status(400).json({
+        success: false,
+        error: 'Cannot send to own business number',
+        meta_error: 'Aapne apne Business number (+91 89495 76878) par hi message bhej diya hai! WhatsApp Cloud API se usi number par message nahi aata jis se bheja ja raha hai. Kripya kisi doosre personal mobile number par bhejein.'
+      });
+    }
 
     const PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_ID || '1277049988834738';
     const ACCESS_TOKEN = process.env.WHATSAPP_TOKEN || 'EAAYNF1uyJxYBSe6te3ssyYJMA0PZC44UJqDTovYk9zW7EQZBLBNsbECCpiHFk1vukUKaF0pZAXrZBNYuZBZAOcZBIGbh9In4FlIZBPV3PImx2icwBe3LBfZAjfDx1jgqsGrlHj5aqVwlY5JhDGLuZBxe9lAiw92I2uKq683mYfeuH2g5F20OXITuiiMiTEPCpP4gZDZD';

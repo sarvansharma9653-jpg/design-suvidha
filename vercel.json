@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/whatsapp-webhook.php",
+      "destination": "/api/webhook"
+    },
+    {
+      "source": "/webhook.php",
+      "destination": "/api/webhook"
+    },
+    {
+      "source": "/webhook",
+      "destination": "/api/webhook"
+    }
+  ]
+}

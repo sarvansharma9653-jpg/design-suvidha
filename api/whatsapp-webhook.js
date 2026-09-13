@@ -1,1 +1,2 @@
-export { default } from './webhook.js';
+const handler = require('./webhook.js');
+module.exports = handler;

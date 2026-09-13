@@ -1,14 +1,12 @@
-export default function handler(req, res) {
+module.exports = (req, res) => {
   const VERIFY_TOKEN = "design_suvidha_12345";
 
   // 1. Verification for Meta (GET request)
   if (req.method === 'GET') {
-    const mode = req.query['hub.mode'] || req.query['hub_mode'];
-    const token = req.query['hub.verify_token'] || req.query['hub_verify_token'];
-    const challenge = req.query['hub.challenge'] || req.query['hub_challenge'];
+    const token = req.query['hub.verify_token'] || req.query['hub_verify_token'] || req.query['verify_token'];
+    const challenge = req.query['hub.challenge'] || req.query['hub_challenge'] || req.query['challenge'];
 
     if (token === VERIFY_TOKEN) {
-      // Respond with the challenge as plain text
       res.setHeader('Content-Type', 'text/plain');
       return res.status(200).send(challenge);
     } else {
@@ -23,4 +21,4 @@ export default function handler(req, res) {
   }
 
   return res.status(405).send("Method Not Allowed");
-}
+};

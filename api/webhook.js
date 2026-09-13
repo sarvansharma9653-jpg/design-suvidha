@@ -1,14 +1,14 @@
 module.exports = (req, res) => {
   const VERIFY_TOKEN = "design_suvidha_12345";
 
-  // 1. Verification for Meta (GET request)
-  if (req.method === 'GET') {
+  // 1. Verification for Meta (GET or HEAD request)
+  if (req.method === 'GET' || req.method === 'HEAD') {
     const token = req.query['hub.verify_token'] || req.query['hub_verify_token'] || req.query['verify_token'];
     const challenge = req.query['hub.challenge'] || req.query['hub_challenge'] || req.query['challenge'];
 
     if (token === VERIFY_TOKEN) {
       res.setHeader('Content-Type', 'text/plain');
-      return res.status(200).send(challenge);
+      return res.status(200).send(challenge || '');
     } else {
       return res.status(403).send("Verification token mismatch");
     }

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp CRM & Lead Manager | Design Suvidha</title>
+    <link rel="icon" type="image/png" href="design%20suvidha%20logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="crm.css">
+</head>
+<body class="crm-body">
+
+    <!-- ================= PIN AUTHENTICATION MODAL ================= -->
+    <div class="auth-overlay" id="auth-modal">
+        <div class="auth-card glass-panel">
+            <div class="auth-logo">
+                <img src="design%20suvidha%20logo.png" alt="Design Suvidha">
+            </div>
+            <h2>WhatsApp CRM Login</h2>
+            <p class="auth-sub">Enter your 6-digit Admin Security PIN</p>
+            
+            <div class="pin-display" id="pin-display">
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+            </div>
+
+            <div class="keypad-grid">
+                <button class="key-btn" data-key="1">1</button>
+                <button class="key-btn" data-key="2">2</button>
+                <button class="key-btn" data-key="3">3</button>
+                <button class="key-btn" data-key="4">4</button>
+                <button class="key-btn" data-key="5">5</button>
+                <button class="key-btn" data-key="6">6</button>
+                <button class="key-btn" data-key="7">7</button>
+                <button class="key-btn" data-key="8">8</button>
+                <button class="key-btn" data-key="9">9</button>
+                <button class="key-btn key-action" id="key-clear">C</button>
+                <button class="key-btn" data-key="0">0</button>
+                <button class="key-btn key-action" id="key-backspace">⌫</button>
+            </div>
+
+            <div class="auth-error" id="auth-error">Incorrect PIN. Please try again.</div>
+            <div class="pin-hint">Default Admin PIN: <code>950902</code></div>
+        </div>
+    </div>
+
+    <!-- ================= MAIN CRM INTERFACE ================= -->
+    <div class="crm-wrapper" id="crm-app" style="display: none;">
+        
+        <!-- TOP APP HEADER -->
+        <header class="crm-header">
+            <div class="header-left">
+                <img src="design%20suvidha%20logo.png" alt="Design Suvidha" class="crm-logo-img">
+                <div class="crm-brand-title">
+                    <span class="brand-name">Design Suvidha</span>
+                    <span class="badge-api-status"><span class="pulse-dot"></span> Cloud API Active: +91 89495 76878</span>
+                </div>
+            </div>
+
+            <nav class="crm-nav-tabs">
+                <button class="tab-btn active" id="tab-chats-btn" onclick="switchView('chats')">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
+                    Live Chats <span class="badge-count" id="unread-total-badge">1</span>
+                </button>
+                <button class="tab-btn" id="tab-leads-btn" onclick="switchView('leads')">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    Leads Pipeline (<span id="leads-count">3</span>)
+                </button>
+            </nav>
+
+            <div class="header-right">
+                <a href="index.html" target="_blank" class="btn-sm-header">🌐 View Website</a>
+                <button class="btn-sm-header" onclick="openNewLeadModal()">+ Add Lead</button>
+                <button class="btn-sm-header btn-lock" onclick="lockCRM()" title="Lock CRM">🔒 Lock</button>
+            </div>
+        </header>
+
+        <!-- VIEW 1: LIVE CHATS VIEW -->
+        <main class="crm-main-view" id="view-chats">
+            
+            <!-- COLUMN 1: CONVERSATIONS LIST -->
+            <aside class="chats-sidebar">
+                <div class="sidebar-search-box">
+                    <input type="text" id="search-contacts-input" placeholder="Search contact or phone..." oninput="filterConversations()">
+                </div>
+                
+                <div class="filter-chips">
+                    <button class="chip active" onclick="setConversationFilter('all', this)">All</button>
+                    <button class="chip" onclick="setConversationFilter('new', this)">New</button>
+                    <button class="chip" onclick="setConversationFilter('in_progress', this)">In Progress</button>
+                    <button class="chip" onclick="setConversationFilter('won', this)">Converted</button>
+                </div>
+
+                <div class="conversations-list" id="conversations-container">
+                    <!-- Populated dynamically by crm.js -->
+                </div>
+            </aside>
+
+            <!-- COLUMN 2: ACTIVE CHAT SCREEN -->
+            <section class="chat-viewport">
+                
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="chat-header-user">
+                        <div class="avatar-circle" id="active-chat-avatar">AR</div>
+                        <div class="user-meta">
+                            <h3 id="active-chat-name">Arun Sharma</h3>
+                            <span class="user-phone-label" id="active-chat-phone">+91 7707978068</span>
+                        </div>
+                    </div>
+                    <div class="chat-header-actions">
+                        <span class="stage-pill pill-new" id="active-chat-stage">New Lead</span>
+                        <a href="#" id="direct-wa-link" target="_blank" class="chat-action-icon" title="Open in WhatsApp Web">
+                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+                        </a>
+                        <a href="#" id="direct-call-link" class="chat-action-icon" title="Call Contact">
+                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.28-.28.37-.67.25-1.02A11.36 11.36 0 0 1 8.5 4.31c0-.55-.45-1-1-1H4.01c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.49c0-.55-.45-1-1-1z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Chat Message Stream -->
+                <div class="chat-stream" id="chat-messages-container">
+                    <!-- Populated dynamically by crm.js -->
+                </div>
+
+                <!-- Quick Replies Bar -->
+                <div class="quick-replies-bar">
+                    <button class="quick-reply-chip" onclick="insertQuickReply('Hi! Thank you for contacting Design Suvidha. How can we help scale your business today?')">👋 Greeting</button>
+                    <button class="quick-reply-chip" onclick="insertQuickReply('Here are our popular services:\n1. Meta Ads & Lead Gen\n2. Graphic Design (₹2500 for 10 Posts)\n3. 4-Page Landing Page Design (₹5000)\nWhich one fits your requirements?')">📋 Service Menu</button>
+                    <button class="quick-reply-chip" onclick="insertQuickReply('We received your Growth Audit request on our website. Would you like a 10-minute discovery call today?')">🚀 Audit Followup</button>
+                    <button class="quick-reply-chip" onclick="sendWhatsAppTemplate('hello_world')">⚡ Send Meta Template</button>
+                </div>
+
+                <!-- Message Input Footer -->
+                <div class="chat-input-footer">
+                    <textarea id="chat-input-field" placeholder="Type WhatsApp message (Shift+Enter for new line)..." rows="1" onkeydown="handleInputKey(event)"></textarea>
+                    <button class="btn-send-wa" id="send-wa-btn" onclick="sendCurrentMessage()">
+                        <span class="send-label">Send</span>
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- COLUMN 3: LEAD DETAIL & CRM PIPELINE -->
+            <aside class="lead-details-sidebar">
+                <div class="panel-section">
+                    <h4 class="panel-heading">Lead Information</h4>
+                    <div class="lead-info-card">
+                        <div class="info-row">
+                            <span class="info-label">Full Name:</span>
+                            <span class="info-val" id="lead-name-val">Arun Sharma</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Phone:</span>
+                            <span class="info-val" id="lead-phone-val">+91 7707978068</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Business:</span>
+                            <span class="info-val" id="lead-biz-val">Digital Marketing Agency</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Interest:</span>
+                            <span class="info-val" id="lead-service-val">Meta Ads & Landing Page</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h4 class="panel-heading">Pipeline Stage</h4>
+                    <select id="lead-stage-select" class="crm-select" onchange="updateLeadStage(this.value)">
+                        <option value="new">🟢 New Lead</option>
+                        <option value="contacted">🟡 Contacted</option>
+                        <option value="in_progress">🔵 In Discussion</option>
+                        <option value="proposal">🟣 Proposal Sent</option>
+                        <option value="won">🏆 Converted / Won</option>
+                        <option value="lost">🔴 Lost / Unresponsive</option>
+                    </select>
+                </div>
+
+                <div class="panel-section">
+                    <h4 class="panel-heading">Deal Value (₹)</h4>
+                    <input type="number" id="lead-deal-val" class="crm-input" placeholder="e.g. 10000" onchange="updateDealValue(this.value)">
+                </div>
+
+                <div class="panel-section">
+                    <h4 class="panel-heading">Internal Notes</h4>
+                    <textarea id="lead-notes" class="crm-textarea" placeholder="Add follow-up notes, client requirements..." rows="4" onchange="updateLeadNotes(this.value)"></textarea>
+                </div>
+
+                <div class="panel-section">
+                    <h4 class="panel-heading">Quick Actions</h4>
+                    <button class="btn-block-action" onclick="sendWhatsAppTemplate('hello_world')">
+                        🚀 Send Pre-approved Meta Template
+                    </button>
+                    <button class="btn-block-action btn-danger-action" onclick="deleteCurrentConversation()">
+                        🗑️ Delete Conversation
+                    </button>
+                </div>
+            </aside>
+        </main>
+
+        <!-- VIEW 2: ALL LEADS PIPELINE TABLE -->
+        <main class="crm-table-view" id="view-leads" style="display: none;">
+            <div class="table-container-header">
+                <h2>All Inquiries & Website Leads</h2>
+                <div class="table-actions">
+                    <button class="btn-sm-header" onclick="exportLeadsCSV()">📥 Export to Excel/CSV</button>
+                    <button class="btn-sm-header" onclick="openNewLeadModal()">+ Add New Lead</button>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="leads-table">
+                    <thead>
+                        <tr>
+                            <th>Contact Name</th>
+                            <th>Phone Number</th>
+                            <th>Service Inquired</th>
+                            <th>Stage</th>
+                            <th>Deal Value</th>
+                            <th>Last Contacted</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leads-table-body">
+                        <!-- Populated dynamically by crm.js -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= ADD LEAD MODAL ================= -->
+    <div class="modal-overlay" id="add-lead-modal" style="display: none;">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h3>Add New Customer / Lead</h3>
+                <button class="modal-close" onclick="closeNewLeadModal()">&times;</button>
+            </div>
+            <form id="new-lead-form" onsubmit="handleNewLeadSubmit(event)">
+                <div class="form-row">
+                    <label>Client Name *</label>
+                    <input type="text" id="nl-name" required placeholder="e.g. Rajesh Kumar" class="crm-input">
+                </div>
+                <div class="form-row">
+                    <label>WhatsApp Phone Number *</label>
+                    <input type="tel" id="nl-phone" required placeholder="e.g. 919876543210" class="crm-input">
+                </div>
+                <div class="form-row">
+                    <label>Business / Niche</label>
+                    <input type="text" id="nl-biz" placeholder="e.g. Fitness Gym, Real Estate" class="crm-input">
+                </div>
+                <div class="form-row">
+                    <label>Interested Service</label>
+                    <select id="nl-service" class="crm-select">
+                        <option value="Graphic Design">Graphic Design (₹2500 for 10 Posts)</option>
+                        <option value="Meta Ads Campaign">Meta Ads Campaign (₹10,000)</option>
+                        <option value="4-Page Landing Page">4-Page Landing Page (₹5,000)</option>
+                        <option value="Corporate Website">Corporate Website (₹10,000)</option>
+                        <option value="E-commerce Website">E-commerce Website (₹30,000)</option>
+                        <option value="Google Ads Campaign">Google Ads Campaign (₹10,000)</option>
+                        <option value="Professional Video Services">Video Creation (₹2,000)</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>Initial Deal Value (₹)</label>
+                    <input type="number" id="nl-val" placeholder="5000" class="crm-input">
+                </div>
+                <button type="submit" class="btn-primary-crm btn-block-action">Create Lead & Start Chat</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="crm.js"></script>
+</body>
+</html>

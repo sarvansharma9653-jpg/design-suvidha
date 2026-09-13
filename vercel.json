@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/crm",
+      "destination": "/crm.html"
+    },
+    {
       "source": "/whatsapp-webhook.php",
       "destination": "/api/webhook"
     },

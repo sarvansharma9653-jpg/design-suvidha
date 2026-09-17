@@ -1209,8 +1209,197 @@ body.crm-body {
 .log-fail { color: #f87171; }
 .log-info { color: #38bdf8; }
 
+/* =========================================================
+   BROADCAST HISTORY & ANALYTICS STYLES
+   ========================================================= */
+.broadcast-history-section {
+    margin-top: 24px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    background: hsla(232, 25%, 11%, 0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+}
+
+.history-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-glass);
+    padding-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.history-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.history-metrics-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 18px 0;
+    padding: 12px 16px;
+    background: hsla(232, 25%, 9%, 0.7);
+    border-radius: 8px;
+    border: 1px solid var(--border-glass);
+}
+
+.h-metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.h-metric-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.h-metric-val {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-white);
+}
+
+.history-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-glass);
+    border-radius: 8px;
+    background: hsla(232, 25%, 8%, 0.5);
+}
+
+.history-table th, .history-table td {
+    padding: 12px 14px;
+    font-size: 12px;
+}
+
+.badge-status-sent {
+    background: hsla(142, 71%, 45%, 0.15);
+    color: #4ade80;
+    border: 1px solid hsla(142, 71%, 45%, 0.3);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.badge-status-failed {
+    background: hsla(0, 84%, 60%, 0.15);
+    color: #f87171;
+    border: 1px solid hsla(0, 84%, 60%, 0.3);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   AI FOLLOW-UP MODAL STYLES
+   ========================================================= */
+.modal-lg {
+    width: 620px;
+    max-width: 95vw;
+}
+
+.modal-title-with-badge {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.modal-title-with-badge h3 {
+    margin: 0;
+    color: var(--text-white);
+    font-size: 17px;
+}
+
+.ai-followup-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.strategy-chips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.strategy-chip {
+    padding: 12px 10px;
+    border-radius: 8px;
+    background: hsla(232, 25%, 13%, 0.8);
+    border: 1px solid var(--border-glass);
+    color: var(--text-light);
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: all 0.2s;
+}
+
+.strategy-chip:hover {
+    border-color: #9d4edd;
+    background: hsla(232, 25%, 18%, 0.9);
+}
+
+.strategy-chip.active {
+    background: hsla(271, 76%, 53%, 0.15);
+    border-color: #a855f7;
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+}
+
+.chip-step {
+    font-size: 10px;
+    color: #c084fc;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.strategy-chip strong {
+    font-size: 12px;
+    color: #fff;
+}
+
+.chip-desc {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.3;
+}
+
+.ai-actions-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.btn-send-followup {
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
 @media (max-width: 992px) {
     .broadcast-container {
         grid-template-columns: 1fr;
     }
+    .strategy-chips-grid {
+        grid-template-columns: 1fr;
+    }
+    .history-metrics-bar {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
+

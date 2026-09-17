@@ -612,6 +612,7 @@ function switchView(viewName) {
         if (broadcastView) broadcastView.style.display = 'block';
         if (tabBroadcast) tabBroadcast.classList.add('active');
         updateBroadcastContactCount();
+        renderBroadcastHistoryTable();
     }
 }
 
@@ -922,8 +923,8 @@ async function startBulkBroadcast() {
     }
 
     const select = document.getElementById('broadcast-template-select');
-    let templateName = 'hello_world';
-    let templateLang = 'en_US';
+    let templateName = 'shree_aangan_offer';
+    let templateLang = 'en';
 
     if (select && select.value === 'custom') {
         const customName = document.getElementById('broadcast-custom-template')?.value.trim();
@@ -935,9 +936,12 @@ async function startBulkBroadcast() {
         }
         templateName = customName;
         templateLang = customLang;
-    } else {
+    } else if (select && select.value === 'hello_world') {
         templateName = 'hello_world';
         templateLang = 'en_US';
+    } else {
+        templateName = 'shree_aangan_offer';
+        templateLang = 'en';
     }
 
     const confirmed = confirm(
@@ -1006,17 +1010,53 @@ async function startBulkBroadcast() {
             if (resData.success) {
                 sentCount++;
                 if (statSent) statSent.textContent = sentCount;
-                appendBroadcastLog(`✅ [${progressNum}/${totalCount}] Delivered to ${contact.name} (+${contact.phone}) - Msg ID: ${resData.messageId || 'OK'}`, 'success');
+                const msgId = resData.message_id || resData.messageId || 'OK';
+                appendBroadcastLog(`✅ [${progressNum}/${totalCount}] Delivered to ${contact.name} (+${contact.phone}) - Msg ID: ${msgId}`, 'success');
+
+                // Record into persistent history
+                addBroadcastHistoryRecord({
+                    id: 'bcast_' + Date.now() + '_' + i,
+                    timestamp: new Date().toISOString(),
+                    name: contact.name,
+                    phone: contact.phone,
+                    templateName: templateName,
+                    status: 'sent',
+                    messageId: msgId,
+                    error: null
+                });
             } else {
                 failedCount++;
                 if (statFailed) statFailed.textContent = failedCount;
                 const errDetail = resData.meta_error || (typeof resData.error === 'object' ? (resData.error?.message || resData.error?.error_data?.details || JSON.stringify(resData.error)) : resData.error) || 'Meta API Error';
                 appendBroadcastLog(`❌ [${progressNum}/${totalCount}] Failed for ${contact.name} (+${contact.phone}): ${errDetail}`, 'fail');
+
+                // Record into persistent history
+                addBroadcastHistoryRecord({
+                    id: 'bcast_' + Date.now() + '_' + i,
+                    timestamp: new Date().toISOString(),
+                    name: contact.name,
+                    phone: contact.phone,
+                    templateName: templateName,
+                    status: 'failed',
+                    messageId: '-',
+                    error: errDetail
+                });
             }
         } catch (err) {
             failedCount++;
             if (statFailed) statFailed.textContent = failedCount;
             appendBroadcastLog(`❌ [${progressNum}/${totalCount}] Network error for ${contact.name}: ${err.message}`, 'fail');
+
+            addBroadcastHistoryRecord({
+                id: 'bcast_' + Date.now() + '_' + i,
+                timestamp: new Date().toISOString(),
+                name: contact.name,
+                phone: contact.phone,
+                templateName: templateName,
+                status: 'failed',
+                messageId: '-',
+                error: err.message
+            });
         }
 
         const remaining = totalCount - (sentCount + failedCount);
@@ -1037,5 +1077,323 @@ async function startBulkBroadcast() {
     if (progressStatus) progressStatus.textContent = `Completed! ${sentCount} sent, ${failedCount} failed.`;
 
     appendBroadcastLog(`🏁 [CAMPAIGN FINISHED] Total: ${totalCount} | Sent: ${sentCount} | Failed: ${failedCount}`, sentCount > 0 ? 'success' : 'fail');
+    renderBroadcastHistoryTable();
 }
+
+// ========================================================================
+// 10. BROADCAST HISTORY & CAMPAIGN ANALYTICS
+// ========================================================================
+const BROADCAST_STORAGE_KEY = 'ds_broadcast_history';
+
+function getBroadcastHistory() {
+    try {
+        const data = localStorage.getItem(BROADCAST_STORAGE_KEY);
+        if (data) {
+            return JSON.parse(data);
+        }
+    } catch (e) {
+        console.error('Error reading broadcast history:', e);
+    }
+    // Seed initial records for the messages sent previously
+    const initialSeed = [
+        {
+            id: 'bcast_seed_1',
+            timestamp: '2026-09-17T16:45:07.891Z',
+            name: 'Krishna Kant Sharma',
+            phone: '918739904737',
+            templateName: 'shree_aangan_offer',
+            status: 'sent',
+            messageId: 'wamid.HBgMOTE4NzM5OTA0NzM3FQIAERgSRTY3OTE4OTQxRjhENEZFQ0QzAA==',
+            error: null
+        },
+        {
+            id: 'bcast_seed_2',
+            timestamp: '2026-09-17T16:44:56.887Z',
+            name: 'Sarvan',
+            phone: '917707978068',
+            templateName: 'shree_aangan_offer',
+            status: 'sent',
+            messageId: 'wamid.HBgMOTE3NzA3OTc4MDY4FQIAERgSNEQ3NzIxMUIyODJCQzQ4NzQ0AA==',
+            error: null
+        }
+    ];
+    try {
+        localStorage.setItem(BROADCAST_STORAGE_KEY, JSON.stringify(initialSeed));
+    } catch (e) {}
+    return initialSeed;
+}
+
+function saveBroadcastHistory(history) {
+    try {
+        localStorage.setItem(BROADCAST_STORAGE_KEY, JSON.stringify(history));
+    } catch (e) {
+        console.error('Error saving broadcast history:', e);
+    }
+}
+
+function addBroadcastHistoryRecord(record) {
+    const history = getBroadcastHistory();
+    history.unshift(record);
+    saveBroadcastHistory(history);
+}
+
+function renderBroadcastHistoryTable(filterQuery = '') {
+    const history = getBroadcastHistory();
+    const tbody = document.getElementById('broadcast-history-tbody');
+    const emptyState = document.getElementById('history-empty-state');
+    if (!tbody) return;
+
+    tbody.innerHTML = '';
+
+    const query = (filterQuery || document.getElementById('search-history-input')?.value || '').toLowerCase().trim();
+    const filtered = history.filter(item => {
+        if (!query) return true;
+        return (item.name || '').toLowerCase().includes(query) ||
+               (item.phone || '').includes(query) ||
+               (item.templateName || '').toLowerCase().includes(query) ||
+               (item.messageId || '').toLowerCase().includes(query);
+    });
+
+    // Lifetime metrics
+    const totalCount = history.length;
+    const deliveredCount = history.filter(i => i.status === 'sent').length;
+    const failedCount = history.filter(i => i.status === 'failed').length;
+    const rate = totalCount > 0 ? Math.round((deliveredCount / totalCount) * 100) : 100;
+
+    const statTotal = document.getElementById('h-stat-total');
+    const statDelivered = document.getElementById('h-stat-delivered');
+    const statFailed = document.getElementById('h-stat-failed');
+    const statRate = document.getElementById('h-stat-rate');
+
+    if (statTotal) statTotal.textContent = totalCount;
+    if (statDelivered) statDelivered.textContent = deliveredCount;
+    if (statFailed) statFailed.textContent = failedCount;
+    if (statRate) statRate.textContent = `${rate}%`;
+
+    if (filtered.length === 0) {
+        if (emptyState) emptyState.style.display = 'block';
+        return;
+    }
+    if (emptyState) emptyState.style.display = 'none';
+
+    filtered.forEach(item => {
+        const tr = document.createElement('tr');
+        const isSent = item.status === 'sent';
+        const dateStr = formatTimeFull(item.timestamp);
+        const shortId = item.messageId ? (item.messageId.length > 18 ? item.messageId.slice(0, 8) + '...' + item.messageId.slice(-6) : item.messageId) : '-';
+
+        tr.innerHTML = `
+            <td style="color: var(--text-muted);">${dateStr}</td>
+            <td><strong>${escapeHtml(item.name || 'Client')}</strong></td>
+            <td><code>+${item.phone}</code></td>
+            <td><span class="badge-tag">${escapeHtml(item.templateName)}</span></td>
+            <td>
+                <span class="${isSent ? 'badge-status-sent' : 'badge-status-failed'}">
+                    ${isSent ? '✅ Delivered' : '❌ Failed'}
+                </span>
+            </td>
+            <td><code title="${escapeHtml(item.messageId || '')}">${shortId}</code></td>
+            <td>
+                <div style="display:flex; gap:6px;">
+                    <button type="button" class="btn-xs-action" onclick="openAiFollowupModal('${escapeHtml(item.name)}', '${item.phone}')" title="AI Smart Follow-up">
+                        🤖 Follow-up
+                    </button>
+                    <button type="button" class="btn-xs-action" onclick="openChatWithContact('${escapeHtml(item.name)}', '${item.phone}')" title="Open Live Chat">
+                        💬 Chat
+                    </button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function filterBroadcastHistory() {
+    renderBroadcastHistoryTable();
+}
+
+function exportBroadcastHistoryCSV() {
+    const history = getBroadcastHistory();
+    if (!history || history.length === 0) {
+        alert('No broadcast history available to export.');
+        return;
+    }
+
+    let csv = 'Timestamp,Recipient Name,Phone,Template Name,Delivery Status,Message ID,Error\n';
+    history.forEach(item => {
+        csv += `"${item.timestamp}","${(item.name || '').replace(/"/g, '""')}","+${item.phone}","${item.templateName}","${item.status}","${item.messageId || ''}","${(item.error || '').replace(/"/g, '""')}"\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Shree_Aangan_Broadcast_Audit_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+}
+
+function confirmClearBroadcastHistory() {
+    if (!confirm('Are you sure you want to clear the entire broadcast history? This action cannot be undone.')) {
+        return;
+    }
+    localStorage.removeItem(BROADCAST_STORAGE_KEY);
+    renderBroadcastHistoryTable();
+}
+
+function formatTimeFull(isoString) {
+    if (!isoString) return '';
+    try {
+        const d = new Date(isoString);
+        return d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ', ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } catch (e) {
+        return isoString;
+    }
+}
+
+// ========================================================================
+// 11. AI SMART FOLLOW-UP ASSISTANT
+// ========================================================================
+let activeFollowup = {
+    name: 'Client',
+    phone: '',
+    strategy: 'courtesy'
+};
+
+const FOLLOWUP_STRATEGIES = {
+    courtesy: (name) => `Namaste ${name},\n\nAsha hai aapne Jaipur Tonk Road (NH-52) par 136 Bigha Mega Township "Shree Aangan" ka overview dekha hoga. 🏡\n\nAgar aap project ka Layout Map, Plot Dimensions ya 3D Video Tour dekhna chahte hain toh batayein, hum turant yahan WhatsApp par share kar denge!\n\nWebsite: https://sreeagan.vercel.app/\nCall: +91 87399 04737 (Krishnkant Sharma)`,
+    site_visit: (name) => `Namaste ${name},\n\nIs weekend hamari company ki taraf se Tonk Road "Shree Aangan" township ke liye Free VIP AC Cab (Pick & Drop) Site Visit plan ho rahi hai. 🚗\n\nAap family ke sath aakar 150 Ft Grand Gate aur 100-500 Sq. Yds plots physically dekh sakte hain. Kya hum aapke liye seats reserve karein?\n\nCall / WhatsApp: +91 87399 04737`,
+    limited_units: (name) => `Namaste ${name},\n\nShree Aangan me 60M Tonk Road front ke prime residential plots me sirf limited units baaki hain aur festive discount offer jald expire hone wala hai. ⚡\n\nKya aap current rates aur 80% bank loan approval ke sath plot hold karna chahte hain? Call karein: +91 87399 04737`
+};
+
+function openAiFollowupModal(name, phone) {
+    activeFollowup.name = name || 'Customer';
+    activeFollowup.phone = phone.replace(/[^0-9]/g, '');
+    activeFollowup.strategy = 'courtesy';
+
+    const titleEl = document.getElementById('ai-followup-client-title');
+    const nameEl = document.getElementById('ai-target-client-name');
+    const phoneEl = document.getElementById('ai-target-client-phone');
+    const modalEl = document.getElementById('ai-followup-modal');
+
+    if (titleEl) titleEl.textContent = `Smart Follow-up for ${activeFollowup.name}`;
+    if (nameEl) nameEl.textContent = activeFollowup.name;
+    if (phoneEl) phoneEl.textContent = activeFollowup.phone;
+
+    document.querySelectorAll('.strategy-chip').forEach(c => c.classList.remove('active'));
+    document.getElementById('chip-courtesy')?.classList.add('active');
+
+    updateFollowupText();
+
+    if (modalEl) modalEl.style.display = 'flex';
+}
+
+function closeAiFollowupModal() {
+    const modalEl = document.getElementById('ai-followup-modal');
+    if (modalEl) modalEl.style.display = 'none';
+}
+
+function selectFollowupStrategy(strategy, el) {
+    activeFollowup.strategy = strategy;
+    document.querySelectorAll('.strategy-chip').forEach(c => c.classList.remove('active'));
+    if (el) el.classList.add('active');
+    updateFollowupText();
+}
+
+function updateFollowupText() {
+    const generator = FOLLOWUP_STRATEGIES[activeFollowup.strategy] || FOLLOWUP_STRATEGIES.courtesy;
+    const text = generator(activeFollowup.name);
+    const textarea = document.getElementById('ai-followup-text');
+    if (textarea) textarea.value = text;
+}
+
+function copyAiFollowupText() {
+    const textarea = document.getElementById('ai-followup-text');
+    if (!textarea || !textarea.value) return;
+    navigator.clipboard.writeText(textarea.value).then(() => {
+        alert('Follow-up message copied to clipboard!');
+    });
+}
+
+async function sendAiFollowupViaApi() {
+    const textarea = document.getElementById('ai-followup-text');
+    const message = textarea?.value?.trim();
+    if (!message) {
+        alert('Message cannot be empty.');
+        return;
+    }
+
+    if (!activeFollowup.phone) {
+        alert('Invalid phone number.');
+        return;
+    }
+
+    const sendBtn = document.getElementById('btn-send-ai-followup');
+    if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Sending...';
+    }
+
+    try {
+        const response = await fetch('/api/send-message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                to: activeFollowup.phone,
+                type: 'text',
+                message: message
+            })
+        });
+
+        const resData = await response.json();
+        if (resData.success) {
+            alert(`✅ Follow-up sent to ${activeFollowup.name} (+${activeFollowup.phone})!`);
+            addBroadcastHistoryRecord({
+                id: 'followup_' + Date.now(),
+                timestamp: new Date().toISOString(),
+                name: activeFollowup.name,
+                phone: activeFollowup.phone,
+                templateName: `AI Follow-up (${activeFollowup.strategy})`,
+                status: 'sent',
+                messageId: resData.message_id || 'OK',
+                error: null
+            });
+            renderBroadcastHistoryTable();
+            closeAiFollowupModal();
+        } else {
+            alert(`❌ Failed to send: ${resData.meta_error || resData.error || 'Unknown Error'}`);
+        }
+    } catch (e) {
+        alert(`❌ Network error: ${e.message}`);
+    } finally {
+        if (sendBtn) {
+            sendBtn.disabled = false;
+            sendBtn.textContent = '🚀 Send Follow-up via WhatsApp';
+        }
+    }
+}
+
+function openChatWithContact(name, phone) {
+    switchView('chats');
+    const cleanP = phone.replace(/[^0-9]/g, '');
+    const existing = leads.find(l => (l.phone && l.phone.includes(cleanP)) || (cleanP.includes(l.phone)));
+    if (existing) {
+        selectContact(existing.id);
+    } else {
+        const newLead = {
+            id: 'lead_' + Date.now(),
+            name: name,
+            phone: cleanP,
+            service: 'Shree Aangan Township',
+            stage: 'contacted',
+            dealValue: 1500000,
+            lastUpdated: new Date().toISOString(),
+            notes: 'Broadcast recipient'
+        };
+        leads.unshift(newLead);
+        saveLeads();
+        renderConversations();
+        selectContact(newLead.id);
+    }
+}
+
 

@@ -285,7 +285,8 @@
                         <label class="broadcast-label">2. WhatsApp Message Template</label>
                         <div class="template-select-row">
                             <select id="broadcast-template-select" class="crm-input" onchange="toggleCustomTemplateInput(this.value)">
-                                <option value="hello_world">hello_world (Meta Default - en_US)</option>
+                                <option value="shree_aangan_offer" selected>🌟 shree_aangan_offer (Shree Aangan Vedic Township Offer)</option>
+                                <option value="hello_world">hello_world (Meta Default Test - en_US)</option>
                                 <option value="custom">-- Custom Approved Template --</option>
                             </select>
                             <input type="text" id="broadcast-custom-template" class="crm-input" placeholder="e.g. ds_offer_festive" style="display:none;">
@@ -296,7 +297,7 @@
                         </div>
                         <div class="template-notice-box">
                             <svg viewBox="0 0 24 24" width="16" height="16" style="flex-shrink:0; fill:#9d4edd;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                            <span>Meta mandates pre-approved templates for outgoing broadcasts. Contact name will automatically personalize <code>{{1}}</code> in templates with variables.</span>
+                            <span>Template <code>shree_aangan_offer</code> automatically includes the <strong>150 Ft Royal Gate HD Photo</strong>, client name personalization, and interactive website/call buttons.</span>
                         </div>
                     </div>
 
@@ -370,7 +371,125 @@
                 </div>
 
             </div>
+
+            <!-- FULL-WIDTH BROADCAST HISTORY & ANALYTICS SECTION -->
+            <div class="broadcast-history-section glass-panel">
+                <div class="history-header-row">
+                    <div class="section-title-wrap">
+                        <span class="section-icon">📜</span>
+                        <div>
+                            <h3 class="broadcast-title">Sent Broadcast History & Delivery Logs</h3>
+                            <p class="broadcast-subtitle">Lifetime audit trail of all messages dispatched via WhatsApp Cloud API</p>
+                        </div>
+                    </div>
+                    <div class="history-actions-bar">
+                        <input type="text" id="search-history-input" class="crm-input input-sm" placeholder="🔍 Search name, phone..." oninput="filterBroadcastHistory()">
+                        <button type="button" class="btn-xs-action" onclick="exportBroadcastHistoryCSV()">
+                            📥 Export CSV
+                        </button>
+                        <button type="button" class="btn-xs-action btn-danger-text" onclick="confirmClearBroadcastHistory()">
+                            🗑️ Clear History
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lifetime Analytics Summary Bar -->
+                <div class="history-metrics-bar">
+                    <div class="h-metric-item">
+                        <span class="h-metric-label">Total Sent</span>
+                        <span class="h-metric-val" id="h-stat-total">0</span>
+                    </div>
+                    <div class="h-metric-item">
+                        <span class="h-metric-label">Delivered</span>
+                        <span class="h-metric-val text-success" id="h-stat-delivered">0</span>
+                    </div>
+                    <div class="h-metric-item">
+                        <span class="h-metric-label">Failed</span>
+                        <span class="h-metric-val text-danger" id="h-stat-failed">0</span>
+                    </div>
+                    <div class="h-metric-item">
+                        <span class="h-metric-label">Delivery Rate</span>
+                        <span class="h-metric-val text-info" id="h-stat-rate">100%</span>
+                    </div>
+                </div>
+
+                <!-- History Table -->
+                <div class="history-table-wrap">
+                    <table class="crm-table history-table">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Recipient</th>
+                                <th>Phone Number</th>
+                                <th>Template</th>
+                                <th>Status</th>
+                                <th>Message ID</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="broadcast-history-tbody">
+                            <!-- Populated dynamically by crm.js -->
+                        </tbody>
+                    </table>
+                    <div id="history-empty-state" class="history-empty" style="display:none; text-align:center; padding: 24px; color: var(--text-muted);">
+                        No broadcast messages logged yet. Start a campaign to track history!
+                    </div>
+                </div>
+            </div>
         </main>
+    </div>
+
+    <!-- ================= AI FOLLOW-UP ASSISTANT MODAL ================= -->
+    <div class="modal-overlay" id="ai-followup-modal" style="display: none;">
+        <div class="modal-card modal-lg glass-panel">
+            <div class="modal-header">
+                <div class="modal-title-with-badge">
+                    <span class="badge-tag">🤖 AI Follow-up Assistant</span>
+                    <h3 id="ai-followup-client-title">Smart Follow-up for Client</h3>
+                </div>
+                <button class="modal-close" onclick="closeAiFollowupModal()">&times;</button>
+            </div>
+            
+            <div class="ai-followup-body">
+                <div class="followup-step-selector">
+                    <label class="broadcast-label">Choose Follow-up Strategy:</label>
+                    <div class="strategy-chips-grid">
+                        <button type="button" class="strategy-chip active" id="chip-courtesy" onclick="selectFollowupStrategy('courtesy', this)">
+                            <span class="chip-step">Step 1 (Day 1-2)</span>
+                            <strong>Courtesy Check & 3D Video</strong>
+                            <span class="chip-desc">Warm follow-up with project video link</span>
+                        </button>
+                        <button type="button" class="strategy-chip" id="chip-site_visit" onclick="selectFollowupStrategy('site_visit', this)">
+                            <span class="chip-step">Step 2 (Day 3-5)</span>
+                            <strong>Free VIP Site Visit Cab</strong>
+                            <span class="chip-desc">Invite for weekend AC car pick & drop</span>
+                        </button>
+                        <button type="button" class="strategy-chip" id="chip-limited_units" onclick="selectFollowupStrategy('limited_units', this)">
+                            <span class="chip-step">Step 3 (Day 7+)</span>
+                            <strong>Urgent Price Revision Alert</strong>
+                            <span class="chip-desc">Create FOMO with limited front units</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="followup-preview-box">
+                    <div class="group-header-row" style="margin-bottom: 6px;">
+                        <label class="broadcast-label">Personalized Message Draft:</label>
+                        <span class="text-muted-xs">Client: <strong id="ai-target-client-name" style="color: #c084fc;">Client</strong> (+<span id="ai-target-client-phone">91...</span>)</span>
+                    </div>
+                    <textarea id="ai-followup-text" class="broadcast-textarea" style="height: 140px;"></textarea>
+                </div>
+
+                <div class="ai-actions-footer">
+                    <button type="button" class="btn-xs-action" onclick="copyAiFollowupText()">
+                        📋 Copy Text
+                    </button>
+                    <button type="button" class="btn-primary-gradient btn-send-followup" id="btn-send-ai-followup" onclick="sendAiFollowupViaApi()">
+                        🚀 Send Follow-up via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ================= ADD LEAD MODAL ================= -->

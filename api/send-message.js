@@ -56,7 +56,7 @@ module.exports = async (req, res) => {
           const comps = [];
 
           // Image header handling (auto-included for templates configured with image header)
-          const img = headerImage || headerImageUrl || (templateName === 'shree_aangan_offer' ? 'https://theshreeaangan.com/assets/images/gate_night.jpg' : null);
+          const img = headerImage || headerImageUrl || (templateName === 'shree_aangan_offer' ? 'https://sreeagan.vercel.app/assets/images/gate_night.jpg' : null);
           if (img) {
             comps.push({
               type: 'header',

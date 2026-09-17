@@ -788,17 +788,27 @@ function parseBroadcastContacts() {
             name = parts[0].trim() || 'Customer';
             phone = parts[1].trim();
         } else {
-            const digitsOnly = trimmed.replace(/\D/g, '');
-            if (digitsOnly.length >= 10) {
-                phone = trimmed;
+            const tokens = trimmed.split(/\s+/);
+            const lastToken = tokens[tokens.length - 1];
+            const lastDigits = lastToken.replace(/\D/g, '');
+            if (lastDigits.length >= 10 && tokens.length > 1) {
+                name = tokens.slice(0, tokens.length - 1).join(' ').trim();
+                phone = lastToken;
             } else {
-                name = trimmed;
+                const digitsOnly = trimmed.replace(/\D/g, '');
+                if (digitsOnly.length >= 10) {
+                    phone = trimmed;
+                } else {
+                    name = trimmed;
+                }
             }
         }
 
         let cleanPhone = phone.replace(/[^0-9]/g, '');
         if (cleanPhone.length === 10) {
             cleanPhone = '91' + cleanPhone;
+        } else if (cleanPhone.length === 13 && cleanPhone.startsWith('191')) {
+            cleanPhone = cleanPhone.substring(1);
         }
 
         if (cleanPhone.length >= 10) {
@@ -1000,7 +1010,7 @@ async function startBulkBroadcast() {
             } else {
                 failedCount++;
                 if (statFailed) statFailed.textContent = failedCount;
-                const errDetail = resData.error || resData.details?.error?.message || 'Meta API Error';
+                const errDetail = resData.meta_error || (typeof resData.error === 'object' ? (resData.error?.message || resData.error?.error_data?.details || JSON.stringify(resData.error)) : resData.error) || 'Meta API Error';
                 appendBroadcastLog(`❌ [${progressNum}/${totalCount}] Failed for ${contact.name} (+${contact.phone}): ${errDetail}`, 'fail');
             }
         } catch (err) {

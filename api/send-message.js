@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { to, message, type = 'text', templateName = 'hello_world', languageCode, templateLang, parameters, components } = req.body || {};
+    const { to, message, type = 'text', templateName = 'hello_world', languageCode, templateLang, parameters, components, headerImage, headerImageUrl } = req.body || {};
     const finalLang = languageCode || templateLang || (templateName === 'hello_world' ? 'en_US' : 'en');
 
     if (!to) {
@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
     const PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_ID || '1277049988834738';
     const ACCESS_TOKEN = process.env.WHATSAPP_TOKEN || 'EAAYNF1uyJxYBSe6te3ssyYJMA0PZC44UJqDTovYk9zW7EQZBLBNsbECCpiHFk1vukUKaF0pZAXrZBNYuZBZAOcZBIGbh9In4FlIZBPV3PImx2icwBe3LBfZAjfDx1jgqsGrlHj5aqVwlY5JhDGLuZBxe9lAiw92I2uKq683mYfeuH2g5F20OXITuiiMiTEPCpP4gZDZD';
 
-    let payload = {
+    const payload = {
       messaging_product: 'whatsapp',
       to: cleanPhone
     };
@@ -52,16 +52,38 @@ module.exports = async (req, res) => {
       if (templateName !== 'hello_world') {
         if (components && Array.isArray(components)) {
           payload.template.components = components;
-        } else if (parameters && Array.isArray(parameters) && parameters.length > 0) {
-          payload.template.components = [
-            {
+        } else {
+          const comps = [];
+
+          // Image header handling (auto-included for templates configured with image header)
+          const img = headerImage || headerImageUrl || (templateName === 'shree_aangan_offer' ? 'https://theshreeaangan.com/assets/images/gate_night.jpg' : null);
+          if (img) {
+            comps.push({
+              type: 'header',
+              parameters: [
+                {
+                  type: 'image',
+                  image: {
+                    link: img
+                  }
+                }
+              ]
+            });
+          }
+
+          if (parameters && Array.isArray(parameters) && parameters.length > 0) {
+            comps.push({
               type: 'body',
               parameters: parameters.map(p => ({
                 type: 'text',
                 text: typeof p === 'string' ? p : (p.text || '')
               }))
-            }
-          ];
+            });
+          }
+
+          if (comps.length > 0) {
+            payload.template.components = comps;
+          }
         }
       }
     } else {

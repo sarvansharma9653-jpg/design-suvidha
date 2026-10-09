@@ -64,16 +64,9 @@
     <link rel="stylesheet" href="ecommerce.css">
 </head>
 <body>
-    <!-- FIXED BACKGROUND: Scroll-Driven Video Frame Canvas (plays through ENTIRE page scroll) -->
-    <div class="global-frame-bg" id="global-frame-bg">
-        <img id="global-frame-img" src="frame 2/ezgif-frame-001.jpg" alt="" class="global-frame-img">
-        <div class="global-frame-overlay"></div>
-    </div>
-
-    <canvas id="particle-canvas" class="particle-bg"></canvas>
     <div class="scroll-progress-bar" id="scroll-progress"></div>
 
-    <!-- STICKY HEADER -->
+    <!-- STICKY HEADER (Amazon Dark Navy Style) -->
     <header id="main-header" class="header-nav">
         <div class="container nav-container">
             <a href="#home" class="logo" id="header-logo"><img src="design suvidha logo.png" alt="Design Suvidha Logo" class="nav-logo-img"></a>
@@ -92,6 +85,16 @@
             </nav>
             <div class="nav-actions">
                 <button class="mobile-nav-toggle" id="menu-toggle-btn" aria-label="Toggle Menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+            </div>
+        </div>
+
+        <!-- Amazon Style Search Bar -->
+        <div class="container amazon-search-bar-row">
+            <div class="amazon-search-input-wrapper">
+                <input type="text" id="home-amazon-search" placeholder="Search Design Suvidha: mugs, laser pens, card holders, bottles, diaries..." autocomplete="off">
+                <button type="button" id="home-amazon-search-btn" class="amazon-search-submit" aria-label="Search">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                </button>
             </div>
         </div>
     </header>
@@ -127,15 +130,8 @@
     </div>
 
     <main>
-        <!-- ====== SCENE 1: HERO — Full-Screen Cinematic Entry ====== -->
+        <!-- ====== SCENE 1: HERO — Amazon Style Showcase Banner ====== -->
         <section class="scene scene-hero" id="home">
-            <!-- Hero Video Background -->
-            <div class="hero-video-bg-container">
-                <video class="hero-video-bg-el" autoplay muted loop playsinline>
-                    <source src="background%20video%20hero/Icons_travel_through_light_tunnel_202606052210.mp4" type="video/mp4">
-                </video>
-                <div class="hero-video-overlay"></div>
-            </div>
             <div class="scene-inner">
                 <div class="container">
                     <div class="hero-center-content" data-anim="zoom-in">

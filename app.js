@@ -6,35 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    // ============================================================
-    // 1. GLOBAL SCROLL-DRIVEN FRAME VIDEO PLAYER
-    //    Frames play throughout the ENTIRE page scroll
-    // ============================================================
-    const globalFrameImg = document.getElementById('global-frame-img');
-    const totalFrames = 40;
-    const frameDir = 'frame 2';
-    const frames = [];
-    let currentFrame = -1;
-
-    // Preload all frames
-    for (let i = 1; i <= totalFrames; i++) {
-        const img = new Image();
-        img.src = `${frameDir}/ezgif-frame-${String(i).padStart(3, '0')}.jpg`;
-        frames.push(img);
-    }
-
-    function updateGlobalFrame() {
-        if (!globalFrameImg) return;
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = Math.max(0, Math.min(1, scrollTop / docHeight));
-        const frameIndex = Math.min(totalFrames - 1, Math.floor(progress * totalFrames));
-        
-        if (frameIndex !== currentFrame && frames[frameIndex] && frames[frameIndex].complete) {
-            globalFrameImg.src = frames[frameIndex].src;
-            currentFrame = frameIndex;
-        }
-    }
+    // Background frame video player removed for clean Amazon-style mobile performance
 
     // ============================================================
     // 2. 3D SCROLL ANIMATION OBSERVER
@@ -78,74 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ============================================================
-    // 4. PARTICLE BACKGROUND (Ambient Gaming Aesthetic)
-    // ============================================================
-    const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const particleCount = 60;
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.3;
-                this.vy = (Math.random() - 0.5) * 0.3;
-                this.radius = Math.random() * 1.5 + 0.5;
-                this.opacity = Math.random() * 0.3 + 0.1;
-                this.hue = Math.random() > 0.5 ? 263 : 188;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.opacity})`;
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-
-        function drawConnections() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `hsla(263, 70%, 60%, ${0.06 * (1 - dist / 120)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            drawConnections();
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-    }
+    // Particle canvas removed for fast Amazon mobile browsing
 
     // ============================================================
     // 5. HEADER SCROLL EFFECTS
@@ -384,7 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         if (!ticking) {
             requestAnimationFrame(() => {
-                updateGlobalFrame();
                 updateHeader();
                 updateActiveNav();
                 toggleBackToTop();
@@ -397,7 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial calls
     updateHeader();
-    updateGlobalFrame();
     toggleBackToTop();
 
 
@@ -471,5 +374,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    console.log('🚀 Design Suvidha 3D Scroll Engine Initialized');
+    // ============================================================
+    // HOMEPAGE AMAZON SEARCH BAR LOGIC
+    // ============================================================
+    const homeSearchInput = document.getElementById('home-amazon-search');
+    const homeSearchBtn = document.getElementById('home-amazon-search-btn');
+
+    function executeHomeSearch() {
+        if (!homeSearchInput) return;
+        const query = homeSearchInput.value.toLowerCase().trim();
+        const storeShowcase = document.getElementById('store-showcase');
+        if (storeShowcase && query) {
+            const headerOffset = 130;
+            const targetPos = storeShowcase.offsetTop - headerOffset;
+            window.scrollTo({ top: targetPos, behavior: 'smooth' });
+        }
+        if (!query) {
+            filterHomeProducts('all');
+            return;
+        }
+
+        // Deactivate category active states when searching
+        homeStoryCategories.forEach(b => b.classList.remove('active'));
+        homeStoreFilters.forEach(b => b.classList.remove('active'));
+
+        homeProductCards.forEach(card => {
+            const title = card.querySelector('.product-title')?.textContent.toLowerCase() || '';
+            const desc = card.querySelector('.product-desc')?.textContent.toLowerCase() || '';
+            const cat = card.getAttribute('data-cat')?.toLowerCase() || '';
+            if (title.includes(query) || desc.includes(query) || cat.includes(query)) {
+                card.style.display = 'flex';
+                card.style.animation = 'fadeInUp 0.35s ease forwards';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    if (homeSearchInput) {
+        homeSearchInput.addEventListener('input', executeHomeSearch);
+        homeSearchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                executeHomeSearch();
+            }
+        });
+    }
+
+    if (homeSearchBtn) {
+        homeSearchBtn.addEventListener('click', executeHomeSearch);
+    }
+
+    console.log('🚀 Design Suvidha Fast Mobile Engine Initialized');
 });

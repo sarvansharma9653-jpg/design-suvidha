@@ -415,5 +415,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ============================================================
+    // HOMEPAGE STORE CATEGORY FILTER
+    // ============================================================
+    const homeStoreFilters = document.querySelectorAll('#home-store-filters .store-filter-btn');
+    const homeProductCards = document.querySelectorAll('#home-product-grid .product-card');
+
+    if (homeStoreFilters.length > 0 && homeProductCards.length > 0) {
+        homeStoreFilters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                homeStoreFilters.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const selectedCat = btn.getAttribute('data-home-cat');
+
+                homeProductCards.forEach(card => {
+                    const cardCat = card.getAttribute('data-cat');
+                    if (selectedCat === 'all' || cardCat === selectedCat) {
+                        card.style.display = 'flex';
+                        card.style.animation = 'fadeInUp 0.35s ease forwards';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
     console.log('🚀 Design Suvidha 3D Scroll Engine Initialized');
 });

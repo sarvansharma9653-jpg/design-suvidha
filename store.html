@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Store — Printing Solutions & Corporate Gifting | Design Suvidha</title>
+    <meta name="description" content="Official Corporate Gifting & Printing Store by Design Suvidha. Shop Personalised Mugs, Laser Engraved Metal Pens, Stainless Steel Card Holders, Diaries, Smart Drinkware & Visiting Cards at Direct Wholesale Prices in Jaipur.">
+    <link rel="canonical" href="https://designsuvidha.com/store">
+
+    <!-- Fonts & CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ecommerce.css">
+    <style>
+        .store-page-hero {
+            padding: 120px 0 40px;
+            text-align: center;
+            position: relative;
+        }
+        .store-nav-active {
+            color: #00cec9 !important;
+            font-weight: 700;
+        }
+        .floating-cart-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 95px;
+            background: linear-gradient(135deg, #6c5ce7 0%, #00cec9 100%);
+            color: #ffffff;
+            border-radius: 9999px;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(0, 206, 201, 0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: transform 0.25s ease;
+        }
+        .floating-cart-btn:hover {
+            transform: translateY(-3px);
+            color: #ffffff;
+        }
+        .cat-count-badge {
+            font-size: 11px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1px 7px;
+            border-radius: 9999px;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+<body class="perspective-container">
+    <!-- Background Frame & Particles -->
+    <div class="global-frame-bg" id="global-frame-bg">
+        <img id="global-frame-img" src="frame 2/ezgif-frame-001.jpg" alt="" class="global-frame-img">
+        <div class="global-frame-overlay"></div>
+    </div>
+    <canvas id="particle-canvas" class="particle-bg"></canvas>
+
+    <!-- Header Navigation -->
+    <header id="main-header" class="header-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" id="header-logo">
+                <img src="design suvidha logo.png" alt="Design Suvidha Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-menu" id="nav-links-container">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#services" class="nav-link">Digital Services</a>
+                <a href="index.html#pricing" class="nav-link">Agency Packages</a>
+                <a href="store.html" class="nav-link store-nav-active">Store: Printing & Gifts 🎁</a>
+                <a href="index.html#presence" class="nav-link">Jaipur Office</a>
+                <a href="privacy.html" class="nav-link">Policies</a>
+                <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20have%20a%20bulk%20printing%20inquiry" target="_blank" class="nav-link cta-link">Bulk Inquiry</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="mobile-nav-toggle" id="menu-toggle-btn" aria-label="Toggle Menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-drawer">
+        <nav class="mobile-nav-links">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="index.html#services" class="mobile-link">Digital Services</a>
+            <a href="index.html#pricing" class="mobile-link">Agency Packages</a>
+            <a href="store.html" class="mobile-link store-nav-active">Store: Printing & Gifts 🎁</a>
+            <a href="index.html#presence" class="mobile-link">Jaipur Office</a>
+            <a href="privacy.html" class="mobile-link">Privacy Policy</a>
+            <a href="terms.html" class="mobile-link">Terms & Conditions</a>
+            <a href="refund.html" class="mobile-link">Refund Policy</a>
+            <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20have%20a%20bulk%20printing%20inquiry" target="_blank" class="mobile-link">WhatsApp Bulk Orders</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Store Hero -->
+        <section class="store-page-hero">
+            <div class="container">
+                <!-- Dual-Vertical Spotlight Switcher -->
+                <div class="dual-vertical-spotlight">
+                    <div class="dual-spotlight-inner">
+                        <div class="spotlight-badge-title">
+                            <div class="spotlight-icon-box">🎁</div>
+                            <div class="spotlight-title-text">
+                                <h4>Design Suvidha E-Commerce Store</h4>
+                                <p>Printing Solutions & Corporate Gifting at Wholesale Rates in Jaipur</p>
+                            </div>
+                        </div>
+                        <div class="dual-tabs-wrapper">
+                            <a href="index.html#services" class="dual-tab-btn">
+                                <span>🚀 Digital & Ads Agency</span>
+                            </a>
+                            <a href="store.html" class="dual-tab-btn active">
+                                <span>🎁 Custom Printing & Gifts</span>
+                                <span class="dual-tab-badge">STORE</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="store-header">
+                    <span class="store-badge-tag">MSME Verified UDYAM-RJ-17-0675057</span>
+                    <h1 class="store-mega-title">Customised Corporate Gifting & <span class="gradient-text">Printing Solutions</span></h1>
+                    <p class="store-subtitle">Get high-precision Laser Engraving, Sublimation Printing, and Bulk Corporate Gifts branded with your company logos, employee names, and customized creative designs at wholesale rates.</p>
+                </div>
+
+                <!-- Trust Strip -->
+                <div class="store-trust-strip">
+                    <div class="trust-item"><span class="trust-item-icon">⚡</span><span>1-Day Digital Proof Approval</span></div>
+                    <div class="trust-item"><span class="trust-item-icon">🎯</span><span>Laser Precision Engraving</span></div>
+                    <div class="trust-item"><span class="trust-item-icon">🛡️</span><span>100% Quality & Reprint Guarantee</span></div>
+                    <div class="trust-item"><span class="trust-item-icon">📦</span><span>Pan-India Courier Dispatch</span></div>
+                    <div class="trust-item"><span class="trust-item-icon">🤝</span><span>Direct Wholesale Factory Rates</span></div>
+                </div>
+
+                <!-- Toolbar (Search & Count) -->
+                <div class="store-toolbar">
+                    <div class="store-search-box">
+                        <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <input type="text" id="product-search-input" placeholder="Search mugs, pens, card holders, keychains, bottles, diaries...">
+                    </div>
+                    <div class="store-stats-counter" id="store-counter-text">
+                        Showing all <strong>28 items</strong> in catalog
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="store-filter-bar" id="store-filters">
+                    <button class="store-filter-btn active" data-category="all">🌟 All Items <span class="cat-count-badge">28</span></button>
+                    <button class="store-filter-btn" data-category="mugs">☕ Mugs <span class="cat-count-badge">4</span></button>
+                    <button class="store-filter-btn" data-category="pens">🖊️ Metal Pens <span class="cat-count-badge">5</span></button>
+                    <button class="store-filter-btn" data-category="cardholders">💳 Card Holders <span class="cat-count-badge">3</span></button>
+                    <button class="store-filter-btn" data-category="keychains">🔑 Keychains <span class="cat-count-badge">7</span></button>
+                    <button class="store-filter-btn" data-category="diaries">📓 Diaries <span class="cat-count-badge">4</span></button>
+                    <button class="store-filter-btn" data-category="drinkware">🍶 Smart Drinkware <span class="cat-count-badge">4</span></button>
+                    <button class="store-filter-btn" data-category="mousepads">🖱️ Mouse Pads <span class="cat-count-badge">1</span></button>
+                    <button class="store-filter-btn" data-category="printing">🖨️ Business Printing <span class="cat-count-badge">5</span></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Cards Grid Section -->
+        <section class="container" style="padding-bottom: 80px;">
+            <div class="product-grid" id="product-grid-container">
+                <!-- Product cards injected by JavaScript below -->
+            </div>
+
+            <!-- Big Banner CTA for Bulk Corporate Orders -->
+            <div class="store-big-cta-banner">
+                <h3>Need Custom Gifts for Your Company, Event or Exhibition?</h3>
+                <p>We supply bulk orders for Corporate Welcome Kits, Diwali Gifting, Conferences, Real Estate Bookings, Colleges, and Wedding Favors with custom packaging and factory-direct pricing.</p>
+                <div class="store-cta-btns">
+                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20need%20a%20quote%20for%20Corporate%20Bulk%20Gifting" target="_blank" class="btn btn-primary btn-lg">
+                        <span>💬 Request Bulk Quote on WhatsApp</span>
+                    </a>
+                    <a href="tel:+918739904737" class="btn-catalog-dl">
+                        <span>📞 Call Direct: +91 8739904737</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating WhatsApp Cart Button -->
+    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20place%20an%20order%20from%20your%20Online%20Store!" target="_blank" class="floating-cart-btn" aria-label="Order on WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
+        <span>Quick WhatsApp Order</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer-layout">
+        <div class="container footer-container">
+            <div class="footer-brand-info">
+                <a href="index.html" class="logo footer-logo">
+                    <img src="design suvidha logo.png" alt="Design Suvidha" class="footer-logo-img">
+                </a>
+                <p class="brand-bio">Official E-Commerce Store & Printing Division by Design Suvidha (MSME Reg No: UDYAM-RJ-17-0675057). Precision custom gifting and business print production in Jaipur, Rajasthan.</p>
+            </div>
+            <div class="footer-links-grid">
+                <div class="footer-link-col">
+                    <h4 class="footer-heading">Gifting Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="#store-filters" onclick="filterBy('mugs')">Personalised Mugs</a></li>
+                        <li><a href="#store-filters" onclick="filterBy('pens')">Laser Metal Pens</a></li>
+                        <li><a href="#store-filters" onclick="filterBy('cardholders')">Card Holders</a></li>
+                        <li><a href="#store-filters" onclick="filterBy('diaries')">Executive Diaries</a></li>
+                        <li><a href="#store-filters" onclick="filterBy('drinkware')">Smart Drinkware</a></li>
+                        <li><a href="#store-filters" onclick="filterBy('printing')">Visiting Cards & Print</a></li>
+                    </ul>
+                </div>
+                <div class="footer-link-col">
+                    <h4 class="footer-heading">Legal & Store Policies</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="refund.html">Refund & Reprint Policy</a></li>
+                        <li><a href="index.html#presence">Jaipur Office Address</a></li>
+                        <li><a href="index.html#services">Digital Marketing Services</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p class="copyright-txt">© 2026 Design Suvidha (UDYAM-RJ-17-0675057). All rights reserved.</p>
+                <div class="footer-socials">
+                    <a href="https://wa.me/918739904737" target="_blank" class="social-icon">WA</a>
+                    <a href="https://designsuvidha.com" class="social-icon">WEB</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Products Data & Store Interactive Logic -->
+    <script>
+        const PRODUCTS_DATA = [
+            // MUGS
+            {
+                id: 'mug-plain-330',
+                title: 'White Ceramic Mug – 330 ml',
+                category: 'mugs',
+                catLabel: 'Personalised Mug',
+                price: '₹199/-',
+                strike: '₹299',
+                discount: '33% OFF',
+                badge: 'Best Seller 🔥',
+                img: 'assets/products/product_1.jpg',
+                desc: 'Vibrant HD Sublimation print that stays bright sip after sip. Dishwasher and microwave safe high-density ceramic.',
+                features: ['Vibrant HD Full Color Print', 'Capacity: 330 ml Standard', 'Dishwasher & Microwave Safe', 'Wholesale rates for events & bulk']
+            },
+            {
+                id: 'mug-inner-color-330',
+                title: 'Inner Color Ceramic Mug – 330 ml',
+                category: 'mugs',
+                catLabel: 'Personalised Mug',
+                price: '₹230/-',
+                strike: '₹340',
+                discount: '32% OFF',
+                badge: 'Trending ✨',
+                img: 'assets/products/product_3.jpg',
+                desc: 'Dual-tone premium ceramic with colorful interior. Available in Black, Blue, Orange, Red, Mint, and Yellow.',
+                features: ['6 Vibrant Inner Color Options', 'High Contrast Exterior HD Print', 'Capacity: 330 ml', 'Premium Gloss Ceramic']
+            },
+            {
+                id: 'mug-heart-handle-330',
+                title: 'Heart Handle Mug – 330 ml',
+                category: 'mugs',
+                catLabel: 'Personalised Mug',
+                price: '₹249/-',
+                strike: '₹380',
+                discount: '34% OFF',
+                badge: 'Special Gift ❤️',
+                img: 'assets/products/product_5.jpg',
+                desc: 'Elegant heart-shaped handle mug. Perfect for anniversary gifts, couple photos, birthdays, and special corporate tokens.',
+                features: ['Ergonomic Heart-Shaped Handle', 'HD Sublimation Print', 'Available in White & Red accents', '330 ml Capacity']
+            },
+            {
+                id: 'mug-mini-190',
+                title: 'Mini Ceramic Chai Mug – 190 ml',
+                category: 'mugs',
+                catLabel: 'Personalised Mug',
+                price: '₹199/-',
+                strike: '₹280',
+                discount: '28% OFF',
+                badge: 'Chai Lovers ☕',
+                img: 'assets/products/product_7.jpg',
+                desc: 'Authentic 180–190 ml portion—the exact gold-standard volume for Indian chai, filter coffee, or espresso. Standard or Fine Ceramic.',
+                features: ['190 ml Ideal Chai/Espresso Size', 'Standard & Fine Ceramic options', 'Custom Logo or Personal Name', 'Compact & Lightweight']
+            },
+
+            // CARD HOLDERS
+            {
+                id: 'cardholder-steel-classic',
+                title: 'Stainless Steel Card Holder',
+                category: 'cardholders',
+                catLabel: 'Card Holder',
+                price: '₹149/-',
+                strike: '₹249',
+                discount: '40% OFF',
+                badge: 'Laser Engraved ⚡',
+                img: 'assets/products/product_9.jpg',
+                desc: 'Slim stainless steel visiting card case. Customized with sharp, permanent laser engraving of your name, brand, or logo.',
+                features: ['Precision Laser Engraved Name/Logo', 'Stores 15+ Cards securely', 'Ultra-slim pocket profile', 'Solid Matte colors']
+            },
+            {
+                id: 'cardholder-textured',
+                title: 'Luxury Textured Card Holder',
+                category: 'cardholders',
+                catLabel: 'Card Holder',
+                price: '₹149/-',
+                strike: '₹249',
+                discount: '40% OFF',
+                badge: 'Executive',
+                img: 'assets/products/product_11.jpg',
+                desc: 'Signature patterned exterior with stainless steel construction. Adds a sophisticated executive presence to your business meetings.',
+                features: ['Luxury Patterned Finish', 'Magnetic Snap Closure', 'Scratch-resistant Metal Frame', 'Laser Engraved Plate']
+            },
+            {
+                id: 'cardholder-gold-accent',
+                title: 'Gold Accent Luxury Card Holder',
+                category: 'cardholders',
+                catLabel: 'Card Holder',
+                price: '₹149/-',
+                strike: '₹260',
+                discount: '42% OFF',
+                badge: 'Premium Gold',
+                img: 'assets/products/product_13.jpg',
+                desc: 'Elegant gold metal trim accents combined with solid executive finish. Keeps credit and visiting cards free from bends and scuffs.',
+                features: ['Polished Gold Trim Accents', 'Permanent Laser Personalization', 'Lightweight & Pocket-Friendly', 'Corporate Gifting Favorite']
+            },
+
+            // PENS
+            {
+                id: 'pen-classic-click',
+                title: 'Classic Metal Click Pen',
+                category: 'pens',
+                catLabel: 'Branded Metal Pen',
+                price: '₹90/-',
+                strike: '₹150',
+                discount: '40% OFF',
+                badge: 'Economy Pick',
+                img: 'assets/products/product_17.jpg',
+                desc: 'Durable metal click ballpoint pen with smooth ink flow. Optional luxury gift box (+₹35). Colors: Black, Blue, Maroon, Grey.',
+                features: ['Without Box: ₹90 / With Box: ₹125', 'Colors: Black, Blue, Maroon, Grey', 'Laser Engraved Name or Company', 'Smooth German Ink refill']
+            },
+            {
+                id: 'pen-magnetic-gel',
+                title: 'Magnetic Gel Metal Pen',
+                category: 'pens',
+                catLabel: 'Branded Metal Pen',
+                price: '₹199/-',
+                strike: '₹299',
+                discount: '33% OFF',
+                badge: 'Magnetic Cap 🧲',
+                img: 'assets/products/product_19.jpg',
+                desc: 'Executive magnetic cap snap closure. Matte barrel with fine gel ink rollerball mechanism. Available with Gold/Silver box.',
+                features: ['Without Box: ₹199 / With Box: ₹249', 'Precision Magnetic Cap Action', 'Ultra-smooth Gel Refill', 'Cap or Body Laser Engraving']
+            },
+            {
+                id: 'pen-black-rosegold',
+                title: 'Black Metal Pen with Rose Gold',
+                category: 'pens',
+                catLabel: 'Branded Metal Pen',
+                price: '₹249/-',
+                strike: '₹375',
+                discount: '33% OFF',
+                badge: 'Luxury Rose Gold',
+                img: 'assets/products/product_21.jpg',
+                desc: 'Crafted with premium matte black body and striking rose gold clip and accents for an ultra-luxurious, executive appearance.',
+                features: ['Without Box: ₹249 / With Box: ₹299', 'Rose Gold Clip & Accent Rings', 'Cap + Body Engraving Available', 'Heavyweight Executive Feel']
+            },
+            {
+                id: 'pen-textured-grip',
+                title: 'Textured Grip Metal Pen',
+                category: 'pens',
+                catLabel: 'Branded Metal Pen',
+                price: '₹199/-',
+                strike: '₹300',
+                discount: '33% OFF',
+                badge: 'Comfort Grip',
+                img: 'assets/products/product_23.jpg',
+                desc: 'Machined micro-textured grip zone provides fatigue-free writing during long signing sessions and conferences.',
+                features: ['Without Box: ₹199 / With Box: ₹249', 'Engineered Anti-Slip Grip', 'Laser Engraved Personal Name', 'Durable Metal Hardware']
+            },
+            {
+                id: 'pen-gold-accent-gunmetal',
+                title: 'Gold Accent Gunmetal Executive Pen',
+                category: 'pens',
+                catLabel: 'Branded Metal Pen',
+                price: '₹279/-',
+                strike: '₹420',
+                discount: '33% OFF',
+                badge: 'Presidential 🌟',
+                img: 'assets/products/product_25.jpg',
+                desc: 'Our flagship executive writing instrument. Gunmetal finish with 24K-look gold accents and weighted balance.',
+                features: ['Without Box: ₹279 / With Box: ₹329', 'Heavy Balanced Weight Balance', 'Gold Trims & Premium Presentation', 'High Precision Laser Branding']
+            },
+
+            // KEYCHAINS
+            {
+                id: 'keychain-house-shape',
+                title: 'House Shape Metal Keychain',
+                category: 'keychains',
+                catLabel: 'Custom Keychain',
+                price: '₹99/-',
+                strike: '₹160',
+                discount: '38% OFF',
+                badge: 'Real Estate Special 🏠',
+                img: 'assets/products/product_29.jpg',
+                desc: 'Designed specifically for Builders, Real Estate Brokers, Architects, and Home Warming gifts. High gloss metal alloy.',
+                features: ['Iconic House Silhouette', 'Double-sided Laser Engraving', 'Heavy Polished Chrome Finish', 'Minimum Order: 1 pc']
+            },
+            {
+                id: 'keychain-capsule',
+                title: 'Capsule Metal Keychain',
+                category: 'keychains',
+                catLabel: 'Custom Keychain',
+                price: '₹99/-',
+                strike: '₹160',
+                discount: '38% OFF',
+                badge: 'Modern Minimal',
+                img: 'assets/products/product_33.jpg',
+                desc: 'Sleek minimalist cylindrical capsule design. Available in Silver, Gold, and Rose Gold metallic plating.',
+                features: ['Silver, Gold & Rose Gold Plated', 'Precision Laser Marking', 'High Tensile Key Ring', 'Compact Pocket Fit']
+            },
+            {
+                id: 'keychain-oval',
+                title: 'Oval Metal Keychain',
+                category: 'keychains',
+                catLabel: 'Custom Keychain',
+                price: '₹119/-',
+                strike: '₹190',
+                discount: '37% OFF',
+                badge: 'Matte & Mirror',
+                img: 'assets/products/product_27.jpg',
+                desc: 'Brushed matte silver center face surrounded by a high-polish beveled mirror border. Laser engraved company logo.',
+                features: ['Brushed Matte & Chrome Dual Finish', 'Scratch Resistant Coating', 'Universal Car / Bike Key Ring', 'Smooth Rounded Edges']
+            },
+            {
+                id: 'keychain-round',
+                title: 'Round Metal Keychain',
+                category: 'keychains',
+                catLabel: 'Custom Keychain',
+                price: '₹119/-',
+                strike: '₹190',
+                discount: '37% OFF',
+                badge: 'Classic Round',
+                img: 'assets/products/product_31.jpg',
+                desc: 'Circular chrome-plated keychain with expansive engraving surface for round company emblems and personal initials.',
+                features: ['360° Mirror Polish Rim', 'High Resolution Laser Engraving', 'Sturdy Key Loop', 'Corrosion Proof Zinc Alloy']
+            },
+            {
+                id: 'keychain-carabiner-dual',
+                title: 'Carabiner Dual Ring Keychain',
+                category: 'keychains',
+                catLabel: 'Custom Keychain',
+                price: '₹149/-',
+                strike: '₹240',
+                discount: '37% OFF',
+                badge: 'Heavy Duty ⛓️',
+                img: 'assets/products/product_35.jpg',
+                desc: 'Tactical spring carabiner clip with dual split rings to keep vehicle keys and home/office keys organized separately.',
+                features: ['Spring Loaded Carabiner Gate', 'Dual Independent Split Rings', 'Quick Belt Loop Attachment', 'Gunmetal & Silver Finish']
+            },
+            {
+                id: 'keychain-pu-leather',
+                title: 'PU Leather Strap Keychain',
+                category: 'keychains',
+                catLabel: 'Custom Keychain',
+                price: '₹149/-',
+                strike: '₹250',
+                discount: '40% OFF',
+                badge: 'Stitched Leather',
+                img: 'assets/products/product_37.jpg',
+                desc: 'Handcrafted look with heavy-duty stitched PU leather strap attached to polished metal hook. Brown+Gold or Black+Silver.',
+                features: ['Premium Stitched PU Leather', 'Brown+Gold or Black+Silver', 'Laser Debossed Metal Plaque', 'Flexible & Soft Touch']
+            },
+            {
+                id: 'keychain-bottle-opener',
+                title: 'Carabiner Bottle Opener Keychain',
+                category: 'keychains',
+                catLabel: 'Custom Keychain',
+                price: '₹149/-',
+                strike: '₹240',
+                discount: '37% OFF',
+                badge: '2-in-1 Tool 🍾',
+                img: 'assets/products/product_39.jpg',
+                desc: 'Dual-utility keychain integrating a heavy-duty bottle opener directly into the solid metal carabiner body.',
+                features: ['Integrated Bottle Opener Function', 'Rugged Spring Loaded Clip', 'Permanent Laser Engraving', 'Multitool Daily Carry']
+            },
+
+            // DIARIES
+            {
+                id: 'diary-color-reveal',
+                title: 'Color Reveal Premium Diary (A5)',
+                category: 'diaries',
+                catLabel: 'Executive Diary',
+                price: '₹279/-',
+                strike: '₹399',
+                discount: '30% OFF',
+                badge: 'Best Seller 📓',
+                img: 'assets/products/product_43.jpg',
+                desc: '192 ruled pages (80 GSM natural shade paper). Contrast edge and spine color reveal styling with elastic band and pen loop.',
+                features: ['192 Ruled Pages (80 GSM Paper)', 'Contrast Color Reveal Spine', 'Integrated Elastic Pen Loop', 'Blind Debossing or UV Print']
+            },
+            {
+                id: 'diary-magnetic-lock',
+                title: 'Magnetic Lock Executive Diary',
+                category: 'diaries',
+                catLabel: 'Executive Diary',
+                price: '₹299/-',
+                strike: '₹450',
+                discount: '33% OFF',
+                badge: 'Magnetic Clasp',
+                img: 'assets/products/product_41.jpg',
+                desc: 'Contemporary faux leather cover secured by a sleek magnetic flap lock. Includes yearly planner, calendar, and bookmarks.',
+                features: ['Strong Hidden Magnetic Clasp', 'Smooth Faux Leather Cover', 'Yearly & Monthly Planner Pages', 'Premium Ribbon Bookmark']
+            },
+            {
+                id: 'diary-round-lock',
+                title: 'Round Lock Pattern Diary',
+                category: 'diaries',
+                catLabel: 'Executive Diary',
+                price: '₹349/-',
+                strike: '₹500',
+                discount: '30% OFF',
+                badge: 'Geometric Pattern',
+                img: 'assets/products/product_45.jpg',
+                desc: 'Architectural debossed geometric pattern cover with an ornate metal round buckle clasp. A luxury corporate gift favorite.',
+                features: ['Debossed Geometric Texture', 'Ornate Round Metal Buckle Clasp', 'Hardbound Spine Binding', 'Ideal for High-Tier Executives']
+            },
+            {
+                id: 'diary-gold-border',
+                title: 'Gold Border Luxury Diary',
+                category: 'diaries',
+                catLabel: 'Executive Diary',
+                price: '₹349/-',
+                strike: '₹520',
+                discount: '32% OFF',
+                badge: 'Gold Gilded 👑',
+                img: 'assets/products/product_47.jpg',
+                desc: 'Page edges gilded in radiant gold foil shimmer. Crafted from rich leatherette texture with custom foil hot-stamping.',
+                features: ['Gold Foil Gilded Page Edges', 'Heavy Gauge Executive Leatherette', 'Gold Corner Guards (Optional)', 'Silk Ribbon Marker']
+            },
+
+            // DRINKWARE
+            {
+                id: 'bottle-temp-display-500',
+                title: 'LED Temperature Display Bottle – 500 ml',
+                category: 'drinkware',
+                catLabel: 'Smart Drinkware',
+                price: '₹299/-',
+                strike: '₹499',
+                discount: '40% OFF',
+                badge: 'Smart LED 🌡️',
+                img: 'assets/products/product_51.jpg',
+                desc: 'Touch-sensitive LED lid indicates real-time beverage temperature. 304 food-grade double-wall vacuum insulation keeps drinks hot/cold for 12 hours.',
+                features: ['Touch LED Temperature Display Lid', '500 ml Capacity / SUS 304 Steel', '12-Hour Hot & Cold Retention', 'Leakproof & BPA-Free']
+            },
+            {
+                id: 'bottle-vacuum-rope-500',
+                title: 'Vacuum Bottle with Carry Rope – 500 ml',
+                category: 'drinkware',
+                catLabel: 'Smart Drinkware',
+                price: '₹349/-',
+                strike: '₹550',
+                discount: '36% OFF',
+                badge: 'Active Lifestyle',
+                img: 'assets/products/product_53.jpg',
+                desc: 'Features a durable silicone lanyard loop for easy carrying during gym, travel, and campus commutes. Double wall insulated.',
+                features: ['Flexible Silicone Carry Handle', 'Double Wall Thermal Vacuum', 'Matte Powder Coated Finish', 'Laser Engraved Branding']
+            },
+            {
+                id: 'bottle-matte-black-500',
+                title: 'Matte Black Slim Vacuum Bottle – 500 ml',
+                category: 'drinkware',
+                catLabel: 'Smart Drinkware',
+                price: '₹449/-',
+                strike: '₹680',
+                discount: '34% OFF',
+                badge: 'Minimal Matte',
+                img: 'assets/products/product_54.jpg',
+                desc: 'Minimalist aerodynamic slim cylinder finished in deep stealth matte black. Laser engraving cuts through powder coat to reveal polished steel.',
+                features: ['Tactile Non-Slip Matte Finish', 'Contrast Laser Steel Engraving', 'Slim Fit in Car Cup Holders', 'Spill-Proof Screw Cap']
+            },
+            {
+                id: 'tumbler-straw-handle-900',
+                title: 'Vacuum Tumbler with Straw – 900 ml',
+                category: 'drinkware',
+                catLabel: 'Smart Drinkware',
+                price: '₹549/-',
+                strike: '₹850',
+                discount: '35% OFF',
+                badge: 'Mega 900ml 🥤',
+                img: 'assets/products/product_55.jpg',
+                desc: 'Massive 900 ml capacity tumbler equipped with ergonomic carry handle, 2-in-1 sip/straw lid, and 24-hour ice retention capability.',
+                features: ['Huge 900 ml Hydration Capacity', 'Ergonomic Easy-Grip Handle', 'Reusable Silicone Tip Straw Included', '24h Cold / 12h Hot Vacuum']
+            },
+
+            // MOUSEPAD
+            {
+                id: 'mousepad-custom-hd',
+                title: 'Non-Slip Custom Mouse Pad (7x9.5")',
+                category: 'mousepads',
+                catLabel: 'Office Accessory',
+                price: '₹99/-',
+                strike: '₹199',
+                discount: '50% OFF',
+                badge: 'Best Value 🖱️',
+                img: 'assets/products/product_49.jpg',
+                desc: 'High-density micro-weave cloth surface optimized for optical mouse precision with heavy natural anti-slip rubber grip base.',
+                features: ['Full Edge-to-Edge HD Color Print', 'High-Traction Anti-Slip Rubber Base', 'Size: 7 x 9.5 Inches (3mm Thick)', 'Water-resistant Microfiber']
+            },
+
+            // COMMERCIAL PRINTING
+            {
+                id: 'print-visiting-cards',
+                title: 'Premium Visiting & Business Cards',
+                category: 'printing',
+                catLabel: 'Commercial Printing',
+                price: 'Starting ₹499/-',
+                strike: '₹800',
+                discount: '37% OFF',
+                badge: 'Direct Press 📇',
+                img: 'assets/products/product_10.jpg',
+                desc: 'Custom business cards on 350 GSM premium art card. Finishes: Matte, Gloss, Velvet Soft-Touch, Raised Spot UV, and Metallic Gold Foil.',
+                features: ['Pack of 1000 Cards Starting ₹499', 'Matte / Gloss / Velvet Lamination', 'Spot UV & Gold Foil Options', 'Free Digital Proofing']
+            },
+            {
+                id: 'print-flyers-pamphlets',
+                title: 'Flyers, Pamphlets & Leaflets',
+                category: 'printing',
+                catLabel: 'Commercial Printing',
+                price: 'Starting ₹799/-',
+                strike: '₹1,200',
+                discount: '33% OFF',
+                badge: 'High Speed Offset',
+                img: 'assets/products/product_14.jpg',
+                desc: 'Crisp vibrant brochures and pamphlets printed on 130 GSM / 170 GSM imported gloss paper. Perfect for newspaper inserts and promotions.',
+                features: ['1000 Pcs Starting ₹799', 'A4, A5, and DL Sizes available', 'Double or Single Sided Offset Print', 'Fast 2-3 Day Production']
+            },
+            {
+                id: 'print-stickers-labels',
+                title: 'Product Stickers & Die-Cut Labels',
+                category: 'printing',
+                catLabel: 'Commercial Printing',
+                price: 'Starting ₹299/-',
+                strike: '₹500',
+                discount: '40% OFF',
+                badge: 'Waterproof Vinyl',
+                img: 'assets/products/product_12.jpg',
+                desc: 'Custom cut-to-shape adhesive stickers for cosmetic jars, food packaging, barcode labels, and brand sealers. Waterproof & tearproof.',
+                features: ['Die-Cut Any Custom Shape', 'Clear Transparent, Kraft & Vinyl', 'Permanent Strong Adhesive', 'Roll or Sheet Dispenser']
+            },
+            {
+                id: 'print-hospital-files',
+                title: 'Doctor & Hospital Patient Files',
+                category: 'printing',
+                catLabel: 'Commercial Printing',
+                price: 'Starting ₹999/-',
+                strike: '₹1,500',
+                discount: '33% OFF',
+                badge: 'Clinic Special 🏥',
+                img: 'assets/products/product_16.jpg',
+                desc: 'Custom printed medical patient record files with inner prescription pockets, clinic doctors list, and heavy laminated duplex board.',
+                features: ['Heavy Duty 350+ GSM Laminated Board', 'Inner Rx & Lab Report Pockets', 'Gloss or Matte Protective Coat', 'Clinic & Hospital Branding']
+            },
+            {
+                id: 'print-flex-standee',
+                title: 'Flex Banners & Roll-Up Standees',
+                category: 'printing',
+                catLabel: 'Commercial Printing',
+                price: 'Starting ₹350/-',
+                strike: '₹600',
+                discount: '41% OFF',
+                badge: 'Large Format 🚩',
+                img: 'assets/products/product_18.jpg',
+                desc: 'Star flex banners, backlit signages, and 6x3 ft aluminum roll-up pull-up standees complete with padded travel carry bag.',
+                features: ['6x3 Ft Roll-Up Standee with Stand', 'Star Flex & Blackout Banner Options', 'High Resolution Outdoor Solvents', 'Same-Day Dispatch in Jaipur']
+            }
+        ];
+
+        // RENDER PRODUCTS
+        const container = document.getElementById('product-grid-container');
+        const searchInput = document.getElementById('product-search-input');
+        const counterEl = document.getElementById('store-counter-text');
+        const filterBtns = document.querySelectorAll('.store-filter-btn');
+
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        function renderProducts() {
+            container.innerHTML = '';
+            
+            const filtered = PRODUCTS_DATA.filter(p => {
+                const matchCat = currentCategory === 'all' || p.category === currentCategory;
+                const matchSearch = p.title.toLowerCase().includes(currentSearch) || 
+                                    p.desc.toLowerCase().includes(currentSearch) ||
+                                    p.catLabel.toLowerCase().includes(currentSearch);
+                return matchCat && matchSearch;
+            });
+
+            counterEl.innerHTML = `Showing <strong>${filtered.length}</strong> items in catalog`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: rgba(255,255,255,0.03); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);">
+                        <p style="font-size: 22px; margin-bottom: 10px;">🔍 No products found</p>
+                        <p style="color: hsl(215, 16%, 70%);">Try searching for "mug", "pen", "bottle", "card", or "diary".</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                const waMessage = encodeURIComponent(
+                    `Hello Design Suvidha! I want to order / inquire about:\n\n*${p.title}*\nPrice: ${p.price}\nCategory: ${p.catLabel}\n\nPlease share design proofing details & payment process.`
+                );
+
+                const featuresHtml = p.features.map(f => `
+                    <div class="product-feat-bullet">
+                        <span class="feat-dot"></span>
+                        <span>${f}</span>
+                    </div>
+                `).join('');
+
+                card.innerHTML = `
+                    <div class="product-thumb-container">
+                        <img src="${p.img}" alt="${p.title}" class="product-thumb-img" loading="lazy">
+                        <span class="product-badge-float">${p.badge}</span>
+                        <span class="product-discount-float">${p.discount}</span>
+                    </div>
+                    <div class="product-body">
+                        <span class="product-cat-tag">${p.catLabel}</span>
+                        <h3 class="product-title">${p.title}</h3>
+                        <p class="product-desc">${p.desc}</p>
+                        <div class="product-features-list">
+                            ${featuresHtml}
+                        </div>
+                        <div class="product-footer-row">
+                            <div class="product-price-block">
+                                <span class="price-main">${p.price}</span>
+                                <div>
+                                    <span class="price-strike">${p.strike}</span>
+                                    <span class="price-unit"> Wholesale</span>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/918739904737?text=${waMessage}" target="_blank" class="btn-order-wa" aria-label="Order ${p.title} on WhatsApp">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
+                                <span>Order Now</span>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Filter button clicks
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.getAttribute('data-category');
+                renderProducts();
+            });
+        });
+
+        // Search input
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase().trim();
+            renderProducts();
+        });
+
+        function filterBy(cat) {
+            filterBtns.forEach(b => {
+                if (b.getAttribute('data-category') === cat) {
+                    b.click();
+                }
+            });
+        }
+
+        // Mobile drawer toggle
+        const toggleBtn = document.getElementById('menu-toggle-btn');
+        const drawer = document.getElementById('mobile-drawer');
+        if (toggleBtn && drawer) {
+            toggleBtn.addEventListener('click', () => {
+                drawer.classList.toggle('open');
+            });
+        }
+
+        // Initial render
+        renderProducts();
+    </script>
+</body>
+</html>

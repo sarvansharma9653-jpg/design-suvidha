@@ -5,6 +5,34 @@
       "destination": "/crm.html"
     },
     {
+      "source": "/store",
+      "destination": "/store.html"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/terms-and-conditions",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/refund-policy",
+      "destination": "/refund.html"
+    },
+    {
+      "source": "/refund",
+      "destination": "/refund.html"
+    },
+    {
       "source": "/whatsapp-webhook.php",
       "destination": "/api/webhook"
     },

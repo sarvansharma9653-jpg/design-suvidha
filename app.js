@@ -416,28 +416,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================================
-    // HOMEPAGE STORE CATEGORY FILTER
+    // HOMEPAGE STORE CATEGORY FILTER (Stories & Pills Sync)
     // ============================================================
     const homeStoreFilters = document.querySelectorAll('#home-store-filters .store-filter-btn');
+    const homeStoryCategories = document.querySelectorAll('#home-story-categories .app-cat-item');
     const homeProductCards = document.querySelectorAll('#home-product-grid .product-card');
 
-    if (homeStoreFilters.length > 0 && homeProductCards.length > 0) {
+    function filterHomeProducts(selectedCat) {
+        // Sync story items
+        homeStoryCategories.forEach(item => {
+            if (item.getAttribute('data-story-cat') === selectedCat) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+
+        // Sync pill buttons
+        homeStoreFilters.forEach(pill => {
+            if (pill.getAttribute('data-home-cat') === selectedCat) {
+                pill.classList.add('active');
+            } else {
+                pill.classList.remove('active');
+            }
+        });
+
+        // Filter cards
+        homeProductCards.forEach(card => {
+            const cardCat = card.getAttribute('data-cat');
+            if (selectedCat === 'all' || cardCat === selectedCat) {
+                card.style.display = 'flex';
+                card.style.animation = 'fadeInUp 0.35s ease forwards';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    if (homeStoreFilters.length > 0) {
         homeStoreFilters.forEach(btn => {
             btn.addEventListener('click', () => {
-                homeStoreFilters.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
                 const selectedCat = btn.getAttribute('data-home-cat');
+                filterHomeProducts(selectedCat);
+            });
+        });
+    }
 
-                homeProductCards.forEach(card => {
-                    const cardCat = card.getAttribute('data-cat');
-                    if (selectedCat === 'all' || cardCat === selectedCat) {
-                        card.style.display = 'flex';
-                        card.style.animation = 'fadeInUp 0.35s ease forwards';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+    if (homeStoryCategories.length > 0) {
+        homeStoryCategories.forEach(item => {
+            item.addEventListener('click', () => {
+                const selectedCat = item.getAttribute('data-story-cat');
+                filterHomeProducts(selectedCat);
             });
         });
     }

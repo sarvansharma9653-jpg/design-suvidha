@@ -532,31 +532,523 @@
     transform: translateY(-2px);
 }
 
-/* Responsive adjustments */
+/* =========================================================================
+   AMAZON & FLIPKART STYLE E-COMMERCE COMPONENTS (MOBILE-FIRST)
+   ========================================================================= */
+
+/* Top Location & Delivery Strip */
+.app-location-strip {
+    background: rgba(14, 16, 28, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: hsl(215, 16%, 80%);
+}
+
+.location-pin-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #00cec9;
+}
+
+.location-pin-group svg {
+    width: 14px;
+    height: 14px;
+}
+
+.delivery-speed-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #2ecc71;
+    font-weight: 700;
+}
+
+/* --- Flipkart / Amazon Circular Category Stories Carousel --- */
+.app-cat-carousel-wrapper {
+    margin: 15px 0 25px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 6px 4px 12px;
+}
+
+.app-cat-carousel-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.app-cat-carousel {
+    display: flex;
+    gap: 16px;
+    min-width: min-content;
+    padding: 0 4px;
+}
+
+.app-cat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    min-width: 68px;
+    transition: transform 0.2s ease;
+}
+
+.app-cat-item:hover, .app-cat-item:active {
+    transform: translateY(-2px);
+}
+
+.app-cat-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(30, 34, 58, 0.9) 0%, rgba(18, 20, 36, 0.9) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.app-cat-item.active .app-cat-circle {
+    border-color: #00cec9;
+    background: linear-gradient(135deg, #6c5ce7 0%, #00cec9 100%);
+    box-shadow: 0 0 16px rgba(0, 206, 201, 0.6);
+    transform: scale(1.06);
+}
+
+.app-cat-name {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: hsl(215, 16%, 80%);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.app-cat-item.active .app-cat-name {
+    color: #00cec9;
+    font-weight: 700;
+}
+
+/* --- Flipkart Style Deal of the Day Banner --- */
+.app-deal-banner {
+    background: linear-gradient(135deg, #2c1a4d 0%, #13243b 50%, #0d2836 100%);
+    border: 1px solid rgba(0, 206, 201, 0.3);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.deal-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.deal-fire-badge {
+    background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.deal-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+}
+
+.deal-sub {
+    font-size: 12.5px;
+    color: hsl(215, 16%, 80%);
+    margin: 2px 0 0;
+}
+
+.deal-badge-assured {
+    background: rgba(0, 206, 201, 0.15);
+    border: 1px solid rgba(0, 206, 201, 0.4);
+    color: #00cec9;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* --- Flipkart / Amazon Card Enhancements --- */
+.assured-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(13, 15, 26, 0.88);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(0, 206, 201, 0.4);
+    color: #00cec9;
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    z-index: 2;
+}
+
+.star-rating-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: #238636;
+    color: #ffffff;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 6px;
+}
+
+.rating-count-text {
+    font-size: 11px;
+    color: hsl(215, 16%, 65%);
+}
+
+.free-delivery-badge {
+    font-size: 11px;
+    color: #2ecc71;
+    font-weight: 700;
+    margin-top: 4px;
+    display: block;
+}
+
+/* --- Quick Order Slide-Up Bottom Sheet Modal --- */
+.quick-buy-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.quick-buy-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.quick-buy-sheet {
+    background: hsl(232, 28%, 9%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.quick-buy-overlay.active .quick-buy-sheet {
+    transform: translateY(0);
+}
+
+.sheet-handle-bar {
+    width: 44px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 9999px;
+    margin: 0 auto 16px;
+}
+
+.sheet-header {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+    position: relative;
+}
+
+.sheet-thumb-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sheet-title-info h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.sheet-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffffff;
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-pill-stack {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0 18px;
+    flex-wrap: wrap;
+}
+
+.qty-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.qty-btn.active {
+    background: #00cec9;
+    color: #0d0f1a;
+    border-color: #00cec9;
+}
+
+.custom-engrave-input {
+    width: 100%;
+    background: rgba(10, 11, 20, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.custom-engrave-input:focus {
+    border-color: #00cec9;
+}
+
+.sheet-buy-wa-btn {
+    width: 100%;
+    background: #25d366;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.sheet-buy-wa-btn:hover {
+    background: #20ba5a;
+    color: #ffffff;
+}
+
+/* --- Fixed Mobile Bottom Navigation Bar (Amazon / Flipkart Style) --- */
+.mobile-bottom-appbar {
+    display: none;
+}
+
 @media (max-width: 768px) {
-    .dual-vertical-spotlight {
-        padding: 16px;
-        margin: 15px auto 30px;
+    .mobile-bottom-appbar {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: rgba(14, 16, 28, 0.96);
+        backdrop-filter: blur(16px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 9998;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 6px;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
     }
-    .dual-spotlight-inner {
+
+    .appbar-item {
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
-    }
-    .dual-tabs-wrapper {
-        width: 100%;
-        justify-content: space-between;
-    }
-    .dual-tab-btn {
-        flex: 1;
+        align-items: center;
         justify-content: center;
-        padding: 8px 12px;
-        font-size: 12.5px;
+        color: hsl(215, 16%, 70%);
+        font-size: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        gap: 3px;
+        flex: 1;
+        transition: color 0.2s ease;
     }
+
+    .appbar-item svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .appbar-item.active {
+        color: #00cec9;
+        font-weight: 700;
+    }
+
+    .appbar-wa-highlight {
+        color: #25d366 !important;
+        font-weight: 800;
+    }
+
+    /* Floating WhatsApp widget & back-to-top reposition on mobile so they don't overlap bottom bar */
+    .whatsapp-chatbot-container {
+        bottom: 72px !important;
+    }
+
+    .back-to-top {
+        bottom: 72px !important;
+        right: 16px !important;
+    }
+
+    .floating-cart-btn {
+        bottom: 72px !important;
+        right: 16px !important;
+        padding: 9px 16px !important;
+        font-size: 12.5px !important;
+    }
+
+    body {
+        padding-bottom: 70px; /* Prevent content under bottom bar */
+    }
+
+    /* --- MOBILE 2-COLUMN PRODUCT GRID (Flipkart & Amazon Mobile Style) --- */
     .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 18px;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        margin-bottom: 30px !important;
     }
-    .store-big-cta-banner {
-        padding: 26px 18px;
+
+    .product-card {
+        border-radius: 14px !important;
+    }
+
+    .product-thumb-container {
+        height: 160px !important;
+    }
+
+    .product-badge-float {
+        font-size: 9.5px !important;
+        padding: 2px 7px !important;
+        top: 8px !important;
+        left: 8px !important;
+    }
+
+    .product-discount-float {
+        font-size: 9.5px !important;
+        padding: 2px 6px !important;
+        top: 8px !important;
+        right: 8px !important;
+    }
+
+    .product-body {
+        padding: 10px !important;
+    }
+
+    .product-cat-tag {
+        font-size: 10px !important;
+        margin-bottom: 3px !important;
+    }
+
+    .product-title {
+        font-size: 13px !important;
+        margin: 0 0 4px !important;
+        line-height: 1.25 !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: 33px;
+    }
+
+    .product-desc {
+        display: none !important; /* Hide long desc on mobile cards for Amazon/Flipkart clean look */
+    }
+
+    .product-features-list {
+        display: none !important; /* Hidden on 2-col cards, shown in Quick View modal */
+    }
+
+    .product-footer-row {
+        padding-top: 8px !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+    }
+
+    .product-price-block {
+        flex-direction: row !important;
+        align-items: baseline !important;
+        justify-content: space-between !important;
+    }
+
+    .price-main {
+        font-size: 16px !important;
+    }
+
+    .btn-order-wa {
+        width: 100% !important;
+        padding: 8px !important;
+        font-size: 12px !important;
+        justify-content: center !important;
+        border-radius: 8px !important;
     }
 }
+

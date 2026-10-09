@@ -96,6 +96,17 @@
         </div>
     </header>
 
+    <!-- Amazon / Flipkart Style Delivery Location Strip -->
+    <div class="app-location-strip">
+        <div class="location-pin-group">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span>Deliver to <strong>Jaipur - 302033</strong></span>
+        </div>
+        <div class="delivery-speed-tag">
+            <span>⚡ Dispatch in 24-48 Hours · Pan-India Logistics</span>
+        </div>
+    </div>
+
     <div class="mobile-nav-drawer" id="mobile-drawer">
         <nav class="mobile-nav-links">
             <a href="#store-showcase" class="mobile-link" style="color: #00cec9; font-weight: 700;">🎁 Printing & Gifts Store (Main)</a>
@@ -199,6 +210,58 @@
                         <div class="trust-item"><span class="trust-item-icon">📦</span><span>Pan-India Courier Logistics</span></div>
                     </div>
 
+                    <!-- Deal of the Day Banner (Amazon / Flipkart Style) -->
+                    <div class="app-deal-banner" id="home-deal-banner" data-anim="zoom-in">
+                        <div class="deal-banner-left">
+                            <span class="deal-fire-badge">Mega Deal 🔥</span>
+                            <div>
+                                <h4 class="deal-title">Corporate Wholesale Gifting Days — Up to 50% Off</h4>
+                                <p class="deal-sub">Free Custom Logo Laser Engraving on Bulk Company Orders · 100% Quality Assurance</p>
+                            </div>
+                        </div>
+                        <div class="deal-badge-assured">
+                            <span>🛡️ DS Assured Quality</span>
+                        </div>
+                    </div>
+
+                    <!-- Flipkart Style Circular Category Stories (Horizontal Carousel) -->
+                    <div class="app-cat-carousel-wrapper">
+                        <div class="app-cat-carousel" id="home-story-categories">
+                            <button class="app-cat-item active" data-story-cat="all">
+                                <div class="app-cat-circle">🌟</div>
+                                <span class="app-cat-name">All Items</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="mugs">
+                                <div class="app-cat-circle">☕</div>
+                                <span class="app-cat-name">Mugs</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="pens">
+                                <div class="app-cat-circle">🖊️</div>
+                                <span class="app-cat-name">Metal Pens</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="cardholders">
+                                <div class="app-cat-circle">💳</div>
+                                <span class="app-cat-name">Card Holders</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="diaries">
+                                <div class="app-cat-circle">📓</div>
+                                <span class="app-cat-name">Diaries</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="drinkware">
+                                <div class="app-cat-circle">🍶</div>
+                                <span class="app-cat-name">Bottles</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="keychains">
+                                <div class="app-cat-circle">🔑</div>
+                                <span class="app-cat-name">Keychains</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="printing">
+                                <div class="app-cat-circle">🖨️</div>
+                                <span class="app-cat-name">Cards & Print</span>
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Quick Category Pills -->
                     <div class="store-filter-bar" id="home-store-filters">
                         <button class="store-filter-btn active" data-home-cat="all">🌟 All Bestsellers</button>
@@ -219,15 +282,23 @@
                                 <img src="assets/products/product_1.jpg" alt="White Ceramic Mug" class="product-thumb-img" loading="lazy">
                                 <span class="product-badge-float">Best Seller 🔥</span>
                                 <span class="product-discount-float">33% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
                             </div>
                             <div class="product-body">
-                                <span class="product-cat-tag">Personalised Mug</span>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Personalised Mug</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.8 ★</span>
+                                        <span class="rating-count-text">(120+)</span>
+                                    </div>
+                                </div>
                                 <h3 class="product-title">White Ceramic Mug – 330 ml</h3>
                                 <p class="product-desc">Vibrant HD Sublimation print that stays bright sip after sip. Dishwasher and microwave safe high-density ceramic.</p>
                                 <div class="product-features-list">
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>HD Full Color Photo/Logo Print</span></div>
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>330 ml Standard Mug Capacity</span></div>
                                 </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                                 <div class="product-footer-row">
                                     <div class="product-price-block">
                                         <span class="price-main">₹199/-</span>
@@ -247,15 +318,23 @@
                                 <img src="assets/products/product_9.jpg" alt="Stainless Steel Card Holder" class="product-thumb-img" loading="lazy">
                                 <span class="product-badge-float">Laser Engraved ⚡</span>
                                 <span class="product-discount-float">40% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
                             </div>
                             <div class="product-body">
-                                <span class="product-cat-tag">Card Holder</span>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Card Holder</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.9 ★</span>
+                                        <span class="rating-count-text">(95+)</span>
+                                    </div>
+                                </div>
                                 <h3 class="product-title">Stainless Steel Card Holder</h3>
                                 <p class="product-desc">Slim stainless steel case. Customized with sharp, permanent laser engraving of your Name and Company Logo.</p>
                                 <div class="product-features-list">
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Permanent Laser Logo/Name</span></div>
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Stores 15+ Visiting Cards</span></div>
                                 </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                                 <div class="product-footer-row">
                                     <div class="product-price-block">
                                         <span class="price-main">₹149/-</span>
@@ -275,15 +354,23 @@
                                 <img src="assets/products/product_17.jpg" alt="Classic Metal Click Pen" class="product-thumb-img" loading="lazy">
                                 <span class="product-badge-float">Wholesale Pick 🖊️</span>
                                 <span class="product-discount-float">40% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
                             </div>
                             <div class="product-body">
-                                <span class="product-cat-tag">Branded Metal Pen</span>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Branded Metal Pen</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.8 ★</span>
+                                        <span class="rating-count-text">(140+)</span>
+                                    </div>
+                                </div>
                                 <h3 class="product-title">Classic Metal Click Pen</h3>
                                 <p class="product-desc">Metal click ballpoint pen with smooth ink flow. Laser engraved with your brand. Optional luxury box (+₹35).</p>
                                 <div class="product-features-list">
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Without Box: ₹90 / With Box: ₹125</span></div>
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Colors: Black, Blue, Maroon, Grey</span></div>
                                 </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                                 <div class="product-footer-row">
                                     <div class="product-price-block">
                                         <span class="price-main">₹90/-</span>
@@ -303,15 +390,23 @@
                                 <img src="assets/products/product_51.jpg" alt="LED Temperature Display Bottle" class="product-thumb-img" loading="lazy">
                                 <span class="product-badge-float">Smart LED 🌡️</span>
                                 <span class="product-discount-float">40% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
                             </div>
                             <div class="product-body">
-                                <span class="product-cat-tag">Smart Drinkware</span>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Smart Drinkware</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.9 ★</span>
+                                        <span class="rating-count-text">(78+)</span>
+                                    </div>
+                                </div>
                                 <h3 class="product-title">LED Temp Display Bottle – 500 ml</h3>
                                 <p class="product-desc">Smart touch LED lid displays beverage temperature. Double-wall 304 stainless steel keeps drinks hot/cold for 12 hours.</p>
                                 <div class="product-features-list">
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Touch LED Display Cap</span></div>
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>12h Hot/Cold Thermal Insulation</span></div>
                                 </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                                 <div class="product-footer-row">
                                     <div class="product-price-block">
                                         <span class="price-main">₹299/-</span>
@@ -331,15 +426,23 @@
                                 <img src="assets/products/product_43.jpg" alt="Color Reveal Premium Diary" class="product-thumb-img" loading="lazy">
                                 <span class="product-badge-float">Executive Pick 📓</span>
                                 <span class="product-discount-float">30% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
                             </div>
                             <div class="product-body">
-                                <span class="product-cat-tag">Executive Diary</span>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Executive Diary</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.8 ★</span>
+                                        <span class="rating-count-text">(64+)</span>
+                                    </div>
+                                </div>
                                 <h3 class="product-title">Color Reveal Premium Diary (A5)</h3>
                                 <p class="product-desc">192 ruled pages (80 GSM paper). Contrast spine color reveal design with integrated pen holder and bookmark.</p>
                                 <div class="product-features-list">
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>192 Ruled Pages / 80 GSM</span></div>
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Contrast Reveal Edge & Pen Loop</span></div>
                                 </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                                 <div class="product-footer-row">
                                     <div class="product-price-block">
                                         <span class="price-main">₹279/-</span>
@@ -359,15 +462,23 @@
                                 <img src="assets/products/product_29.jpg" alt="House Shape Metal Keychain" class="product-thumb-img" loading="lazy">
                                 <span class="product-badge-float">Real Estate Special 🏠</span>
                                 <span class="product-discount-float">38% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
                             </div>
                             <div class="product-body">
-                                <span class="product-cat-tag">Custom Keychain</span>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Custom Keychain</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.7 ★</span>
+                                        <span class="rating-count-text">(110+)</span>
+                                    </div>
+                                </div>
                                 <h3 class="product-title">House Shape Metal Keychain</h3>
                                 <p class="product-desc">Iconic silhouette for Builders, Brokers, and Griha Pravesh gifts. Heavy polished chrome with laser logo engraving.</p>
                                 <div class="product-features-list">
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Real Estate & Builders Special</span></div>
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Double-sided Laser Engraving</span></div>
                                 </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                                 <div class="product-footer-row">
                                     <div class="product-price-block">
                                         <span class="price-main">₹99/-</span>
@@ -387,15 +498,23 @@
                                 <img src="assets/products/product_49.jpg" alt="Non-Slip Custom Mouse Pad" class="product-thumb-img" loading="lazy">
                                 <span class="product-badge-float">Best Value 🖱️</span>
                                 <span class="product-discount-float">50% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
                             </div>
                             <div class="product-body">
-                                <span class="product-cat-tag">Office Accessory</span>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Office Accessory</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.8 ★</span>
+                                        <span class="rating-count-text">(92+)</span>
+                                    </div>
+                                </div>
                                 <h3 class="product-title">Non-Slip Custom Mouse Pad (7x9.5")</h3>
                                 <p class="product-desc">Micro-weave cloth surface optimized for mouse tracking with natural anti-slip rubber grip base. Full HD edge-to-edge print.</p>
                                 <div class="product-features-list">
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Full Color Edge-to-Edge Print</span></div>
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Heavy Anti-Slip Rubber Grip Base</span></div>
                                 </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                                 <div class="product-footer-row">
                                     <div class="product-price-block">
                                         <span class="price-main">₹99/-</span>
@@ -415,15 +534,23 @@
                                 <img src="assets/products/product_10.jpg" alt="Premium Visiting Cards" class="product-thumb-img" loading="lazy">
                                 <span class="product-badge-float">Direct Press 📇</span>
                                 <span class="product-discount-float">37% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
                             </div>
                             <div class="product-body">
-                                <span class="product-cat-tag">Commercial Printing</span>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Commercial Printing</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.9 ★</span>
+                                        <span class="rating-count-text">(210+)</span>
+                                    </div>
+                                </div>
                                 <h3 class="product-title">Visiting & Business Cards</h3>
                                 <p class="product-desc">Custom visiting cards on 350 GSM premium art card. Matte, Gloss, Velvet Soft-Touch, Spot UV & Gold Foil finishes.</p>
                                 <div class="product-features-list">
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Pack of 1000 Cards Starting ₹499</span></div>
                                     <div class="product-feat-bullet"><span class="feat-dot"></span><span>Matte, Velvet, Gold Foil options</span></div>
                                 </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                                 <div class="product-footer-row">
                                     <div class="product-price-block">
                                         <span class="price-main">₹499/-</span>
@@ -885,6 +1012,30 @@
             <div class="chat-panel-footer"><input type="text" id="wa-custom-input" placeholder="Type a message..."><button id="wa-send-btn"><svg viewBox="0 0 24 24" fill="currentColor" class="send-icon"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button></div>
         </div>
     </div>
+
+    <!-- Fixed Mobile Bottom App Bar (Amazon / Flipkart Style) -->
+    <nav class="mobile-bottom-appbar" aria-label="Mobile Navigation">
+        <a href="#home" class="appbar-item active">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>Home</span>
+        </a>
+        <a href="store.html" class="appbar-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-1.99.9-1.99 2L3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z"/></svg>
+            <span>Store</span>
+        </a>
+        <a href="#home-store-filters" class="appbar-item" onclick="document.getElementById('home-store-filters').scrollIntoView({behavior: 'smooth'})">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+            <span>Categories</span>
+        </a>
+        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Custom%20Gifts" target="_blank" class="appbar-item appbar-wa-highlight">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
+            <span>WhatsApp</span>
+        </a>
+        <a href="#services" class="appbar-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5s-4.5 4-4.5 9c0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5c0-5-4.5-9-4.5-9zm0 17.5c-4.4 0-8-3.6-8-8 0-1.8.6-3.5 1.7-4.9l1.4 1.4C6.4 9.5 6 10.7 6 12c0 3.3 2.7 6 6 6s6-2.7 6-6c0-1.3-.4-2.5-1.1-3.5l1.4-1.4c1.1 1.4 1.7 3.1 1.7 4.9 0 4.4-3.6 8-8 8z"/></svg>
+            <span>Services</span>
+        </a>
+    </nav>
 
     <script src="app.js"></script>
 </body>

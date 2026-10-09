@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Store — Printing Solutions & Corporate Gifting | Design Suvidha</title>
-    <meta name="description" content="Official Corporate Gifting & Printing Store by Design Suvidha. Shop Personalised Mugs, Laser Engraved Metal Pens, Stainless Steel Card Holders, Diaries, Smart Drinkware & Visiting Cards at Direct Wholesale Prices in Jaipur.">
+    <meta name="description" content="Shop Corporate Gifts, Personalised Mugs, Laser Engraved Metal Pens, Stainless Steel Card Holders, Luxury Diaries, Smart Bottles & Visiting Cards at Direct Factory Wholesale Prices in Jaipur.">
     <link rel="canonical" href="https://designsuvidha.com/store">
 
     <!-- Fonts & CSS -->
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="ecommerce.css">
     <style>
         .store-page-hero {
-            padding: 120px 0 40px;
+            padding: 95px 0 20px;
             text-align: center;
             position: relative;
         }
@@ -52,6 +52,22 @@
             border-radius: 9999px;
             margin-left: 4px;
         }
+        .quick-view-btn-trigger {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s ease;
+            margin-bottom: 6px;
+        }
+        .quick-view-btn-trigger:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
     </style>
 </head>
 <body class="perspective-container">
@@ -70,12 +86,12 @@
             </a>
             <nav class="nav-menu" id="nav-links-container">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="index.html#services" class="nav-link">Digital Services</a>
-                <a href="index.html#pricing" class="nav-link">Agency Packages</a>
                 <a href="store.html" class="nav-link store-nav-active">Store: Printing & Gifts 🎁</a>
+                <a href="index.html#services" class="nav-link">Digital Services 🚀</a>
+                <a href="index.html#pricing" class="nav-link">Ad Packages</a>
                 <a href="index.html#presence" class="nav-link">Jaipur Office</a>
                 <a href="privacy.html" class="nav-link">Policies</a>
-                <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20have%20a%20bulk%20printing%20inquiry" target="_blank" class="nav-link cta-link">Bulk Inquiry</a>
+                <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20have%20a%20bulk%20printing%20inquiry" target="_blank" class="nav-link cta-link" style="background: #25d366; border-color: #25d366; color: #fff;">Bulk Inquiry 💬</a>
             </nav>
             <div class="nav-actions">
                 <button class="mobile-nav-toggle" id="menu-toggle-btn" aria-label="Toggle Menu">
@@ -85,18 +101,29 @@
         </div>
     </header>
 
+    <!-- Amazon / Flipkart Style Delivery Location Strip -->
+    <div class="app-location-strip">
+        <div class="location-pin-group">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span>Deliver to <strong>Jaipur - 302033</strong></span>
+        </div>
+        <div class="delivery-speed-tag">
+            <span>⚡ Dispatch in 24-48 Hours · Pan-India Logistics</span>
+        </div>
+    </div>
+
     <!-- Mobile Drawer -->
     <div class="mobile-nav-drawer" id="mobile-drawer">
         <nav class="mobile-nav-links">
             <a href="index.html" class="mobile-link">Home</a>
-            <a href="index.html#services" class="mobile-link">Digital Services</a>
+            <a href="store.html" class="mobile-link store-nav-active">Store: Printing & Gifts 🎁 (Main)</a>
+            <a href="index.html#services" class="mobile-link">🚀 Digital Marketing Services</a>
             <a href="index.html#pricing" class="mobile-link">Agency Packages</a>
-            <a href="store.html" class="mobile-link store-nav-active">Store: Printing & Gifts 🎁</a>
-            <a href="index.html#presence" class="mobile-link">Jaipur Office</a>
+            <a href="index.html#presence" class="mobile-link">Jaipur Office Location</a>
             <a href="privacy.html" class="mobile-link">Privacy Policy</a>
             <a href="terms.html" class="mobile-link">Terms & Conditions</a>
             <a href="refund.html" class="mobile-link">Refund Policy</a>
-            <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20have%20a%20bulk%20printing%20inquiry" target="_blank" class="mobile-link">WhatsApp Bulk Orders</a>
+            <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20have%20a%20bulk%20printing%20inquiry" target="_blank" class="mobile-link" style="color: #25d366; font-weight: 700;">WhatsApp Bulk Orders</a>
         </nav>
     </div>
 
@@ -106,24 +133,80 @@
         <section class="store-page-hero">
             <div class="container">
                 <!-- Dual-Vertical Spotlight Switcher -->
-                <div class="dual-vertical-spotlight">
+                <div class="dual-vertical-spotlight" style="margin-top: 10px;">
                     <div class="dual-spotlight-inner">
                         <div class="spotlight-badge-title">
                             <div class="spotlight-icon-box">🎁</div>
                             <div class="spotlight-title-text">
                                 <h4>Design Suvidha E-Commerce Store</h4>
-                                <p>Printing Solutions & Corporate Gifting at Wholesale Rates in Jaipur</p>
+                                <p>Printing Solutions & Corporate Gifting at Direct Wholesale Rates</p>
                             </div>
                         </div>
                         <div class="dual-tabs-wrapper">
+                            <a href="store.html" class="dual-tab-btn active highlight">
+                                <span>🎁 Custom Printing & Gifts</span>
+                                <span class="dual-tab-badge">MAIN</span>
+                            </a>
                             <a href="index.html#services" class="dual-tab-btn">
                                 <span>🚀 Digital & Ads Agency</span>
                             </a>
-                            <a href="store.html" class="dual-tab-btn active">
-                                <span>🎁 Custom Printing & Gifts</span>
-                                <span class="dual-tab-badge">STORE</span>
-                            </a>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Flipkart Style Circular Category Stories (Horizontal Carousel) -->
+                <div class="app-cat-carousel-wrapper">
+                    <div class="app-cat-carousel" id="app-story-categories">
+                        <button class="app-cat-item active" data-story-cat="all">
+                            <div class="app-cat-circle">🌟</div>
+                            <span class="app-cat-name">All (28)</span>
+                        </button>
+                        <button class="app-cat-item" data-story-cat="mugs">
+                            <div class="app-cat-circle">☕</div>
+                            <span class="app-cat-name">Mugs</span>
+                        </button>
+                        <button class="app-cat-item" data-story-cat="pens">
+                            <div class="app-cat-circle">🖊️</div>
+                            <span class="app-cat-name">Metal Pens</span>
+                        </button>
+                        <button class="app-cat-item" data-story-cat="cardholders">
+                            <div class="app-cat-circle">💳</div>
+                            <span class="app-cat-name">Card Holders</span>
+                        </button>
+                        <button class="app-cat-item" data-story-cat="keychains">
+                            <div class="app-cat-circle">🔑</div>
+                            <span class="app-cat-name">Keychains</span>
+                        </button>
+                        <button class="app-cat-item" data-story-cat="diaries">
+                            <div class="app-cat-circle">📓</div>
+                            <span class="app-cat-name">Diaries</span>
+                        </button>
+                        <button class="app-cat-item" data-story-cat="drinkware">
+                            <div class="app-cat-circle">🍶</div>
+                            <span class="app-cat-name">Bottles</span>
+                        </button>
+                        <button class="app-cat-item" data-story-cat="mousepads">
+                            <div class="app-cat-circle">🖱️</div>
+                            <span class="app-cat-name">Mouse Pads</span>
+                        </button>
+                        <button class="app-cat-item" data-story-cat="printing">
+                            <div class="app-cat-circle">🖨️</div>
+                            <span class="app-cat-name">Visiting Cards</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Deal of the Day Banner -->
+                <div class="app-deal-banner" id="app-deal-banner">
+                    <div class="deal-banner-left">
+                        <span class="deal-fire-badge">Mega Deal 🔥</span>
+                        <div>
+                            <h4 class="deal-title">Corporate Wholesale Gifting Days — Up to 50% Off</h4>
+                            <p class="deal-sub">Free Custom Logo Laser Engraving on Bulk Company Orders · 100% Quality Assurance</p>
+                        </div>
+                    </div>
+                    <div class="deal-badge-assured">
+                        <span>🛡️ DS Assured Quality</span>
                     </div>
                 </div>
 
@@ -142,18 +225,26 @@
                     <div class="trust-item"><span class="trust-item-icon">🤝</span><span>Direct Wholesale Factory Rates</span></div>
                 </div>
 
-                <!-- Toolbar (Search & Count) -->
+                <!-- Amazon Style Toolbar (Search & Sort) -->
                 <div class="store-toolbar">
                     <div class="store-search-box">
                         <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                         <input type="text" id="product-search-input" placeholder="Search mugs, pens, card holders, keychains, bottles, diaries...">
                     </div>
-                    <div class="store-stats-counter" id="store-counter-text">
-                        Showing all <strong>28 items</strong> in catalog
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <select id="product-sort-select" style="background: rgba(10, 11, 20, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 13px; outline: none; cursor: pointer;">
+                            <option value="featured">✨ Sort: Featured</option>
+                            <option value="price-asc">₹ Price: Low to High</option>
+                            <option value="price-desc">₹ Price: High to Low</option>
+                            <option value="discount">🔥 Biggest Discount</option>
+                        </select>
+                        <div class="store-stats-counter" id="store-counter-text">
+                            Showing all <strong>28 items</strong>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Category Filters -->
+                <!-- Category Filters (Pills) -->
                 <div class="store-filter-bar" id="store-filters">
                     <button class="store-filter-btn active" data-category="all">🌟 All Items <span class="cat-count-badge">28</span></button>
                     <button class="store-filter-btn" data-category="mugs">☕ Mugs <span class="cat-count-badge">4</span></button>
@@ -168,8 +259,8 @@
             </div>
         </section>
 
-        <!-- Product Cards Grid Section -->
-        <section class="container" style="padding-bottom: 80px;">
+        <!-- Product Cards Grid Section (2-Column on Mobile, 4-Col on Desktop) -->
+        <section class="container" style="padding-bottom: 90px;">
             <div class="product-grid" id="product-grid-container">
                 <!-- Product cards injected by JavaScript below -->
             </div>
@@ -190,11 +281,70 @@
         </section>
     </main>
 
-    <!-- Floating WhatsApp Cart Button -->
+    <!-- Quick Buy Bottom Sheet Modal (Flipkart & Amazon Mobile Style) -->
+    <div class="quick-buy-overlay" id="quick-buy-modal">
+        <div class="quick-buy-sheet">
+            <div class="sheet-handle-bar"></div>
+            <div class="sheet-header">
+                <img id="modal-product-img" src="" alt="" class="sheet-thumb-img">
+                <div class="sheet-title-info">
+                    <h3 id="modal-product-title">Product Title</h3>
+                    <div style="display: flex; gap: 8px; align-items: baseline;">
+                        <span id="modal-product-price" style="font-size: 20px; font-weight: 800; color: #00cec9;">₹0</span>
+                        <span id="modal-product-strike" style="font-size: 13px; color: #888; text-decoration: line-through;">₹0</span>
+                        <span class="star-rating-pill">4.8 ★</span>
+                    </div>
+                </div>
+                <button class="sheet-close-btn" id="modal-close-btn">&times;</button>
+            </div>
+
+            <p style="font-size: 13px; color: #aaa; margin-bottom: 8px;">Select Quantity Tier (Wholesale Discount Applied):</p>
+            <div class="qty-pill-stack">
+                <button class="qty-btn active" data-qty="1">1 Pc (Sample)</button>
+                <button class="qty-btn" data-qty="10">10 Pcs</button>
+                <button class="qty-btn" data-qty="50">50 Pcs</button>
+                <button class="qty-btn" data-qty="100">100+ Pcs (Bulk)</button>
+            </div>
+
+            <label style="font-size: 13px; color: #fff; font-weight: 600; display: block; margin-bottom: 6px;">Customization Details (Optional):</label>
+            <input type="text" id="modal-engrave-input" class="custom-engrave-input" placeholder="e.g. Laser engrave name 'Arun Sharma' or Company Logo">
+
+            <a href="#" id="modal-wa-submit-btn" target="_blank" class="sheet-buy-wa-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
+                <span>Confirm Order on WhatsApp</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Cart Button (Desktop) -->
     <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20place%20an%20order%20from%20your%20Online%20Store!" target="_blank" class="floating-cart-btn" aria-label="Order on WhatsApp">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-        <span>Quick WhatsApp Order</span>
+        <span>Quick Order</span>
     </a>
+
+    <!-- Fixed Mobile Bottom App Bar (Amazon / Flipkart Style) -->
+    <nav class="mobile-bottom-appbar" aria-label="Mobile Navigation">
+        <a href="index.html" class="appbar-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>Home</span>
+        </a>
+        <a href="store.html" class="appbar-item active">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-1.99.9-1.99 2L3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z"/></svg>
+            <span>Store</span>
+        </a>
+        <a href="#app-story-categories" class="appbar-item" onclick="document.getElementById('app-story-categories').scrollIntoView({behavior: 'smooth'})">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+            <span>Categories</span>
+        </a>
+        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Custom%20Gifts" target="_blank" class="appbar-item appbar-wa-highlight">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
+            <span>WhatsApp</span>
+        </a>
+        <a href="index.html#services" class="appbar-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5s-4.5 4-4.5 9c0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5c0-5-4.5-9-4.5-9zm0 17.5c-4.4 0-8-3.6-8-8 0-1.8.6-3.5 1.7-4.9l1.4 1.4C6.4 9.5 6 10.7 6 12c0 3.3 2.7 6 6 6s6-2.7 6-6c0-1.3-.4-2.5-1.1-3.5l1.4-1.4c1.1 1.4 1.7 3.1 1.7 4.9 0 4.4-3.6 8-8 8z"/></svg>
+            <span>Services</span>
+        </a>
+    </nav>
 
     <!-- Footer -->
     <footer class="footer-layout">
@@ -250,7 +400,9 @@
                 category: 'mugs',
                 catLabel: 'Personalised Mug',
                 price: '₹199/-',
+                priceNum: 199,
                 strike: '₹299',
+                strikeNum: 299,
                 discount: '33% OFF',
                 badge: 'Best Seller 🔥',
                 img: 'assets/products/product_1.jpg',
@@ -263,7 +415,9 @@
                 category: 'mugs',
                 catLabel: 'Personalised Mug',
                 price: '₹230/-',
+                priceNum: 230,
                 strike: '₹340',
+                strikeNum: 340,
                 discount: '32% OFF',
                 badge: 'Trending ✨',
                 img: 'assets/products/product_3.jpg',
@@ -276,7 +430,9 @@
                 category: 'mugs',
                 catLabel: 'Personalised Mug',
                 price: '₹249/-',
+                priceNum: 249,
                 strike: '₹380',
+                strikeNum: 380,
                 discount: '34% OFF',
                 badge: 'Special Gift ❤️',
                 img: 'assets/products/product_5.jpg',
@@ -289,7 +445,9 @@
                 category: 'mugs',
                 catLabel: 'Personalised Mug',
                 price: '₹199/-',
+                priceNum: 199,
                 strike: '₹280',
+                strikeNum: 280,
                 discount: '28% OFF',
                 badge: 'Chai Lovers ☕',
                 img: 'assets/products/product_7.jpg',
@@ -304,7 +462,9 @@
                 category: 'cardholders',
                 catLabel: 'Card Holder',
                 price: '₹149/-',
+                priceNum: 149,
                 strike: '₹249',
+                strikeNum: 249,
                 discount: '40% OFF',
                 badge: 'Laser Engraved ⚡',
                 img: 'assets/products/product_9.jpg',
@@ -317,7 +477,9 @@
                 category: 'cardholders',
                 catLabel: 'Card Holder',
                 price: '₹149/-',
+                priceNum: 149,
                 strike: '₹249',
+                strikeNum: 249,
                 discount: '40% OFF',
                 badge: 'Executive',
                 img: 'assets/products/product_11.jpg',
@@ -330,7 +492,9 @@
                 category: 'cardholders',
                 catLabel: 'Card Holder',
                 price: '₹149/-',
+                priceNum: 149,
                 strike: '₹260',
+                strikeNum: 260,
                 discount: '42% OFF',
                 badge: 'Premium Gold',
                 img: 'assets/products/product_13.jpg',
@@ -345,7 +509,9 @@
                 category: 'pens',
                 catLabel: 'Branded Metal Pen',
                 price: '₹90/-',
+                priceNum: 90,
                 strike: '₹150',
+                strikeNum: 150,
                 discount: '40% OFF',
                 badge: 'Economy Pick',
                 img: 'assets/products/product_17.jpg',
@@ -358,7 +524,9 @@
                 category: 'pens',
                 catLabel: 'Branded Metal Pen',
                 price: '₹199/-',
+                priceNum: 199,
                 strike: '₹299',
+                strikeNum: 299,
                 discount: '33% OFF',
                 badge: 'Magnetic Cap 🧲',
                 img: 'assets/products/product_19.jpg',
@@ -371,7 +539,9 @@
                 category: 'pens',
                 catLabel: 'Branded Metal Pen',
                 price: '₹249/-',
+                priceNum: 249,
                 strike: '₹375',
+                strikeNum: 375,
                 discount: '33% OFF',
                 badge: 'Luxury Rose Gold',
                 img: 'assets/products/product_21.jpg',
@@ -384,7 +554,9 @@
                 category: 'pens',
                 catLabel: 'Branded Metal Pen',
                 price: '₹199/-',
+                priceNum: 199,
                 strike: '₹300',
+                strikeNum: 300,
                 discount: '33% OFF',
                 badge: 'Comfort Grip',
                 img: 'assets/products/product_23.jpg',
@@ -397,7 +569,9 @@
                 category: 'pens',
                 catLabel: 'Branded Metal Pen',
                 price: '₹279/-',
+                priceNum: 279,
                 strike: '₹420',
+                strikeNum: 420,
                 discount: '33% OFF',
                 badge: 'Presidential 🌟',
                 img: 'assets/products/product_25.jpg',
@@ -412,7 +586,9 @@
                 category: 'keychains',
                 catLabel: 'Custom Keychain',
                 price: '₹99/-',
+                priceNum: 99,
                 strike: '₹160',
+                strikeNum: 160,
                 discount: '38% OFF',
                 badge: 'Real Estate Special 🏠',
                 img: 'assets/products/product_29.jpg',
@@ -425,7 +601,9 @@
                 category: 'keychains',
                 catLabel: 'Custom Keychain',
                 price: '₹99/-',
+                priceNum: 99,
                 strike: '₹160',
+                strikeNum: 160,
                 discount: '38% OFF',
                 badge: 'Modern Minimal',
                 img: 'assets/products/product_33.jpg',
@@ -438,7 +616,9 @@
                 category: 'keychains',
                 catLabel: 'Custom Keychain',
                 price: '₹119/-',
+                priceNum: 119,
                 strike: '₹190',
+                strikeNum: 190,
                 discount: '37% OFF',
                 badge: 'Matte & Mirror',
                 img: 'assets/products/product_27.jpg',
@@ -451,7 +631,9 @@
                 category: 'keychains',
                 catLabel: 'Custom Keychain',
                 price: '₹119/-',
+                priceNum: 119,
                 strike: '₹190',
+                strikeNum: 190,
                 discount: '37% OFF',
                 badge: 'Classic Round',
                 img: 'assets/products/product_31.jpg',
@@ -464,7 +646,9 @@
                 category: 'keychains',
                 catLabel: 'Custom Keychain',
                 price: '₹149/-',
+                priceNum: 149,
                 strike: '₹240',
+                strikeNum: 240,
                 discount: '37% OFF',
                 badge: 'Heavy Duty ⛓️',
                 img: 'assets/products/product_35.jpg',
@@ -477,7 +661,9 @@
                 category: 'keychains',
                 catLabel: 'Custom Keychain',
                 price: '₹149/-',
+                priceNum: 149,
                 strike: '₹250',
+                strikeNum: 250,
                 discount: '40% OFF',
                 badge: 'Stitched Leather',
                 img: 'assets/products/product_37.jpg',
@@ -490,7 +676,9 @@
                 category: 'keychains',
                 catLabel: 'Custom Keychain',
                 price: '₹149/-',
+                priceNum: 149,
                 strike: '₹240',
+                strikeNum: 240,
                 discount: '37% OFF',
                 badge: '2-in-1 Tool 🍾',
                 img: 'assets/products/product_39.jpg',
@@ -505,7 +693,9 @@
                 category: 'diaries',
                 catLabel: 'Executive Diary',
                 price: '₹279/-',
+                priceNum: 279,
                 strike: '₹399',
+                strikeNum: 399,
                 discount: '30% OFF',
                 badge: 'Best Seller 📓',
                 img: 'assets/products/product_43.jpg',
@@ -518,7 +708,9 @@
                 category: 'diaries',
                 catLabel: 'Executive Diary',
                 price: '₹299/-',
+                priceNum: 299,
                 strike: '₹450',
+                strikeNum: 450,
                 discount: '33% OFF',
                 badge: 'Magnetic Clasp',
                 img: 'assets/products/product_41.jpg',
@@ -531,7 +723,9 @@
                 category: 'diaries',
                 catLabel: 'Executive Diary',
                 price: '₹349/-',
+                priceNum: 349,
                 strike: '₹500',
+                strikeNum: 500,
                 discount: '30% OFF',
                 badge: 'Geometric Pattern',
                 img: 'assets/products/product_45.jpg',
@@ -544,7 +738,9 @@
                 category: 'diaries',
                 catLabel: 'Executive Diary',
                 price: '₹349/-',
+                priceNum: 349,
                 strike: '₹520',
+                strikeNum: 520,
                 discount: '32% OFF',
                 badge: 'Gold Gilded 👑',
                 img: 'assets/products/product_47.jpg',
@@ -559,7 +755,9 @@
                 category: 'drinkware',
                 catLabel: 'Smart Drinkware',
                 price: '₹299/-',
+                priceNum: 299,
                 strike: '₹499',
+                strikeNum: 499,
                 discount: '40% OFF',
                 badge: 'Smart LED 🌡️',
                 img: 'assets/products/product_51.jpg',
@@ -572,7 +770,9 @@
                 category: 'drinkware',
                 catLabel: 'Smart Drinkware',
                 price: '₹349/-',
+                priceNum: 349,
                 strike: '₹550',
+                strikeNum: 550,
                 discount: '36% OFF',
                 badge: 'Active Lifestyle',
                 img: 'assets/products/product_53.jpg',
@@ -585,7 +785,9 @@
                 category: 'drinkware',
                 catLabel: 'Smart Drinkware',
                 price: '₹449/-',
+                priceNum: 449,
                 strike: '₹680',
+                strikeNum: 680,
                 discount: '34% OFF',
                 badge: 'Minimal Matte',
                 img: 'assets/products/product_54.jpg',
@@ -598,7 +800,9 @@
                 category: 'drinkware',
                 catLabel: 'Smart Drinkware',
                 price: '₹549/-',
+                priceNum: 549,
                 strike: '₹850',
+                strikeNum: 850,
                 discount: '35% OFF',
                 badge: 'Mega 900ml 🥤',
                 img: 'assets/products/product_55.jpg',
@@ -613,7 +817,9 @@
                 category: 'mousepads',
                 catLabel: 'Office Accessory',
                 price: '₹99/-',
+                priceNum: 99,
                 strike: '₹199',
+                strikeNum: 199,
                 discount: '50% OFF',
                 badge: 'Best Value 🖱️',
                 img: 'assets/products/product_49.jpg',
@@ -628,7 +834,9 @@
                 category: 'printing',
                 catLabel: 'Commercial Printing',
                 price: 'Starting ₹499/-',
+                priceNum: 499,
                 strike: '₹800',
+                strikeNum: 800,
                 discount: '37% OFF',
                 badge: 'Direct Press 📇',
                 img: 'assets/products/product_10.jpg',
@@ -641,7 +849,9 @@
                 category: 'printing',
                 catLabel: 'Commercial Printing',
                 price: 'Starting ₹799/-',
+                priceNum: 799,
                 strike: '₹1,200',
+                strikeNum: 1200,
                 discount: '33% OFF',
                 badge: 'High Speed Offset',
                 img: 'assets/products/product_14.jpg',
@@ -654,7 +864,9 @@
                 category: 'printing',
                 catLabel: 'Commercial Printing',
                 price: 'Starting ₹299/-',
+                priceNum: 299,
                 strike: '₹500',
+                strikeNum: 500,
                 discount: '40% OFF',
                 badge: 'Waterproof Vinyl',
                 img: 'assets/products/product_12.jpg',
@@ -667,7 +879,9 @@
                 category: 'printing',
                 catLabel: 'Commercial Printing',
                 price: 'Starting ₹999/-',
+                priceNum: 999,
                 strike: '₹1,500',
+                strikeNum: 1500,
                 discount: '33% OFF',
                 badge: 'Clinic Special 🏥',
                 img: 'assets/products/product_16.jpg',
@@ -680,7 +894,9 @@
                 category: 'printing',
                 catLabel: 'Commercial Printing',
                 price: 'Starting ₹350/-',
+                priceNum: 350,
                 strike: '₹600',
+                strikeNum: 600,
                 discount: '41% OFF',
                 badge: 'Large Format 🚩',
                 img: 'assets/products/product_18.jpg',
@@ -692,22 +908,98 @@
         // RENDER PRODUCTS
         const container = document.getElementById('product-grid-container');
         const searchInput = document.getElementById('product-search-input');
+        const sortSelect = document.getElementById('product-sort-select');
         const counterEl = document.getElementById('store-counter-text');
         const filterBtns = document.querySelectorAll('.store-filter-btn');
+        const storyBtns = document.querySelectorAll('.app-cat-item');
 
         let currentCategory = 'all';
         let currentSearch = '';
+        let currentSort = 'featured';
+
+        // Modal Elements
+        const modal = document.getElementById('quick-buy-modal');
+        const modalClose = document.getElementById('modal-close-btn');
+        const modalImg = document.getElementById('modal-product-img');
+        const modalTitle = document.getElementById('modal-product-title');
+        const modalPrice = document.getElementById('modal-product-price');
+        const modalStrike = document.getElementById('modal-product-strike');
+        const modalQtyBtns = document.querySelectorAll('.qty-btn');
+        const modalEngraveInput = document.getElementById('modal-engrave-input');
+        const modalWaSubmit = document.getElementById('modal-wa-submit-btn');
+
+        let activeModalProduct = null;
+        let selectedQty = 1;
+
+        function openQuickBuy(productId) {
+            const product = PRODUCTS_DATA.find(p => p.id === productId);
+            if (!product) return;
+            activeModalProduct = product;
+            selectedQty = 1;
+
+            modalImg.src = product.img;
+            modalTitle.innerText = product.title;
+            modalPrice.innerText = product.price;
+            modalStrike.innerText = product.strike;
+            modalEngraveInput.value = '';
+
+            modalQtyBtns.forEach(b => b.classList.remove('active'));
+            if (modalQtyBtns[0]) modalQtyBtns[0].classList.add('active');
+
+            updateModalWaUrl();
+            modal.classList.add('active');
+        }
+
+        function closeQuickBuy() {
+            modal.classList.remove('active');
+        }
+
+        if (modalClose) modalClose.addEventListener('click', closeQuickBuy);
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeQuickBuy();
+            });
+        }
+
+        modalQtyBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalQtyBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedQty = parseInt(btn.getAttribute('data-qty')) || 1;
+                updateModalWaUrl();
+            });
+        });
+
+        if (modalEngraveInput) {
+            modalEngraveInput.addEventListener('input', updateModalWaUrl);
+        }
+
+        function updateModalWaUrl() {
+            if (!activeModalProduct) return;
+            const customText = modalEngraveInput ? modalEngraveInput.value.trim() : '';
+            const msg = `Hello Design Suvidha! I want to order:\n\n*Product:* ${activeModalProduct.title}\n*Rate:* ${activeModalProduct.price}\n*Quantity:* ${selectedQty} Pcs\n${customText ? `*Custom Laser Engraving:* ${customText}\n` : ''}\nPlease confirm delivery timeline to Jaipur & payment process.`;
+            modalWaSubmit.href = `https://wa.me/918739904737?text=${encodeURIComponent(msg)}`;
+        }
 
         function renderProducts() {
             container.innerHTML = '';
             
-            const filtered = PRODUCTS_DATA.filter(p => {
+            let filtered = PRODUCTS_DATA.filter(p => {
                 const matchCat = currentCategory === 'all' || p.category === currentCategory;
                 const matchSearch = p.title.toLowerCase().includes(currentSearch) || 
                                     p.desc.toLowerCase().includes(currentSearch) ||
                                     p.catLabel.toLowerCase().includes(currentSearch);
                 return matchCat && matchSearch;
             });
+
+            // Sorting logic
+            if (currentSort === 'price-asc') {
+                filtered.sort((a, b) => a.priceNum - b.priceNum);
+            } else if (currentSort === 'price-desc') {
+                filtered.sort((a, b) => b.priceNum - a.priceNum);
+            } else if (currentSort === 'discount') {
+                filtered.sort((a, b) => (b.strikeNum - b.priceNum) - (a.strikeNum - a.priceNum));
+            }
 
             counterEl.innerHTML = `Showing <strong>${filtered.length}</strong> items in catalog`;
 
@@ -737,18 +1029,27 @@
                 `).join('');
 
                 card.innerHTML = `
-                    <div class="product-thumb-container">
+                    <div class="product-thumb-container" onclick="openQuickBuy('${p.id}')" style="cursor: pointer;">
                         <img src="${p.img}" alt="${p.title}" class="product-thumb-img" loading="lazy">
                         <span class="product-badge-float">${p.badge}</span>
                         <span class="product-discount-float">${p.discount}</span>
+                        <span class="assured-badge">🛡️ DS Assured</span>
                     </div>
                     <div class="product-body">
-                        <span class="product-cat-tag">${p.catLabel}</span>
-                        <h3 class="product-title">${p.title}</h3>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                            <span class="product-cat-tag">${p.catLabel}</span>
+                            <div>
+                                <span class="star-rating-pill">4.8 ★</span>
+                                <span class="rating-count-text">(85+)</span>
+                            </div>
+                        </div>
+                        <h3 class="product-title" onclick="openQuickBuy('${p.id}')" style="cursor: pointer;">${p.title}</h3>
                         <p class="product-desc">${p.desc}</p>
                         <div class="product-features-list">
                             ${featuresHtml}
                         </div>
+                        <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Reprint Guarantee</span>
+                        <button class="quick-view-btn-trigger" onclick="openQuickBuy('${p.id}')">⚡ Quick View / Customize</button>
                         <div class="product-footer-row">
                             <div class="product-price-block">
                                 <span class="price-main">${p.price}</span>
@@ -759,7 +1060,7 @@
                             </div>
                             <a href="https://wa.me/918739904737?text=${waMessage}" target="_blank" class="btn-order-wa" aria-label="Order ${p.title} on WhatsApp">
                                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-                                <span>Order Now</span>
+                                <span>Order on WhatsApp</span>
                             </a>
                         </div>
                     </div>
@@ -768,21 +1069,62 @@
             });
         }
 
-        // Filter button clicks
+        // Filter button clicks (Pills)
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentCategory = btn.getAttribute('data-category');
+                syncStoryCategory(currentCategory);
                 renderProducts();
             });
         });
+
+        // Flipkart Circular Stories Clicks
+        storyBtns.forEach(item => {
+            item.addEventListener('click', () => {
+                storyBtns.forEach(b => b.classList.remove('active'));
+                item.classList.add('active');
+                const cat = item.getAttribute('data-story-cat');
+                currentCategory = cat;
+                syncPillCategory(cat);
+                renderProducts();
+            });
+        });
+
+        function syncStoryCategory(cat) {
+            storyBtns.forEach(b => {
+                if (b.getAttribute('data-story-cat') === cat) {
+                    b.classList.add('active');
+                } else {
+                    b.classList.remove('active');
+                }
+            });
+        }
+
+        function syncPillCategory(cat) {
+            filterBtns.forEach(b => {
+                if (b.getAttribute('data-category') === cat) {
+                    b.classList.add('active');
+                } else {
+                    b.classList.remove('active');
+                }
+            });
+        }
 
         // Search input
         searchInput.addEventListener('input', (e) => {
             currentSearch = e.target.value.toLowerCase().trim();
             renderProducts();
         });
+
+        // Sort select
+        if (sortSelect) {
+            sortSelect.addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                renderProducts();
+            });
+        }
 
         function filterBy(cat) {
             filterBtns.forEach(b => {

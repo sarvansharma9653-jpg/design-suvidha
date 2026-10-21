@@ -509,6 +509,119 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ============================================================
+    
+    // ============================================================
+    // DYNAMIC PRODUCTS LOADER (Google Drive Catalog + Admin Sync)
+    // ============================================================
+    const DEFAULT_STORE_PRODUCTS = [
+        { id: 'prod-mug-white', title: 'White Ceramic Mug – 330 ml', category: 'mugs', catLabel: 'Personalised Mug', price: 199, strike: 299, badge: 'Best Seller 🔥', img: 'assets/products/product_1.jpg', desc: 'Vibrant HD Sublimation print that stays bright sip after sip. Dishwasher and microwave safe high-density ceramic.', features: ['Vibrant HD Full Color Print', 'Capacity: 330 ml Standard', 'Dishwasher & Microwave Safe'] },
+        { id: 'prod-mug-inner-color', title: 'Inner Color Ceramic Mug – 330 ml', category: 'mugs', catLabel: 'Personalised Mug', price: 230, strike: 340, badge: 'Trending ✨', img: 'assets/products/product_3.jpg', desc: 'Dual-tone premium ceramic with colorful interior. Available in Black, Blue, Orange, Red, Mint, and Yellow.', features: ['6 Vibrant Inner Color Options', 'High Contrast Exterior HD Print', 'Capacity: 330 ml'] },
+        { id: 'prod-mug-heart', title: 'Heart Handle Mug – 330 ml', category: 'mugs', catLabel: 'Personalised Mug', price: 249, strike: 380, badge: 'Special Gift ❤️', img: 'assets/products/product_5.jpg', desc: 'Elegant heart-shaped handle mug. Perfect for anniversary gifts, couple photos, birthdays, and special corporate tokens.', features: ['Ergonomic Heart-Shaped Handle', 'HD Sublimation Print', 'Capacity: 330 ml'] },
+        { id: 'prod-mug-chai', title: 'Mini Ceramic Chai Mug – 190 ml', category: 'mugs', catLabel: 'Personalised Mug', price: 199, strike: 280, badge: 'Chai Lovers ☕', img: 'assets/products/product_7.jpg', desc: 'Authentic 180–190 ml portion—the exact gold-standard volume for Indian chai, filter coffee, or espresso.', features: ['190 ml Ideal Chai/Espresso Size', 'Standard & Fine Ceramic options', 'Custom Logo or Personal Name'] },
+        { id: 'prod-pen-classic', title: 'Classic Metal Click Pen', category: 'pens', catLabel: 'Branded Metal Pen', price: 90, strike: 150, badge: 'Economy Pick', img: 'assets/products/product_17.jpg', desc: 'Durable metal click ballpoint pen with smooth ink flow. Optional luxury gift box (+₹35). Laser engraved.', features: ['Without Box: ₹90 / With Box: ₹125', 'Colors: Black, Blue, Maroon, Grey', 'Laser Engraved Name or Brand'] },
+        { id: 'prod-pen-magnetic', title: 'Magnetic Gel Metal Pen', category: 'pens', catLabel: 'Branded Metal Pen', price: 199, strike: 299, badge: 'Magnetic Cap 🧲', img: 'assets/products/product_19.jpg', desc: 'Executive magnetic cap snap closure. Matte barrel with fine gel ink rollerball mechanism.', features: ['Precision Magnetic Cap Action', 'Ultra-smooth Gel Refill', 'Cap or Body Laser Engraving'] },
+        { id: 'prod-pen-rosegold', title: 'Black Metal Pen with Rose Gold', category: 'pens', catLabel: 'Branded Metal Pen', price: 249, strike: 375, badge: 'Luxury Rose Gold', img: 'assets/products/product_21.jpg', desc: 'Crafted with premium matte black body and striking rose gold clip and accents for an ultra-luxurious appearance.', features: ['Rose Gold Clip & Accent Rings', 'Cap + Body Engraving Available', 'Heavyweight Executive Feel'] },
+        { id: 'prod-pen-textured', title: 'Textured Grip Metal Pen', category: 'pens', catLabel: 'Branded Metal Pen', price: 199, strike: 300, badge: 'Comfort Grip', img: 'assets/products/product_23.jpg', desc: 'Machined micro-textured grip zone provides fatigue-free writing during long signing sessions and conferences.', features: ['Engineered Anti-Slip Grip', 'Laser Engraved Personal Name', 'Durable Metal Hardware'] },
+        { id: 'prod-pen-gunmetal', title: 'Gold Accent Gunmetal Executive Pen', category: 'pens', catLabel: 'Branded Metal Pen', price: 279, strike: 420, badge: 'Presidential 🌟', img: 'assets/products/product_25.jpg', desc: 'Our flagship executive writing instrument. Gunmetal finish with 24K-look gold accents and weighted balance.', features: ['Heavy Balanced Weight Balance', 'Gold Trims & Premium Presentation', 'High Precision Laser Branding'] },
+        { id: 'prod-bottle-led', title: 'LED Temperature Display Bottle – 500 ml', category: 'drinkware', catLabel: 'Smart Drinkware', price: 299, strike: 499, badge: 'Smart LED 🌡️', img: 'assets/products/product_51.jpg', desc: 'Touch-sensitive LED lid indicates real-time beverage temperature. 304 food-grade double-wall vacuum insulation.', features: ['Touch LED Temperature Display Lid', '500 ml Capacity / SUS 304 Steel', '12-Hour Hot & Cold Retention'] },
+        { id: 'prod-bottle-rope', title: 'Vacuum Bottle with Carry Rope – 500 ml', category: 'drinkware', catLabel: 'Smart Drinkware', price: 349, strike: 550, badge: 'Active Lifestyle', img: 'assets/products/product_53.jpg', desc: 'Features a durable silicone lanyard loop for easy carrying during gym, travel, and campus commutes.', features: ['Flexible Silicone Carry Handle', 'Double Wall Thermal Vacuum', 'Matte Powder Coated Finish'] },
+        { id: 'prod-bottle-matte', title: 'Matte Black Slim Vacuum Bottle – 500 ml', category: 'drinkware', catLabel: 'Smart Drinkware', price: 449, strike: 680, badge: 'Minimal Matte', img: 'assets/products/product_54.jpg', desc: 'Minimalist aerodynamic slim cylinder finished in deep stealth matte black. Laser engraving reveals polished steel.', features: ['Tactile Non-Slip Matte Finish', 'Contrast Laser Steel Engraving', 'Slim Fit in Car Cup Holders'] },
+        { id: 'prod-tumbler-900', title: 'Vacuum Tumbler with Straw – 900 ml', category: 'drinkware', catLabel: 'Smart Drinkware', price: 549, strike: 850, badge: 'Mega 900ml 🥤', img: 'assets/products/product_55.jpg', desc: 'Massive 900 ml capacity tumbler equipped with ergonomic carry handle, 2-in-1 sip/straw lid, and 24-hour ice retention.', features: ['Huge 900 ml Hydration Capacity', 'Ergonomic Easy-Grip Handle', 'Reusable Silicone Tip Straw Included'] },
+        { id: 'prod-diary-color', title: 'Color Reveal Premium Diary (A5)', category: 'diaries', catLabel: 'Executive Diary', price: 279, strike: 399, badge: 'Best Seller 📓', img: 'assets/products/product_43.jpg', desc: '192 ruled pages (80 GSM natural shade paper). Contrast edge and spine color reveal styling with elastic pen loop.', features: ['192 Ruled Pages (80 GSM Paper)', 'Contrast Color Reveal Spine', 'Integrated Elastic Pen Loop'] },
+        { id: 'prod-diary-magnetic', title: 'Magnetic Lock Executive Diary', category: 'diaries', catLabel: 'Executive Diary', price: 299, strike: 450, badge: 'Magnetic Clasp', img: 'assets/products/product_41.jpg', desc: 'Contemporary faux leather cover secured by a sleek magnetic flap lock. Includes yearly planner and calendar.', features: ['Strong Hidden Magnetic Clasp', 'Smooth Faux Leather Cover', 'Yearly & Monthly Planner Pages'] },
+        { id: 'prod-diary-gold', title: 'Gold Border Luxury Diary', category: 'diaries', catLabel: 'Executive Diary', price: 349, strike: 520, badge: 'Gold Gilded 👑', img: 'assets/products/product_47.jpg', desc: 'Page edges gilded in radiant gold foil shimmer. Crafted from rich leatherette texture with custom foil hot-stamping.', features: ['Gold Foil Gilded Page Edges', 'Heavy Gauge Executive Leatherette', 'Silk Ribbon Marker'] },
+        { id: 'prod-hamper-3in1', title: 'Executive 3-in-1 Employee Welcome Kit', category: 'diaries', catLabel: 'Corporate Hamper', price: 699, strike: 1100, badge: 'Corporate Hamper 🏢', img: 'assets/products/product_44.jpg', desc: 'Premium customized gift box containing Gold Border Luxury Diary, Laser Engraved Metal Pen, and Steel Card Holder.', features: ['Complete 3-in-1 Executive Set', 'Customized Company Logo', 'Luxury Presentation Box'] },
+        { id: 'prod-cardholder-steel', title: 'Stainless Steel Card Holder', category: 'cardholders', catLabel: 'Card Holder', price: 149, strike: 249, badge: 'Laser Engraved ⚡', img: 'assets/products/product_9.jpg', desc: 'Slim stainless steel visiting card case. Customized with sharp, permanent laser engraving of your brand or logo.', features: ['Precision Laser Engraved Name/Logo', 'Stores 15+ Cards securely', 'Ultra-slim pocket profile'] },
+        { id: 'prod-keychain-house', title: 'House Shape Metal Keychain', category: 'keychains', catLabel: 'Custom Keychain', price: 99, strike: 160, badge: 'Real Estate Special 🏠', img: 'assets/products/product_29.jpg', desc: 'Designed specifically for Builders, Brokers, and Griha Pravesh gifts. High gloss metal alloy with double-sided engraving.', features: ['Iconic House Silhouette', 'Double-sided Laser Engraving', 'Heavy Polished Chrome Finish'] },
+        { id: 'prod-mousepad', title: 'Non-Slip Custom Mouse Pad (7x9.5")', category: 'mousepads', catLabel: 'Office Accessory', price: 99, strike: 199, badge: 'Best Value 🖱️', img: 'assets/products/product_49.jpg', desc: 'High-density micro-weave cloth surface optimized for optical mouse precision with heavy natural anti-slip rubber base.', features: ['Full Edge-to-Edge HD Color Print', 'High-Traction Anti-Slip Rubber Base', 'Size: 7 x 9.5 Inches (3mm Thick)'] },
+        { id: 'prod-print-visiting', title: 'Premium Visiting & Business Cards', category: 'printing', catLabel: 'Commercial Printing', price: 499, strike: 800, badge: 'Direct Press 📇', img: 'assets/products/product_10.jpg', desc: 'Custom business cards on 350 GSM premium art card. Finishes: Matte, Gloss, Velvet Soft-Touch, and Spot UV.', features: ['Pack of 1000 Cards Starting ₹499', 'Matte / Gloss / Velvet Lamination', 'Spot UV & Gold Foil Options'] }
+    ];
+
+    function getLiveStoreProducts() {
+        try {
+            const stored = localStorage.getItem('ds_products');
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+            }
+        } catch (e) { console.error(e); }
+        // Initialize localStorage with defaults
+        localStorage.setItem('ds_products', JSON.stringify(DEFAULT_STORE_PRODUCTS));
+        return DEFAULT_STORE_PRODUCTS;
+    }
+
+    function renderLiveHomeProductsGrid() {
+        const grid = document.getElementById('home-product-grid');
+        if (!grid) return;
+
+        const products = getLiveStoreProducts();
+        let html = '';
+
+        products.forEach(p => {
+            const discPercent = p.strike ? Math.round(((p.strike - p.price) / p.strike) * 100) : 35;
+            const featuresHtml = (p.features || []).map(f => `<div class="product-feat-bullet"><span class="feat-dot"></span><span>${f}</span></div>`).join('');
+
+            html += `
+                <div class="product-card" data-cat="${p.category || 'mugs'}">
+                    <div class="product-thumb-container">
+                        <img src="${p.img || 'assets/products/product_1.jpg'}" alt="${p.title}" class="product-thumb-img" loading="lazy">
+                        <span class="product-badge-float">${p.badge || 'Best Seller 🔥'}</span>
+                        <span class="product-discount-float">${discPercent}% OFF</span>
+                        <span class="assured-badge">🛡️ DS Assured</span>
+                    </div>
+                    <div class="product-body">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                            <span class="product-cat-tag">${(p.catLabel || p.category || 'Gift Item').toUpperCase()}</span>
+                            <div>
+                                <span class="star-rating-pill">4.8 ★</span>
+                                <span class="rating-count-text">(120+)</span>
+                            </div>
+                        </div>
+                        <h3 class="product-title">${p.title}</h3>
+                        <p class="product-desc">${p.desc || ''}</p>
+                        <div class="product-features-list">
+                            ${featuresHtml}
+                        </div>
+                        <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                        <div class="product-footer-row">
+                            <div class="product-price-block">
+                                <span class="price-main">₹${p.price}/-</span>
+                                <div><span class="price-strike">${p.strike ? '₹' + p.strike : ''}</span><span class="price-unit"> Wholesale</span></div>
+                            </div>
+                            <div class="product-card-actions">
+                                <button type="button" class="btn-add-cart" data-title="${p.title}" data-price="${p.price}" data-img="${p.img}">🛒 Add</button>
+                                <a href="https://wa.me/918739904737?text=${encodeURIComponent('Hello Design Suvidha, I want to order ' + p.title + ' at Rs ' + p.price)}" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        grid.innerHTML = html;
+
+        // Re-wire Add to Cart buttons
+        grid.querySelectorAll('.btn-add-cart').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const title = btn.getAttribute('data-title');
+                const price = btn.getAttribute('data-price');
+                const img = btn.getAttribute('data-img');
+                if (typeof addToCart === 'function') {
+                    addToCart(title, price, img);
+                }
+            });
+        });
+
+        // Re-wire Quick Buy buttons
+        if (typeof wireQuickBuyModal === 'function') {
+            wireQuickBuyModal();
+        }
+    }
+
+    // Call live render on DOM load
+    renderLiveHomeProductsGrid();
+
     // 14. E-COMMERCE CART ENGINE & LOCALSTORAGE PERSISTENCE
     // ============================================================
     const cartDrawerOverlay = document.getElementById('cart-drawer-overlay');

@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard & Product Manager | Design Suvidha</title>
+    <link rel="icon" type="image/png" href="design suvidha logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ecommerce.css">
+    <style>
+        :root {
+            --admin-bg: #f0f2f5;
+            --admin-navy: #131921;
+            --admin-sidebar: #232f3e;
+            --admin-primary: #007185;
+            --admin-accent: #ff9900;
+            --admin-gold: #ffd814;
+            --admin-border: #d5d9d9;
+            --admin-card: #ffffff;
+            --admin-text: #0f1111;
+            --admin-muted: #565959;
+        }
+
+        body.admin-body {
+            background: var(--admin-bg);
+            color: var(--admin-text);
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* --- PIN AUTH OVERLAY --- */
+        .admin-auth-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(19, 25, 33, 0.95);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+        }
+
+        .admin-auth-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 36px 32px;
+            width: 380px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--admin-border);
+        }
+
+        .admin-auth-logo {
+            height: 44px;
+            margin-bottom: 16px;
+        }
+
+        .admin-auth-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--admin-navy);
+            margin: 0 0 6px;
+        }
+
+        .admin-auth-sub {
+            font-size: 13px;
+            color: var(--admin-muted);
+            margin-bottom: 20px;
+        }
+
+        .pin-dots-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .admin-pin-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #a6a6a6;
+            background: transparent;
+            transition: all 0.2s;
+        }
+
+        .admin-pin-dot.filled {
+            background: var(--admin-accent);
+            border-color: var(--admin-accent);
+            transform: scale(1.15);
+        }
+
+        .admin-keypad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 260px;
+            margin: 0 auto 16px;
+        }
+
+        .admin-key-btn {
+            background: #f7fafa;
+            border: 1px solid var(--admin-border);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--admin-text);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .admin-key-btn:hover {
+            background: #e3e6e6;
+            border-color: #a6a6a6;
+        }
+
+        .admin-key-btn:active {
+            transform: scale(0.95);
+        }
+
+        .admin-quick-unlock-btn {
+            background: #ffd814;
+            border: 1px solid #fcd200;
+            color: #0f1111;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .admin-auth-error {
+            color: #c40000;
+            font-size: 12.5px;
+            font-weight: 600;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* --- MAIN ADMIN LAYOUT --- */
+        .admin-navbar {
+            background: var(--admin-navy);
+            color: #ffffff;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .admin-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .admin-nav-logo {
+            height: 34px;
+        }
+
+        .admin-portal-badge {
+            background: var(--admin-accent);
+            color: #111;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .admin-nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .admin-nav-tab {
+            background: transparent;
+            border: none;
+            color: #ccc;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .admin-nav-tab:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .admin-nav-tab.active {
+            background: #232f3e;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .admin-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-view-live {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-view-live:hover {
+            background: rgba(255, 255, 255, 0.25);
+            color: #fff;
+        }
+
+        /* --- DASHBOARD CONTAINER --- */
+        .admin-main-container {
+            max-width: 1260px;
+            margin: 24px auto;
+            padding: 0 20px;
+        }
+
+        .admin-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .admin-page-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--admin-text);
+            margin: 0;
+        }
+
+        .admin-page-sub {
+            font-size: 13.5px;
+            color: var(--admin-muted);
+            margin: 4px 0 0;
+        }
+
+        .btn-add-product-main {
+            background: #ffd814;
+            color: #0f1111;
+            border: 1px solid #fcd200;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+            transition: all 0.2s;
+        }
+
+        .btn-add-product-main:hover {
+            background: #f7ca00;
+            transform: translateY(-1px);
+        }
+
+        /* --- STATS BAR --- */
+        .admin-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .admin-stat-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 18px 20px;
+            border: 1px solid var(--admin-border);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--admin-text);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 12.5px;
+            color: var(--admin-muted);
+            margin-top: 4px;
+        }
+
+        .stat-icon {
+            font-size: 30px;
+            opacity: 0.85;
+        }
+
+        /* --- TAB CONTENT PANELS --- */
+        .admin-tab-view {
+            display: none;
+        }
+
+        .admin-tab-view.active {
+            display: block;
+        }
+
+        /* --- PRODUCTS TABLE & CARDS --- */
+        .admin-toolbar-row {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 14px 18px;
+            border: 1px solid var(--admin-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .admin-search-input {
+            border: 1px solid var(--admin-border);
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-size: 13.5px;
+            min-width: 280px;
+            outline: none;
+        }
+
+        .admin-search-input:focus {
+            border-color: var(--admin-primary);
+            box-shadow: 0 0 0 3px rgba(0, 113, 133, 0.15);
+        }
+
+        .admin-cat-filter {
+            border: 1px solid var(--admin-border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 13.5px;
+            outline: none;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .admin-products-table {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid var(--admin-border);
+            border-collapse: collapse;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .admin-products-table th {
+            background: #f7fafa;
+            color: var(--admin-muted);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--admin-border);
+        }
+
+        .admin-products-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #eef0f2;
+            font-size: 13.5px;
+            color: var(--admin-text);
+            vertical-align: middle;
+        }
+
+        .admin-products-table tr:hover {
+            background: #fcfdfd;
+        }
+
+        .table-thumb {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .prod-tag {
+            background: #f0f2f2;
+            color: #333;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .price-badge {
+            font-weight: 800;
+            color: var(--admin-primary);
+        }
+
+        .strike-badge {
+            font-size: 11.5px;
+            color: #888;
+            text-decoration: line-through;
+            margin-left: 4px;
+        }
+
+        .action-btn-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action-edit {
+            background: #e7f4f5;
+            color: #007185;
+            border: 1px solid #bce1e5;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-action-delete {
+            background: #feeaea;
+            color: #c40000;
+            border: 1px solid #f8c8c8;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* --- ADD / EDIT PRODUCT MODAL --- */
+        .admin-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .admin-modal-overlay.active {
+            display: flex;
+        }
+
+        .admin-modal-card {
+            background: #ffffff;
+            border-radius: 14px;
+            width: 640px;
+            max-width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .admin-modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .admin-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .admin-form-full {
+            grid-column: span 2;
+        }
+
+        .admin-form-label {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--admin-text);
+            margin-bottom: 5px;
+        }
+
+        .admin-form-input, .admin-form-select, .admin-form-textarea {
+            width: 100%;
+            border: 1px solid var(--admin-border);
+            border-radius: 6px;
+            padding: 9px 12px;
+            font-size: 13.5px;
+            font-family: inherit;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .admin-form-input:focus, .admin-form-select:focus, .admin-form-textarea:focus {
+            border-color: var(--admin-primary);
+            box-shadow: 0 0 0 3px rgba(0, 113, 133, 0.15);
+        }
+
+        .image-preview-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f7fafa;
+            border: 1px dashed var(--admin-border);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 6px;
+        }
+
+        .preview-img-tag {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        /* Order / Inquiry Cards */
+        .order-card-row {
+            background: #ffffff;
+            border: 1px solid var(--admin-border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .order-id-badge {
+            background: #e7f4f5;
+            color: #007185;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .rfq-badge {
+            background: #fff8e7;
+            color: #b12704;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body class="admin-body">
+
+    <!-- ================= 1. SECURITY PIN MODAL ================= -->
+    <div class="admin-auth-overlay" id="admin-auth-overlay">
+        <div class="admin-auth-card">
+            <img src="design suvidha logo.png" alt="Design Suvidha" class="admin-auth-logo">
+            <h2 class="admin-auth-title">Admin Seller Portal</h2>
+            <p class="admin-auth-sub">Enter your 6-digit Security PIN to manage store catalog & orders</p>
+
+            <div class="pin-dots-row" id="admin-pin-dots">
+                <div class="admin-pin-dot"></div>
+                <div class="admin-pin-dot"></div>
+                <div class="admin-pin-dot"></div>
+                <div class="admin-pin-dot"></div>
+                <div class="admin-pin-dot"></div>
+                <div class="admin-pin-dot"></div>
+            </div>
+
+            <div class="admin-keypad-grid">
+                <button class="admin-key-btn" data-key="1">1</button>
+                <button class="admin-key-btn" data-key="2">2</button>
+                <button class="admin-key-btn" data-key="3">3</button>
+                <button class="admin-key-btn" data-key="4">4</button>
+                <button class="admin-key-btn" data-key="5">5</button>
+                <button class="admin-key-btn" data-key="6">6</button>
+                <button class="admin-key-btn" data-key="7">7</button>
+                <button class="admin-key-btn" data-key="8">8</button>
+                <button class="admin-key-btn" data-key="9">9</button>
+                <button class="admin-key-btn" id="admin-pin-clear" style="font-size: 14px;">CLR</button>
+                <button class="admin-key-btn" data-key="0">0</button>
+                <button class="admin-key-btn" id="admin-pin-back">⌫</button>
+            </div>
+
+            <button type="button" class="admin-quick-unlock-btn" id="admin-quick-unlock">
+                🔓 Quick Unlock Admin Portal (950902)
+            </button>
+
+            <div class="admin-auth-error" id="admin-auth-error">Incorrect PIN. Please re-enter.</div>
+        </div>
+    </div>
+
+    <!-- ================= 2. MAIN ADMIN APP INTERFACE ================= -->
+    <div id="admin-dashboard-app" style="display: none;">
+        <!-- Top Navbar -->
+        <header class="admin-navbar">
+            <div class="admin-nav-left">
+                <a href="index.html">
+                    <img src="design suvidha logo.png" alt="Design Suvidha" class="admin-nav-logo">
+                </a>
+                <span class="admin-portal-badge">ADMIN SELLER DASHBOARD</span>
+            </div>
+
+            <nav class="admin-nav-links">
+                <button type="button" class="admin-nav-tab active" data-tab="products">
+                    🛍️ Products Catalog (<span id="nav-prod-count">0</span>)
+                </button>
+                <button type="button" class="admin-nav-tab" data-tab="orders">
+                    📦 Customer Orders (<span id="nav-order-count">0</span>)
+                </button>
+                <button type="button" class="admin-nav-tab" data-tab="inquiries">
+                    🏢 Corporate RFQs (<span id="nav-rfq-count">0</span>)
+                </button>
+            </nav>
+
+            <div class="admin-nav-right">
+                <a href="index.html" target="_blank" class="btn-view-live">
+                    <span>🌐 View Live Website</span>
+                </a>
+                <button type="button" id="admin-logout-btn" style="background: none; border: 1px solid #444; color: #ccc; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;">
+                    Logout 🔒
+                </button>
+            </div>
+        </header>
+
+        <main class="admin-main-container">
+            <!-- Stats Row -->
+            <div class="admin-stats-grid">
+                <div class="admin-stat-card">
+                    <div>
+                        <div class="stat-value" id="stat-total-products">0</div>
+                        <div class="stat-label">Total Store Products</div>
+                    </div>
+                    <div class="stat-icon">🛍️</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div>
+                        <div class="stat-value" id="stat-total-orders">0</div>
+                        <div class="stat-label">Checkout Orders Placed</div>
+                    </div>
+                    <div class="stat-icon">📦</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div>
+                        <div class="stat-value" id="stat-total-rfqs">0</div>
+                        <div class="stat-label">Corporate Bulk Quotes</div>
+                    </div>
+                    <div class="stat-icon">🏢</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div>
+                        <div class="stat-value" style="color: #007600;">Active</div>
+                        <div class="stat-label">Jaipur Print Factory</div>
+                    </div>
+                    <div class="stat-icon">⚡</div>
+                </div>
+            </div>
+
+            <!-- ================= TAB 1: PRODUCT CATALOG MANAGER ================= -->
+            <div class="admin-tab-view active" id="tab-view-products">
+                <div class="admin-header-row">
+                    <div>
+                        <h1 class="admin-page-title">Store Products Management</h1>
+                        <p class="admin-page-sub">Add new physical gifts & printing solutions or edit existing prices and details.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" class="btn-add-product-main" id="btn-open-add-modal">
+                            <span>➕ Add New Product</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Toolbar (Search & Filter) -->
+                <div class="admin-toolbar-row">
+                    <input type="text" id="admin-product-search" class="admin-search-input" placeholder="Search product by title, category, or price...">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <select id="admin-category-filter" class="admin-cat-filter">
+                            <option value="all">All Categories</option>
+                            <option value="mugs">Personalised Mugs</option>
+                            <option value="pens">Laser Metal Pens</option>
+                            <option value="drinkware">Smart Drinkware</option>
+                            <option value="diaries">Executive Diaries</option>
+                            <option value="keychains">Custom Keychains</option>
+                            <option value="cardholders">Card Holders</option>
+                            <option value="printing">Business Printing</option>
+                            <option value="mousepads">Mousepads & Accessories</option>
+                        </select>
+                        <button type="button" id="btn-reset-defaults" style="background: none; border: 1px dashed #a6a6a6; padding: 7px 12px; border-radius: 6px; font-size: 12px; color: #555; cursor: pointer;">
+                            ↺ Reset Factory Defaults
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div style="overflow-x: auto;">
+                    <table class="admin-products-table" id="admin-products-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 70px;">Image</th>
+                                <th>Product Title</th>
+                                <th>Category</th>
+                                <th>Wholesale Price</th>
+                                <th>MRP (Strike)</th>
+                                <th>Badge / Tag</th>
+                                <th>Stock Status</th>
+                                <th style="text-align: right; width: 140px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-products-tbody">
+                            <!-- Injected dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= TAB 2: CUSTOMER ORDERS ================= -->
+            <div class="admin-tab-view" id="tab-view-orders">
+                <div class="admin-header-row">
+                    <div>
+                        <h1 class="admin-page-title">Customer Orders Log</h1>
+                        <p class="admin-page-sub">Orders placed by customers through the cart & checkout workflow.</p>
+                    </div>
+                    <button type="button" id="btn-clear-orders" style="background: none; border: 1px solid #d5d9d9; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer;">
+                        🗑️ Clear Orders Log
+                    </button>
+                </div>
+                <div id="admin-orders-list">
+                    <!-- Injected dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- ================= TAB 3: CORPORATE RFQS ================= -->
+            <div class="admin-tab-view" id="tab-view-inquiries">
+                <div class="admin-header-row">
+                    <div>
+                        <h1 class="admin-page-title">Corporate Bulk Inquiries (RFQs)</h1>
+                        <p class="admin-page-sub">Inquiries submitted via Section 7 Corporate Gifting form.</p>
+                    </div>
+                    <button type="button" id="btn-clear-rfqs" style="background: none; border: 1px solid #d5d9d9; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer;">
+                        🗑️ Clear RFQs Log
+                    </button>
+                </div>
+                <div id="admin-rfqs-list">
+                    <!-- Injected dynamically via JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= ADD / EDIT PRODUCT MODAL ================= -->
+    <div class="admin-modal-overlay" id="product-modal">
+        <div class="admin-modal-card">
+            <button type="button" class="admin-modal-close" id="btn-close-modal">&times;</button>
+            <h3 style="margin: 0 0 4px; font-size: 20px; font-weight: 800; color: #0f1111;" id="modal-heading">Add New Product</h3>
+            <p style="margin: 0 0 16px; font-size: 13px; color: #565959;">Enter product details to publish directly to the live Design Suvidha store.</p>
+
+            <form id="product-form">
+                <input type="hidden" id="form-product-id" value="">
+                
+                <div class="admin-form-grid">
+                    <div class="admin-form-full">
+                        <label class="admin-form-label" for="form-title">Product Title *</label>
+                        <input type="text" id="form-title" class="admin-form-input" placeholder="e.g. Personalized Dual Tone Chai Mug – 330ml" required>
+                    </div>
+
+                    <div>
+                        <label class="admin-form-label" for="form-category">Category *</label>
+                        <select id="form-category" class="admin-form-select" required>
+                            <option value="mugs">Personalised Mugs</option>
+                            <option value="pens">Laser Metal Pens</option>
+                            <option value="drinkware">Smart Drinkware</option>
+                            <option value="diaries">Executive Diaries</option>
+                            <option value="keychains">Custom Keychains</option>
+                            <option value="cardholders">Card Holders</option>
+                            <option value="printing">Business Printing</option>
+                            <option value="mousepads">Mousepads</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="admin-form-label" for="form-badge">Badge / Promo Tag</label>
+                        <input type="text" id="form-badge" class="admin-form-input" placeholder="e.g. Best Seller 🔥, 40% OFF, New Arrival ✨">
+                    </div>
+
+                    <div>
+                        <label class="admin-form-label" for="form-price">Wholesale Price (₹) *</label>
+                        <input type="number" id="form-price" class="admin-form-input" placeholder="e.g. 199" required>
+                    </div>
+
+                    <div>
+                        <label class="admin-form-label" for="form-strike">MRP / Strike Price (₹)</label>
+                        <input type="number" id="form-strike" class="admin-form-input" placeholder="e.g. 299">
+                    </div>
+
+                    <div class="admin-form-full">
+                        <label class="admin-form-label" for="form-image-select">Product Image *</label>
+                        <div style="display: flex; gap: 8px;">
+                            <select id="form-image-select" class="admin-form-select" style="flex: 1;">
+                                <option value="assets/products/product_1.jpg">Product 1 (Ceramic Mug White)</option>
+                                <option value="assets/products/product_3.jpg">Product 3 (Inner Color Ceramic Mug)</option>
+                                <option value="assets/products/product_5.jpg">Product 5 (Heart Handle Mug)</option>
+                                <option value="assets/products/product_7.jpg">Product 7 (Mini Chai Mug 190ml)</option>
+                                <option value="assets/products/product_9.jpg">Product 9 (Steel Card Holder)</option>
+                                <option value="assets/products/product_11.jpg">Product 11 (Luxury Textured Card Holder)</option>
+                                <option value="assets/products/product_13.jpg">Product 13 (Gold Accent Card Holder)</option>
+                                <option value="assets/products/product_17.jpg">Product 17 (Classic Metal Click Pen)</option>
+                                <option value="assets/products/product_19.jpg">Product 19 (Magnetic Gel Metal Pen)</option>
+                                <option value="assets/products/product_21.jpg">Product 21 (Black & Rose Gold Metal Pen)</option>
+                                <option value="assets/products/product_23.jpg">Product 23 (Textured Grip Metal Pen)</option>
+                                <option value="assets/products/product_25.jpg">Product 25 (Gold Accent Gunmetal Pen)</option>
+                                <option value="assets/products/product_27.jpg">Product 27 (Oval Metal Keychain)</option>
+                                <option value="assets/products/product_29.jpg">Product 29 (House Shape Metal Keychain)</option>
+                                <option value="assets/products/product_31.jpg">Product 31 (Round Metal Keychain)</option>
+                                <option value="assets/products/product_33.jpg">Product 33 (Capsule Metal Keychain)</option>
+                                <option value="assets/products/product_35.jpg">Product 35 (Carabiner Dual Ring Keychain)</option>
+                                <option value="assets/products/product_37.jpg">Product 37 (PU Leather Strap Keychain)</option>
+                                <option value="assets/products/product_39.jpg">Product 39 (Bottle Opener Keychain)</option>
+                                <option value="assets/products/product_41.jpg">Product 41 (Magnetic Lock Executive Diary)</option>
+                                <option value="assets/products/product_43.jpg">Product 43 (Color Reveal Premium Diary)</option>
+                                <option value="assets/products/product_44.jpg">Product 44 (Executive Hamper 3-in-1 Set)</option>
+                                <option value="assets/products/product_45.jpg">Product 45 (Round Lock Pattern Diary)</option>
+                                <option value="assets/products/product_47.jpg">Product 47 (Gold Border Luxury Diary)</option>
+                                <option value="assets/products/product_49.jpg">Product 49 (Non-Slip Mouse Pad)</option>
+                                <option value="assets/products/product_51.jpg">Product 51 (LED Temp Bottle 500ml)</option>
+                                <option value="assets/products/product_53.jpg">Product 53 (Vacuum Bottle with Carry Rope)</option>
+                                <option value="assets/products/product_54.jpg">Product 54 (Matte Black Slim Bottle)</option>
+                                <option value="assets/products/product_55.jpg">Product 55 (Vacuum Tumbler with Straw 900ml)</option>
+                                <option value="custom">-- Or Enter Custom Image URL / Upload --</option>
+                            </select>
+                        </div>
+                        <input type="text" id="form-image-custom" class="admin-form-input" placeholder="Or paste image URL (e.g. https://... or assets/products/product_X.jpg)" style="margin-top: 6px; display: none;">
+
+                        <div class="image-preview-box">
+                            <img src="assets/products/product_1.jpg" alt="Preview" id="form-image-preview" class="preview-img-tag">
+                            <div style="font-size: 12px; color: #565959;">
+                                <strong>Live Image Preview</strong><br>
+                                <span>High quality product thumbnail displayed to customers.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-form-full">
+                        <label class="admin-form-label" for="form-desc">Product Description *</label>
+                        <textarea id="form-desc" class="admin-form-textarea" rows="2" placeholder="Brief description of product, material, durability, and printing method..." required></textarea>
+                    </div>
+
+                    <div class="admin-form-full">
+                        <label class="admin-form-label" for="form-features">Key Deliverables / Specs (Comma separated)</label>
+                        <input type="text" id="form-features" class="admin-form-input" placeholder="e.g. HD Sublimation Print, Dishwasher Safe, Fast Dispatch, 100% Quality">
+                    </div>
+
+                    <div class="admin-form-full" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                        <button type="button" class="btn btn-sm btn-glass" id="btn-cancel-modal" style="color: #0f1111; border-color: #d5d9d9;">Cancel</button>
+                        <button type="submit" class="btn-add-product-main" id="btn-save-product">
+                            <span>💾 Save & Publish Product</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Logic -->
+    <script>
+        // 1. DEFAULT PRODUCTS FROM GOOGLE DRIVE ASSET REPOSITORY
+        const DEFAULT_PRODUCTS = [
+            { id: 'prod-mug-white', title: 'White Ceramic Mug – 330 ml', category: 'mugs', price: 199, strike: 299, badge: 'Best Seller 🔥', img: 'assets/products/product_1.jpg', desc: 'Vibrant HD Sublimation print that stays bright sip after sip. Dishwasher and microwave safe.', features: ['HD Full Color Print', '330 ml Capacity', 'Microwave Safe'] },
+            { id: 'prod-mug-inner-color', title: 'Inner Color Ceramic Mug – 330 ml', category: 'mugs', price: 230, strike: 340, badge: 'Trending ✨', img: 'assets/products/product_3.jpg', desc: 'Dual-tone premium ceramic with colorful interior. High contrast exterior HD print.', features: ['6 Vibrant Inner Colors', 'Premium Gloss Ceramic', '330 ml'] },
+            { id: 'prod-mug-heart', title: 'Heart Handle Mug – 330 ml', category: 'mugs', price: 249, strike: 380, badge: 'Special Gift ❤️', img: 'assets/products/product_5.jpg', desc: 'Elegant heart-shaped handle mug. Perfect for anniversary gifts, birthdays, and special corporate tokens.', features: ['Heart Shaped Handle', 'HD Sublimation Print', '330 ml Capacity'] },
+            { id: 'prod-mug-chai', title: 'Mini Ceramic Chai Mug – 190 ml', category: 'mugs', price: 199, strike: 280, badge: 'Chai Lovers ☕', img: 'assets/products/product_7.jpg', desc: 'Authentic 180–190 ml portion—the exact gold-standard volume for Indian chai, filter coffee, or espresso.', features: ['190 ml Chai/Espresso Size', 'Fine Ceramic', 'Custom Logo / Name'] },
+            { id: 'prod-pen-classic', title: 'Classic Metal Click Pen', category: 'pens', price: 90, strike: 150, badge: 'Economy Pick', img: 'assets/products/product_17.jpg', desc: 'Durable metal click ballpoint pen with smooth ink flow. Optional luxury gift box (+₹35).', features: ['Laser Engraved Name', 'Colors: Black, Blue, Maroon, Grey', 'Smooth German Ink'] },
+            { id: 'prod-pen-magnetic', title: 'Magnetic Gel Metal Pen', category: 'pens', price: 199, strike: 299, badge: 'Magnetic Cap 🧲', img: 'assets/products/product_19.jpg', desc: 'Executive magnetic cap snap closure. Matte barrel with fine gel ink rollerball mechanism.', features: ['Magnetic Snap Cap', 'Fine Gel Refill', 'Laser Engraving'] },
+            { id: 'prod-pen-rosegold', title: 'Black Metal Pen with Rose Gold', category: 'pens', price: 249, strike: 375, badge: 'Luxury Rose Gold', img: 'assets/products/product_21.jpg', desc: 'Crafted with premium matte black body and striking rose gold clip and accents for an ultra-luxurious appearance.', features: ['Rose Gold Trims', 'Heavy Executive Weight', 'Luxury Presentation'] },
+            { id: 'prod-pen-textured', title: 'Textured Grip Metal Pen', category: 'pens', price: 199, strike: 300, badge: 'Comfort Grip', img: 'assets/products/product_23.jpg', desc: 'Machined micro-textured grip zone provides fatigue-free writing during long signing sessions.', features: ['Anti-Slip Grip', 'Laser Engraved Name', 'Metal Body'] },
+            { id: 'prod-pen-gunmetal', title: 'Gold Accent Gunmetal Executive Pen', category: 'pens', price: 279, strike: 420, badge: 'Presidential 🌟', img: 'assets/products/product_25.jpg', desc: 'Flagship executive writing instrument. Gunmetal finish with 24K-look gold accents and weighted balance.', features: ['Heavy Balanced Feel', 'Gold Accent Rings', 'Laser Branding'] },
+            { id: 'prod-bottle-led', title: 'LED Temperature Display Bottle – 500 ml', category: 'drinkware', price: 299, strike: 499, badge: 'Smart LED 🌡️', img: 'assets/products/product_51.jpg', desc: 'Touch-sensitive LED lid indicates real-time beverage temperature. 304 food-grade double-wall vacuum insulation.', features: ['Touch LED Lid', 'SUS 304 Steel', '12h Hot/Cold Thermal Insulation'] },
+            { id: 'prod-bottle-rope', title: 'Vacuum Bottle with Carry Rope – 500 ml', category: 'drinkware', price: 349, strike: 550, badge: 'Active Lifestyle', img: 'assets/products/product_53.jpg', desc: 'Features a durable silicone lanyard loop for easy carrying during gym, travel, and campus commutes.', features: ['Silicone Carry Lanyard', 'Double Wall Vacuum', 'Matte Finish'] },
+            { id: 'prod-bottle-matte', title: 'Matte Black Slim Vacuum Bottle – 500 ml', category: 'drinkware', price: 449, strike: 680, badge: 'Minimal Matte', img: 'assets/products/product_54.jpg', desc: 'Minimalist aerodynamic slim cylinder finished in deep stealth matte black. Laser engraving reveals polished steel.', features: ['Stealth Matte Black', 'Contrast Steel Engraving', 'Spill-Proof Lid'] },
+            { id: 'prod-tumbler-900', title: 'Vacuum Tumbler with Straw – 900 ml', category: 'drinkware', price: 549, strike: 850, badge: 'Mega 900ml 🥤', img: 'assets/products/product_55.jpg', desc: 'Massive 900 ml capacity tumbler equipped with ergonomic carry handle, 2-in-1 sip/straw lid, and 24-hour ice retention.', features: ['900 ml Hydration Size', 'Ergonomic Handle', 'Reusable Straw Included'] },
+            { id: 'prod-diary-color', title: 'Color Reveal Premium Diary (A5)', category: 'diaries', price: 279, strike: 399, badge: 'Best Seller 📓', img: 'assets/products/product_43.jpg', desc: '192 ruled pages (80 GSM natural shade paper). Contrast edge and spine color reveal styling with elastic pen loop.', features: ['192 Ruled Pages / 80 GSM', 'Contrast Color Reveal Spine', 'Integrated Pen Loop'] },
+            { id: 'prod-diary-magnetic', title: 'Magnetic Lock Executive Diary', category: 'diaries', price: 299, strike: 450, badge: 'Magnetic Clasp', img: 'assets/products/product_41.jpg', desc: 'Contemporary faux leather cover secured by a sleek magnetic flap lock. Includes yearly planner and calendar.', features: ['Magnetic Flap Clasp', 'Smooth Faux Leather', 'Yearly & Monthly Planner'] },
+            { id: 'prod-diary-gold', title: 'Gold Border Luxury Diary', category: 'diaries', price: 349, strike: 520, badge: 'Gold Gilded 👑', img: 'assets/products/product_47.jpg', desc: 'Page edges gilded in radiant gold foil shimmer. Crafted from rich leatherette texture with custom foil hot-stamping.', features: ['Gold Foil Gilded Edges', 'Executive Leatherette', 'Silk Ribbon Marker'] },
+            { id: 'prod-hamper-3in1', title: 'Executive 3-in-1 Employee Welcome Kit', category: 'diaries', price: 699, strike: 1100, badge: 'Corporate Hamper 🏢', img: 'assets/products/product_44.jpg', desc: 'Premium customized gift box containing Gold Border Luxury Diary, Laser Engraved Metal Pen, and Steel Card Holder.', features: ['Complete 3-in-1 Executive Set', 'Customized Company Logo', 'Luxury Presentation Box'] },
+            { id: 'prod-cardholder-steel', title: 'Stainless Steel Card Holder', category: 'cardholders', price: 149, strike: 249, badge: 'Laser Engraved ⚡', img: 'assets/products/product_9.jpg', desc: 'Slim stainless steel visiting card case. Customized with sharp, permanent laser engraving of your brand or logo.', features: ['Precision Laser Engraving', 'Holds 15+ Cards', 'Ultra-Slim Pocket Profile'] },
+            { id: 'prod-keychain-house', title: 'House Shape Metal Keychain', category: 'keychains', price: 99, strike: 160, badge: 'Real Estate Special 🏠', img: 'assets/products/product_29.jpg', desc: 'Designed specifically for Builders, Brokers, and Griha Pravesh gifts. High gloss metal alloy with double-sided engraving.', features: ['Iconic House Silhouette', 'Double-sided Laser Engraving', 'Heavy Polished Chrome'] },
+            { id: 'prod-mousepad', title: 'Non-Slip Custom Mouse Pad (7x9.5")', category: 'mousepads', price: 99, strike: 199, badge: 'Best Value 🖱️', img: 'assets/products/product_49.jpg', desc: 'High-density micro-weave cloth surface optimized for optical mouse precision with heavy natural anti-slip rubber base.', features: ['Full Edge-to-Edge HD Print', 'Anti-Slip Rubber Base', '3mm Thickness'] },
+            { id: 'prod-print-visiting', title: 'Premium Visiting & Business Cards', category: 'printing', price: 499, strike: 800, badge: 'Direct Press 📇', img: 'assets/products/product_10.jpg', desc: 'Custom business cards on 350 GSM premium art card. Finishes: Matte, Gloss, Velvet Soft-Touch, and Spot UV.', features: ['Pack of 1000 Cards', '350 GSM Premium Art Card', 'Matte / Gloss / Spot UV'] }
+        ];
+
+        // 2. PIN AUTHENTICATION (DEFAULT PIN: 950902)
+        const ADMIN_PIN = '950902';
+        let enteredPin = '';
+
+        const pinOverlay = document.getElementById('admin-auth-overlay');
+        const adminApp = document.getElementById('admin-dashboard-app');
+        const pinDots = document.querySelectorAll('.admin-pin-dot');
+        const pinError = document.getElementById('admin-auth-error');
+        const quickUnlockBtn = document.getElementById('admin-quick-unlock');
+
+        // Check if already authenticated in this session
+        if (sessionStorage.getItem('ds_admin_auth') === 'true' || location.search.includes('auth=1')) {
+            unlockAdmin();
+        }
+
+        function updatePinDisplay() {
+            pinDots.forEach((dot, index) => {
+                dot.classList.toggle('filled', index < enteredPin.length);
+            });
+        }
+
+        function checkPin() {
+            if (enteredPin === ADMIN_PIN) {
+                sessionStorage.setItem('ds_admin_auth', 'true');
+                unlockAdmin();
+            } else {
+                pinError.style.display = 'block';
+                enteredPin = '';
+                updatePinDisplay();
+            }
+        }
+
+        function unlockAdmin() {
+            if (pinOverlay) pinOverlay.style.display = 'none';
+            if (adminApp) adminApp.style.display = 'block';
+            initAdminDashboard();
+        }
+
+        document.querySelectorAll('.admin-key-btn[data-key]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (enteredPin.length < 6) {
+                    enteredPin += btn.getAttribute('data-key');
+                    pinError.style.display = 'none';
+                    updatePinDisplay();
+                    if (enteredPin.length === 6) {
+                        setTimeout(checkPin, 100);
+                    }
+                }
+            });
+        });
+
+        document.getElementById('admin-pin-clear')?.addEventListener('click', () => {
+            enteredPin = '';
+            pinError.style.display = 'none';
+            updatePinDisplay();
+        });
+
+        document.getElementById('admin-pin-back')?.addEventListener('click', () => {
+            enteredPin = enteredPin.slice(0, -1);
+            pinError.style.display = 'none';
+            updatePinDisplay();
+        });
+
+        quickUnlockBtn?.addEventListener('click', () => {
+            sessionStorage.setItem('ds_admin_auth', 'true');
+            unlockAdmin();
+        });
+
+        document.getElementById('admin-logout-btn')?.addEventListener('click', () => {
+            sessionStorage.removeItem('ds_admin_auth');
+            location.reload();
+        });
+
+        // 3. STORE PRODUCTS DATA MANAGER
+        function getStoredProducts() {
+            try {
+                const data = localStorage.getItem('ds_products');
+                if (data) {
+                    const parsed = JSON.parse(data);
+                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+            // Seed with defaults
+            localStorage.setItem('ds_products', JSON.stringify(DEFAULT_PRODUCTS));
+            return DEFAULT_PRODUCTS;
+        }
+
+        function saveProducts(products) {
+            localStorage.setItem('ds_products', JSON.stringify(products));
+            renderProductsTable();
+            updateStats();
+        }
+
+        function renderProductsTable() {
+            const products = getStoredProducts();
+            const tbody = document.getElementById('admin-products-tbody');
+            const searchVal = document.getElementById('admin-product-search')?.value.toLowerCase().trim() || '';
+            const catVal = document.getElementById('admin-category-filter')?.value || 'all';
+
+            if (!tbody) return;
+
+            const filtered = products.filter(p => {
+                const matchSearch = p.title.toLowerCase().includes(searchVal) || (p.desc && p.desc.toLowerCase().includes(searchVal));
+                const matchCat = catVal === 'all' || p.category === catVal;
+                return matchSearch && matchCat;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px; color: #888;">No products found matching filters.</td></tr>';
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(p => {
+                html += `
+                    <tr>
+                        <td><img src="${p.img || 'assets/products/product_1.jpg'}" alt="${p.title}" class="table-thumb"></td>
+                        <td>
+                            <strong>${p.title}</strong>
+                            <div style="font-size: 11.5px; color: #666; margin-top: 2px;">ID: ${p.id}</div>
+                        </td>
+                        <td><span class="prod-tag">${p.category.toUpperCase()}</span></td>
+                        <td><span class="price-badge">₹${p.price}/-</span></td>
+                        <td>${p.strike ? `<span class="strike-badge">₹${p.strike}</span>` : '—'}</td>
+                        <td>${p.badge ? `<span style="font-size: 12px; font-weight: 700; color: #b12704;">${p.badge}</span>` : '—'}</td>
+                        <td><span style="color: #007600; font-weight: 700; font-size: 12px;">● In Stock</span></td>
+                        <td style="text-align: right;">
+                            <div class="action-btn-group" style="justify-content: flex-end;">
+                                <button type="button" class="btn-action-edit" onclick="editProduct('${p.id}')">Edit</button>
+                                <button type="button" class="btn-action-delete" onclick="deleteProduct('${p.id}')">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        // 4. ADD / EDIT PRODUCT MODAL HANDLERS
+        const modal = document.getElementById('product-modal');
+        const form = document.getElementById('product-form');
+        const imageSelect = document.getElementById('form-image-select');
+        const imageCustom = document.getElementById('form-image-custom');
+        const imagePreview = document.getElementById('form-image-preview');
+
+        document.getElementById('btn-open-add-modal')?.addEventListener('click', () => {
+            form.reset();
+            document.getElementById('form-product-id').value = '';
+            document.getElementById('modal-heading').textContent = 'Add New Product';
+            imageSelect.value = 'assets/products/product_1.jpg';
+            imageCustom.style.display = 'none';
+            imagePreview.src = 'assets/products/product_1.jpg';
+            modal.classList.add('active');
+        });
+
+        document.getElementById('btn-close-modal')?.addEventListener('click', () => modal.classList.remove('active'));
+        document.getElementById('btn-cancel-modal')?.addEventListener('click', () => modal.classList.remove('active'));
+
+        imageSelect?.addEventListener('change', () => {
+            if (imageSelect.value === 'custom') {
+                imageCustom.style.display = 'block';
+                imageCustom.focus();
+            } else {
+                imageCustom.style.display = 'none';
+                imagePreview.src = imageSelect.value;
+            }
+        });
+
+        imageCustom?.addEventListener('input', () => {
+            if (imageCustom.value.trim()) {
+                imagePreview.src = imageCustom.value.trim();
+            }
+        });
+
+        form?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('form-product-id').value || 'prod-' + Date.now();
+            const title = document.getElementById('form-title').value.trim();
+            const category = document.getElementById('form-category').value;
+            const badge = document.getElementById('form-badge').value.trim();
+            const price = parseInt(document.getElementById('form-price').value, 10) || 0;
+            const strike = parseInt(document.getElementById('form-strike').value, 10) || 0;
+            const desc = document.getElementById('form-desc').value.trim();
+            const featuresStr = document.getElementById('form-features').value.trim();
+            const features = featuresStr ? featuresStr.split(',').map(s => s.trim()) : [];
+
+            let img = imageSelect.value;
+            if (img === 'custom') {
+                img = imageCustom.value.trim() || 'assets/products/product_1.jpg';
+            }
+
+            const products = getStoredProducts();
+            const existingIndex = products.findIndex(p => p.id === id);
+
+            const productData = { id, title, category, price, strike, badge, img, desc, features };
+
+            if (existingIndex !== -1) {
+                products[existingIndex] = productData;
+            } else {
+                products.unshift(productData);
+            }
+
+            saveProducts(products);
+            modal.classList.remove('active');
+            alert(`✓ Product "${title}" has been saved and published to the live store!`);
+        });
+
+        window.editProduct = function(id) {
+            const products = getStoredProducts();
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+
+            document.getElementById('form-product-id').value = p.id;
+            document.getElementById('form-title').value = p.title;
+            document.getElementById('form-category').value = p.category;
+            document.getElementById('form-badge').value = p.badge || '';
+            document.getElementById('form-price').value = p.price;
+            document.getElementById('form-strike').value = p.strike || '';
+            document.getElementById('form-desc').value = p.desc || '';
+            document.getElementById('form-features').value = (p.features || []).join(', ');
+
+            // Check if img is in select list
+            let foundOption = false;
+            for (let opt of imageSelect.options) {
+                if (opt.value === p.img) {
+                    imageSelect.value = p.img;
+                    foundOption = true;
+                    break;
+                }
+            }
+            if (!foundOption) {
+                imageSelect.value = 'custom';
+                imageCustom.style.display = 'block';
+                imageCustom.value = p.img;
+            } else {
+                imageCustom.style.display = 'none';
+            }
+            imagePreview.src = p.img;
+
+            document.getElementById('modal-heading').textContent = 'Edit Product';
+            modal.classList.add('active');
+        };
+
+        window.deleteProduct = function(id) {
+            if (confirm('Are you sure you want to delete this product from the live store?')) {
+                let products = getStoredProducts();
+                products = products.filter(p => p.id !== id);
+                saveProducts(products);
+            }
+        };
+
+        document.getElementById('btn-reset-defaults')?.addEventListener('click', () => {
+            if (confirm('Reset catalog back to factory defaults (21 verified Drive products)?')) {
+                localStorage.setItem('ds_products', JSON.stringify(DEFAULT_PRODUCTS));
+                renderProductsTable();
+                updateStats();
+                alert('Catalog reset to factory default products.');
+            }
+        });
+
+        document.getElementById('admin-product-search')?.addEventListener('input', renderProductsTable);
+        document.getElementById('admin-category-filter')?.addEventListener('change', renderProductsTable);
+
+        // 5. ORDERS & RFQ VIEWER
+        function renderOrders() {
+            const ordersList = document.getElementById('admin-orders-list');
+            if (!ordersList) return;
+
+            let orders = [];
+            try {
+                orders = JSON.parse(localStorage.getItem('ds_orders') || '[]');
+            } catch (e) { orders = []; }
+
+            if (orders.length === 0) {
+                ordersList.innerHTML = '<div style="text-align: center; padding: 40px; background: #fff; border-radius: 10px; border: 1px solid #d5d9d9; color: #888;">No customer orders placed yet. Orders placed via checkout will be logged here automatically.</div>';
+                return;
+            }
+
+            let html = '';
+            orders.forEach(ord => {
+                const cust = ord.customer || {};
+                const itemsText = (ord.items || []).map(i => `${i.title} (x${i.qty}) - ₹${i.price * i.qty}`).join('<br>');
+                html += `
+                    <div class="order-card-row">
+                        <div>
+                            <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px;">
+                                <span class="order-id-badge">${ord.orderId}</span>
+                                <span style="font-size: 12px; color: #666;">📅 ${ord.date}</span>
+                            </div>
+                            <h4 style="margin: 0 0 4px; font-size: 15px; color: #0f1111;">${cust.name || 'Customer'} · <a href="tel:${cust.phone}" style="color: #007185;">${cust.phone}</a></h4>
+                            <p style="margin: 0 0 6px; font-size: 13px; color: #565959;">📍 ${cust.address}, ${cust.city} - ${cust.pincode}</p>
+                            <div style="font-size: 13px; color: #0f1111; background: #f7fafa; padding: 8px 12px; border-radius: 6px; border: 1px solid #e7e7e7; margin-top: 6px;">
+                                <strong>Ordered Items:</strong><br>${itemsText}
+                                ${cust.notes ? `<div style="margin-top: 4px; font-size: 12px; color: #c45500;"><strong>Custom Note:</strong> ${cust.notes}</div>` : ''}
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 20px; font-weight: 800; color: #0f1111; margin-bottom: 8px;">₹${ord.total}</div>
+                            <a href="https://wa.me/91${(cust.phone || '').replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello ' + (cust.name || '') + ', Design Suvidha here regarding your Order ' + ord.orderId)}" target="_blank" class="btn btn-sm" style="background: #25d366; color: #fff; text-decoration: none; font-weight: 700; border-radius: 6px;">
+                                💬 WhatsApp Customer
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+            ordersList.innerHTML = html;
+        }
+
+        function renderRFQs() {
+            const rfqsList = document.getElementById('admin-rfqs-list');
+            if (!rfqsList) return;
+
+            let rfqs = [];
+            try {
+                rfqs = JSON.parse(localStorage.getItem('ds_corporate_inquiries') || '[]');
+            } catch (e) { rfqs = []; }
+
+            if (rfqs.length === 0) {
+                rfqsList.innerHTML = '<div style="text-align: center; padding: 40px; background: #fff; border-radius: 10px; border: 1px solid #d5d9d9; color: #888;">No corporate RFQ inquiries yet. Submissions from Section 7 Corporate Bulk Form will be logged here.</div>';
+                return;
+            }
+
+            let html = '';
+            rfqs.forEach(q => {
+                html += `
+                    <div class="order-card-row">
+                        <div>
+                            <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px;">
+                                <span class="rfq-badge">${q.inquiryId || 'RFQ'}</span>
+                                <span style="font-size: 12px; color: #666;">📅 ${new Date(q.date).toLocaleDateString()}</span>
+                            </div>
+                            <h4 style="margin: 0 0 4px; font-size: 15px; color: #0f1111;">${q.company} (${q.person}) · <a href="tel:${q.phone}" style="color: #007185;">${q.phone}</a></h4>
+                            <p style="margin: 0; font-size: 13px; color: #565959;">Category: <strong>${q.category}</strong> | Quantity: <strong>${q.qty}</strong> | Budget: <strong>${q.budget}</strong> | Target: <strong>${q.timeline}</strong></p>
+                            ${q.notes ? `<p style="margin: 6px 0 0; font-size: 12px; color: #666; background: #fdfdfd; padding: 6px 10px; border-radius: 4px; border: 1px solid #eee;"><strong>Branding Notes:</strong> ${q.notes}</p>` : ''}
+                        </div>
+                        <div style="text-align: right;">
+                            <a href="https://wa.me/91${(q.phone || '').replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello ' + q.person + ', regarding your corporate inquiry ' + q.inquiryId + ' for ' + q.company)}" target="_blank" class="btn btn-sm" style="background: #25d366; color: #fff; text-decoration: none; font-weight: 700; border-radius: 6px;">
+                                💬 Send Quotation
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+            rfqsList.innerHTML = html;
+        }
+
+        document.getElementById('btn-clear-orders')?.addEventListener('click', () => {
+            if (confirm('Clear all stored customer orders?')) {
+                localStorage.removeItem('ds_orders');
+                renderOrders();
+                updateStats();
+            }
+        });
+
+        document.getElementById('btn-clear-rfqs')?.addEventListener('click', () => {
+            if (confirm('Clear all stored corporate RFQs?')) {
+                localStorage.removeItem('ds_corporate_inquiries');
+                renderRFQs();
+                updateStats();
+            }
+        });
+
+        // Tab Switching
+        document.querySelectorAll('.admin-nav-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab');
+                document.querySelectorAll('.admin-nav-tab').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.admin-tab-view').forEach(v => v.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById('tab-view-' + tab)?.classList.add('active');
+
+                if (tab === 'orders') renderOrders();
+                if (tab === 'inquiries') renderRFQs();
+            });
+        });
+
+        function updateStats() {
+            const products = getStoredProducts();
+            let orders = [], rfqs = [];
+            try { orders = JSON.parse(localStorage.getItem('ds_orders') || '[]'); } catch(e){}
+            try { rfqs = JSON.parse(localStorage.getItem('ds_corporate_inquiries') || '[]'); } catch(e){}
+
+            document.getElementById('stat-total-products').textContent = products.length;
+            document.getElementById('nav-prod-count').textContent = products.length;
+
+            document.getElementById('stat-total-orders').textContent = orders.length;
+            document.getElementById('nav-order-count').textContent = orders.length;
+
+            document.getElementById('stat-total-rfqs').textContent = rfqs.length;
+            document.getElementById('nav-rfq-count').textContent = rfqs.length;
+        }
+
+        function initAdminDashboard() {
+            renderProductsTable();
+            renderOrders();
+            renderRFQs();
+            updateStats();
+        }
+    </script>
+</body>
+</html>

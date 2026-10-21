@@ -117,6 +117,12 @@
                         <strong class="action-main">👤 My Account</strong>
                     </button>
 
+                    <button type="button" class="ds-wishlist-btn" id="open-wishlist-btn" title="View Saved Products">
+                        <span class="wishlist-heart-icon">♥</span>
+                        <span class="action-main" style="font-size: 13px; font-weight: 700;">Wishlist</span>
+                        <span class="ds-wishlist-count" id="header-wishlist-count">0</span>
+                    </button>
+
                     <button type="button" class="ds-cart-btn" id="open-cart-btn" title="View Shopping Cart">
                         <div class="ds-cart-icon-box">
                             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
@@ -132,24 +138,284 @@
             </div>
         </div>
 
-        <!-- ROW 2: Horizontal Category Navigation Strip -->
+        <!-- ROW 2: Horizontal Category Navigation Strip with Printvenue-Style Mega Dropdowns -->
         <div class="ds-subnav-strip">
             <div class="container ds-subnav-container">
                 <a href="#featured-products" class="subnav-pill subnav-all-pill">
                     <span>☰ All Products</span>
                 </a>
-                <a href="#featured-products" class="subnav-link"><span>🎁 Custom Gifting Store</span></a>
-                <a href="#featured-products" class="subnav-link"><span>☕ Photo Mugs</span></a>
-                <a href="#featured-products" class="subnav-link"><span>🖊️ Laser Metal Pens</span></a>
-                <a href="#featured-products" class="subnav-link"><span>🌡️ Smart Temp Bottles</span></a>
-                <a href="#featured-products" class="subnav-link"><span>📓 Executive Diaries</span></a>
+
+                <!-- PENS DROPDOWN (Printvenue Style) -->
+                <div class="subnav-dropdown">
+                    <button type="button" class="subnav-dropdown-trigger">
+                        <span>🖊️ Pens</span> <span class="arrow-down">▾</span>
+                    </button>
+                    <div class="subnav-mega-menu">
+                        <div class="mega-menu-header">
+                            <span class="mega-menu-title">🖊️ Laser Metal & Branded Pens</span>
+                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('pens')">View All Pens ➔</a>
+                        </div>
+                        <div class="mega-menu-grid">
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-click')">
+                                <img src="assets/products/product_20.jpg" alt="Metal Click Pen" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Classic Metal Click Pen</div>
+                                    <div class="mega-product-price">₹90 <span class="mega-product-strike">₹150</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-magnetic-gel')">
+                                <img src="assets/products/product_24.jpg" alt="Magnetic Gel Pen" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Magnetic Gel Metal Pen</div>
+                                    <div class="mega-product-price">₹199 <span class="mega-product-strike">₹299</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-black-twist')">
+                                <img src="assets/products/product_27.jpg" alt="Black Twist Pen" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Black Metal Twist Pen</div>
+                                    <div class="mega-product-price">₹229 <span class="mega-product-strike">₹350</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-textured-grip')">
+                                <img src="assets/products/product_29.jpg" alt="Textured Grip Pen" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Textured Grip Metal Pen</div>
+                                    <div class="mega-product-price">₹199 <span class="mega-product-strike">₹300</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-gold-accent')">
+                                <img src="assets/products/product_31.jpg" alt="Gold Accent Pen" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Gold Accent Luxury Pen</div>
+                                    <div class="mega-product-price">₹249 <span class="mega-product-strike">₹399</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-box')">
+                                <img src="assets/products/product_21.jpg" alt="Pen Gift Box" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Plastic Pen Gift Box</div>
+                                    <div class="mega-product-price">₹45 <span class="mega-product-strike">₹80</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MUGS DROPDOWN -->
+                <div class="subnav-dropdown">
+                    <button type="button" class="subnav-dropdown-trigger">
+                        <span>☕ Mugs</span> <span class="arrow-down">▾</span>
+                    </button>
+                    <div class="subnav-mega-menu">
+                        <div class="mega-menu-header">
+                            <span class="mega-menu-title">☕ Custom Ceramic & Magic Mugs</span>
+                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('mugs')">View All Mugs ➔</a>
+                        </div>
+                        <div class="mega-menu-grid">
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-mug-magic')">
+                                <img src="assets/products/product_1.jpg" alt="Magic Mug" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Magic Color Reveal Mug</div>
+                                    <div class="mega-product-price">₹199 <span class="mega-product-strike">₹350</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-mug-white')">
+                                <img src="assets/products/product_2.jpg" alt="White Ceramic Mug" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">White Ceramic Photo Mug</div>
+                                    <div class="mega-product-price">₹149 <span class="mega-product-strike">₹250</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-mug-black')">
+                                <img src="assets/products/product_4.jpg" alt="Black Mug" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Matte Black Photo Mug</div>
+                                    <div class="mega-product-price">₹179 <span class="mega-product-strike">₹280</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-mug-dual-heart')">
+                                <img src="assets/products/product_5.jpg" alt="Heart Mug" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Golden Dual Heart Mug</div>
+                                    <div class="mega-product-price">₹219 <span class="mega-product-strike">₹350</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD HOLDERS DROPDOWN -->
+                <div class="subnav-dropdown">
+                    <button type="button" class="subnav-dropdown-trigger">
+                        <span>📇 Card Holders</span> <span class="arrow-down">▾</span>
+                    </button>
+                    <div class="subnav-mega-menu">
+                        <div class="mega-menu-header">
+                            <span class="mega-menu-title">📇 Executive Visiting Card Holders</span>
+                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('cardholders')">View All ➔</a>
+                        </div>
+                        <div class="mega-menu-grid">
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-card-magnetic')">
+                                <img src="assets/products/product_19.jpg" alt="Magnetic Card Holder" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Magnetic Cap Card Holder</div>
+                                    <div class="mega-product-price">₹229 <span class="mega-product-strike">₹350</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-card-leather')">
+                                <img src="assets/products/product_17.jpg" alt="PU Leather Card Holder" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">PU Leather Card Case</div>
+                                    <div class="mega-product-price">₹189 <span class="mega-product-strike">₹299</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIARIES DROPDOWN -->
+                <div class="subnav-dropdown">
+                    <button type="button" class="subnav-dropdown-trigger">
+                        <span>📓 Diaries</span> <span class="arrow-down">▾</span>
+                    </button>
+                    <div class="subnav-mega-menu">
+                        <div class="mega-menu-header">
+                            <span class="mega-menu-title">📓 Executive & Corporate Diaries</span>
+                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('diaries')">View All Diaries ➔</a>
+                        </div>
+                        <div class="mega-menu-grid">
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-diary-magnetic')">
+                                <img src="assets/products/product_48.jpg" alt="Magnetic Lock Diary" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Magnetic Lock Executive Diary</div>
+                                    <div class="mega-product-price">₹299 <span class="mega-product-strike">₹450</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-diary-color-reveal')">
+                                <img src="assets/products/product_49.jpg" alt="Color Reveal Diary" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Color Reveal A5 Diary</div>
+                                    <div class="mega-product-price">₹279 <span class="mega-product-strike">₹399</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-diary-roundlock')">
+                                <img src="assets/products/product_50.jpg" alt="Round Lock Diary" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Royal Round Lock Diary</div>
+                                    <div class="mega-product-price">₹329 <span class="mega-product-strike">₹499</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-diary-gold-border')">
+                                <img src="assets/products/product_51.jpg" alt="Gold Border Diary" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Gold Border Premium Diary</div>
+                                    <div class="mega-product-price">₹289 <span class="mega-product-strike">₹420</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DRINKWARE DROPDOWN -->
+                <div class="subnav-dropdown">
+                    <button type="button" class="subnav-dropdown-trigger">
+                        <span>🌡️ Drinkware</span> <span class="arrow-down">▾</span>
+                    </button>
+                    <div class="subnav-mega-menu">
+                        <div class="mega-menu-header">
+                            <span class="mega-menu-title">🌡️ Smart Temperature Bottles & Flasks</span>
+                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('bottles')">View All Bottles ➔</a>
+                        </div>
+                        <div class="mega-menu-grid">
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-bottle-led-smart')">
+                                <img src="assets/products/product_7.jpg" alt="Smart Temp Bottle" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Smart LED Temp Bottle (500ml)</div>
+                                    <div class="mega-product-price">₹299 <span class="mega-product-strike">₹499</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-bottle-vacuum-flask')">
+                                <img src="assets/products/product_9.jpg" alt="Matte Vacuum Flask" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Matte Vacuum Insulated Flask</div>
+                                    <div class="mega-product-price">₹349 <span class="mega-product-strike">₹550</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-bottle-bamboo-steel')">
+                                <img src="assets/products/product_11.jpg" alt="Bamboo Steel Bottle" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Bamboo Eco Stainless Bottle</div>
+                                    <div class="mega-product-price">₹389 <span class="mega-product-strike">₹599</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KEYCHAINS DROPDOWN -->
+                <div class="subnav-dropdown">
+                    <button type="button" class="subnav-dropdown-trigger">
+                        <span>🔑 Keychains</span> <span class="arrow-down">▾</span>
+                    </button>
+                    <div class="subnav-mega-menu">
+                        <div class="mega-menu-header">
+                            <span class="mega-menu-title">🔑 Laser Engraved Metal Keychains</span>
+                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('keychains')">View All Keychains ➔</a>
+                        </div>
+                        <div class="mega-menu-grid">
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-house')">
+                                <img src="assets/products/product_36.jpg" alt="House Keychain" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">House Shape Metal Keychain</div>
+                                    <div class="mega-product-price">₹99 <span class="mega-product-strike">₹160</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-round')">
+                                <img src="assets/products/product_38.jpg" alt="Round Keychain" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Round Metal Medallion Keychain</div>
+                                    <div class="mega-product-price">₹89 <span class="mega-product-strike">₹149</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-capsule')">
+                                <img src="assets/products/product_40.jpg" alt="Capsule Keychain" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Capsule Metal Keychain</div>
+                                    <div class="mega-product-price">₹99 <span class="mega-product-strike">₹169</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-carabiner')">
+                                <img src="assets/products/product_42.jpg" alt="Carabiner Keychain" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Carabiner Dual Ring Keychain</div>
+                                    <div class="mega-product-price">₹129 <span class="mega-product-strike">₹210</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-leather')">
+                                <img src="assets/products/product_44.jpg" alt="Leather Keychain" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Premium PU Leather Keychain</div>
+                                    <div class="mega-product-price">₹119 <span class="mega-product-strike">₹199</span></div>
+                                </div>
+                            </div>
+                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-opener')">
+                                <img src="assets/products/product_46.jpg" alt="Bottle Opener Keychain" class="mega-product-thumb">
+                                <div class="mega-product-meta">
+                                    <div class="mega-product-name">Carabiner Bottle Opener Keychain</div>
+                                    <div class="mega-product-price">₹139 <span class="mega-product-strike">₹220</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <a href="#corporate-gifting" class="subnav-link subnav-bulk-pill"><span>🏢 Corporate Hampers (Bulk RFQ)</span></a>
                 <a href="#services" class="subnav-link subnav-agency-pill"><span>🚀 Digital Marketing Agency</span></a>
-                <a href="#case-studies" class="subnav-link"><span>🎬 Case Studies</span></a>
-                <a href="#contact" class="subnav-link"><span>📞 Contact Us</span></a>
                 <a href="admin.html" class="subnav-link" style="color: #ffd814; font-weight: 800; background: rgba(255, 216, 20, 0.15); border: 1px solid rgba(255, 216, 20, 0.4); border-radius: 4px; padding: 4px 10px;"><span>📊 Admin Panel (Products, Stock & Analytics)</span></a>
             </div>
         </div>
+    </header>
     </header>
 
     <!-- Mobile Navigation Drawer -->
@@ -1494,6 +1760,165 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
                 <span>Confirm Order on WhatsApp</span>
             </a>
+        </div>
+    </div>
+
+    <!-- PRINTVENUE / AMAZON STYLE PRODUCT DETAIL MODAL (PDP / QUICK VIEW) -->
+    <div class="pdp-overlay" id="pdp-modal">
+        <div class="pdp-modal">
+            <div class="pdp-modal-header">
+                <div class="pdp-modal-title-bar">
+                    <span id="pdp-breadcrumb-cat">PENS & GIFTING</span>
+                    <span>›</span>
+                    <span id="pdp-breadcrumb-title" style="color: #0f1111;">Product Detail</span>
+                </div>
+                <button type="button" class="pdp-close-btn" id="pdp-close-btn" aria-label="Close Product View">&times;</button>
+            </div>
+            <div class="pdp-modal-body">
+                <div class="pdp-main-grid">
+                    <!-- Left: Gallery Stage with Zoom & Next/Prev Navigation -->
+                    <div class="pdp-gallery-col">
+                        <div class="pdp-image-stage" id="pdp-stage">
+                            <span class="pdp-discount-tag" id="pdp-discount-tag">35% OFF</span>
+                            <span class="pdp-badge-tag" id="pdp-badge-tag">Best Seller 🔥</span>
+                            <button type="button" class="pdp-nav-arrow pdp-nav-prev" id="pdp-btn-prev" title="Previous Product">‹</button>
+                            <img id="pdp-main-img" src="assets/products/product_20.jpg" alt="Product Zoom Image" class="pdp-stage-img">
+                            <button type="button" class="pdp-nav-arrow pdp-nav-next" id="pdp-btn-next" title="Next Product">›</button>
+                        </div>
+                        <div class="pdp-zoom-hint">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg>
+                            <span>Hover cursor over image to zoom in high-definition</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; justify-content: center; margin-top: 4px;">
+                            <span class="assured-badge" style="position: static; font-size: 11px;">🛡️ 100% Genuine Print Guarantee</span>
+                            <span class="assured-badge" style="position: static; font-size: 11px; background: #e7f4f5; color: #007185;">🚀 Fast Dispatch</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Product Specifications, Pricing, Personalization, Actions -->
+                    <div class="pdp-details-col">
+                        <span class="pdp-product-category" id="pdp-cat-label">BRANDED METAL PEN</span>
+                        <h2 class="pdp-product-title" id="pdp-title">Classic Metal Click Pen</h2>
+                        
+                        <div class="pdp-rating-row">
+                            <span class="pdp-stars">★★★★★</span>
+                            <span style="font-weight: 800; color: #0f1111;">4.9</span>
+                            <span class="pdp-review-count" id="pdp-review-trigger">(128 Customer Reviews)</span>
+                            <span style="color: #007185; font-size: 11.5px; font-weight: 700;">• In Stock & Ready to Engrave</span>
+                        </div>
+
+                        <div class="pdp-price-card">
+                            <div class="pdp-price-row">
+                                <span class="pdp-price-main" id="pdp-price">₹90</span>
+                                <span class="pdp-price-strike" id="pdp-strike">₹150</span>
+                                <span class="pdp-price-unit">Wholesale / Unit (GST Included)</span>
+                            </div>
+                            <div class="pdp-countdown-bar">
+                                <span>⚡</span>
+                                <span>Order within <strong class="pdp-countdown-digits" id="pdp-timer">07h : 36m : 45s</strong> for same-day engraving & dispatch!</span>
+                            </div>
+                        </div>
+
+                        <p id="pdp-description" style="font-size: 13px; color: #333333; line-height: 1.5; margin: 4px 0 0;">
+                            Classic design, everyday performance. Premium metal body with smooth click action. Permanent & elegant laser engraved brand or name.
+                        </p>
+
+                        <!-- Personalization Input (Printvenue style) -->
+                        <div class="pdp-personalize-box">
+                            <label class="pdp-personalize-label">
+                                <span>✍️ Personalize with Name / Company Logo:</span>
+                            </label>
+                            <input type="text" id="pdp-engrave-text" class="pdp-personalize-input" placeholder="e.g. Laser engrave name 'Arun Sharma' or Company Logo">
+                            <div class="pdp-personalize-preview">
+                                <span>Engraving Preview:</span>
+                                <span class="preview-pill" id="pdp-preview-pill">YOUR NAME HERE</span>
+                            </div>
+                        </div>
+
+                        <!-- Quantity Selector & Actions -->
+                        <div class="pdp-qty-cta-block">
+                            <div class="pdp-qty-row">
+                                <span style="font-size: 13px; font-weight: 700; color: #0f1111;">Quantity:</span>
+                                <div class="pdp-qty-control">
+                                    <button type="button" class="pdp-qty-btn" id="pdp-qty-minus">-</button>
+                                    <span class="pdp-qty-value" id="pdp-qty-display">1</span>
+                                    <button type="button" class="pdp-qty-btn" id="pdp-qty-plus">+</button>
+                                </div>
+                                <span style="font-size: 11.5px; color: #565959;">(Sample or Bulk available)</span>
+                            </div>
+
+                            <div class="pdp-actions-row">
+                                <button type="button" class="pdp-btn-cart" id="pdp-add-cart-btn">🛒 Add to Cart</button>
+                                <a href="#" id="pdp-buynow-btn" target="_blank" class="pdp-btn-buynow">⚡ Buy It Now</a>
+                                <button type="button" class="pdp-btn-wishlist" id="pdp-wishlist-toggle-btn" title="Add to Wishlist">♥</button>
+                            </div>
+                        </div>
+
+                        <!-- Product Highlights & Bullet Points -->
+                        <div class="pdp-features-box">
+                            <div class="pdp-features-title">Product Specifications:</div>
+                            <ul class="pdp-features-list" id="pdp-features-list">
+                                <li>Smooth Click Action: Press, Write, Repeat</li>
+                                <li>Colors: Black, White, Blue, Grey, Maroon</li>
+                                <li>Permanent Precision Laser Engraving</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Reviews & Ratings Interactive Section -->
+                <div class="pdp-reviews-section" id="pdp-reviews-section">
+                    <div class="pdp-reviews-header">
+                        <h3 class="pdp-reviews-heading">
+                            <span>⭐ Customer Reviews & Ratings</span>
+                            <span class="pdp-stars">★★★★★</span>
+                            <span style="font-size: 14px; color: #565959;" id="pdp-reviews-summary-text">(4.9 out of 5 based on verified orders)</span>
+                        </h3>
+                    </div>
+
+                    <!-- Add Review Form -->
+                    <div class="review-submit-card">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                            <span style="font-size: 13px; font-weight: 800; color: #0f1111;">Rate & Review this Product:</span>
+                            <div class="review-star-picker" id="review-star-picker">
+                                <span class="star-pick-btn active" data-rating="1">★</span>
+                                <span class="star-pick-btn active" data-rating="2">★</span>
+                                <span class="star-pick-btn active" data-rating="3">★</span>
+                                <span class="star-pick-btn active" data-rating="4">★</span>
+                                <span class="star-pick-btn active" data-rating="5">★</span>
+                                <span id="picked-rating-label" style="font-size: 12px; font-weight: 700; color: #ffa41c; margin-left: 4px;">5 Stars</span>
+                            </div>
+                        </div>
+                        <div class="review-input-row">
+                            <input type="text" id="review-user-name" class="review-text-input" placeholder="Your Name (e.g. Rajesh Kumar)">
+                            <input type="text" id="review-user-comment" class="review-text-input" placeholder="Share your experience (e.g. Printing quality is sharp and delivery was super fast!)">
+                            <button type="button" id="review-submit-btn" class="review-submit-btn">Submit Review</button>
+                        </div>
+                    </div>
+
+                    <!-- Reviews List -->
+                    <div class="pdp-reviews-list" id="pdp-reviews-list">
+                        <!-- Populated dynamically by app.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WISHLIST MODAL -->
+    <div class="wishlist-modal-overlay" id="wishlist-modal">
+        <div class="wishlist-modal-box">
+            <div class="wishlist-modal-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: #cc0c39; font-size: 20px;">♥</span>
+                    <h3 style="font-size: 16px; font-weight: 800; margin: 0; color: #0f1111;">Your Saved Wishlist</h3>
+                    <span class="ds-wishlist-count" id="wishlist-modal-count">0 Items</span>
+                </div>
+                <button type="button" class="pdp-close-btn" id="wishlist-close-btn">&times;</button>
+            </div>
+            <div class="wishlist-items-container" id="wishlist-items-container">
+                <!-- Dynamically populated by app.js -->
+            </div>
         </div>
     </div>
 

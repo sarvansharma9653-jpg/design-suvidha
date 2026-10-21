@@ -1047,6 +1047,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (s && s.whatsapp) waOrderPhone = s.whatsapp;
         } catch(e) {}
 
+        const wishlist = (typeof getWishlist === 'function') ? getWishlist() : [];
+
         products.forEach(p => {
             const stock = p.stock !== undefined ? p.stock : 50;
             const isOutOfStock = stock === 0;
@@ -1054,6 +1056,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const featuresHtml = (p.features || []).map(f => `<div class="product-feat-bullet"><span class="feat-dot"></span><span>${f}</span></div>`).join('');
             const badgeText = isOutOfStock ? 'Sold Out 🔴' : (p.badge || 'Best Seller 🔥');
             const lowStockHtml = (!isOutOfStock && stock <= 15) ? `<span style="font-size: 11px; color: #b45309; font-weight: 700; display: block; margin-top: 2px;">⚠️ Only ${stock} left in stock!</span>` : '';
+            const isWishlisted = wishlist.some(item => item.id === p.id);
 
             const actionButtons = isOutOfStock
                 ? `
@@ -1061,14 +1064,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <a href="https://wa.me/${waOrderPhone}?text=${encodeURIComponent('Hello Design Suvidha, when will ' + p.title + ' be back in stock?')}" target="_blank" class="btn-buy-instant btn-order-wa" style="background: #475569;">Notify Me</a>
                 `
                 : `
-                    <button type="button" class="btn-add-cart" data-title="${p.title}" data-price="${p.price}" data-img="${p.img}">🛒 Add</button>
-                    <a href="https://wa.me/${waOrderPhone}?text=${encodeURIComponent('Hello Design Suvidha, I want to order ' + p.title + ' at Rs ' + p.price)}" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                    <button type="button" class="btn-add-cart" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}" data-img="${p.img}">🛒 Add</button>
+                    <button type="button" class="btn-buy-instant btn-open-pdp" data-id="${p.id}" style="background: #ffa41c; color: #0f1111; border: none; font-weight: 800; cursor: pointer; padding: 7px 12px; border-radius: 6px;">Buy Now</button>
                 `;
 
             html += `
-                <div class="product-card" data-cat="${p.category || 'mugs'}">
-                    <div class="product-thumb-container">
-                        <img src="${p.img || 'assets/products/product_1.jpg'}" alt="${p.title}" class="product-thumb-img" loading="lazy">
+                <div class="product-card" data-cat="${p.category || 'mugs'}" data-id="${p.id}">
+                    <div class="product-thumb-container" style="position: relative;">
+                        <button type="button" class="card-wishlist-btn ${isWishlisted ? 'active' : ''}" data-id="${p.id}" title="Save to Wishlist">♥</button>
+                        <img src="${p.img || 'assets/products/product_1.jpg'}" alt="${p.title}" class="product-thumb-img card-pdp-trigger" data-id="${p.id}" loading="lazy" style="cursor: pointer;">
                         <span class="product-badge-float" ${isOutOfStock ? 'style="background: #dc2626; color: #fff;"' : ''}>${badgeText}</span>
                         <span class="product-discount-float">${discPercent}% OFF</span>
                         <span class="assured-badge">🛡️ DS Assured</span>
@@ -1076,12 +1080,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="product-body">
                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
                             <span class="product-cat-tag">${(p.catLabel || p.category || 'Gift Item').toUpperCase()}</span>
-                            <div>
-                                <span class="star-rating-pill">4.8 ★</span>
-                                <span class="rating-count-text">(120+)</span>
+                            <div class="card-pdp-trigger" data-id="${p.id}" style="cursor: pointer;">
+                                <span class="star-rating-pill">4.9 ★</span>
+                                <span class="rating-count-text">(Reviews)</span>
                             </div>
                         </div>
-                        <h3 class="product-title">${p.title}</h3>
+                        <h3 class="product-title card-pdp-trigger" data-id="${p.id}" style="cursor: pointer;" title="Click to view details & customize">${p.title}</h3>
                         <p class="product-desc">${p.desc || ''}</p>
                         <div class="product-features-list">
                             ${featuresHtml}
@@ -1089,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${lowStockHtml}
                         <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                         <div class="product-footer-row">
-                            <div class="product-price-block">
+                            <div class="product-price-block card-pdp-trigger" data-id="${p.id}" style="cursor: pointer;">
                                 <span class="price-main">₹${p.price}/-</span>
                                 <div><span class="price-strike">${p.strike ? '₹' + p.strike : ''}</span><span class="price-unit"> Wholesale</span></div>
                             </div>
@@ -1104,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         grid.innerHTML = html;
 
-        // Re-wire Add to Cart buttons
+        // Wire Add to Cart buttons
         grid.querySelectorAll('.btn-add-cart').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1117,7 +1121,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Re-wire Quick Buy buttons
+        // Wire card PDP trigger clicks
+        grid.querySelectorAll('.card-pdp-trigger, .btn-open-pdp').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const prodId = el.getAttribute('data-id');
+                if (typeof window.openProductDetailModal === 'function') {
+                    window.openProductDetailModal(prodId);
+                }
+            });
+        });
+
+        // Wire card wishlist buttons
+        grid.querySelectorAll('.card-wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                const prodId = btn.getAttribute('data-id');
+                const prod = products.find(item => item.id === prodId);
+                if (prod && typeof toggleWishlist === 'function') {
+                    toggleWishlist(prod);
+                }
+            });
+        });
+
+        // Re-wire Quick Buy buttons if defined
         if (typeof wireQuickBuyModal === 'function') {
             wireQuickBuyModal();
         }
@@ -1578,6 +1606,578 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     } catch (e) { console.error('Failed to apply custom website settings', e); }
+
+    // ============================================================
+    // 19. WISHLIST ENGINE & PERSISTENCE
+    // ============================================================
+    const wishlistModal = document.getElementById('wishlist-modal');
+    const openWishlistBtn = document.getElementById('open-wishlist-btn');
+    const closeWishlistBtn = document.getElementById('wishlist-close-btn');
+    const wishlistItemsContainer = document.getElementById('wishlist-items-container');
+    const headerWishlistCount = document.getElementById('header-wishlist-count');
+    const wishlistModalCount = document.getElementById('wishlist-modal-count');
+
+    function getWishlist() {
+        try {
+            const saved = localStorage.getItem('ds_wishlist');
+            return saved ? JSON.parse(saved) : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function saveWishlist(list) {
+        try {
+            localStorage.setItem('ds_wishlist', JSON.stringify(list));
+        } catch (e) {
+            console.error(e);
+        }
+        updateWishlistUI();
+    }
+
+    function toggleWishlist(prod) {
+        if (!prod || !prod.id) return;
+        let list = getWishlist();
+        const idx = list.findIndex(item => item.id === prod.id);
+        if (idx >= 0) {
+            list.splice(idx, 1);
+        } else {
+            list.push({
+                id: prod.id,
+                title: prod.title,
+                price: prod.price,
+                strike: prod.strike,
+                img: prod.img,
+                category: prod.category || 'mugs'
+            });
+        }
+        saveWishlist(list);
+    }
+
+    function updateWishlistUI() {
+        const list = getWishlist();
+        const count = list.length;
+        if (headerWishlistCount) headerWishlistCount.textContent = count;
+        if (wishlistModalCount) wishlistModalCount.textContent = count + (count === 1 ? ' Item' : ' Items');
+
+        // Update card buttons
+        document.querySelectorAll('.card-wishlist-btn').forEach(btn => {
+            const id = btn.getAttribute('data-id');
+            if (list.some(item => item.id === id)) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // Update PDP Wishlist button if open
+        const pdpWishlistBtn = document.getElementById('pdp-wishlist-toggle-btn');
+        if (pdpWishlistBtn && currentPdpProduct) {
+            if (list.some(item => item.id === currentPdpProduct.id)) {
+                pdpWishlistBtn.classList.add('active');
+            } else {
+                pdpWishlistBtn.classList.remove('active');
+            }
+        }
+
+        renderWishlistModal();
+    }
+
+    function renderWishlistModal() {
+        if (!wishlistItemsContainer) return;
+        const list = getWishlist();
+
+        if (list.length === 0) {
+            wishlistItemsContainer.innerHTML = `
+                <div style="text-align: center; padding: 40px 15px; color: #565959;">
+                    <div style="font-size: 40px; margin-bottom: 10px; color: #cc0c39;">♡</div>
+                    <h4 style="margin: 0 0 6px; font-size: 16px; color: #0f1111;">Your Wishlist is Empty</h4>
+                    <p style="font-size: 13px; color: #565959; margin: 0 0 16px;">Save your favorite custom gifts, laser pens, and mugs here to buy later.</p>
+                    <a href="#featured-products" onclick="if(wishlistModal) wishlistModal.classList.remove('active')" class="btn btn-sm" style="background: #ffd814; color: #0f1111; font-weight: 800; padding: 8px 18px; border-radius: 6px; text-decoration: none;">Browse Store ➔</a>
+                </div>
+            `;
+            return;
+        }
+
+        let html = '<div style="display: flex; flex-direction: column; gap: 10px; max-height: 480px; overflow-y: auto;">';
+        list.forEach((item, index) => {
+            html += `
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #eaeded; border-radius: 8px; padding: 10px;">
+                    <img src="${item.img || 'design suvidha logo.png'}" alt="${item.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid #eee; cursor: pointer;" onclick="openProductDetailModal('${item.id}'); if(wishlistModal) wishlistModal.classList.remove('active');">
+                    <div style="flex: 1; min-width: 0;">
+                        <h4 style="font-size: 13px; font-weight: 700; color: #0f1111; margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;" onclick="openProductDetailModal('${item.id}'); if(wishlistModal) wishlistModal.classList.remove('active');">${item.title}</h4>
+                        <div style="display: flex; align-items: baseline; gap: 6px;">
+                            <span style="font-size: 14px; font-weight: 800; color: #b12704;">₹${item.price}</span>
+                            ${item.strike ? `<span style="font-size: 11px; color: #888; text-decoration: line-through;">₹${item.strike}</span>` : ''}
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                        <button type="button" class="btn-move-to-cart" data-id="${item.id}" data-title="${item.title}" data-price="${item.price}" data-img="${item.img}" style="background: #ffd814; border: 1px solid #fcd200; font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 6px; cursor: pointer;">Move to Cart</button>
+                        <button type="button" class="btn-remove-wishlist" data-index="${index}" style="background: none; border: none; color: #cc0c39; font-size: 16px; cursor: pointer; padding: 4px;" title="Remove">✕</button>
+                    </div>
+                </div>
+            `;
+        });
+        html += '</div>';
+        wishlistItemsContainer.innerHTML = html;
+
+        wishlistItemsContainer.querySelectorAll('.btn-move-to-cart').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const title = btn.getAttribute('data-title');
+                const price = btn.getAttribute('data-price');
+                const img = btn.getAttribute('data-img');
+                const id = btn.getAttribute('data-id');
+                addToCart(title, price, img);
+                let cur = getWishlist().filter(it => it.id !== id);
+                saveWishlist(cur);
+                if (wishlistModal) wishlistModal.classList.remove('active');
+            });
+        });
+
+        wishlistItemsContainer.querySelectorAll('.btn-remove-wishlist').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.getAttribute('data-index'), 10);
+                let cur = getWishlist();
+                cur.splice(idx, 1);
+                saveWishlist(cur);
+            });
+        });
+    }
+
+    if (openWishlistBtn) {
+        openWishlistBtn.addEventListener('click', () => {
+            updateWishlistUI();
+            if (wishlistModal) wishlistModal.classList.add('active');
+        });
+    }
+
+    if (closeWishlistBtn) {
+        closeWishlistBtn.addEventListener('click', () => {
+            if (wishlistModal) wishlistModal.classList.remove('active');
+        });
+    }
+
+    if (wishlistModal) {
+        wishlistModal.addEventListener('click', (e) => {
+            if (e.target === wishlistModal) wishlistModal.classList.remove('active');
+        });
+    }
+
+    // ============================================================
+    // 20. PRINTVENUE / AMAZON STYLE PRODUCT DETAIL MODAL (PDP)
+    // ============================================================
+    const pdpModal = document.getElementById('pdp-modal');
+    const pdpCloseBtn = document.getElementById('pdp-close-btn');
+    const pdpMainImg = document.getElementById('pdp-main-img');
+    const pdpStage = document.getElementById('pdp-stage');
+    const pdpBreadcrumbCat = document.getElementById('pdp-breadcrumb-cat');
+    const pdpBreadcrumbTitle = document.getElementById('pdp-breadcrumb-title');
+    const pdpCatLabel = document.getElementById('pdp-cat-label');
+    const pdpTitle = document.getElementById('pdp-title');
+    const pdpPrice = document.getElementById('pdp-price');
+    const pdpStrike = document.getElementById('pdp-strike');
+    const pdpDiscountTag = document.getElementById('pdp-discount-tag');
+    const pdpBadgeTag = document.getElementById('pdp-badge-tag');
+    const pdpDescription = document.getElementById('pdp-description');
+    const pdpFeaturesList = document.getElementById('pdp-features-list');
+    const pdpEngraveText = document.getElementById('pdp-engrave-text');
+    const pdpPreviewPill = document.getElementById('pdp-preview-pill');
+    const pdpQtyMinus = document.getElementById('pdp-qty-minus');
+    const pdpQtyPlus = document.getElementById('pdp-qty-plus');
+    const pdpQtyDisplay = document.getElementById('pdp-qty-display');
+    const pdpAddCartBtn = document.getElementById('pdp-add-cart-btn');
+    const pdpBuyNowBtn = document.getElementById('pdp-buynow-btn');
+    const pdpWishlistToggleBtn = document.getElementById('pdp-wishlist-toggle-btn');
+    const pdpBtnPrev = document.getElementById('pdp-btn-prev');
+    const pdpBtnNext = document.getElementById('pdp-btn-next');
+    const pdpReviewTrigger = document.getElementById('pdp-review-trigger');
+
+    let currentPdpProduct = null;
+    let currentPdpIndex = 0;
+    let currentPdpQty = 1;
+
+    window.openProductDetailModal = function(productId) {
+        const products = getLiveStoreProducts();
+        if (!products || products.length === 0) return;
+
+        let idx = products.findIndex(p => p.id === productId);
+        if (idx === -1) idx = 0;
+        currentPdpIndex = idx;
+        const p = products[idx];
+        currentPdpProduct = p;
+        currentPdpQty = 1;
+
+        // Populate elements
+        if (pdpBreadcrumbCat) pdpBreadcrumbCat.textContent = (p.catLabel || p.category || 'GIFTING').toUpperCase();
+        if (pdpBreadcrumbTitle) pdpBreadcrumbTitle.textContent = p.title;
+        if (pdpCatLabel) pdpCatLabel.textContent = (p.catLabel || p.category || 'CUSTOM ITEM').toUpperCase();
+        if (pdpTitle) pdpTitle.textContent = p.title;
+        if (pdpPrice) pdpPrice.textContent = '₹' + p.price;
+        if (pdpStrike) pdpStrike.textContent = p.strike ? '₹' + p.strike : '';
+        
+        const discPercent = p.strike ? Math.round(((p.strike - p.price) / p.strike) * 100) : 35;
+        if (pdpDiscountTag) pdpDiscountTag.textContent = discPercent + '% OFF';
+        if (pdpBadgeTag) pdpBadgeTag.textContent = p.badge || 'Best Seller 🔥';
+
+        if (pdpDescription) pdpDescription.textContent = p.desc || 'Premium quality customized gift with high-precision printing or laser engraving.';
+
+        // Image
+        if (pdpMainImg) {
+            pdpMainImg.src = p.img || 'assets/products/product_1.jpg';
+            pdpMainImg.alt = p.title;
+        }
+
+        // Features list
+        if (pdpFeaturesList) {
+            const feats = p.features && p.features.length ? p.features : [
+                'Permanent Precision Laser Engraving / High-Definition Print',
+                'Durable Premium Grade Materials (Factory Direct)',
+                'Includes Protective Gift Packaging with Free Delivery'
+            ];
+            pdpFeaturesList.innerHTML = feats.map(f => `<li>${f}</li>`).join('');
+        }
+
+        // Reset Qty & Personalization
+        if (pdpQtyDisplay) pdpQtyDisplay.textContent = '1';
+        if (pdpEngraveText) pdpEngraveText.value = '';
+        if (pdpPreviewPill) pdpPreviewPill.textContent = 'YOUR NAME HERE';
+
+        // Update Buy Now link
+        updatePdpBuyNowLink();
+
+        // Update Wishlist toggle state
+        if (pdpWishlistToggleBtn) {
+            const inWish = getWishlist().some(item => item.id === p.id);
+            if (inWish) {
+                pdpWishlistToggleBtn.classList.add('active');
+            } else {
+                pdpWishlistToggleBtn.classList.remove('active');
+            }
+        }
+
+        // Render reviews for this product
+        renderProductReviews(p.id);
+
+        // Open modal
+        if (pdpModal) pdpModal.classList.add('active');
+    };
+
+    function closeProductDetailModal() {
+        if (pdpModal) pdpModal.classList.remove('active');
+    }
+
+    if (pdpCloseBtn) pdpCloseBtn.addEventListener('click', closeProductDetailModal);
+    if (pdpModal) {
+        pdpModal.addEventListener('click', (e) => {
+            if (e.target === pdpModal) closeProductDetailModal();
+        });
+    }
+
+    // Prev / Next Product Navigation
+    if (pdpBtnPrev) {
+        pdpBtnPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const products = getLiveStoreProducts();
+            currentPdpIndex = (currentPdpIndex - 1 + products.length) % products.length;
+            window.openProductDetailModal(products[currentPdpIndex].id);
+        });
+    }
+
+    if (pdpBtnNext) {
+        pdpBtnNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const products = getLiveStoreProducts();
+            currentPdpIndex = (currentPdpIndex + 1) % products.length;
+            window.openProductDetailModal(products[currentPdpIndex].id);
+        });
+    }
+
+    // Personalization Live Preview & URL updater
+    if (pdpEngraveText) {
+        pdpEngraveText.addEventListener('input', () => {
+            const val = pdpEngraveText.value.trim();
+            if (pdpPreviewPill) {
+                pdpPreviewPill.textContent = val ? val.toUpperCase() : 'YOUR NAME HERE';
+            }
+            updatePdpBuyNowLink();
+        });
+    }
+
+    // Quantity modifiers in PDP
+    if (pdpQtyMinus) {
+        pdpQtyMinus.addEventListener('click', () => {
+            if (currentPdpQty > 1) {
+                currentPdpQty -= 1;
+                if (pdpQtyDisplay) pdpQtyDisplay.textContent = currentPdpQty;
+                updatePdpBuyNowLink();
+            }
+        });
+    }
+
+    if (pdpQtyPlus) {
+        pdpQtyPlus.addEventListener('click', () => {
+            currentPdpQty += 1;
+            if (pdpQtyDisplay) pdpQtyDisplay.textContent = currentPdpQty;
+            updatePdpBuyNowLink();
+        });
+    }
+
+    function updatePdpBuyNowLink() {
+        if (!pdpBuyNowBtn || !currentPdpProduct) return;
+        let waPhone = '918739904737';
+        try {
+            const s = JSON.parse(localStorage.getItem('ds_website_settings') || 'null');
+            if (s && s.whatsapp) waPhone = s.whatsapp;
+        } catch(e) {}
+
+        const engrave = (pdpEngraveText && pdpEngraveText.value.trim()) ? pdpEngraveText.value.trim() : 'Standard / No Engraving';
+        const totalPrice = currentPdpProduct.price * currentPdpQty;
+
+        const msg = `*INSTANT ORDER: ${currentPdpProduct.title}* 🛍️\n` +
+                    `• Quantity: ${currentPdpQty} Pc(s)\n` +
+                    `• Unit Price: ₹${currentPdpProduct.price}\n` +
+                    `• Total Payable: ₹${totalPrice}\n` +
+                    `• Customization / Engraving: "${engrave}"\n\n` +
+                    `Please share payment details (UPI QR / Bank) and mockup preview. Thank you!`;
+
+        pdpBuyNowBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`;
+    }
+
+    // Add to Cart from PDP
+    if (pdpAddCartBtn) {
+        pdpAddCartBtn.addEventListener('click', () => {
+            if (!currentPdpProduct) return;
+            const customNote = (pdpEngraveText && pdpEngraveText.value.trim()) ? ` [Engrave: ${pdpEngraveText.value.trim()}]` : '';
+            const fullTitle = currentPdpProduct.title + customNote;
+            
+            for (let i = 0; i < currentPdpQty; i++) {
+                addToCart(fullTitle, currentPdpProduct.price, currentPdpProduct.img);
+            }
+            closeProductDetailModal();
+        });
+    }
+
+    // Wishlist Toggle in PDP
+    if (pdpWishlistToggleBtn) {
+        pdpWishlistToggleBtn.addEventListener('click', () => {
+            if (currentPdpProduct) {
+                toggleWishlist(currentPdpProduct);
+            }
+        });
+    }
+
+    // Review trigger smooth scroll
+    if (pdpReviewTrigger) {
+        pdpReviewTrigger.addEventListener('click', () => {
+            const revSec = document.getElementById('pdp-reviews-section');
+            if (revSec) revSec.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    // Countdown Timer (Printvenue Style: "Order within 07h : 36m : 45s for same-day dispatch")
+    function initCountdownTimer() {
+        const timerEl = document.getElementById('pdp-timer');
+        if (!timerEl) return;
+        let totalSeconds = 7 * 3600 + 36 * 60 + 45;
+
+        setInterval(() => {
+            totalSeconds--;
+            if (totalSeconds <= 0) totalSeconds = 8 * 3600; // Reset next cycle
+            const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+            const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+            const s = String(totalSeconds % 60).padStart(2, '0');
+            timerEl.textContent = `${h}h : ${m}m : ${s}s`;
+        }, 1000);
+    }
+    initCountdownTimer();
+
+    // ============================================================
+    // 21. CUSTOMER REVIEWS & 5-STAR RATING SYSTEM
+    // ============================================================
+    const DEFAULT_REVIEWS = {
+        "prod-pen-click": [
+            { name: "Vikram Rathore", rating: 5, date: "18 Oct 2026", comment: "Superb laser engraving on the metal body. Looks highly executive in meetings! Fast delivery to Delhi." },
+            { name: "Pooja Mehta", rating: 5, date: "12 Oct 2026", comment: "Ordered 50 pieces for our company anniversary. Clean finish and writes very smooth. Highly recommended!" }
+        ],
+        "prod-pen-magnetic-gel": [
+            { name: "Sunil Verma", rating: 5, date: "16 Oct 2026", comment: "The magnetic cap action is so satisfying and premium. Laser name engraving came out crisp." },
+            { name: "Dr. Ananya Sen", rating: 5, date: "09 Oct 2026", comment: "Very smooth gel flow, does not smudge. Classy matte finish." }
+        ],
+        "prod-pen-black-twist": [
+            { name: "Aditya Roy", rating: 5, date: "14 Oct 2026", comment: "Black & rose gold combination looks like a 1000 rupee luxury pen. Unbelievable wholesale rate." }
+        ],
+        "prod-mug-magic": [
+            { name: "Neha Sharma", rating: 5, date: "19 Oct 2026", comment: "The magic photo reveal when pouring hot coffee is wonderful! My husband loved the birthday surprise." },
+            { name: "Kunal Jain", rating: 5, date: "15 Oct 2026", comment: "Crisp HD photo print. Packed with double bubble wrap, arrived safely in Jaipur." }
+        ],
+        "prod-bottle-led-smart": [
+            { name: "Manish Agarwal", rating: 5, date: "17 Oct 2026", comment: "Touch LED display works accurately. Keeps water ice-cold for 18+ hours. Name engraving looks top notch." }
+        ],
+        "prod-diary-magnetic": [
+            { name: "Deepak Mittal", rating: 5, date: "11 Oct 2026", comment: "Magnetic lock clasp is sturdy. 80 GSM paper has zero bleed-through with fountain and roller pens." }
+        ],
+        "prod-card-magnetic": [
+            { name: "Rohan Kapoor", rating: 5, date: "13 Oct 2026", comment: "High quality stainless steel and leatherette. Fits 18 cards without bulging." }
+        ],
+        "prod-keychain-house": [
+            { name: "Shree Real Estate", rating: 5, date: "15 Oct 2026", comment: "Ordered 200 pcs for our apartment handover kits. Our clients loved the house shape with our brand logo!" }
+        ]
+    };
+
+    function getProductReviews(prodId) {
+        try {
+            const all = JSON.parse(localStorage.getItem('ds_product_reviews') || '{}');
+            if (all[prodId] && Array.isArray(all[prodId])) {
+                return all[prodId];
+            }
+            if (DEFAULT_REVIEWS[prodId]) {
+                return DEFAULT_REVIEWS[prodId];
+            }
+        } catch (e) {
+            console.error(e);
+        }
+        return [
+            { name: "Amit K.", rating: 5, date: "Yesterday", comment: "Exceptional quality and genuine laser engraving. Design Suvidha delivered on time!" },
+            { name: "Suresh P.", rating: 5, date: "3 days ago", comment: "100% satisfied with the product finish. Customer support on WhatsApp is very responsive." }
+        ];
+    }
+
+    function saveProductReview(prodId, newReview) {
+        try {
+            const all = JSON.parse(localStorage.getItem('ds_product_reviews') || '{}');
+            if (!all[prodId]) {
+                all[prodId] = getProductReviews(prodId);
+            }
+            all[prodId].unshift(newReview);
+            localStorage.setItem('ds_product_reviews', JSON.stringify(all));
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    function renderProductReviews(prodId) {
+        const reviewsListEl = document.getElementById('pdp-reviews-list');
+        const countEl = document.getElementById('pdp-review-trigger');
+        const summaryText = document.getElementById('pdp-reviews-summary-text');
+        if (!reviewsListEl) return;
+
+        const reviews = getProductReviews(prodId);
+        const count = reviews.length;
+
+        if (countEl) countEl.textContent = `(${count} Customer Reviews)`;
+        if (summaryText) summaryText.textContent = `(4.9 out of 5 based on ${count} verified orders)`;
+
+        let html = '';
+        reviews.forEach(r => {
+            const stars = '★'.repeat(r.rating || 5);
+            html += `
+                <div class="review-item-card">
+                    <div class="review-item-top">
+                        <div class="review-author">
+                            <span>${r.name}</span>
+                            <span class="verified-badge">✓ Verified Buyer</span>
+                        </div>
+                        <span class="review-date">${r.date}</span>
+                    </div>
+                    <div style="color: #ffa41c; font-size: 13px; font-weight: 800; margin-bottom: 2px;">${stars}</div>
+                    <p class="review-comment">${r.comment}</p>
+                </div>
+            `;
+        });
+
+        reviewsListEl.innerHTML = html;
+    }
+
+    // Star Picker Logic
+    let currentRatingSelected = 5;
+    const starPicker = document.getElementById('review-star-picker');
+    const pickedRatingLabel = document.getElementById('picked-rating-label');
+
+    if (starPicker) {
+        const stars = starPicker.querySelectorAll('.star-pick-btn');
+        stars.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const r = parseInt(btn.getAttribute('data-rating'), 10);
+                currentRatingSelected = r;
+                stars.forEach(s => {
+                    const sr = parseInt(s.getAttribute('data-rating'), 10);
+                    if (sr <= r) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+                if (pickedRatingLabel) pickedRatingLabel.textContent = `${r} Star${r > 1 ? 's' : ''}`;
+            });
+        });
+    }
+
+    // Review Submit Handler
+    const reviewSubmitBtn = document.getElementById('review-submit-btn');
+    if (reviewSubmitBtn) {
+        reviewSubmitBtn.addEventListener('click', () => {
+            const nameInput = document.getElementById('review-user-name');
+            const commentInput = document.getElementById('review-user-comment');
+
+            const name = nameInput?.value.trim();
+            const comment = commentInput?.value.trim();
+
+            if (!name || !comment) {
+                alert('Please enter your name and a short review comment.');
+                return;
+            }
+
+            if (!currentPdpProduct) return;
+
+            const today = new Date().toLocaleDateString('en-IN', {
+                day: 'numeric', month: 'short', year: 'numeric'
+            });
+
+            const newRev = {
+                name: name,
+                rating: currentRatingSelected,
+                date: today,
+                comment: comment
+            };
+
+            saveProductReview(currentPdpProduct.id, newRev);
+            renderProductReviews(currentPdpProduct.id);
+
+            if (commentInput) commentInput.value = '';
+            alert('🎉 Thank you! Your 5-star review has been published.');
+        });
+    }
+
+    // Global category filter helper (used by Printvenue mega menu)
+    window.filterLiveCategory = function(catName) {
+        const filterBtns = document.querySelectorAll('#home-store-filters .filter-btn');
+        const cards = document.querySelectorAll('#home-product-grid .product-card');
+
+        filterBtns.forEach(b => {
+            if (b.getAttribute('data-cat') === catName) {
+                b.classList.add('active');
+            } else {
+                b.classList.remove('active');
+            }
+        });
+
+        cards.forEach(c => {
+            const cardCat = c.getAttribute('data-cat');
+            if (catName === 'all' || cardCat === catName) {
+                c.style.display = 'flex';
+            } else {
+                c.style.display = 'none';
+            }
+        });
+
+        const storeSection = document.getElementById('featured-products');
+        if (storeSection) {
+            storeSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    // Initialize wishlist count
+    updateWishlistUI();
 
     console.log('🚀 Design Suvidha Fast Mobile Engine Initialized');
 });

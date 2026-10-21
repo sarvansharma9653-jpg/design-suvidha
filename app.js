@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================================
     const homeStoreFilters = document.querySelectorAll('#home-store-filters .store-filter-btn');
     const homeStoryCategories = document.querySelectorAll('#home-story-categories .app-cat-item');
-    const homeProductCards = document.querySelectorAll('#home-product-grid .product-card');
+    // Dynamic query of product cards inside filterHomeProducts
 
     function filterHomeProducts(selectedCat) {
         // Sync story items
@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Filter cards
-        homeProductCards.forEach(card => {
+        document.querySelectorAll('#home-product-grid .product-card').forEach(card => {
             const cardCat = card.getAttribute('data-cat');
             if (selectedCat === 'all' || cardCat === selectedCat) {
                 card.style.display = 'flex';
@@ -510,35 +510,518 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ============================================================
     
-    // ============================================================
+    // ================================================// ============================================================
     // DYNAMIC PRODUCTS LOADER (Google Drive Catalog + Admin Sync)
     // ============================================================
+    const CURRENT_CATALOG_VERSION = 'ds_v3_accurate_drive_catalog';
+
     const DEFAULT_STORE_PRODUCTS = [
-        { id: 'prod-mug-white', title: 'White Ceramic Mug – 330 ml', category: 'mugs', catLabel: 'Personalised Mug', price: 199, strike: 299, badge: 'Best Seller 🔥', img: 'assets/products/product_1.jpg', desc: 'Vibrant HD Sublimation print that stays bright sip after sip. Dishwasher and microwave safe high-density ceramic.', features: ['Vibrant HD Full Color Print', 'Capacity: 330 ml Standard', 'Dishwasher & Microwave Safe'] },
-        { id: 'prod-mug-inner-color', title: 'Inner Color Ceramic Mug – 330 ml', category: 'mugs', catLabel: 'Personalised Mug', price: 230, strike: 340, badge: 'Trending ✨', img: 'assets/products/product_3.jpg', desc: 'Dual-tone premium ceramic with colorful interior. Available in Black, Blue, Orange, Red, Mint, and Yellow.', features: ['6 Vibrant Inner Color Options', 'High Contrast Exterior HD Print', 'Capacity: 330 ml'] },
-        { id: 'prod-mug-heart', title: 'Heart Handle Mug – 330 ml', category: 'mugs', catLabel: 'Personalised Mug', price: 249, strike: 380, badge: 'Special Gift ❤️', img: 'assets/products/product_5.jpg', desc: 'Elegant heart-shaped handle mug. Perfect for anniversary gifts, couple photos, birthdays, and special corporate tokens.', features: ['Ergonomic Heart-Shaped Handle', 'HD Sublimation Print', 'Capacity: 330 ml'] },
-        { id: 'prod-mug-chai', title: 'Mini Ceramic Chai Mug – 190 ml', category: 'mugs', catLabel: 'Personalised Mug', price: 199, strike: 280, badge: 'Chai Lovers ☕', img: 'assets/products/product_7.jpg', desc: 'Authentic 180–190 ml portion—the exact gold-standard volume for Indian chai, filter coffee, or espresso.', features: ['190 ml Ideal Chai/Espresso Size', 'Standard & Fine Ceramic options', 'Custom Logo or Personal Name'] },
-        { id: 'prod-pen-classic', title: 'Classic Metal Click Pen', category: 'pens', catLabel: 'Branded Metal Pen', price: 90, strike: 150, badge: 'Economy Pick', img: 'assets/products/product_17.jpg', desc: 'Durable metal click ballpoint pen with smooth ink flow. Optional luxury gift box (+₹35). Laser engraved.', features: ['Without Box: ₹90 / With Box: ₹125', 'Colors: Black, Blue, Maroon, Grey', 'Laser Engraved Name or Brand'] },
-        { id: 'prod-pen-magnetic', title: 'Magnetic Gel Metal Pen', category: 'pens', catLabel: 'Branded Metal Pen', price: 199, strike: 299, badge: 'Magnetic Cap 🧲', img: 'assets/products/product_19.jpg', desc: 'Executive magnetic cap snap closure. Matte barrel with fine gel ink rollerball mechanism.', features: ['Precision Magnetic Cap Action', 'Ultra-smooth Gel Refill', 'Cap or Body Laser Engraving'] },
-        { id: 'prod-pen-rosegold', title: 'Black Metal Pen with Rose Gold', category: 'pens', catLabel: 'Branded Metal Pen', price: 249, strike: 375, badge: 'Luxury Rose Gold', img: 'assets/products/product_21.jpg', desc: 'Crafted with premium matte black body and striking rose gold clip and accents for an ultra-luxurious appearance.', features: ['Rose Gold Clip & Accent Rings', 'Cap + Body Engraving Available', 'Heavyweight Executive Feel'] },
-        { id: 'prod-pen-textured', title: 'Textured Grip Metal Pen', category: 'pens', catLabel: 'Branded Metal Pen', price: 199, strike: 300, badge: 'Comfort Grip', img: 'assets/products/product_23.jpg', desc: 'Machined micro-textured grip zone provides fatigue-free writing during long signing sessions and conferences.', features: ['Engineered Anti-Slip Grip', 'Laser Engraved Personal Name', 'Durable Metal Hardware'] },
-        { id: 'prod-pen-gunmetal', title: 'Gold Accent Gunmetal Executive Pen', category: 'pens', catLabel: 'Branded Metal Pen', price: 279, strike: 420, badge: 'Presidential 🌟', img: 'assets/products/product_25.jpg', desc: 'Our flagship executive writing instrument. Gunmetal finish with 24K-look gold accents and weighted balance.', features: ['Heavy Balanced Weight Balance', 'Gold Trims & Premium Presentation', 'High Precision Laser Branding'] },
-        { id: 'prod-bottle-led', title: 'LED Temperature Display Bottle – 500 ml', category: 'drinkware', catLabel: 'Smart Drinkware', price: 299, strike: 499, badge: 'Smart LED 🌡️', img: 'assets/products/product_51.jpg', desc: 'Touch-sensitive LED lid indicates real-time beverage temperature. 304 food-grade double-wall vacuum insulation.', features: ['Touch LED Temperature Display Lid', '500 ml Capacity / SUS 304 Steel', '12-Hour Hot & Cold Retention'] },
-        { id: 'prod-bottle-rope', title: 'Vacuum Bottle with Carry Rope – 500 ml', category: 'drinkware', catLabel: 'Smart Drinkware', price: 349, strike: 550, badge: 'Active Lifestyle', img: 'assets/products/product_53.jpg', desc: 'Features a durable silicone lanyard loop for easy carrying during gym, travel, and campus commutes.', features: ['Flexible Silicone Carry Handle', 'Double Wall Thermal Vacuum', 'Matte Powder Coated Finish'] },
-        { id: 'prod-bottle-matte', title: 'Matte Black Slim Vacuum Bottle – 500 ml', category: 'drinkware', catLabel: 'Smart Drinkware', price: 449, strike: 680, badge: 'Minimal Matte', img: 'assets/products/product_54.jpg', desc: 'Minimalist aerodynamic slim cylinder finished in deep stealth matte black. Laser engraving reveals polished steel.', features: ['Tactile Non-Slip Matte Finish', 'Contrast Laser Steel Engraving', 'Slim Fit in Car Cup Holders'] },
-        { id: 'prod-tumbler-900', title: 'Vacuum Tumbler with Straw – 900 ml', category: 'drinkware', catLabel: 'Smart Drinkware', price: 549, strike: 850, badge: 'Mega 900ml 🥤', img: 'assets/products/product_55.jpg', desc: 'Massive 900 ml capacity tumbler equipped with ergonomic carry handle, 2-in-1 sip/straw lid, and 24-hour ice retention.', features: ['Huge 900 ml Hydration Capacity', 'Ergonomic Easy-Grip Handle', 'Reusable Silicone Tip Straw Included'] },
-        { id: 'prod-diary-color', title: 'Color Reveal Premium Diary (A5)', category: 'diaries', catLabel: 'Executive Diary', price: 279, strike: 399, badge: 'Best Seller 📓', img: 'assets/products/product_43.jpg', desc: '192 ruled pages (80 GSM natural shade paper). Contrast edge and spine color reveal styling with elastic pen loop.', features: ['192 Ruled Pages (80 GSM Paper)', 'Contrast Color Reveal Spine', 'Integrated Elastic Pen Loop'] },
-        { id: 'prod-diary-magnetic', title: 'Magnetic Lock Executive Diary', category: 'diaries', catLabel: 'Executive Diary', price: 299, strike: 450, badge: 'Magnetic Clasp', img: 'assets/products/product_41.jpg', desc: 'Contemporary faux leather cover secured by a sleek magnetic flap lock. Includes yearly planner and calendar.', features: ['Strong Hidden Magnetic Clasp', 'Smooth Faux Leather Cover', 'Yearly & Monthly Planner Pages'] },
-        { id: 'prod-diary-gold', title: 'Gold Border Luxury Diary', category: 'diaries', catLabel: 'Executive Diary', price: 349, strike: 520, badge: 'Gold Gilded 👑', img: 'assets/products/product_47.jpg', desc: 'Page edges gilded in radiant gold foil shimmer. Crafted from rich leatherette texture with custom foil hot-stamping.', features: ['Gold Foil Gilded Page Edges', 'Heavy Gauge Executive Leatherette', 'Silk Ribbon Marker'] },
-        { id: 'prod-hamper-3in1', title: 'Executive 3-in-1 Employee Welcome Kit', category: 'diaries', catLabel: 'Corporate Hamper', price: 699, strike: 1100, badge: 'Corporate Hamper 🏢', img: 'assets/products/product_44.jpg', desc: 'Premium customized gift box containing Gold Border Luxury Diary, Laser Engraved Metal Pen, and Steel Card Holder.', features: ['Complete 3-in-1 Executive Set', 'Customized Company Logo', 'Luxury Presentation Box'] },
-        { id: 'prod-cardholder-steel', title: 'Stainless Steel Card Holder', category: 'cardholders', catLabel: 'Card Holder', price: 149, strike: 249, badge: 'Laser Engraved ⚡', img: 'assets/products/product_9.jpg', desc: 'Slim stainless steel visiting card case. Customized with sharp, permanent laser engraving of your brand or logo.', features: ['Precision Laser Engraved Name/Logo', 'Stores 15+ Cards securely', 'Ultra-slim pocket profile'] },
-        { id: 'prod-keychain-house', title: 'House Shape Metal Keychain', category: 'keychains', catLabel: 'Custom Keychain', price: 99, strike: 160, badge: 'Real Estate Special 🏠', img: 'assets/products/product_29.jpg', desc: 'Designed specifically for Builders, Brokers, and Griha Pravesh gifts. High gloss metal alloy with double-sided engraving.', features: ['Iconic House Silhouette', 'Double-sided Laser Engraving', 'Heavy Polished Chrome Finish'] },
-        { id: 'prod-mousepad', title: 'Non-Slip Custom Mouse Pad (7x9.5")', category: 'mousepads', catLabel: 'Office Accessory', price: 99, strike: 199, badge: 'Best Value 🖱️', img: 'assets/products/product_49.jpg', desc: 'High-density micro-weave cloth surface optimized for optical mouse precision with heavy natural anti-slip rubber base.', features: ['Full Edge-to-Edge HD Color Print', 'High-Traction Anti-Slip Rubber Base', 'Size: 7 x 9.5 Inches (3mm Thick)'] },
-        { id: 'prod-print-visiting', title: 'Premium Visiting & Business Cards', category: 'printing', catLabel: 'Commercial Printing', price: 499, strike: 800, badge: 'Direct Press 📇', img: 'assets/products/product_10.jpg', desc: 'Custom business cards on 350 GSM premium art card. Finishes: Matte, Gloss, Velvet Soft-Touch, and Spot UV.', features: ['Pack of 1000 Cards Starting ₹499', 'Matte / Gloss / Velvet Lamination', 'Spot UV & Gold Foil Options'] }
-    ];
+    {
+        "id": "prod-mug-morning",
+        "title": "Morning Ceramic Mug – 330 ml",
+        "category": "mugs",
+        "catLabel": "Personalised Mug",
+        "price": 199,
+        "strike": 299,
+        "badge": "Best Seller 🔥",
+        "img": "assets/products/product_1.jpg",
+        "desc": "Your Day, Your Mug, Your Way. Glossy ceramic with smooth premium finish. Vibrant HD sublimation print that stays bright sip after sip.",
+        "features": [
+            "Personalize It: Photo • Name • Logo",
+            "Glossy Ceramic Smooth Premium Finish",
+            "330 ML Perfect Everyday Size"
+        ]
+    },
+    {
+        "id": "prod-mug-inner-color",
+        "title": "Choose Your Color Inner Mug – 330 ml",
+        "category": "mugs",
+        "catLabel": "Personalised Mug",
+        "price": 230,
+        "strike": 340,
+        "badge": "Trending ✨",
+        "img": "assets/products/product_3.jpg",
+        "desc": "White body with colorful inside & handle. Vibrant inner colors: Red, Blue, Yellow, Green, Pink, and Black with high contrast exterior print.",
+        "features": [
+            "6 Vibrant Inner Color Options",
+            "White Body with Color Inside & Handle",
+            "High Contrast Sublimation Photo Print"
+        ]
+    },
+    {
+        "id": "prod-mug-heartbeat",
+        "title": "Heartbeat Mug – 330 ml (Heart-Shaped Handle)",
+        "category": "mugs",
+        "catLabel": "Personalised Mug",
+        "price": 249,
+        "strike": 380,
+        "badge": "Special Gift ❤️",
+        "img": "assets/products/product_7.jpg",
+        "desc": "Heartbeat Mug with unique heart-shaped handle. Perfect for anniversary gifts, couple photos, birthdays, and special expressions.",
+        "features": [
+            "Heart-Shaped Handle: Unique & Eye-Catching",
+            "Personalize: Photo • Name • Message",
+            "330 ML Perfect Everyday Size"
+        ]
+    },
+    {
+        "id": "prod-mug-mini-chai",
+        "title": "Mini Ceramic Chai Mug – 190 ml",
+        "category": "mugs",
+        "catLabel": "Personalised Mug",
+        "price": 199,
+        "strike": 280,
+        "badge": "Chai Lovers ☕",
+        "img": "assets/products/product_9.jpg",
+        "desc": "Authentic 190 ml portion—the exact gold-standard volume for Indian chai, filter coffee, or espresso. Available in Standard & Fine Ceramic.",
+        "features": [
+            "190 ml Ideal Chai/Espresso Size",
+            "Standard & Fine Ceramic Quality Options",
+            "Custom Photo • Text • Logo Branding"
+        ]
+    },
+    {
+        "id": "prod-cardholder-solid",
+        "title": "Solid Series Card Holder",
+        "category": "cardholders",
+        "catLabel": "Card Holder",
+        "price": 149,
+        "strike": 249,
+        "badge": "Solid Series",
+        "img": "assets/products/product_11.jpg",
+        "desc": "Carry with Strength. Lead with Style. Vibrant solid colors add a positive touch. Slim and pocket-friendly compact design with steel clip.",
+        "features": [
+            "Solid Colors: Mint Green, Yellow, Red",
+            "Slim & Pocket-Friendly Compact Design",
+            "Steel Clip & Secure Card Protection"
+        ]
+    },
+    {
+        "id": "prod-cardholder-signature",
+        "title": "Signature Pattern Card Holder",
+        "category": "cardholders",
+        "catLabel": "Card Holder",
+        "price": 179,
+        "strike": 299,
+        "badge": "Luxury Textured",
+        "img": "assets/products/product_13.jpg",
+        "desc": "Carry with Strength. Lead with Style. Luxury textured finish with refined pattern for a stylish look. Keeps your cards safe and organized.",
+        "features": [
+            "Refined Luxury Textured Finish",
+            "Colors: Black, Maroon, Pink",
+            "Durable Stainless Steel Accent & Clasp"
+        ]
+    },
+    {
+        "id": "prod-cardholder-commander",
+        "title": "Commander Edition Card Holder",
+        "category": "cardholders",
+        "catLabel": "Card Holder",
+        "price": 189,
+        "strike": 299,
+        "badge": "Commander Edition 🎖️",
+        "img": "assets/products/product_15.jpg",
+        "desc": "Bold design, everyday utility. Military-inspired bold camouflage finish with a distinctive executive look. Compact and lightweight.",
+        "features": [
+            "Military-Inspired Camouflage Design",
+            "Slim & Pocket-Friendly Build",
+            "Stainless Steel Safe Engraving Plate"
+        ]
+    },
+    {
+        "id": "prod-cardholder-goldaccent",
+        "title": "Gold Accent Card Holder",
+        "category": "cardholders",
+        "catLabel": "Card Holder",
+        "price": 199,
+        "strike": 320,
+        "badge": "Gold Accent 🌟",
+        "img": "assets/products/product_17.jpg",
+        "desc": "Professional look, everyday convenience. Premium gold accent for a refined look. Slim & compact, easily fits in pocket or bag.",
+        "features": [
+            "Premium Gold Curved Accent",
+            "Available in 3 Colors: Black, Brown, Navy",
+            "Laser Engraved Personal Name/Brand"
+        ]
+    },
+    {
+        "id": "prod-cardholder-magnetic",
+        "title": "NextGen Magnetic Visiting Card Case",
+        "category": "cardholders",
+        "catLabel": "Card Holder",
+        "price": 229,
+        "strike": 350,
+        "badge": "Magnetic Cap 🧲",
+        "img": "assets/products/product_19.jpg",
+        "desc": "Executive magnetic cap snap closure. Polished stainless steel base with textured leatherette lid. Holds 15-20 business cards securely.",
+        "features": [
+            "Precision Magnetic Snap-Close Action",
+            "Polished Stainless Steel Trim Frame",
+            "Stores 15–20 Standard Visiting Cards"
+        ]
+    },
+    {
+        "id": "prod-pen-click",
+        "title": "Classic Metal Click Pen",
+        "category": "pens",
+        "catLabel": "Branded Metal Pen",
+        "price": 90,
+        "strike": 150,
+        "badge": "Classic Design",
+        "img": "assets/products/product_20.jpg",
+        "desc": "Classic design, everyday performance. Premium metal body with smooth click action. Permanent & elegant laser engraved brand or name.",
+        "features": [
+            "Smooth Click Action: Press, Write, Repeat",
+            "Colors: Black, White, Blue, Grey, Maroon",
+            "Permanent Precision Laser Engraving"
+        ]
+    },
+    {
+        "id": "prod-pen-box",
+        "title": "Plastic Pen Presentation Box",
+        "category": "pens",
+        "catLabel": "Pen Gift Box",
+        "price": 45,
+        "strike": 80,
+        "badge": "Gift Box 🎁",
+        "img": "assets/products/product_21.jpg",
+        "desc": "Simple, practical, perfect for gifting. Durable plastic body with moulded interior for secure pen fit. Available in Silver & Gold.",
+        "features": [
+            "Available in 2 Finishes: Silver & Gold",
+            "Moulded Interior Secures Pen Firmly",
+            "Ideal for Corporate Gifting & Bundles"
+        ]
+    },
+    {
+        "id": "prod-pen-magnetic-gel",
+        "title": "Premium Magnetic Gel Metal Pen",
+        "category": "pens",
+        "catLabel": "Branded Metal Pen",
+        "price": 199,
+        "strike": 299,
+        "badge": "Magnetic Cap 🧲",
+        "img": "assets/products/product_24.jpg",
+        "desc": "Smart magnetic cap with snap-close convenience. Ultra-smooth gel writing mechanism designed for a smarter writing experience.",
+        "features": [
+            "Pull Up to Write, Snap Close Automatically",
+            "Smooth, Precise, Effortless Gel Refill",
+            "Cap / Barrel Laser Engraved Branding"
+        ]
+    },
+    {
+        "id": "prod-pen-black-twist",
+        "title": "Premium Black Metal Pen (Twist Action)",
+        "category": "pens",
+        "catLabel": "Branded Metal Pen",
+        "price": 229,
+        "strike": 350,
+        "badge": "Black is Class",
+        "img": "assets/products/product_27.jpg",
+        "desc": "Black Is Class. Premium metal finish with elegant rose gold clip design and smooth twist action. Built to impress in boardrooms.",
+        "features": [
+            "Smooth Twist to Write / Twist Back to Close",
+            "Elegant Rose Gold Clip & Dual Ring Accents",
+            "Matte Black Body with Permanent Engraving"
+        ]
+    },
+    {
+        "id": "prod-pen-textured-grip",
+        "title": "Premium Textured Grip Metal Pen",
+        "category": "pens",
+        "catLabel": "Branded Metal Pen",
+        "price": 199,
+        "strike": 300,
+        "badge": "Textured Grip",
+        "img": "assets/products/product_29.jpg",
+        "desc": "Comfortable grip, professional impression. Micro-textured knurled grip zone provides non-slip control during long writing sessions.",
+        "features": [
+            "Anti-Slip Micro-Textured Grip Zone",
+            "Smooth Twist Action Mechanism",
+            "Durable Metal Build with Laser Engraving"
+        ]
+    },
+    {
+        "id": "prod-pen-gold-accent",
+        "title": "Premium Gold Accent Metal Pen",
+        "category": "pens",
+        "catLabel": "Branded Metal Pen",
+        "price": 249,
+        "strike": 399,
+        "badge": "Gold Accent 👑",
+        "img": "assets/products/product_32.jpg",
+        "desc": "Simple. Stylish. Signature. Flagship metallic pen accented with radiant gold rings and clip. Smooth twist mechanism and weighted balance.",
+        "features": [
+            "Polished Gold Clip & Accent Trim Rings",
+            "Smooth Effortless Twist Writing Action",
+            "Precision Laser Engraving on Cap or Body"
+        ]
+    },
+    {
+        "id": "prod-keychain-oval",
+        "title": "Silver Oval Metal Keychain",
+        "category": "keychains",
+        "catLabel": "Custom Keychain",
+        "price": 89,
+        "strike": 149,
+        "badge": "Carry Style",
+        "img": "assets/products/product_34.jpg",
+        "desc": "Carry Style. Leave a Mark. Compact and easy to carry with durable metal build and premium matte black inlay for laser engraving.",
+        "features": [
+            "Compact & Easy to Carry Oval Profile",
+            "Durable Heavy Metal Construction",
+            "Permanent Custom Laser Engraving"
+        ]
+    },
+    {
+        "id": "prod-keychain-house",
+        "title": "House Shape Metal Keychain",
+        "category": "keychains",
+        "catLabel": "Custom Keychain",
+        "price": 99,
+        "strike": 160,
+        "badge": "Real Estate Special 🏠",
+        "img": "assets/products/product_36.jpg",
+        "desc": "Carry A Little Home With You. Distinctive house-shaped profile with premium polished finish. Perfect for Real Estate, Builders & Griha Pravesh.",
+        "features": [
+            "Iconic House Silhouette Shape",
+            "Durable & Polished Chrome Build",
+            "Ideal for Branding, Real Estate & Home Gifts"
+        ]
+    },
+    {
+        "id": "prod-keychain-round",
+        "title": "Round Metal Keychain",
+        "category": "keychains",
+        "catLabel": "Custom Keychain",
+        "price": 89,
+        "strike": 149,
+        "badge": "Round Metal",
+        "img": "assets/products/product_38.jpg",
+        "desc": "Simple. Strong. Made for Every Day. Classic circular medal medallion design crafted from durable metal for corporate & personal gifting.",
+        "features": [
+            "Durable Solid Metal Construction",
+            "High-Contrast Laser Logo Engraving",
+            "Heavy-Duty 30mm Split Key Ring"
+        ]
+    },
+    {
+        "id": "prod-keychain-capsule",
+        "title": "Capsule Metal Keychain",
+        "category": "keychains",
+        "catLabel": "Custom Keychain",
+        "price": 99,
+        "strike": 169,
+        "badge": "Capsule Design",
+        "img": "assets/products/product_40.jpg",
+        "desc": "Small in Size. Big on Style. Sleek capsule geometry available in Silver, Gold, and Rose Gold border options with matte black face.",
+        "features": [
+            "Available in Silver, Gold & Rose Gold",
+            "Sleek Rounded Capsule Design",
+            "Laser Engraved City, Brand or Personal Name"
+        ]
+    },
+    {
+        "id": "prod-keychain-carabiner",
+        "title": "Carabiner Dual Ring Keychain",
+        "category": "keychains",
+        "catLabel": "Custom Keychain",
+        "price": 129,
+        "strike": 210,
+        "badge": "Double Function",
+        "img": "assets/products/product_42.jpg",
+        "desc": "One Keychain. Double Function. Features carabiner lock design, dual ring setup, and 360° rotatable swivel hook for ultimate utility.",
+        "features": [
+            "Spring Carabiner Lock & Belt Clip",
+            "Dual Ring Setup for Keys & Remotes",
+            "360° Rotatable Heavy Duty Swivel Hook"
+        ]
+    },
+    {
+        "id": "prod-keychain-leather",
+        "title": "Premium PU Leather Keychain",
+        "category": "keychains",
+        "catLabel": "Custom Keychain",
+        "price": 119,
+        "strike": 199,
+        "badge": "PU Leather",
+        "img": "assets/products/product_44.jpg",
+        "desc": "Crafted for a Lasting Impression. Supple premium PU leather loop combined with precision laser engraved metal plate.",
+        "features": [
+            "Premium PU Leather in Black & Brown",
+            "Precision Laser Engraving on Steel Plate",
+            "Durable Heavy-Duty Key Ring"
+        ]
+    },
+    {
+        "id": "prod-keychain-opener",
+        "title": "Carabiner Bottle Opener Keychain",
+        "category": "keychains",
+        "catLabel": "Custom Keychain",
+        "price": 139,
+        "strike": 220,
+        "badge": "2-in-1 Opener 🍾",
+        "img": "assets/products/product_46.jpg",
+        "desc": "Smart Design. Strong Utility. Combines a sturdy keychain carabiner and functional bottle opener. Practical everyday accessory.",
+        "features": [
+            "2-in-1 Carabiner Clip & Bottle Opener",
+            "Available in 5 Colors: Black, Blue, White, Brown, Tan",
+            "Sturdy Metal Build with Secure Key Ring"
+        ]
+    },
+    {
+        "id": "prod-diary-magnetic",
+        "title": "Magnetic Lock Executive Diary",
+        "category": "diaries",
+        "catLabel": "Executive Diary",
+        "price": 299,
+        "strike": 450,
+        "badge": "Magnetic Lock 🔒",
+        "img": "assets/products/product_48.jpg",
+        "desc": "Premium magnetic lock with silver or gold metal plate. 192 ruled pages (80 GSM paper) for smooth writing. Laser engraved name or logo.",
+        "features": [
+            "Concealed Magnetic Lock Flap with Engraved Plate",
+            "192 Ruled Pages (80 GSM Paper)",
+            "Available in Black & Rich Brown Leatherette"
+        ]
+    },
+    {
+        "id": "prod-diary-color-reveal",
+        "title": "Color Reveal Executive Diary (A5)",
+        "category": "diaries",
+        "catLabel": "Executive Diary",
+        "price": 279,
+        "strike": 399,
+        "badge": "Color Reveal 🎨",
+        "img": "assets/products/product_49.jpg",
+        "desc": "Laser printing that reveals vibrant color! Premium PU cover with integrated elastic closure and pen loop. Available in Blue, Orange & Green.",
+        "features": [
+            "Laser Engraving Reveals Vibrant Accent Color",
+            "A5 Size (15 x 21 cm) / 192 Pages 80 GSM Paper",
+            "Elastic Closure & Matching Pen Loop"
+        ]
+    },
+    {
+        "id": "prod-diary-roundlock",
+        "title": "Royal Round Lock Executive Diary",
+        "category": "diaries",
+        "catLabel": "Executive Diary",
+        "price": 329,
+        "strike": 499,
+        "badge": "Royal Round Lock 👑",
+        "img": "assets/products/product_50.jpg",
+        "desc": "Distinctive round lock with elegant and unique gold design. Superior quality PU cover with regal patterned border and personalized engraving.",
+        "features": [
+            "Distinctive Gold Round Lock Clasp",
+            "Superior Quality Textured Navy PU Cover",
+            "Personalised Laser Engraved Brand / Name"
+        ]
+    },
+    {
+        "id": "prod-diary-gold-border",
+        "title": "Gold Double-Border Executive Diary",
+        "category": "diaries",
+        "catLabel": "Executive Diary",
+        "price": 349,
+        "strike": 520,
+        "badge": "Gold Gilded 🌟",
+        "img": "assets/products/product_51.jpg",
+        "desc": "A Diary for Brighter Days. Elegant double-line gold border design with stylish lined texture on premium PU cover and engraved metal clasp.",
+        "features": [
+            "Classic Double-Line Gold Foil Border",
+            "Stylish Lined Texture Premium PU Cover",
+            "Personalised Laser Engraving on Magnetic Lock"
+        ]
+    },
+    {
+        "id": "prod-mousepad-desk",
+        "title": "Non-Slip Custom Mouse Pad (7x9.5\")",
+        "category": "mousepads",
+        "catLabel": "Office Accessory",
+        "price": 99,
+        "strike": 199,
+        "badge": "Best Value 🖱️",
+        "img": "assets/products/product_52.jpg",
+        "desc": "Smooth fabric surface for precise & comfortable mouse movement. 3 mm thickness balanced everyday comfort with anti-slip rubber base.",
+        "features": [
+            "Smooth Micro-Weave Fabric Surface",
+            "3 MM Thickness for Balanced Comfort",
+            "Non-Slip Natural Rubber Base (7 x 9.5 Inch)"
+        ]
+    },
+    {
+        "id": "prod-bottle-temperature",
+        "title": "Smart LED Temperature Bottle – 500 ml",
+        "category": "drinkware",
+        "catLabel": "Smart Drinkware",
+        "price": 299,
+        "strike": 499,
+        "badge": "Smart LED 🌡️",
+        "img": "assets/products/product_53.jpg",
+        "desc": "Touch-activated LED temperature display lid. 304 food-grade stainless steel with 6-12 hours hot/cold vacuum insulation and 500-day battery.",
+        "features": [
+            "Touch-Activated Real-Time Temperature Display",
+            "Double Wall SUS 304 Stainless Steel",
+            "Leak-Proof Screw Lid & Stable Anti-Slip Base"
+        ]
+    },
+    {
+        "id": "prod-bottle-rope",
+        "title": "Vacuum Bottle with Carry Rope – 500 ml",
+        "category": "drinkware",
+        "catLabel": "Smart Drinkware",
+        "price": 349,
+        "strike": 550,
+        "badge": "Sport Lifestyle 🏃",
+        "img": "assets/products/product_54.jpg",
+        "desc": "Features an easy-carry rope convenient for work & travel. 10 hours hot and 30 hours cold double-wall insulation with leak-proof screw cap.",
+        "features": [
+            "Easy-Carry Rope Lanyard Handle",
+            "10 Hrs Hot • 30 Hrs Cold Retention",
+            "304 Stainless Steel with Leak-Proof Screw Cap"
+        ]
+    },
+    {
+        "id": "prod-bottle-matte-black",
+        "title": "Matte Black Vacuum Bottle – 500 ml",
+        "category": "drinkware",
+        "catLabel": "Smart Drinkware",
+        "price": 449,
+        "strike": 680,
+        "badge": "Stealth Matte 🖤",
+        "img": "assets/products/product_55.jpg",
+        "desc": "Matte black vacuum bottle in sleek corporate finish. Double-wall stainless steel vacuum insulation with leak-proof lid for hot & cold protection.",
+        "features": [
+            "Tactile Non-Slip Matte Stealth Finish",
+            "Double-Wall Stainless Steel Vacuum Insulation",
+            "Leak-Proof Secure Closure for Carrying"
+        ]
+    },
+    {
+        "id": "prod-tumbler-straw",
+        "title": "Vacuum Tumbler with Straw – 900 ml",
+        "category": "drinkware",
+        "catLabel": "Smart Drinkware",
+        "price": 549,
+        "strike": 850,
+        "badge": "Mega 900ml 🥤",
+        "img": "assets/products/product_56.jpg",
+        "desc": "Massive 900 ml capacity for all-day hydration. 18/8 stainless steel double-wall vacuum insulation with reusable straw and folding carry handle.",
+        "features": [
+            "Massive 900 ml Hydration Capacity",
+            "18/8 Stainless Steel Double-Wall Vacuum",
+            "Reusable Straw & Ergonomic Carry Handle"
+        ]
+    }
+];
 
     function getLiveStoreProducts() {
         try {
+            const version = localStorage.getItem('ds_catalog_version');
+            if (version !== CURRENT_CATALOG_VERSION) {
+                localStorage.setItem('ds_products', JSON.stringify(DEFAULT_STORE_PRODUCTS));
+                localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
+                return DEFAULT_STORE_PRODUCTS;
+            }
             const stored = localStorage.getItem('ds_products');
             if (stored) {
                 const parsed = JSON.parse(stored);
@@ -547,6 +1030,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) { console.error(e); }
         // Initialize localStorage with defaults
         localStorage.setItem('ds_products', JSON.stringify(DEFAULT_STORE_PRODUCTS));
+        localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
         return DEFAULT_STORE_PRODUCTS;
     }
 

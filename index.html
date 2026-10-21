@@ -66,24 +66,33 @@
 <body>
     <div class="scroll-progress-bar" id="scroll-progress"></div>
 
-    <!-- STICKY HEADER (Amazon Dark Navy Style) -->
+    <!-- STICKY HEADER (Unified E-Commerce & Agency Platform) -->
     <header id="main-header" class="header-nav">
         <div class="container nav-container">
-            <a href="#home" class="logo" id="header-logo"><img src="design suvidha logo.png" alt="Design Suvidha Logo" class="nav-logo-img"></a>
+            <a href="#home" class="logo" id="header-logo">
+                <img src="design suvidha logo.png" alt="Design Suvidha Logo" class="nav-logo-img">
+            </a>
             <nav class="nav-menu" id="nav-links-container">
-                <a href="#store-showcase" class="nav-link nav-store-highlight active">Printing & Gifts Store 🎁 <span class="nav-pill-badge">MAIN</span></a>
-                <a href="store.html" class="nav-link">Online Catalog</a>
-                <a href="#services" class="nav-link">Digital Marketing 🚀</a>
-                <a href="#pricing" class="nav-link">Ad Packages</a>
-                <a href="#case-studies" class="nav-link">Our Work</a>
-                <a href="https://share.google/n6bRXN11bJamriWfh" target="_blank" class="nav-link nav-link-location">
-                    <svg class="nav-location-icon" viewBox="0 0 24 24" width="14" height="14" style="margin-right: 4px; vertical-align: middle;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/></svg>
-                    Jaipur Store
-                </a>
-                <a href="#presence" class="nav-link">Contact Us</a>
-                <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Custom%20Printing%20or%20Gifting%20products" target="_blank" class="nav-link cta-link" style="background: #25d366; border-color: #25d366; color: #fff;">Order on WhatsApp 💬</a>
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#services" class="nav-link">Digital Marketing Services</a>
+                <a href="#pricing" class="nav-link">Performance Marketing</a>
+                <a href="#case-studies" class="nav-link">Portfolio / Case Studies</a>
+                <a href="#featured-products" class="nav-link nav-store-highlight">Shop 🎁 <span class="nav-pill-badge">STORE</span></a>
+                <a href="store.html" class="nav-link">Digital Products</a>
+                <a href="#corporate-gifting" class="nav-link">Custom & Corporate Gifts</a>
+                <a href="#presence" class="nav-link">About Us</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </nav>
-            <div class="nav-actions">
+            <div class="nav-actions-group">
+                <button type="button" class="nav-icon-btn nav-account-btn" id="open-account-btn" aria-label="Customer Account">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    <span>Account</span>
+                </button>
+                <button type="button" class="nav-icon-btn nav-cart-btn" id="open-cart-btn" aria-label="Shopping Cart">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <span>Cart</span>
+                    <span class="cart-count-badge" id="header-cart-count">0</span>
+                </button>
                 <button class="mobile-nav-toggle" id="menu-toggle-btn" aria-label="Toggle Menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
             </div>
         </div>
@@ -91,7 +100,7 @@
         <!-- Amazon Style Search Bar -->
         <div class="container amazon-search-bar-row">
             <div class="amazon-search-input-wrapper">
-                <input type="text" id="home-amazon-search" placeholder="Search Design Suvidha: mugs, laser pens, card holders, bottles, diaries..." autocomplete="off">
+                <input type="text" id="home-amazon-search" placeholder="Search Design Suvidha: Meta Ads, Mugs, Laser Pens, Bottles, Diaries, Websites..." autocomplete="off">
                 <button type="button" id="home-amazon-search-btn" class="amazon-search-submit" aria-label="Search">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                 </button>
@@ -99,512 +108,134 @@
         </div>
     </header>
 
-    <!-- Amazon / Flipkart Style Delivery Location Strip -->
+    <!-- Delivery & Logistics Info Strip -->
     <div class="app-location-strip">
         <div class="location-pin-group">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <span>Deliver to <strong>Jaipur - 302033</strong></span>
+            <span>Direct Delivery & Services from <strong>Jaipur (HQ) & Ludhiana</strong></span>
         </div>
         <div class="delivery-speed-tag">
-            <span>⚡ Dispatch in 24-48 Hours · Pan-India Logistics</span>
+            <span>⚡ Pan-India Express Logistics · 24-48h Dispatch · 100% Quality Assurance</span>
         </div>
     </div>
 
+    <!-- Mobile Navigation Drawer -->
     <div class="mobile-nav-drawer" id="mobile-drawer">
         <nav class="mobile-nav-links">
-            <a href="#store-showcase" class="mobile-link" style="color: #00cec9; font-weight: 700;">🎁 Printing & Gifts Store (Main)</a>
-            <a href="store.html" class="mobile-link" style="color: #6c5ce7; font-weight: 700;">🛍️ View Full Catalog (28+ Items)</a>
+            <a href="#home" class="mobile-link active">🏠 Home</a>
             <a href="#services" class="mobile-link">🚀 Digital Marketing Services</a>
-            <a href="#pricing" class="mobile-link">Marketing Packages</a>
-            <a href="#case-studies" class="mobile-link">Our Work</a>
-            <a href="https://share.google/n6bRXN11bJamriWfh" target="_blank" class="mobile-link">
-                <svg class="nav-location-icon" viewBox="0 0 24 24" width="18" height="18" style="margin-right: 6px; vertical-align: middle;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/></svg>
-                Jaipur Store Location
-            </a>
-            <a href="#presence" class="mobile-link">Contact Us</a>
-            <a href="privacy.html" class="mobile-link">Privacy Policy</a>
-            <a href="terms.html" class="mobile-link">Terms & Conditions</a>
-            <a href="refund.html" class="mobile-link">Refund Policy</a>
-            <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Custom%20Printing%20or%20Gifting%20products" target="_blank" class="mobile-link" style="color: #25d366; font-weight: 700;">💬 WhatsApp Quick Order</a>
+            <a href="#pricing" class="mobile-link">📈 Performance Marketing Packages</a>
+            <a href="#case-studies" class="mobile-link">🎬 Portfolio & Case Studies</a>
+            <a href="#featured-products" class="mobile-link" style="color: #007185; font-weight: 700;">🎁 Shop Products (E-Commerce)</a>
+            <a href="store.html" class="mobile-link">🛍️ View Full Catalog (28+ Items)</a>
+            <a href="#corporate-gifting" class="mobile-link" style="color: #ff9900; font-weight: 700;">🏢 Custom & Corporate Gifts Form</a>
+            <a href="#presence" class="mobile-link">📍 About Us & Offices</a>
+            <a href="#contact" class="mobile-link">📞 Contact & Free Audit</a>
+            <a href="privacy.html" class="mobile-link">📄 Privacy Policy</a>
+            <a href="terms.html" class="mobile-link">📜 Terms & Conditions</a>
+            <a href="refund.html" class="mobile-link">🛡️ Refund Policy</a>
+            <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20discuss%20Services%20or%20Products" target="_blank" class="mobile-link" style="color: #25d366; font-weight: 700;">💬 Chat on WhatsApp</a>
         </nav>
     </div>
 
     <main>
-        <!-- ====== MAIN HERO: E-COMMERCE STORE SHOWCASE (AMAZON STYLE) ====== -->
-        <section class="scene store-section hero-store-section" id="home">
-            <div id="store-showcase"></div>
-            <div class="scene-inner" style="padding-top: 12px; padding-bottom: 30px;">
-                <div class="container">
+<!-- ====== SECTION 1: HERO BANNER ====== -->
+        <section class="hero-banner-v2" id="home">
+            <div class="container hero-v2-wrapper">
+                <div class="hero-v2-badge-top">
+                    <span>🏢 UDYAM-RJ-17-0675057 · Performance Agency & E-Commerce Store</span>
+                </div>
+                <h1 class="hero-v2-headline">
+                    Grow Your Business. <br>
+                    <span class="highlight-gradient">Discover Products That Inspire.</span>
+                </h1>
+                <p class="hero-v2-sub">
+                    Design Suvidha combines high-ROAS performance marketing, 3D web development, and Meta ad management with a direct factory corporate gifting and custom printing store in Jaipur. Accelerate your digital growth or order custom branded products at wholesale rates.
+                </p>
+                <div class="hero-v2-cta-row">
+                    <a href="#services" class="btn-hero-agency">
+                        <span>🚀 Explore Digital Marketing Services</span>
+                    </a>
+                    <a href="#featured-products" class="btn-hero-shop">
+                        <span>🎁 Shop Products</span>
+                    </a>
+                </div>
+                <div class="hero-v2-trust-strip">
+                    <span>🛡️ DS Assured Quality</span>
+                    <span>⚡ 24-48h Pan-India Dispatch</span>
+                    <span>📈 4.8x Average Campaign ROAS</span>
+                    <span>🤝 100% Free Reprint Guarantee</span>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Dual-Business Primary Switcher (Hero Top) -->
-                    <div class="dual-vertical-spotlight hero-dual-spotlight" id="dual-business-nav">
-                        <div class="dual-spotlight-inner">
-                            <div class="spotlight-badge-title">
-                                <div class="spotlight-icon-box">🏢</div>
-                                <div class="spotlight-title-text">
-                                    <h4>Design Suvidha — 2 Business Divisions</h4>
-                                    <p>Corporate Printing & Gifting (Main Store) · Digital Marketing & Ads (Div 2)</p>
+        <!-- ====== SECTION 2: BUSINESS CATEGORIES ====== -->
+        <section class="business-categories-section" id="business-categories">
+            <div class="container">
+                <div class="text-center">
+                    <span class="workflow-tag">2 DIVISIONS · 1 UNIFIED BRAND</span>
+                    <h2 class="section-title-main">Explore Our Core Business Verticals</h2>
+                    <p class="section-sub-main">Select the path tailored for your brand — Full-service digital marketing agency or customized physical & digital products.</p>
+                </div>
+                <div class="business-categories-grid">
+                    <!-- Category A: Digital Marketing Agency -->
+                    <div class="biz-card biz-card-agency" data-anim="tilt-in-left">
+                        <div>
+                            <div class="biz-card-header">
+                                <div class="biz-card-icon">🚀</div>
+                                <div class="biz-card-title">
+                                    <span>Division 1 · Digital Agency</span>
+                                    <h3>Digital Marketing Agency</h3>
                                 </div>
                             </div>
-                            <div class="dual-tabs-wrapper">
-                                <a href="#store-showcase" class="dual-tab-btn active highlight">
-                                    <span>🎁 Printing & Gifts Store</span>
-                                    <span class="dual-tab-badge">MAIN</span>
-                                </a>
-                                <a href="#services" class="dual-tab-btn">
-                                    <span>🚀 Digital Marketing Agency</span>
-                                    <span class="dual-tab-badge" style="background: rgba(108, 92, 231, 0.2); color: #a29bfe;">DIV 2</span>
-                                </a>
-                            </div>
+                            <p class="biz-card-desc">Comprehensive growth marketing, high-ROAS paid ad management, and cinema-grade visual creatives designed to drive predictable revenue.</p>
+                            <ul class="biz-items-list">
+                                <li class="biz-item-bullet">Performance Marketing</li>
+                                <li class="biz-item-bullet">Meta Ads & Google Ads</li>
+                                <li class="biz-item-bullet">Social Media Marketing</li>
+                                <li class="biz-item-bullet">SEO & Local GMB SEO</li>
+                                <li class="biz-item-bullet">Creative Design & Video Editing</li>
+                                <li class="biz-item-bullet">Website Development</li>
+                                <li class="biz-item-bullet">Landing Page Development</li>
+                                <li class="biz-item-bullet">Lead Funnel Strategy</li>
+                            </ul>
                         </div>
+                        <a href="#services" class="btn-biz-explore">
+                            <span>Explore Marketing Services ➔</span>
+                        </a>
                     </div>
 
-                    <!-- Deal of the Day Banner (Amazon / Flipkart Style) -->
-                    <div class="app-deal-banner" id="home-deal-banner" data-anim="zoom-in">
-                        <div class="deal-banner-left">
-                            <span class="deal-fire-badge">Mega Deal 🔥</span>
-                            <div>
-                                <h4 class="deal-title">Corporate Wholesale Gifting Days — Up to 50% Off</h4>
-                                <p class="deal-sub">Free Custom Logo Laser Engraving on Bulk Company Orders · 100% Quality Assurance</p>
+                    <!-- Category B: Online Store -->
+                    <div class="biz-card biz-card-store" data-anim="tilt-in-right">
+                        <div>
+                            <div class="biz-card-header">
+                                <div class="biz-card-icon">🎁</div>
+                                <div class="biz-card-title">
+                                    <span>Division 2 · E-Commerce Store</span>
+                                    <h3>Online Store</h3>
+                                </div>
                             </div>
+                            <p class="biz-card-desc">Factory-direct personalized gifts, laser-engraved executive merchandise, corporate hampers, and commercial printing products at wholesale rates.</p>
+                            <ul class="biz-items-list">
+                                <li class="biz-item-bullet">Personalized Gifts (Mugs, Pens)</li>
+                                <li class="biz-item-bullet">Corporate Gifts & Welcome Kits</li>
+                                <li class="biz-item-bullet">Executive Gift Hampers</li>
+                                <li class="biz-item-bullet">Custom Printing Products</li>
+                                <li class="biz-item-bullet">Smart Drinkware & LED Bottles</li>
+                                <li class="biz-item-bullet">Executive Diaries & Organizers</li>
+                                <li class="biz-item-bullet">Visiting Cards (350 GSM)</li>
+                                <li class="biz-item-bullet">Digital Design Products</li>
+                            </ul>
                         </div>
-                        <div class="deal-badge-assured">
-                            <span>🛡️ DS Assured Quality</span>
-                        </div>
-                    </div>
-
-                    <!-- Flipkart Style Circular Category Stories (Horizontal Carousel) -->
-                    <div class="app-cat-carousel-wrapper">
-                        <div class="app-cat-carousel" id="home-story-categories">
-                            <button class="app-cat-item active" data-story-cat="all">
-                                <div class="app-cat-circle">🌟</div>
-                                <span class="app-cat-name">All Items</span>
-                            </button>
-                            <button class="app-cat-item" data-story-cat="mugs">
-                                <div class="app-cat-circle">☕</div>
-                                <span class="app-cat-name">Mugs</span>
-                            </button>
-                            <button class="app-cat-item" data-story-cat="pens">
-                                <div class="app-cat-circle">🖊️</div>
-                                <span class="app-cat-name">Metal Pens</span>
-                            </button>
-                            <button class="app-cat-item" data-story-cat="cardholders">
-                                <div class="app-cat-circle">💳</div>
-                                <span class="app-cat-name">Card Holders</span>
-                            </button>
-                            <button class="app-cat-item" data-story-cat="diaries">
-                                <div class="app-cat-circle">📓</div>
-                                <span class="app-cat-name">Diaries</span>
-                            </button>
-                            <button class="app-cat-item" data-story-cat="drinkware">
-                                <div class="app-cat-circle">🍶</div>
-                                <span class="app-cat-name">Bottles</span>
-                            </button>
-                            <button class="app-cat-item" data-story-cat="keychains">
-                                <div class="app-cat-circle">🔑</div>
-                                <span class="app-cat-name">Keychains</span>
-                            </button>
-                            <button class="app-cat-item" data-story-cat="printing">
-                                <div class="app-cat-circle">🖨️</div>
-                                <span class="app-cat-name">Cards & Print</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Quick Category Pills -->
-                    <div class="store-filter-bar" id="home-store-filters">
-                        <button class="store-filter-btn active" data-home-cat="all">🌟 All Bestsellers</button>
-                        <button class="store-filter-btn" data-home-cat="mugs">☕ Mugs (from ₹199)</button>
-                        <button class="store-filter-btn" data-home-cat="pens">🖊️ Metal Pens (from ₹90)</button>
-                        <button class="store-filter-btn" data-home-cat="cardholders">💳 Card Holders (₹149)</button>
-                        <button class="store-filter-btn" data-home-cat="diaries">📓 Diaries (from ₹279)</button>
-                        <button class="store-filter-btn" data-home-cat="drinkware">🍶 Smart Drinkware (from ₹299)</button>
-                        <button class="store-filter-btn" data-home-cat="keychains">🔑 Keychains (from ₹99)</button>
-                        <button class="store-filter-btn" data-home-cat="printing">🖨️ Visiting Cards & Print</button>
-                    </div>
-
-                    <!-- Product Grid (Top Trending Showcase) -->
-                    <div class="product-grid" id="home-product-grid">
-                        <!-- Product 1: White Ceramic Mug -->
-                        <div class="product-card" data-cat="mugs">
-                            <div class="product-thumb-container">
-                                <img src="assets/products/product_1.jpg" alt="White Ceramic Mug" class="product-thumb-img" loading="lazy">
-                                <span class="product-badge-float">Best Seller 🔥</span>
-                                <span class="product-discount-float">33% OFF</span>
-                                <span class="assured-badge">🛡️ DS Assured</span>
-                            </div>
-                            <div class="product-body">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span class="product-cat-tag">Personalised Mug</span>
-                                    <div>
-                                        <span class="star-rating-pill">4.8 ★</span>
-                                        <span class="rating-count-text">(120+)</span>
-                                    </div>
-                                </div>
-                                <h3 class="product-title">White Ceramic Mug – 330 ml</h3>
-                                <p class="product-desc">Vibrant HD Sublimation print that stays bright sip after sip. Dishwasher and microwave safe high-density ceramic.</p>
-                                <div class="product-features-list">
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>HD Full Color Photo/Logo Print</span></div>
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>330 ml Standard Mug Capacity</span></div>
-                                </div>
-                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
-                                <div class="product-footer-row">
-                                    <div class="product-price-block">
-                                        <span class="price-main">₹199/-</span>
-                                        <div><span class="price-strike">₹299</span><span class="price-unit"> Wholesale</span></div>
-                                    </div>
-                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20White%20Ceramic%20Mug%20at%20Rs%20199" target="_blank" class="btn-order-wa">
-                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-                                        <span>Order</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 2: Stainless Steel Card Holder -->
-                        <div class="product-card" data-cat="cardholders">
-                            <div class="product-thumb-container">
-                                <img src="assets/products/product_9.jpg" alt="Stainless Steel Card Holder" class="product-thumb-img" loading="lazy">
-                                <span class="product-badge-float">Laser Engraved ⚡</span>
-                                <span class="product-discount-float">40% OFF</span>
-                                <span class="assured-badge">🛡️ DS Assured</span>
-                            </div>
-                            <div class="product-body">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span class="product-cat-tag">Card Holder</span>
-                                    <div>
-                                        <span class="star-rating-pill">4.9 ★</span>
-                                        <span class="rating-count-text">(95+)</span>
-                                    </div>
-                                </div>
-                                <h3 class="product-title">Stainless Steel Card Holder</h3>
-                                <p class="product-desc">Slim stainless steel case. Customized with sharp, permanent laser engraving of your Name and Company Logo.</p>
-                                <div class="product-features-list">
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Permanent Laser Logo/Name</span></div>
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Stores 15+ Visiting Cards</span></div>
-                                </div>
-                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
-                                <div class="product-footer-row">
-                                    <div class="product-price-block">
-                                        <span class="price-main">₹149/-</span>
-                                        <div><span class="price-strike">₹249</span><span class="price-unit"> Wholesale</span></div>
-                                    </div>
-                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Stainless%20Steel%20Card%20Holder%20at%20Rs%20149" target="_blank" class="btn-order-wa">
-                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-                                        <span>Order</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 3: Classic Metal Click Pen -->
-                        <div class="product-card" data-cat="pens">
-                            <div class="product-thumb-container">
-                                <img src="assets/products/product_17.jpg" alt="Classic Metal Click Pen" class="product-thumb-img" loading="lazy">
-                                <span class="product-badge-float">Wholesale Pick 🖊️</span>
-                                <span class="product-discount-float">40% OFF</span>
-                                <span class="assured-badge">🛡️ DS Assured</span>
-                            </div>
-                            <div class="product-body">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span class="product-cat-tag">Branded Metal Pen</span>
-                                    <div>
-                                        <span class="star-rating-pill">4.8 ★</span>
-                                        <span class="rating-count-text">(140+)</span>
-                                    </div>
-                                </div>
-                                <h3 class="product-title">Classic Metal Click Pen</h3>
-                                <p class="product-desc">Metal click ballpoint pen with smooth ink flow. Laser engraved with your brand. Optional luxury box (+₹35).</p>
-                                <div class="product-features-list">
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Without Box: ₹90 / With Box: ₹125</span></div>
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Colors: Black, Blue, Maroon, Grey</span></div>
-                                </div>
-                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
-                                <div class="product-footer-row">
-                                    <div class="product-price-block">
-                                        <span class="price-main">₹90/-</span>
-                                        <div><span class="price-strike">₹150</span><span class="price-unit"> Wholesale</span></div>
-                                    </div>
-                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Classic%20Metal%20Click%20Pen%20at%20Rs%2090" target="_blank" class="btn-order-wa">
-                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-                                        <span>Order</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 4: LED Temperature Display Bottle -->
-                        <div class="product-card" data-cat="drinkware">
-                            <div class="product-thumb-container">
-                                <img src="assets/products/product_51.jpg" alt="LED Temperature Display Bottle" class="product-thumb-img" loading="lazy">
-                                <span class="product-badge-float">Smart LED 🌡️</span>
-                                <span class="product-discount-float">40% OFF</span>
-                                <span class="assured-badge">🛡️ DS Assured</span>
-                            </div>
-                            <div class="product-body">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span class="product-cat-tag">Smart Drinkware</span>
-                                    <div>
-                                        <span class="star-rating-pill">4.9 ★</span>
-                                        <span class="rating-count-text">(78+)</span>
-                                    </div>
-                                </div>
-                                <h3 class="product-title">LED Temp Display Bottle – 500 ml</h3>
-                                <p class="product-desc">Smart touch LED lid displays beverage temperature. Double-wall 304 stainless steel keeps drinks hot/cold for 12 hours.</p>
-                                <div class="product-features-list">
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Touch LED Display Cap</span></div>
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>12h Hot/Cold Thermal Insulation</span></div>
-                                </div>
-                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
-                                <div class="product-footer-row">
-                                    <div class="product-price-block">
-                                        <span class="price-main">₹299/-</span>
-                                        <div><span class="price-strike">₹499</span><span class="price-unit"> Wholesale</span></div>
-                                    </div>
-                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20LED%20Temp%20Bottle%20at%20Rs%20299" target="_blank" class="btn-order-wa">
-                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-                                        <span>Order</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 5: Color Reveal Premium Diary -->
-                        <div class="product-card" data-cat="diaries">
-                            <div class="product-thumb-container">
-                                <img src="assets/products/product_43.jpg" alt="Color Reveal Premium Diary" class="product-thumb-img" loading="lazy">
-                                <span class="product-badge-float">Executive Pick 📓</span>
-                                <span class="product-discount-float">30% OFF</span>
-                                <span class="assured-badge">🛡️ DS Assured</span>
-                            </div>
-                            <div class="product-body">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span class="product-cat-tag">Executive Diary</span>
-                                    <div>
-                                        <span class="star-rating-pill">4.8 ★</span>
-                                        <span class="rating-count-text">(64+)</span>
-                                    </div>
-                                </div>
-                                <h3 class="product-title">Color Reveal Premium Diary (A5)</h3>
-                                <p class="product-desc">192 ruled pages (80 GSM paper). Contrast spine color reveal design with integrated pen holder and bookmark.</p>
-                                <div class="product-features-list">
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>192 Ruled Pages / 80 GSM</span></div>
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Contrast Reveal Edge & Pen Loop</span></div>
-                                </div>
-                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
-                                <div class="product-footer-row">
-                                    <div class="product-price-block">
-                                        <span class="price-main">₹279/-</span>
-                                        <div><span class="price-strike">₹399</span><span class="price-unit"> Wholesale</span></div>
-                                    </div>
-                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Color%20Reveal%20Diary%20at%20Rs%20279" target="_blank" class="btn-order-wa">
-                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-                                        <span>Order</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 6: House Shape Metal Keychain -->
-                        <div class="product-card" data-cat="keychains">
-                            <div class="product-thumb-container">
-                                <img src="assets/products/product_29.jpg" alt="House Shape Metal Keychain" class="product-thumb-img" loading="lazy">
-                                <span class="product-badge-float">Real Estate Special 🏠</span>
-                                <span class="product-discount-float">38% OFF</span>
-                                <span class="assured-badge">🛡️ DS Assured</span>
-                            </div>
-                            <div class="product-body">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span class="product-cat-tag">Custom Keychain</span>
-                                    <div>
-                                        <span class="star-rating-pill">4.7 ★</span>
-                                        <span class="rating-count-text">(110+)</span>
-                                    </div>
-                                </div>
-                                <h3 class="product-title">House Shape Metal Keychain</h3>
-                                <p class="product-desc">Iconic silhouette for Builders, Brokers, and Griha Pravesh gifts. Heavy polished chrome with laser logo engraving.</p>
-                                <div class="product-features-list">
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Real Estate & Builders Special</span></div>
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Double-sided Laser Engraving</span></div>
-                                </div>
-                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
-                                <div class="product-footer-row">
-                                    <div class="product-price-block">
-                                        <span class="price-main">₹99/-</span>
-                                        <div><span class="price-strike">₹160</span><span class="price-unit"> Wholesale</span></div>
-                                    </div>
-                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20House%20Keychain%20at%20Rs%2099" target="_blank" class="btn-order-wa">
-                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-                                        <span>Order</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 7: Custom Mouse Pad -->
-                        <div class="product-card" data-cat="mousepads">
-                            <div class="product-thumb-container">
-                                <img src="assets/products/product_49.jpg" alt="Non-Slip Custom Mouse Pad" class="product-thumb-img" loading="lazy">
-                                <span class="product-badge-float">Best Value 🖱️</span>
-                                <span class="product-discount-float">50% OFF</span>
-                                <span class="assured-badge">🛡️ DS Assured</span>
-                            </div>
-                            <div class="product-body">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span class="product-cat-tag">Office Accessory</span>
-                                    <div>
-                                        <span class="star-rating-pill">4.8 ★</span>
-                                        <span class="rating-count-text">(92+)</span>
-                                    </div>
-                                </div>
-                                <h3 class="product-title">Non-Slip Custom Mouse Pad (7x9.5")</h3>
-                                <p class="product-desc">Micro-weave cloth surface optimized for mouse tracking with natural anti-slip rubber grip base. Full HD edge-to-edge print.</p>
-                                <div class="product-features-list">
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Full Color Edge-to-Edge Print</span></div>
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Heavy Anti-Slip Rubber Grip Base</span></div>
-                                </div>
-                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
-                                <div class="product-footer-row">
-                                    <div class="product-price-block">
-                                        <span class="price-main">₹99/-</span>
-                                        <div><span class="price-strike">₹199</span><span class="price-unit"> Wholesale</span></div>
-                                    </div>
-                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Custom%20Mouse%20Pad%20at%20Rs%2099" target="_blank" class="btn-order-wa">
-                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-                                        <span>Order</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 8: Premium Visiting & Business Cards -->
-                        <div class="product-card" data-cat="printing">
-                            <div class="product-thumb-container">
-                                <img src="assets/products/product_10.jpg" alt="Premium Visiting Cards" class="product-thumb-img" loading="lazy">
-                                <span class="product-badge-float">Direct Press 📇</span>
-                                <span class="product-discount-float">37% OFF</span>
-                                <span class="assured-badge">🛡️ DS Assured</span>
-                            </div>
-                            <div class="product-body">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span class="product-cat-tag">Commercial Printing</span>
-                                    <div>
-                                        <span class="star-rating-pill">4.9 ★</span>
-                                        <span class="rating-count-text">(210+)</span>
-                                    </div>
-                                </div>
-                                <h3 class="product-title">Visiting & Business Cards</h3>
-                                <p class="product-desc">Custom visiting cards on 350 GSM premium art card. Matte, Gloss, Velvet Soft-Touch, Spot UV & Gold Foil finishes.</p>
-                                <div class="product-features-list">
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Pack of 1000 Cards Starting ₹499</span></div>
-                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Matte, Velvet, Gold Foil options</span></div>
-                                </div>
-                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
-                                <div class="product-footer-row">
-                                    <div class="product-price-block">
-                                        <span class="price-main">₹499/-</span>
-                                        <div><span class="price-strike">₹800</span><span class="price-unit"> / 1000 Pcs</span></div>
-                                    </div>
-                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Visiting%20Cards%20at%20Rs%20499" target="_blank" class="btn-order-wa">
-                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
-                                        <span>Order</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Store Bottom Action Banner -->
-                    <div class="store-big-cta-banner" data-anim="zoom-in">
-                        <h3>Explore Our Full 28+ Products Online Store</h3>
-                        <p>Discover complete collections of Inner Color Mugs, Executive Diaries, Laser Metal Pens, Keychains, Smart Bottles, Doctor Files & Flex Standees with 1-click WhatsApp order.</p>
-                        <div class="store-cta-btns">
-                            <a href="store.html" class="btn btn-primary btn-lg">
-                                <span>🛍️ View Full Online Store (28+ Items) ➔</span>
-                            </a>
-                            <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20need%20Corporate%20Gifting%20Catalog%20and%20Bulk%20Prices" target="_blank" class="btn-catalog-dl">
-                                <span>💬 Bulk Corporate Inquiries on WhatsApp</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Trust Strip & Wholesale Guarantees -->
-                    <div class="store-trust-strip" style="margin-top: 30px;">
-                        <div class="trust-item"><span class="trust-item-icon">⚡</span><span>1-Day Digital Proof Approval</span></div>
-                        <div class="trust-item"><span class="trust-item-icon">🎯</span><span>Precision Laser Engraving</span></div>
-                        <div class="trust-item"><span class="trust-item-icon">🛡️</span><span>100% Free Reprint Guarantee</span></div>
-                        <div class="trust-item"><span class="trust-item-icon">📦</span><span>Pan-India Courier Logistics</span></div>
-                        <div class="trust-item"><span class="trust-item-icon">🤝</span><span>Direct Factory Rates</span></div>
-                    </div>
-
-                    <!-- Factory Wholesale Stats Row -->
-                    <div class="stats-row" style="margin-top: 24px; margin-bottom: 20px;">
-                        <div class="stat-pill"><span class="sp-num">50+</span><span class="sp-lbl">Custom Products</span></div>
-                        <div class="stat-pill"><span class="sp-num">10,000+</span><span class="sp-lbl">Orders Printed</span></div>
-                        <div class="stat-pill"><span class="sp-num">Factory Rates</span><span class="sp-lbl">Direct Wholesale Jaipur</span></div>
-                        <div class="stat-pill"><span class="sp-num">100% Free</span><span class="sp-lbl">Reprint Guarantee</span></div>
-                    </div>
-
-                    <!-- 4-Step Proof Approval & Order Workflow -->
-                    <div class="workflow-steps-strip" id="workflow-steps">
-                        <div class="workflow-header text-center">
-                            <span class="workflow-tag">EASY 4-STEP B2B & RETAIL PROCESS</span>
-                            <h3 class="workflow-title">How Printing & Corporate Gifting Orders Work</h3>
-                            <p class="workflow-sub">100% digital proof approval before production starts — Zero hassle, guaranteed quality</p>
-                        </div>
-                        <div class="workflow-grid">
-                            <div class="workflow-step-card">
-                                <div class="wf-step-number">1</div>
-                                <div class="wf-icon">🛍️</div>
-                                <h4>1. Select Product</h4>
-                                <p>Choose from Mugs, Laser Metal Pens, Smart Bottles, Diaries, Visiting Cards, or Custom Corporate Kits.</p>
-                            </div>
-                            <div class="workflow-step-card">
-                                <div class="wf-step-number">2</div>
-                                <div class="wf-icon">💬</div>
-                                <h4>2. WhatsApp Details</h4>
-                                <p>Send your company logo, employee names, or custom artwork directly to <a href="https://wa.me/918739904737" target="_blank">+91 8739904737</a>.</p>
-                            </div>
-                            <div class="workflow-step-card">
-                                <div class="wf-step-number">3</div>
-                                <div class="wf-icon">✨</div>
-                                <h4>3. Free Digital Proof</h4>
-                                <p>We create a 2D/3D mockup preview within 2-4 hours. Production starts only after your WhatsApp approval.</p>
-                            </div>
-                            <div class="workflow-step-card">
-                                <div class="wf-step-number">4</div>
-                                <div class="wf-icon">🚚</div>
-                                <h4>4. Factory Print & Dispatch</h4>
-                                <p>Precision laser engraving / HD print, rigorous QC, and express Pan-India courier dispatch with live tracking.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dual-Vertical Spotlight Card: Quick Jump to Division 2 (Digital Marketing) -->
-                    <div class="dual-vertical-spotlight" style="margin: 20px auto 10px;">
-                        <div class="dual-spotlight-inner">
-                            <div class="spotlight-badge-title">
-                                <div class="spotlight-icon-box">🚀</div>
-                                <div class="spotlight-title-text">
-                                    <h4>Also Looking for Online Digital Growth?</h4>
-                                    <p>We build High-Conversion Websites, Performance Meta Ads & Promotional Video Ads</p>
-                                </div>
-                            </div>
-                            <div class="dual-tabs-wrapper">
-                                <a href="#home" class="dual-tab-btn">
-                                    <span>🎁 Gifting Store (Top)</span>
-                                </a>
-                                <a href="#services" class="dual-tab-btn active highlight">
-                                    <span>🚀 View Digital Services ➔</span>
-                                </a>
-                            </div>
-                        </div>
+                        <a href="#featured-products" class="btn-biz-explore">
+                            <span>Explore Shop Products ➔</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ====== SCENE 2: DIGITAL MARKETING SERVICES ====== -->
+        <!-- ====== SECTION 3: FEATURED SERVICES ====== -->
         <section class="scene scene-services" id="services">
             <div class="scene-inner">
                 <div class="container">
@@ -738,9 +369,701 @@
             </div>
         </section>
 
-        <!-- ====== CINEMATIC BREAK 2 ====== -->
-        <section class="scene scene-break" data-break-text="PRICING PACKAGES"></section>
+        
+<!-- ====== SECTION 4: FEATURED PRODUCTS (STORE SHOWCASE) ====== -->
+        <section class="scene store-section hero-store-section" id="featured-products">
+            <div id="store-showcase"></div>
+            <div class="scene-inner" style="padding-top: 20px; padding-bottom: 30px;">
+                <div class="container">
 
+                    <!-- Dual-Business Primary Switcher (Hero Top) -->
+                    <div class="dual-vertical-spotlight hero-dual-spotlight" id="dual-business-nav">
+                        <div class="dual-spotlight-inner">
+                            <div class="spotlight-badge-title">
+                                <div class="spotlight-icon-box">🏢</div>
+                                <div class="spotlight-title-text">
+                                    <h4>Design Suvidha — 2 Business Divisions</h4>
+                                    <p>Corporate Printing & Gifting (Main Store) · Digital Marketing & Ads (Div 2)</p>
+                                </div>
+                            </div>
+                            <div class="dual-tabs-wrapper">
+                                <a href="#store-showcase" class="dual-tab-btn active highlight">
+                                    <span>🎁 Printing & Gifts Store</span>
+                                    <span class="dual-tab-badge">MAIN</span>
+                                </a>
+                                <a href="#services" class="dual-tab-btn">
+                                    <span>🚀 Digital Marketing Agency</span>
+                                    <span class="dual-tab-badge" style="background: rgba(108, 92, 231, 0.2); color: #a29bfe;">DIV 2</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deal of the Day Banner (Amazon / Flipkart Style) -->
+                    <div class="app-deal-banner" id="home-deal-banner" data-anim="zoom-in">
+                        <div class="deal-banner-left">
+                            <span class="deal-fire-badge">Mega Deal 🔥</span>
+                            <div>
+                                <h4 class="deal-title">Corporate Wholesale Gifting Days — Up to 50% Off</h4>
+                                <p class="deal-sub">Free Custom Logo Laser Engraving on Bulk Company Orders · 100% Quality Assurance</p>
+                            </div>
+                        </div>
+                        <div class="deal-badge-assured">
+                            <span>🛡️ DS Assured Quality</span>
+                        </div>
+                    </div>
+
+                    <!-- Flipkart Style Circular Category Stories (Horizontal Carousel) -->
+                    <div class="app-cat-carousel-wrapper">
+                        <div class="app-cat-carousel" id="home-story-categories">
+                            <button class="app-cat-item active" data-story-cat="all">
+                                <div class="app-cat-circle">🌟</div>
+                                <span class="app-cat-name">All Items</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="mugs">
+                                <div class="app-cat-circle">☕</div>
+                                <span class="app-cat-name">Mugs</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="pens">
+                                <div class="app-cat-circle">🖊️</div>
+                                <span class="app-cat-name">Metal Pens</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="cardholders">
+                                <div class="app-cat-circle">💳</div>
+                                <span class="app-cat-name">Card Holders</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="diaries">
+                                <div class="app-cat-circle">📓</div>
+                                <span class="app-cat-name">Diaries</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="drinkware">
+                                <div class="app-cat-circle">🍶</div>
+                                <span class="app-cat-name">Bottles</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="keychains">
+                                <div class="app-cat-circle">🔑</div>
+                                <span class="app-cat-name">Keychains</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="printing">
+                                <div class="app-cat-circle">🖨️</div>
+                                <span class="app-cat-name">Cards & Print</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Category Pills -->
+                    <div class="store-filter-bar" id="home-store-filters">
+                        <button class="store-filter-btn active" data-home-cat="all">🌟 All Bestsellers</button>
+                        <button class="store-filter-btn" data-home-cat="mugs">☕ Mugs (from ₹199)</button>
+                        <button class="store-filter-btn" data-home-cat="pens">🖊️ Metal Pens (from ₹90)</button>
+                        <button class="store-filter-btn" data-home-cat="cardholders">💳 Card Holders (₹149)</button>
+                        <button class="store-filter-btn" data-home-cat="diaries">📓 Diaries (from ₹279)</button>
+                        <button class="store-filter-btn" data-home-cat="drinkware">🍶 Smart Drinkware (from ₹299)</button>
+                        <button class="store-filter-btn" data-home-cat="keychains">🔑 Keychains (from ₹99)</button>
+                        <button class="store-filter-btn" data-home-cat="printing">🖨️ Visiting Cards & Print</button>
+                    </div>
+
+                    <!-- Product Grid (Top Trending Showcase) -->
+                    <div class="product-grid" id="home-product-grid">
+                        <!-- Product 1: White Ceramic Mug -->
+                        <div class="product-card" data-cat="mugs">
+                            <div class="product-thumb-container">
+                                <img src="assets/products/product_1.jpg" alt="White Ceramic Mug" class="product-thumb-img" loading="lazy">
+                                <span class="product-badge-float">Best Seller 🔥</span>
+                                <span class="product-discount-float">33% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
+                            </div>
+                            <div class="product-body">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Personalised Mug</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.8 ★</span>
+                                        <span class="rating-count-text">(120+)</span>
+                                    </div>
+                                </div>
+                                <h3 class="product-title">White Ceramic Mug – 330 ml</h3>
+                                <p class="product-desc">Vibrant HD Sublimation print that stays bright sip after sip. Dishwasher and microwave safe high-density ceramic.</p>
+                                <div class="product-features-list">
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>HD Full Color Photo/Logo Print</span></div>
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>330 ml Standard Mug Capacity</span></div>
+                                </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                                <div class="product-footer-row">
+                                    <div class="product-price-block">
+                                        <span class="price-main">₹199/-</span>
+                                        <div><span class="price-strike">₹299</span><span class="price-unit"> Wholesale</span></div>
+                                    </div>
+                                    <div class="product-card-actions">
+                                        <button type="button" class="btn-add-cart" data-price="199">🛒 Add</button>
+                                        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20White%20Ceramic%20Mug%20at%20Rs%20199" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 2: Stainless Steel Card Holder -->
+                        <div class="product-card" data-cat="cardholders">
+                            <div class="product-thumb-container">
+                                <img src="assets/products/product_9.jpg" alt="Stainless Steel Card Holder" class="product-thumb-img" loading="lazy">
+                                <span class="product-badge-float">Laser Engraved ⚡</span>
+                                <span class="product-discount-float">40% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
+                            </div>
+                            <div class="product-body">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Card Holder</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.9 ★</span>
+                                        <span class="rating-count-text">(95+)</span>
+                                    </div>
+                                </div>
+                                <h3 class="product-title">Stainless Steel Card Holder</h3>
+                                <p class="product-desc">Slim stainless steel case. Customized with sharp, permanent laser engraving of your Name and Company Logo.</p>
+                                <div class="product-features-list">
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Permanent Laser Logo/Name</span></div>
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Stores 15+ Visiting Cards</span></div>
+                                </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                                <div class="product-footer-row">
+                                    <div class="product-price-block">
+                                        <span class="price-main">₹149/-</span>
+                                        <div><span class="price-strike">₹249</span><span class="price-unit"> Wholesale</span></div>
+                                    </div>
+                                    <div class="product-card-actions">
+                                        <button type="button" class="btn-add-cart" data-price="149">🛒 Add</button>
+                                        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Stainless%20Steel%20Card%20Holder%20at%20Rs%20149" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 3: Classic Metal Click Pen -->
+                        <div class="product-card" data-cat="pens">
+                            <div class="product-thumb-container">
+                                <img src="assets/products/product_17.jpg" alt="Classic Metal Click Pen" class="product-thumb-img" loading="lazy">
+                                <span class="product-badge-float">Wholesale Pick 🖊️</span>
+                                <span class="product-discount-float">40% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
+                            </div>
+                            <div class="product-body">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Branded Metal Pen</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.8 ★</span>
+                                        <span class="rating-count-text">(140+)</span>
+                                    </div>
+                                </div>
+                                <h3 class="product-title">Classic Metal Click Pen</h3>
+                                <p class="product-desc">Metal click ballpoint pen with smooth ink flow. Laser engraved with your brand. Optional luxury box (+₹35).</p>
+                                <div class="product-features-list">
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Without Box: ₹90 / With Box: ₹125</span></div>
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Colors: Black, Blue, Maroon, Grey</span></div>
+                                </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                                <div class="product-footer-row">
+                                    <div class="product-price-block">
+                                        <span class="price-main">₹90/-</span>
+                                        <div><span class="price-strike">₹150</span><span class="price-unit"> Wholesale</span></div>
+                                    </div>
+                                    <div class="product-card-actions">
+                                        <button type="button" class="btn-add-cart" data-price="90">🛒 Add</button>
+                                        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Classic%20Metal%20Click%20Pen%20at%20Rs%2090" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 4: LED Temperature Display Bottle -->
+                        <div class="product-card" data-cat="drinkware">
+                            <div class="product-thumb-container">
+                                <img src="assets/products/product_51.jpg" alt="LED Temperature Display Bottle" class="product-thumb-img" loading="lazy">
+                                <span class="product-badge-float">Smart LED 🌡️</span>
+                                <span class="product-discount-float">40% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
+                            </div>
+                            <div class="product-body">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Smart Drinkware</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.9 ★</span>
+                                        <span class="rating-count-text">(78+)</span>
+                                    </div>
+                                </div>
+                                <h3 class="product-title">LED Temp Display Bottle – 500 ml</h3>
+                                <p class="product-desc">Smart touch LED lid displays beverage temperature. Double-wall 304 stainless steel keeps drinks hot/cold for 12 hours.</p>
+                                <div class="product-features-list">
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Touch LED Display Cap</span></div>
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>12h Hot/Cold Thermal Insulation</span></div>
+                                </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                                <div class="product-footer-row">
+                                    <div class="product-price-block">
+                                        <span class="price-main">₹299/-</span>
+                                        <div><span class="price-strike">₹499</span><span class="price-unit"> Wholesale</span></div>
+                                    </div>
+                                    <div class="product-card-actions">
+                                        <button type="button" class="btn-add-cart" data-price="299">🛒 Add</button>
+                                        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20LED%20Temp%20Bottle%20at%20Rs%20299" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 5: Color Reveal Premium Diary -->
+                        <div class="product-card" data-cat="diaries">
+                            <div class="product-thumb-container">
+                                <img src="assets/products/product_43.jpg" alt="Color Reveal Premium Diary" class="product-thumb-img" loading="lazy">
+                                <span class="product-badge-float">Executive Pick 📓</span>
+                                <span class="product-discount-float">30% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
+                            </div>
+                            <div class="product-body">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Executive Diary</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.8 ★</span>
+                                        <span class="rating-count-text">(64+)</span>
+                                    </div>
+                                </div>
+                                <h3 class="product-title">Color Reveal Premium Diary (A5)</h3>
+                                <p class="product-desc">192 ruled pages (80 GSM paper). Contrast spine color reveal design with integrated pen holder and bookmark.</p>
+                                <div class="product-features-list">
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>192 Ruled Pages / 80 GSM</span></div>
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Contrast Reveal Edge & Pen Loop</span></div>
+                                </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                                <div class="product-footer-row">
+                                    <div class="product-price-block">
+                                        <span class="price-main">₹279/-</span>
+                                        <div><span class="price-strike">₹399</span><span class="price-unit"> Wholesale</span></div>
+                                    </div>
+                                    <div class="product-card-actions">
+                                        <button type="button" class="btn-add-cart" data-price="279">🛒 Add</button>
+                                        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Color%20Reveal%20Diary%20at%20Rs%20279" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 6: House Shape Metal Keychain -->
+                        <div class="product-card" data-cat="keychains">
+                            <div class="product-thumb-container">
+                                <img src="assets/products/product_29.jpg" alt="House Shape Metal Keychain" class="product-thumb-img" loading="lazy">
+                                <span class="product-badge-float">Real Estate Special 🏠</span>
+                                <span class="product-discount-float">38% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
+                            </div>
+                            <div class="product-body">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Custom Keychain</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.7 ★</span>
+                                        <span class="rating-count-text">(110+)</span>
+                                    </div>
+                                </div>
+                                <h3 class="product-title">House Shape Metal Keychain</h3>
+                                <p class="product-desc">Iconic silhouette for Builders, Brokers, and Griha Pravesh gifts. Heavy polished chrome with laser logo engraving.</p>
+                                <div class="product-features-list">
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Real Estate & Builders Special</span></div>
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Double-sided Laser Engraving</span></div>
+                                </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                                <div class="product-footer-row">
+                                    <div class="product-price-block">
+                                        <span class="price-main">₹99/-</span>
+                                        <div><span class="price-strike">₹160</span><span class="price-unit"> Wholesale</span></div>
+                                    </div>
+                                    <div class="product-card-actions">
+                                        <button type="button" class="btn-add-cart" data-price="99">🛒 Add</button>
+                                        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20House%20Keychain%20at%20Rs%2099" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 7: Custom Mouse Pad -->
+                        <div class="product-card" data-cat="mousepads">
+                            <div class="product-thumb-container">
+                                <img src="assets/products/product_49.jpg" alt="Non-Slip Custom Mouse Pad" class="product-thumb-img" loading="lazy">
+                                <span class="product-badge-float">Best Value 🖱️</span>
+                                <span class="product-discount-float">50% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
+                            </div>
+                            <div class="product-body">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Office Accessory</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.8 ★</span>
+                                        <span class="rating-count-text">(92+)</span>
+                                    </div>
+                                </div>
+                                <h3 class="product-title">Non-Slip Custom Mouse Pad (7x9.5")</h3>
+                                <p class="product-desc">Micro-weave cloth surface optimized for mouse tracking with natural anti-slip rubber grip base. Full HD edge-to-edge print.</p>
+                                <div class="product-features-list">
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Full Color Edge-to-Edge Print</span></div>
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Heavy Anti-Slip Rubber Grip Base</span></div>
+                                </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                                <div class="product-footer-row">
+                                    <div class="product-price-block">
+                                        <span class="price-main">₹99/-</span>
+                                        <div><span class="price-strike">₹199</span><span class="price-unit"> Wholesale</span></div>
+                                    </div>
+                                    <div class="product-card-actions">
+                                        <button type="button" class="btn-add-cart" data-price="99">🛒 Add</button>
+                                        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Custom%20Mouse%20Pad%20at%20Rs%2099" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 8: Premium Visiting & Business Cards -->
+                        <div class="product-card" data-cat="printing">
+                            <div class="product-thumb-container">
+                                <img src="assets/products/product_10.jpg" alt="Premium Visiting Cards" class="product-thumb-img" loading="lazy">
+                                <span class="product-badge-float">Direct Press 📇</span>
+                                <span class="product-discount-float">37% OFF</span>
+                                <span class="assured-badge">🛡️ DS Assured</span>
+                            </div>
+                            <div class="product-body">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span class="product-cat-tag">Commercial Printing</span>
+                                    <div>
+                                        <span class="star-rating-pill">4.9 ★</span>
+                                        <span class="rating-count-text">(210+)</span>
+                                    </div>
+                                </div>
+                                <h3 class="product-title">Visiting & Business Cards</h3>
+                                <p class="product-desc">Custom visiting cards on 350 GSM premium art card. Matte, Gloss, Velvet Soft-Touch, Spot UV & Gold Foil finishes.</p>
+                                <div class="product-features-list">
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Pack of 1000 Cards Starting ₹499</span></div>
+                                    <div class="product-feat-bullet"><span class="feat-dot"></span><span>Matte, Velvet, Gold Foil options</span></div>
+                                </div>
+                                <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                                <div class="product-footer-row">
+                                    <div class="product-price-block">
+                                        <span class="price-main">₹499/-</span>
+                                        <div><span class="price-strike">₹800</span><span class="price-unit"> / 1000 Pcs</span></div>
+                                    </div>
+                                    <div class="product-card-actions">
+                                        <button type="button" class="btn-add-cart" data-price="499">🛒 Add</button>
+                                        <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Visiting%20Cards%20at%20Rs%20499" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Store Bottom Action Banner -->
+                    <div class="store-big-cta-banner" data-anim="zoom-in">
+                        <h3>Explore Our Full 28+ Products Online Store</h3>
+                        <p>Discover complete collections of Inner Color Mugs, Executive Diaries, Laser Metal Pens, Keychains, Smart Bottles, Doctor Files & Flex Standees with 1-click WhatsApp order.</p>
+                        <div class="store-cta-btns">
+                            <a href="store.html" class="btn btn-primary btn-lg">
+                                <span>🛍️ View Full Online Store (28+ Items) ➔</span>
+                            </a>
+                            <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20need%20Corporate%20Gifting%20Catalog%20and%20Bulk%20Prices" target="_blank" class="btn-catalog-dl">
+                                <span>💬 Bulk Corporate Inquiries on WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Trust Strip & Wholesale Guarantees -->
+                    <div class="store-trust-strip" style="margin-top: 30px;">
+                        <div class="trust-item"><span class="trust-item-icon">⚡</span><span>1-Day Digital Proof Approval</span></div>
+                        <div class="trust-item"><span class="trust-item-icon">🎯</span><span>Precision Laser Engraving</span></div>
+                        <div class="trust-item"><span class="trust-item-icon">🛡️</span><span>100% Free Reprint Guarantee</span></div>
+                        <div class="trust-item"><span class="trust-item-icon">📦</span><span>Pan-India Courier Logistics</span></div>
+                        <div class="trust-item"><span class="trust-item-icon">🤝</span><span>Direct Factory Rates</span></div>
+                    </div>
+
+                    <!-- Factory Wholesale Stats Row -->
+                    <div class="stats-row" style="margin-top: 24px; margin-bottom: 20px;">
+                        <div class="stat-pill"><span class="sp-num">50+</span><span class="sp-lbl">Custom Products</span></div>
+                        <div class="stat-pill"><span class="sp-num">10,000+</span><span class="sp-lbl">Orders Printed</span></div>
+                        <div class="stat-pill"><span class="sp-num">Factory Rates</span><span class="sp-lbl">Direct Wholesale Jaipur</span></div>
+                        <div class="stat-pill"><span class="sp-num">100% Free</span><span class="sp-lbl">Reprint Guarantee</span></div>
+                    </div>
+
+                    <!-- 4-Step Proof Approval & Order Workflow -->
+                    <div class="workflow-steps-strip" id="workflow-steps">
+                        <div class="workflow-header text-center">
+                            <span class="workflow-tag">EASY 4-STEP B2B & RETAIL PROCESS</span>
+                            <h3 class="workflow-title">How Printing & Corporate Gifting Orders Work</h3>
+                            <p class="workflow-sub">100% digital proof approval before production starts — Zero hassle, guaranteed quality</p>
+                        </div>
+                        <div class="workflow-grid">
+                            <div class="workflow-step-card">
+                                <div class="wf-step-number">1</div>
+                                <div class="wf-icon">🛍️</div>
+                                <h4>1. Select Product</h4>
+                                <p>Choose from Mugs, Laser Metal Pens, Smart Bottles, Diaries, Visiting Cards, or Custom Corporate Kits.</p>
+                            </div>
+                            <div class="workflow-step-card">
+                                <div class="wf-step-number">2</div>
+                                <div class="wf-icon">💬</div>
+                                <h4>2. WhatsApp Details</h4>
+                                <p>Send your company logo, employee names, or custom artwork directly to <a href="https://wa.me/918739904737" target="_blank">+91 8739904737</a>.</p>
+                            </div>
+                            <div class="workflow-step-card">
+                                <div class="wf-step-number">3</div>
+                                <div class="wf-icon">✨</div>
+                                <h4>3. Free Digital Proof</h4>
+                                <p>We create a 2D/3D mockup preview within 2-4 hours. Production starts only after your WhatsApp approval.</p>
+                            </div>
+                            <div class="workflow-step-card">
+                                <div class="wf-step-number">4</div>
+                                <div class="wf-icon">🚚</div>
+                                <h4>4. Factory Print & Dispatch</h4>
+                                <p>Precision laser engraving / HD print, rigorous QC, and express Pan-India courier dispatch with live tracking.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dual-Vertical Spotlight Card: Quick Jump to Division 2 (Digital Marketing) -->
+                    <div class="dual-vertical-spotlight" style="margin: 20px auto 10px;">
+                        <div class="dual-spotlight-inner">
+                            <div class="spotlight-badge-title">
+                                <div class="spotlight-icon-box">🚀</div>
+                                <div class="spotlight-title-text">
+                                    <h4>Also Looking for Online Digital Growth?</h4>
+                                    <p>We build High-Conversion Websites, Performance Meta Ads & Promotional Video Ads</p>
+                                </div>
+                            </div>
+                            <div class="dual-tabs-wrapper">
+                                <a href="#home" class="dual-tab-btn">
+                                    <span>🎁 Gifting Store (Top)</span>
+                                </a>
+                                <a href="#services" class="dual-tab-btn active highlight">
+                                    <span>🚀 View Digital Services ➔</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- ====== SECTION 5: BEST SELLERS AND NEW ARRIVALS ====== -->
+        <section class="merchandising-section" id="bestsellers-new">
+            <div class="container">
+                <div class="section-header text-center" data-anim="fade-up">
+                    <span class="workflow-tag">CURATED MERCHANDISING</span>
+                    <h2 class="section-title-main">Best Sellers & New Arrivals</h2>
+                    <p class="section-sub-main">Discover top-trending corporate merchandise, seasonal welcome kits, and newly launched custom gifts.</p>
+                </div>
+                <div class="merch-tabs-bar" id="merch-tabs">
+                    <button type="button" class="merch-tab-btn active" data-merch-tab="bestsellers">🔥 All-Time Best Sellers</button>
+                    <button type="button" class="merch-tab-btn" data-merch-tab="new-arrivals">✨ Fresh New Arrivals</button>
+                    <button type="button" class="merch-tab-btn" data-merch-tab="corporate-kits">🏢 Corporate Welcome Hampers</button>
+                </div>
+                <div class="product-grid" id="merch-product-grid">
+                    <!-- Merchandising Card 1 -->
+                    <div class="product-card" data-merch-type="bestsellers">
+                        <div class="product-thumb-container">
+                            <img src="assets/products/product_51.jpg" alt="LED Temperature Bottle" class="product-thumb-img" loading="lazy">
+                            <span class="product-badge-float">Top Seller 🌡️</span>
+                            <span class="product-discount-float">40% OFF</span>
+                            <span class="assured-badge">🛡️ DS Assured</span>
+                        </div>
+                        <div class="product-body">
+                            <span class="product-cat-tag">Smart Drinkware</span>
+                            <h3 class="product-title">LED Temperature Display Bottle – 500ml</h3>
+                            <p class="product-desc">Smart touch LED lid displays beverage temperature. Double-wall 304 food-grade stainless steel with 12h thermal insulation.</p>
+                            <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                            <div class="product-footer-row">
+                                <div class="product-price-block">
+                                    <span class="price-main">₹299/-</span>
+                                    <div><span class="price-strike">₹499</span><span class="price-unit"> Wholesale</span></div>
+                                </div>
+                                <div class="product-card-actions">
+                                    <button type="button" class="btn-add-cart" data-title="LED Temperature Display Bottle" data-price="299" data-img="assets/products/product_51.jpg">🛒 Add</button>
+                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20LED%20Temp%20Bottle%20at%20Rs%20299" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Merchandising Card 2 -->
+                    <div class="product-card" data-merch-type="new-arrivals">
+                        <div class="product-thumb-container">
+                            <img src="assets/products/product_53.jpg" alt="Vacuum Tumbler with Straw" class="product-thumb-img" loading="lazy">
+                            <span class="product-badge-float">New Arrival ✨</span>
+                            <span class="product-discount-float">35% OFF</span>
+                            <span class="assured-badge">🛡️ DS Assured</span>
+                        </div>
+                        <div class="product-body">
+                            <span class="product-cat-tag">Executive Tumbler</span>
+                            <h3 class="product-title">900ml Vacuum Travel Tumbler with Straw</h3>
+                            <p class="product-desc">Heavy duty 900ml thermal insulated tumbler with ergonomic carry handle and spill-proof flip straw. Laser engravable.</p>
+                            <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                            <div class="product-footer-row">
+                                <div class="product-price-block">
+                                    <span class="price-main">₹549/-</span>
+                                    <div><span class="price-strike">₹849</span><span class="price-unit"> Wholesale</span></div>
+                                </div>
+                                <div class="product-card-actions">
+                                    <button type="button" class="btn-add-cart" data-title="900ml Vacuum Travel Tumbler" data-price="549" data-img="assets/products/product_53.jpg">🛒 Add</button>
+                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Vacuum%20Tumbler%20at%20Rs%20549" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Merchandising Card 3 -->
+                    <div class="product-card" data-merch-type="corporate-kits">
+                        <div class="product-thumb-container">
+                            <img src="assets/products/product_44.jpg" alt="Executive Diary and Metal Pen Set" class="product-thumb-img" loading="lazy">
+                            <span class="product-badge-float">Corporate Hamper 🏢</span>
+                            <span class="product-discount-float">38% OFF</span>
+                            <span class="assured-badge">🛡️ DS Assured</span>
+                        </div>
+                        <div class="product-body">
+                            <span class="product-cat-tag">Corporate Gift Hamper</span>
+                            <h3 class="product-title">Executive 3-in-1 Employee Welcome Kit</h3>
+                            <p class="product-desc">Premium customized gift box containing Gold Border Luxury Diary, Laser Engraved Metal Pen, and Stainless Steel Card Holder with company logo.</p>
+                            <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                            <div class="product-footer-row">
+                                <div class="product-price-block">
+                                    <span class="price-main">₹699/-</span>
+                                    <div><span class="price-strike">₹1100</span><span class="price-unit"> / Set</span></div>
+                                </div>
+                                <div class="product-card-actions">
+                                    <button type="button" class="btn-add-cart" data-title="Executive 3-in-1 Welcome Kit" data-price="699" data-img="assets/products/product_44.jpg">🛒 Add</button>
+                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20need%20Executive%203-in-1%20Welcome%20Kit%20quote" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Merchandising Card 4 -->
+                    <div class="product-card" data-merch-type="bestsellers">
+                        <div class="product-thumb-container">
+                            <img src="assets/products/product_20.jpg" alt="Black Rose Gold Executive Pen" class="product-thumb-img" loading="lazy">
+                            <span class="product-badge-float">VIP Luxury 🖊️</span>
+                            <span class="product-discount-float">37% OFF</span>
+                            <span class="assured-badge">🛡️ DS Assured</span>
+                        </div>
+                        <div class="product-body">
+                            <span class="product-cat-tag">Executive Metal Pen</span>
+                            <h3 class="product-title">Black & Rose Gold Presidential Pen</h3>
+                            <p class="product-desc">Heavyweight solid brass body with lustrous rose gold trims and ultra-smooth German rollerball refill in cushioned presentation box.</p>
+                            <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
+                            <div class="product-footer-row">
+                                <div class="product-price-block">
+                                    <span class="price-main">₹249/-</span>
+                                    <div><span class="price-strike">₹399</span><span class="price-unit"> Wholesale</span></div>
+                                </div>
+                                <div class="product-card-actions">
+                                    <button type="button" class="btn-add-cart" data-title="Black Rose Gold Presidential Pen" data-price="249" data-img="assets/products/product_20.jpg">🛒 Add</button>
+                                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20order%20Rose%20Gold%20Executive%20Pen%20at%20Rs%20249" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ====== SECTION 6: PORTFOLIO AND CASE STUDIES ====== -->
+        <section class="scene scene-break" data-break-text="OUR WORK"></section>
+        <!-- ====== SCENE 5: VIDEO CAMPAIGNS ====== -->
+        <section class="scene scene-portfolio" id="case-studies">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">REAL RESULTS</span>
+                        <h2 class="section-title">Client Video Campaigns</h2>
+                    </div>
+                    <div class="portfolio-grid">
+                        <!-- 1. Client Video Edit -->
+                        <div class="portfolio-item" data-anim="tilt-in-left">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/Jio6DQH83Xw" title="this is my client video edited by me" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Sarvan Sharma</span><h3 class="portfolio-item-title">Premium Client Video Edit</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">5.4x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">150k+</span><span class="m-lbl">Views</span></div></div></div>
+                        </div>
+                        <!-- 2. Promotion Video 1 -->
+                        <div class="portfolio-item" data-anim="tilt-in-right">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/zwgLF7YB8so" title="promotion video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Client Promotion Campaign</span><h3 class="portfolio-item-title">Brand Awareness Booster</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.6x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">80k+</span><span class="m-lbl">Reach</span></div></div></div>
+                        </div>
+                        <!-- 3. Website Service Video -->
+                        <div class="portfolio-item" data-anim="tilt-in-left">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/v9-iY0MfYIU" title="website service video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Design Suvidha</span><h3 class="portfolio-item-title">Website Services Showcase</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.5x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">₹18L</span><span class="m-lbl">Revenue</span></div></div></div>
+                        </div>
+                        <!-- 4. Jaipur Make Over Video -->
+                        <div class="portfolio-item" data-anim="tilt-in-right">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/WRzr-kM_rMI" title="jaipur make over video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Jaipur Salon Makeover</span><h3 class="portfolio-item-title">Local Salon Promotion</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.8x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">+180%</span><span class="m-lbl">Bookings</span></div></div></div>
+                        </div>
+                        <!-- 5. R K Home Appliances -->
+                        <div class="portfolio-item" data-anim="tilt-in-left">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/y7PFIROIGf8" title="R k home appliances" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">R.K. Home Appliances</span><h3 class="portfolio-item-title">E-commerce Sales Drive</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">3.9x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">+320%</span><span class="m-lbl">Leads</span></div></div></div>
+                        </div>
+                        <!-- 6. Chhavi Beautiful Parlor -->
+                        <div class="portfolio-item" data-anim="tilt-in-right">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/hd_FsfTXwnw" title="chhavi beautiful parlor" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Chhavi Beauty Parlor</span><h3 class="portfolio-item-title">Beauty Parlor Launch</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.1x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">80+</span><span class="m-lbl">Enquiries</span></div></div></div>
+                        </div>
+                        <!-- 7. School ID Card Video -->
+                        <div class="portfolio-item" data-anim="tilt-in-left">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/t8YweiO3_qg" title="school id car video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Smart School ID Solutions</span><h3 class="portfolio-item-title">B2B Product Campaign</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">3.8x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">120+</span><span class="m-lbl">Enquiries</span></div></div></div>
+                        </div>
+                        <!-- 8. Real Estate Video 1 -->
+                        <div class="portfolio-item" data-anim="tilt-in-right">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/94XEj_9_Me0" title="real state video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Elite Realtors</span><h3 class="portfolio-item-title">Luxury Property Showcase</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.7x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">28+</span><span class="m-lbl">Leads</span></div></div></div>
+                        </div>
+                        <!-- 9. Suraj Property Video -->
+                        <div class="portfolio-item" data-anim="tilt-in-left">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/rSs1WeRT_nM" title="suraj property video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Suraj Properties</span><h3 class="portfolio-item-title">Residential Project Launch</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.3x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">60+</span><span class="m-lbl">Bookings</span></div></div></div>
+                        </div>
+                        <!-- 10. School Video -->
+                        <div class="portfolio-item" data-anim="tilt-in-right">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/12bQKDXkmsA" title="school video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">St. Angels Academy</span><h3 class="portfolio-item-title">School Admissions Drive</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">5.8x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">150+</span><span class="m-lbl">Students</span></div></div></div>
+                        </div>
+                        <!-- 11. Loknath Pest Control Services -->
+                        <div class="portfolio-item" data-anim="tilt-in-left">
+                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/HnLJG6EgMFA" title="Loknath pest control services" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
+                            <div class="portfolio-info"><span class="client-name">Loknath Pest Control</span><h3 class="portfolio-item-title">Local Service Promotion</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">6.1x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">+180%</span><span class="m-lbl">Bookings</span></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="scene scene-break" data-break-text="WEBSITES BUILT"></section>
+        <!-- ====== SCENE 6: WEBSITE PORTFOLIO ====== -->
+        <section class="scene scene-webfolio" id="web-portfolio">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">WEBSITES WE'VE BUILT</span>
+                        <h2 class="section-title">Website Portfolio</h2>
+                    </div>
+                    <div class="web-portfolio-grid">
+                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://wibify.agency/en&screenshot=true&meta=false&embed=screenshot.url" alt="Wibify Agency" loading="lazy"></div><div class="web-body"><span class="web-tag">Digital Agency</span><h3>Wibify Agency</h3><a href="https://wibify.agency/en" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-right"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://mira-dev.webflow.io/&screenshot=true&meta=false&embed=screenshot.url" alt="Mira Dev" loading="lazy"></div><div class="web-body"><span class="web-tag">SaaS Platform</span><h3>Mira Dev</h3><a href="https://mira-dev.webflow.io/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://blueprintapps.io/&screenshot=true&meta=false&embed=screenshot.url" alt="Blueprint Apps" loading="lazy"></div><div class="web-body"><span class="web-tag">App Development</span><h3>Blueprint Apps</h3><a href="https://blueprintapps.io/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-right"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://www.cravburgers.shop/&screenshot=true&meta=false&embed=screenshot.url" alt="Crav Burgers" loading="lazy"></div><div class="web-body"><span class="web-tag">Food &amp; Restaurant</span><h3>Crav Burgers</h3><a href="https://www.cravburgers.shop/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://www.monarch.us/&screenshot=true&meta=false&embed=screenshot.url" alt="Monarch" loading="lazy"></div><div class="web-body"><span class="web-tag">Premium Brand</span><h3>Monarch</h3><a href="https://www.monarch.us/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-right"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://oliviaharperhomes.com/&screenshot=true&meta=false&embed=screenshot.url" alt="Olivia Harper Homes" loading="lazy"></div><div class="web-body"><span class="web-tag">Real Estate</span><h3>Olivia Harper Homes</h3><a href="https://oliviaharperhomes.com/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://eatnaked.co/&screenshot=true&meta=false&embed=screenshot.url" alt="Eat Naked" loading="lazy"></div><div class="web-body"><span class="web-tag">Health &amp; Food</span><h3>Eat Naked</h3><a href="https://eatnaked.co/" target="_blank" class="visit-link">Visit Site →</a></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="scene scene-break" data-break-text="AD PACKAGES"></section>
         <!-- ====== SCENE 4: PRICING ====== -->
         <section class="scene scene-pricing" id="pricing">
             <div class="scene-inner">
@@ -811,105 +1134,96 @@
             </div>
         </section>
 
-        <!-- ====== CINEMATIC BREAK 3 ====== -->
-        <section class="scene scene-break" data-break-text="OUR WORK"></section>
+        
 
-        <!-- ====== SCENE 5: VIDEO CAMPAIGNS ====== -->
-        <section class="scene scene-portfolio" id="case-studies">
-            <div class="scene-inner">
-                <div class="container">
-                    <div class="section-header text-center" data-anim="fade-up">
-                        <span class="section-tag">REAL RESULTS</span>
-                        <h2 class="section-title">Client Video Campaigns</h2>
-                    </div>
-                    <div class="portfolio-grid">
-                        <!-- 1. Client Video Edit -->
-                        <div class="portfolio-item" data-anim="tilt-in-left">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/Jio6DQH83Xw" title="this is my client video edited by me" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">Sarvan Sharma</span><h3 class="portfolio-item-title">Premium Client Video Edit</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">5.4x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">150k+</span><span class="m-lbl">Views</span></div></div></div>
+
+        <!-- ====== SECTION 7: CUSTOM & CORPORATE GIFTING (DEDICATED FORM) ====== -->
+        <section class="corporate-gifting-section" id="corporate-gifting">
+            <div class="container">
+                <div class="section-header text-center" data-anim="fade-up">
+                    <span class="workflow-tag">BULK ORDERS & CUSTOM BRANDING</span>
+                    <h2 class="section-title-main">Custom & Corporate Gifting Quotation</h2>
+                    <p class="section-sub-main">Planning gifts for employee welcome kits, Diwali, real estate launches, conferences, or college fests? Share your requirements for a custom quotation and digital proof within 2 hours.</p>
+                </div>
+                <div class="corp-form-container" data-anim="fade-up">
+                    <form id="corporate-bulk-form" novalidate>
+                        <div class="corp-form-grid">
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-company">Company / Organization Name *</label>
+                                <input type="text" id="corp-company" class="corp-form-input" placeholder="e.g. Acme Tech Solutions" required>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-person">Contact Person Name *</label>
+                                <input type="text" id="corp-person" class="corp-form-input" placeholder="Your Name" required>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-phone">Phone / WhatsApp Number *</label>
+                                <input type="tel" id="corp-phone" class="corp-form-input" placeholder="98XXXXXXXX" required>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-email">Official Email Address</label>
+                                <input type="email" id="corp-email" class="corp-form-input" placeholder="name@company.com">
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-category">Product Category *</label>
+                                <select id="corp-category" class="corp-form-select" required>
+                                    <option value="">Select Primary Product Category</option>
+                                    <option value="Personalized Mugs">Personalized Mugs (Ceramic, Inner Color, Heart Handle)</option>
+                                    <option value="Laser Engraved Metal Pens">Laser Engraved Metal Pens (With/Without Luxury Box)</option>
+                                    <option value="Stainless Steel Card Holders">Stainless Steel Card Holders (Gold/Black/Matte)</option>
+                                    <option value="Executive Diaries & Notebooks">Executive Diaries & Notebooks (A5 Hardcover)</option>
+                                    <option value="Smart Drinkware & Temperature Bottles">Smart Drinkware & Temperature Bottles (500ml LED)</option>
+                                    <option value="Custom Keychains">Custom Metal/Leather Keychains (House/Oval/Round)</option>
+                                    <option value="Corporate Gift Hampers & Welcome Kits">Corporate Gift Hampers & Employee Welcome Kits</option>
+                                    <option value="Visiting Cards & Office Stationery">Visiting Cards (350 GSM) & Marketing Print</option>
+                                    <option value="Digital Products / Branding Design">Digital Products / Brand Identity Package</option>
+                                </select>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-qty">Required Quantity *</label>
+                                <select id="corp-qty" class="corp-form-select" required>
+                                    <option value="25-50 Pcs">25 - 50 Pcs (Small Team)</option>
+                                    <option value="50-100 Pcs" selected>50 - 100 Pcs (Standard Corporate)</option>
+                                    <option value="100-250 Pcs">100 - 250 Pcs (Mid-Size Event)</option>
+                                    <option value="250-500 Pcs">250 - 500 Pcs (Large Conference)</option>
+                                    <option value="500-1000+ Pcs">500 - 1000+ Pcs (Mega Bulk Wholesale)</option>
+                                </select>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-budget">Estimated Budget</label>
+                                <select id="corp-budget" class="corp-form-select">
+                                    <option value="Under ₹10,000">Under ₹10,000</option>
+                                    <option value="₹10,000 - ₹25,000" selected>₹10,000 - ₹25,000</option>
+                                    <option value="₹25,000 - ₹50,000">₹25,000 - ₹50,000</option>
+                                    <option value="₹50,000 - ₹1,00,000">₹50,000 - ₹1,00,000</option>
+                                    <option value="₹1,00,000+">₹1,00,000+ (Enterprise)</option>
+                                </select>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-timeline">Target Delivery Deadline *</label>
+                                <input type="text" id="corp-timeline" class="corp-form-input" placeholder="e.g. Within 5-7 days / Before Diwali" required>
+                            </div>
+                            <div class="corp-form-field corp-form-full">
+                                <label class="corp-form-label" for="corp-notes">Customization Details & Branding Notes</label>
+                                <textarea id="corp-notes" class="corp-form-textarea" rows="3" placeholder="Tell us about custom logo laser engraving, employee name personalization, packaging box requirements, or delivery city..."></textarea>
+                            </div>
+                            <div class="corp-form-field corp-form-full">
+                                <button type="submit" class="btn-corp-submit" id="btn-corp-submit">
+                                    <span>📩 Request Instant Corporate Bulk Quote & Proof</span>
+                                </button>
+                                <div id="corp-form-success" style="display: none; background: #e6f4ea; color: #137333; padding: 12px; border-radius: 8px; margin-top: 12px; font-weight: 700; text-align: center;">
+                                    ✓ Corporate inquiry received! Redirecting to WhatsApp for instant digital mockup...
+                                </div>
+                            </div>
                         </div>
-                        <!-- 2. Promotion Video 1 -->
-                        <div class="portfolio-item" data-anim="tilt-in-right">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/zwgLF7YB8so" title="promotion video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">Client Promotion Campaign</span><h3 class="portfolio-item-title">Brand Awareness Booster</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.6x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">80k+</span><span class="m-lbl">Reach</span></div></div></div>
-                        </div>
-                        <!-- 3. Website Service Video -->
-                        <div class="portfolio-item" data-anim="tilt-in-left">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/v9-iY0MfYIU" title="website service video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">Design Suvidha</span><h3 class="portfolio-item-title">Website Services Showcase</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.5x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">₹18L</span><span class="m-lbl">Revenue</span></div></div></div>
-                        </div>
-                        <!-- 4. Jaipur Make Over Video -->
-                        <div class="portfolio-item" data-anim="tilt-in-right">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/WRzr-kM_rMI" title="jaipur make over video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">Jaipur Salon Makeover</span><h3 class="portfolio-item-title">Local Salon Promotion</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.8x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">+180%</span><span class="m-lbl">Bookings</span></div></div></div>
-                        </div>
-                        <!-- 5. R K Home Appliances -->
-                        <div class="portfolio-item" data-anim="tilt-in-left">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/y7PFIROIGf8" title="R k home appliances" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">R.K. Home Appliances</span><h3 class="portfolio-item-title">E-commerce Sales Drive</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">3.9x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">+320%</span><span class="m-lbl">Leads</span></div></div></div>
-                        </div>
-                        <!-- 6. Chhavi Beautiful Parlor -->
-                        <div class="portfolio-item" data-anim="tilt-in-right">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/hd_FsfTXwnw" title="chhavi beautiful parlor" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">Chhavi Beauty Parlor</span><h3 class="portfolio-item-title">Beauty Parlor Launch</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.1x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">80+</span><span class="m-lbl">Enquiries</span></div></div></div>
-                        </div>
-                        <!-- 7. School ID Card Video -->
-                        <div class="portfolio-item" data-anim="tilt-in-left">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/t8YweiO3_qg" title="school id car video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">Smart School ID Solutions</span><h3 class="portfolio-item-title">B2B Product Campaign</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">3.8x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">120+</span><span class="m-lbl">Enquiries</span></div></div></div>
-                        </div>
-                        <!-- 8. Real Estate Video 1 -->
-                        <div class="portfolio-item" data-anim="tilt-in-right">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/94XEj_9_Me0" title="real state video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">Elite Realtors</span><h3 class="portfolio-item-title">Luxury Property Showcase</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.7x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">28+</span><span class="m-lbl">Leads</span></div></div></div>
-                        </div>
-                        <!-- 9. Suraj Property Video -->
-                        <div class="portfolio-item" data-anim="tilt-in-left">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/rSs1WeRT_nM" title="suraj property video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">Suraj Properties</span><h3 class="portfolio-item-title">Residential Project Launch</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">4.3x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">60+</span><span class="m-lbl">Bookings</span></div></div></div>
-                        </div>
-                        <!-- 10. School Video -->
-                        <div class="portfolio-item" data-anim="tilt-in-right">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/12bQKDXkmsA" title="school video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">St. Angels Academy</span><h3 class="portfolio-item-title">School Admissions Drive</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">5.8x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">150+</span><span class="m-lbl">Students</span></div></div></div>
-                        </div>
-                        <!-- 11. Loknath Pest Control Services -->
-                        <div class="portfolio-item" data-anim="tilt-in-left">
-                            <div class="portfolio-media"><iframe class="case-video-player" src="https://www.youtube-nocookie.com/embed/HnLJG6EgMFA" title="Loknath pest control services" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><span class="portfolio-category-badge">Video Campaign</span></div>
-                            <div class="portfolio-info"><span class="client-name">Loknath Pest Control</span><h3 class="portfolio-item-title">Local Service Promotion</h3><div class="portfolio-metrics"><div class="metric"><span class="m-val-big">6.1x</span><span class="m-lbl">ROAS</span></div><div class="metric"><span class="m-val-big">+180%</span><span class="m-lbl">Bookings</span></div></div></div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>
 
-        <!-- ====== CINEMATIC BREAK 4 ====== -->
-        <section class="scene scene-break" data-break-text="WEBSITE PORTFOLIO"></section>
 
-        <!-- ====== SCENE 6: WEBSITE PORTFOLIO ====== -->
-        <section class="scene scene-webfolio" id="web-portfolio">
-            <div class="scene-inner">
-                <div class="container">
-                    <div class="section-header text-center" data-anim="fade-up">
-                        <span class="section-tag">WEBSITES WE'VE BUILT</span>
-                        <h2 class="section-title">Website Portfolio</h2>
-                    </div>
-                    <div class="web-portfolio-grid">
-                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://wibify.agency/en&screenshot=true&meta=false&embed=screenshot.url" alt="Wibify Agency" loading="lazy"></div><div class="web-body"><span class="web-tag">Digital Agency</span><h3>Wibify Agency</h3><a href="https://wibify.agency/en" target="_blank" class="visit-link">Visit Site →</a></div></div>
-                        <div class="web-card card-3d" data-anim="tilt-in-right"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://mira-dev.webflow.io/&screenshot=true&meta=false&embed=screenshot.url" alt="Mira Dev" loading="lazy"></div><div class="web-body"><span class="web-tag">SaaS Platform</span><h3>Mira Dev</h3><a href="https://mira-dev.webflow.io/" target="_blank" class="visit-link">Visit Site →</a></div></div>
-                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://blueprintapps.io/&screenshot=true&meta=false&embed=screenshot.url" alt="Blueprint Apps" loading="lazy"></div><div class="web-body"><span class="web-tag">App Development</span><h3>Blueprint Apps</h3><a href="https://blueprintapps.io/" target="_blank" class="visit-link">Visit Site →</a></div></div>
-                        <div class="web-card card-3d" data-anim="tilt-in-right"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://www.cravburgers.shop/&screenshot=true&meta=false&embed=screenshot.url" alt="Crav Burgers" loading="lazy"></div><div class="web-body"><span class="web-tag">Food &amp; Restaurant</span><h3>Crav Burgers</h3><a href="https://www.cravburgers.shop/" target="_blank" class="visit-link">Visit Site →</a></div></div>
-                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://www.monarch.us/&screenshot=true&meta=false&embed=screenshot.url" alt="Monarch" loading="lazy"></div><div class="web-body"><span class="web-tag">Premium Brand</span><h3>Monarch</h3><a href="https://www.monarch.us/" target="_blank" class="visit-link">Visit Site →</a></div></div>
-                        <div class="web-card card-3d" data-anim="tilt-in-right"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://oliviaharperhomes.com/&screenshot=true&meta=false&embed=screenshot.url" alt="Olivia Harper Homes" loading="lazy"></div><div class="web-body"><span class="web-tag">Real Estate</span><h3>Olivia Harper Homes</h3><a href="https://oliviaharperhomes.com/" target="_blank" class="visit-link">Visit Site →</a></div></div>
-                        <div class="web-card card-3d" data-anim="tilt-in-left"><div class="web-thumb"><img src="https://api.microlink.io/?url=https://eatnaked.co/&screenshot=true&meta=false&embed=screenshot.url" alt="Eat Naked" loading="lazy"></div><div class="web-body"><span class="web-tag">Health &amp; Food</span><h3>Eat Naked</h3><a href="https://eatnaked.co/" target="_blank" class="visit-link">Visit Site →</a></div></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ====== CINEMATIC BREAK 5 ====== -->
+        <!-- ====== SECTION 8: TESTIMONIALS AND TRUST ====== -->
         <section class="scene scene-break" data-break-text="TESTIMONIALS"></section>
-
         <!-- ====== SCENE 7: TESTIMONIALS ====== -->
         <section class="scene scene-testimonials" id="testimonials">
             <div class="scene-inner">
@@ -936,9 +1250,8 @@
             </div>
         </section>
 
-        <!-- ====== CINEMATIC BREAK 6 ====== -->
-        <section class="scene scene-break" data-break-text="CONTACT US"></section>
-
+        
+        <section class="scene scene-break" data-break-text="OFFICE BRANCHES"></section>
         <!-- ====== SCENE 8: CONTACT US ====== -->
         <section class="scene scene-branches" id="presence">
             <div class="scene-inner">
@@ -975,10 +1288,9 @@
 
 
 
-        <!-- ====== CINEMATIC BREAK 7 ====== -->
-        <section class="scene scene-break" data-break-text="GET IN TOUCH"></section>
+        
 
-        <!-- ====== SCENE 9: CONTACT ====== -->
+<!-- ====== SCENE 9: CONTACT ====== -->
         <section class="scene scene-contact" id="contact">
             <div class="scene-inner">
                 <div class="container contact-container">
@@ -999,7 +1311,11 @@
                                 <div class="form-group-custom"><label for="form-name" class="form-label-txt">Full Name</label><input type="text" id="form-name" class="form-input-field" placeholder="Your Name" required><span class="error-msg" id="name-error">Please enter your name</span></div>
                                 <div class="form-group-custom"><label for="form-phone" class="form-label-txt">Phone / WhatsApp</label><input type="tel" id="form-phone" class="form-input-field" placeholder="98XXXXXXXX" required><span class="error-msg" id="phone-error">Please enter your phone</span></div>
                                 <div class="form-group-custom"><label for="form-business" class="form-label-txt">Business Name</label><input type="text" id="form-business" class="form-input-field" placeholder="Your Business" required><span class="error-msg" id="business-error">Please enter your business</span></div>
-                                <div class="form-group-custom"><label for="form-message" class="form-label-txt">Tell Us About Your Business</label><textarea id="form-message" class="form-text-field" placeholder="What's your biggest challenge?" rows="3"></textarea></div>
+                                <div class="form-group-custom"><label for="form-message" class="form-label-txt">Tell Us About Your Business</label><textarea id="form-message" class="form-text-field" placeholder="What's your biggest challenge?" rows="2"></textarea></div>
+                                <div class="form-group-custom" style="display: flex; align-items: flex-start; gap: 8px; margin-top: 6px;">
+                                    <input type="checkbox" id="newsletter-consent" checked style="margin-top: 4px; cursor: pointer;">
+                                    <label for="newsletter-consent" style="font-size: 12px; color: #565959; cursor: pointer;">I agree to receive growth case studies, marketing strategies, and corporate gifting offers via WhatsApp & email.</label>
+                                </div>
                                 <button type="submit" class="btn btn-primary btn-block submit-btn" id="form-submit-button"><span class="btn-text" id="btn-submit-text">Get My Free Growth Audit</span><span class="loader" id="btn-submit-loader"></span></button>
                                 <div class="form-feedback-message success" id="form-success-container">🚀 Sent! We'll contact you within 24 hours.</div>
                                 <div class="form-feedback-message error" id="form-error-container">❌ Please fill required fields.</div>
@@ -1009,9 +1325,138 @@
                 </div>
             </div>
         </section>
-    </main>
+    
+</main>
 
-    <!-- Quick Buy Bottom Sheet Modal (Flipkart & Amazon Mobile Style) -->
+    
+
+    <!-- Slide-Out Shopping Cart Drawer -->
+    <div class="cart-drawer-overlay" id="cart-drawer-overlay">
+        <div class="cart-drawer" id="cart-drawer">
+            <div class="cart-drawer-header">
+                <h3>Shopping Cart 🛒 (<span id="cart-drawer-item-count">0</span>)</h3>
+                <button type="button" class="cart-drawer-close" id="cart-drawer-close" aria-label="Close Cart">&times;</button>
+            </div>
+            <div class="cart-drawer-body" id="cart-items-container">
+                <div class="cart-empty-message" id="cart-empty-message">
+                    <div class="cart-empty-icon">🛍️</div>
+                    <p>Your shopping cart is empty.</p>
+                    <a href="#featured-products" class="btn btn-sm btn-primary" onclick="document.getElementById('cart-drawer-close').click()">Browse Products</a>
+                </div>
+            </div>
+            <div class="cart-drawer-footer" id="cart-footer">
+                <div class="cart-calc-row">
+                    <span>Subtotal</span>
+                    <strong id="cart-subtotal-text">₹0</strong>
+                </div>
+                <div class="cart-calc-row">
+                    <span>Shipping</span>
+                    <span id="cart-shipping-text" style="color: #007600; font-weight: 700;">FREE (Orders > ₹499)</span>
+                </div>
+                <div class="cart-total-row">
+                    <span>Estimated Total</span>
+                    <span id="cart-total-text" style="color: #0f1111;">₹0</span>
+                </div>
+                <button type="button" class="btn-checkout-trigger" id="cart-checkout-btn">
+                    <span>Proceed to Checkout ➔</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multi-Step Checkout Modal Dialog -->
+    <div class="dialog-modal-overlay" id="checkout-modal">
+        <div class="dialog-modal-card">
+            <button type="button" class="dialog-close-btn" id="checkout-close-btn">&times;</button>
+            <div style="margin-bottom: 20px;">
+                <span class="workflow-tag">SECURE CHECKOUT</span>
+                <h3 style="margin: 6px 0 4px; font-size: 20px; font-weight: 800; color: #0f1111;">Complete Your Order</h3>
+                <p style="margin: 0; font-size: 13px; color: #565959;">Enter your delivery address and contact details to generate your unique Order Number.</p>
+            </div>
+            <form id="checkout-form" novalidate>
+                <div class="corp-form-grid" style="gap: 14px;">
+                    <div class="corp-form-field">
+                        <label class="corp-form-label" for="co-name">Full Name *</label>
+                        <input type="text" id="co-name" class="corp-form-input" placeholder="Your Name" required>
+                    </div>
+                    <div class="corp-form-field">
+                        <label class="corp-form-label" for="co-phone">Phone / WhatsApp *</label>
+                        <input type="tel" id="co-phone" class="corp-form-input" placeholder="98XXXXXXXX" required>
+                    </div>
+                    <div class="corp-form-field corp-form-full">
+                        <label class="corp-form-label" for="co-email">Email Address (For Invoicing & Tracking)</label>
+                        <input type="email" id="co-email" class="corp-form-input" placeholder="name@domain.com">
+                    </div>
+                    <div class="corp-form-field corp-form-full">
+                        <label class="corp-form-label" for="co-address">Delivery Street Address *</label>
+                        <input type="text" id="co-address" class="corp-form-input" placeholder="House/Flat No., Building, Street" required>
+                    </div>
+                    <div class="corp-form-field">
+                        <label class="corp-form-label" for="co-city">City *</label>
+                        <input type="text" id="co-city" class="corp-form-input" placeholder="Jaipur" required>
+                    </div>
+                    <div class="corp-form-field">
+                        <label class="corp-form-label" for="co-pincode">PIN Code *</label>
+                        <input type="text" id="co-pincode" class="corp-form-input" placeholder="302033" required>
+                    </div>
+                    <div class="corp-form-field corp-form-full">
+                        <label class="corp-form-label" for="co-custom-notes">Customization Details / Logo Note</label>
+                        <textarea id="co-custom-notes" class="corp-form-textarea" rows="2" placeholder="e.g. Laser engrave 'Arun Sharma' or Company Logo on Pens / Diaries"></textarea>
+                    </div>
+                    <div class="corp-form-field corp-form-full" style="background: #f7fafa; padding: 14px; border-radius: 8px; border: 1px solid #e7e7e7;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                            <span style="font-size: 13px; color: #565959;">Items Subtotal:</span>
+                            <strong id="co-summary-subtotal" style="font-size: 14px; color: #0f1111;">₹0</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                            <span style="font-size: 13px; color: #565959;">Pan-India Delivery:</span>
+                            <span style="font-size: 13px; color: #007600; font-weight: 700;">FREE</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; border-top: 1px dashed #d5d9d9; padding-top: 8px;">
+                            <span>Total Payable:</span>
+                            <span id="co-summary-total" style="color: #007185;">₹0</span>
+                        </div>
+                    </div>
+                    <div class="corp-form-field corp-form-full">
+                        <button type="submit" class="btn-checkout-trigger" id="btn-submit-order" style="font-size: 15px;">
+                            <span>Confirm Order & Connect on WhatsApp 💬</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Customer Account Modal Dialog -->
+    <div class="dialog-modal-overlay" id="account-modal">
+        <div class="dialog-modal-card">
+            <button type="button" class="dialog-close-btn" id="account-close-btn">&times;</button>
+            <div style="margin-bottom: 16px; border-bottom: 1px solid #e7e7e7; padding-bottom: 12px;">
+                <span class="workflow-tag">CUSTOMER PORTAL</span>
+                <h3 style="margin: 4px 0 2px; font-size: 20px; font-weight: 800; color: #0f1111;">My Account & Orders</h3>
+                <p style="margin: 0; font-size: 13px; color: #565959;">View your recent purchase history, dispatch tracking, and quotation requests.</p>
+            </div>
+            <div>
+                <h4 style="font-size: 15px; margin: 0 0 10px; color: #0f1111;">Recent Orders & Inquiries</h4>
+                <div id="account-orders-list" style="min-height: 120px;">
+                    <div style="text-align: center; padding: 25px 10px; color: #565959;" id="account-no-orders">
+                        <div style="font-size: 35px; margin-bottom: 8px;">📦</div>
+                        <p style="font-size: 13.5px; margin: 0;">No past orders found in this session.</p>
+                        <p style="font-size: 12px; color: #888; margin-top: 4px;">Orders placed on this browser will be tracked here automatically.</p>
+                    </div>
+                </div>
+                <div style="border-top: 1px solid #e7e7e7; margin-top: 20px; padding-top: 14px;">
+                    <h5 style="margin: 0 0 6px; font-size: 13px; color: #0f1111;">Need Help with an Order?</h5>
+                    <p style="margin: 0 0 10px; font-size: 12.5px; color: #565959;">Speak directly with our Jaipur order desk on WhatsApp.</p>
+                    <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20need%20help%20with%20my%20order" target="_blank" class="btn btn-sm btn-glass" style="color: #0f1111; border-color: #d5d9d9;">
+                        <span>💬 WhatsApp Support: +91 8739904737</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Quick Buy Bottom Sheet Modal (Flipkart & Amazon Mobile Style) -->
     <div class="quick-buy-overlay" id="quick-buy-modal">
         <div class="quick-buy-sheet">
             <div class="sheet-handle-bar"></div>

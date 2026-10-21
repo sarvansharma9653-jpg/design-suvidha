@@ -66,302 +66,183 @@
 <body>
     <div class="scroll-progress-bar" id="scroll-progress"></div>
 
-    <!-- STICKY HEADER (Unified E-Commerce & Agency Platform) -->
-    <header id="main-header" class="header-nav">
-        <div class="container nav-container">
-            <a href="#home" class="logo" id="header-logo">
-                <img src="design suvidha logo.png" alt="Design Suvidha Logo" class="nav-logo-img">
-            </a>
-            <nav class="nav-menu" id="nav-links-container">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#services" class="nav-link">Digital Marketing Services</a>
-                <a href="#pricing" class="nav-link">Performance Marketing</a>
-                <a href="#case-studies" class="nav-link">Portfolio / Case Studies</a>
-                <a href="#featured-products" class="nav-link nav-store-highlight">Shop 🎁 <span class="nav-pill-badge">STORE</span></a>
-                <a href="store.html" class="nav-link">Digital Products</a>
-                <a href="#corporate-gifting" class="nav-link">Custom & Corporate Gifts</a>
-                <a href="#presence" class="nav-link">About Us</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </nav>
-            <div class="nav-actions-group">
-                <button type="button" class="nav-icon-btn nav-account-btn" id="open-account-btn" aria-label="Customer Account">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                    <span>Account</span>
-                </button>
-                <button type="button" class="nav-icon-btn nav-cart-btn" id="open-cart-btn" aria-label="Shopping Cart">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                    <span>Cart</span>
-                    <span class="cart-count-badge" id="header-cart-count">0</span>
-                </button>
-                <button class="mobile-nav-toggle" id="menu-toggle-btn" aria-label="Toggle Menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+    <!-- AMAZON-STYLE HIGH-CONVERSION HEADER -->
+    <header id="main-header" class="header-nav ds-header-root">
+        <!-- TOP ROW: Logo, Location, Global Search, Contact, Account, Cart -->
+        <div class="ds-header-top">
+            <div class="container ds-header-top-container">
+                <a href="#home" class="ds-logo-link" id="header-logo">
+                    <img src="design suvidha logo.png" alt="Design Suvidha Logo" class="ds-logo-img">
+                </a>
+
+                <div class="ds-header-location-pill" title="Direct Shipping from Jaipur & Ludhiana">
+                    <span class="loc-icon">📍</span>
+                    <div class="loc-text">
+                        <span class="loc-label">Deliver to</span>
+                        <strong class="loc-city">Jaipur & Pan-India</strong>
+                    </div>
+                </div>
+
+                <!-- Amazon Style Integrated Search Bar -->
+                <div class="ds-search-wrapper">
+                    <div class="ds-search-category-tag">All ▾</div>
+                    <input type="text" id="home-amazon-search" class="ds-search-input" placeholder="Search Mugs, Laser Pens, Bottles, Diaries, Hampers, Meta Ads..." autocomplete="off">
+                    <button type="button" id="home-amazon-search-btn" class="ds-search-btn" aria-label="Search">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    </button>
+                </div>
+
+                <div class="ds-header-actions">
+                    <a href="https://wa.me/918739904737" target="_blank" class="ds-action-item ds-action-wa" title="Instant Order Assistance">
+                        <span class="action-sub">Quick Help</span>
+                        <strong class="action-main">💬 8739904737</strong>
+                    </a>
+
+                    <button type="button" class="ds-action-item" id="open-account-btn" title="View Order History & Profile">
+                        <span class="action-sub">Hello, Sign In</span>
+                        <strong class="action-main">👤 My Account</strong>
+                    </button>
+
+                    <button type="button" class="ds-cart-btn" id="open-cart-btn" title="View Shopping Cart">
+                        <div class="ds-cart-icon-box">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                            <span class="ds-cart-count" id="header-cart-count">0</span>
+                        </div>
+                        <strong class="ds-cart-text">Cart</strong>
+                    </button>
+
+                    <button class="mobile-nav-toggle" id="menu-toggle-btn" aria-label="Toggle Menu">
+                        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- Amazon Style Search Bar -->
-        <div class="container amazon-search-bar-row">
-            <div class="amazon-search-input-wrapper">
-                <input type="text" id="home-amazon-search" placeholder="Search Design Suvidha: Meta Ads, Mugs, Laser Pens, Bottles, Diaries, Websites..." autocomplete="off">
-                <button type="button" id="home-amazon-search-btn" class="amazon-search-submit" aria-label="Search">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                </button>
+        <!-- ROW 2: Horizontal Category Navigation Strip -->
+        <div class="ds-subnav-strip">
+            <div class="container ds-subnav-container">
+                <a href="#featured-products" class="subnav-pill subnav-all-pill">
+                    <span>☰ All Products</span>
+                </a>
+                <a href="#featured-products" class="subnav-link"><span>🎁 Custom Gifting Store</span></a>
+                <a href="#featured-products" class="subnav-link"><span>☕ Photo Mugs</span></a>
+                <a href="#featured-products" class="subnav-link"><span>🖊️ Laser Metal Pens</span></a>
+                <a href="#featured-products" class="subnav-link"><span>🌡️ Smart Temp Bottles</span></a>
+                <a href="#featured-products" class="subnav-link"><span>📓 Executive Diaries</span></a>
+                <a href="#corporate-gifting" class="subnav-link subnav-bulk-pill"><span>🏢 Corporate Hampers (Bulk RFQ)</span></a>
+                <a href="#services" class="subnav-link subnav-agency-pill"><span>🚀 Digital Marketing Agency</span></a>
+                <a href="#case-studies" class="subnav-link"><span>🎬 Case Studies</span></a>
+                <a href="#contact" class="subnav-link"><span>📞 Contact Us</span></a>
             </div>
         </div>
     </header>
-
-    <!-- Delivery & Logistics Info Strip -->
-    <div class="app-location-strip">
-        <div class="location-pin-group">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <span>Direct Delivery & Services from <strong>Jaipur (HQ) & Ludhiana</strong></span>
-        </div>
-        <div class="delivery-speed-tag">
-            <span>⚡ Pan-India Express Logistics · 24-48h Dispatch · 100% Quality Assurance</span>
-        </div>
-    </div>
 
     <!-- Mobile Navigation Drawer -->
     <div class="mobile-nav-drawer" id="mobile-drawer">
         <nav class="mobile-nav-links">
             <a href="#home" class="mobile-link active">🏠 Home</a>
+            <a href="#featured-products" class="mobile-link" style="color: #ff9900; font-weight: 700;">🎁 Shop Products (E-Commerce Store)</a>
+            <a href="#bestsellers-new" class="mobile-link">🔥 Best Sellers & New Arrivals</a>
+            <a href="#corporate-gifting" class="mobile-link">🏢 Corporate & Bulk Gifting RFQ</a>
             <a href="#services" class="mobile-link">🚀 Digital Marketing Services</a>
             <a href="#pricing" class="mobile-link">📈 Performance Marketing Packages</a>
-            <a href="#case-studies" class="mobile-link">🎬 Portfolio & Case Studies</a>
-            <a href="#featured-products" class="mobile-link" style="color: #007185; font-weight: 700;">🎁 Shop Products (E-Commerce)</a>
+            <a href="#case-studies" class="mobile-link">🎬 Portfolio & Video Ads</a>
             <a href="store.html" class="mobile-link">🛍️ View Full Catalog (28+ Items)</a>
-            <a href="#corporate-gifting" class="mobile-link" style="color: #ff9900; font-weight: 700;">🏢 Custom & Corporate Gifts Form</a>
-            <a href="#presence" class="mobile-link">📍 About Us & Offices</a>
-            <a href="#contact" class="mobile-link">📞 Contact & Free Audit</a>
-            <a href="privacy.html" class="mobile-link">📄 Privacy Policy</a>
-            <a href="terms.html" class="mobile-link">📜 Terms & Conditions</a>
-            <a href="refund.html" class="mobile-link">🛡️ Refund Policy</a>
-            <a href="https://wa.me/918739904737?text=Hello%20Design%20Suvidha,%20I%20want%20to%20discuss%20Services%20or%20Products" target="_blank" class="mobile-link" style="color: #25d366; font-weight: 700;">💬 Chat on WhatsApp</a>
+            <a href="#testimonials" class="mobile-link">⭐ Client Reviews (150+)</a>
+            <a href="#presence" class="mobile-link">📍 Jaipur HQ & Ludhiana Hub</a>
+            <a href="#contact" class="mobile-link">📞 Free Growth Audit</a>
         </nav>
     </div>
-
     <main>
-<!-- ====== SECTION 1: HERO BANNER ====== -->
-        <section class="hero-banner-v2" id="home">
-            <div class="container hero-v2-wrapper">
-                <div class="hero-v2-badge-top">
-                    <span>🏢 UDYAM-RJ-17-0675057 · Performance Agency & E-Commerce Store</span>
-                </div>
-                <h1 class="hero-v2-headline">
-                    Grow Your Business. <br>
-                    <span class="highlight-gradient">Discover Products That Inspire.</span>
-                </h1>
-                <p class="hero-v2-sub">
-                    Design Suvidha combines high-ROAS performance marketing, 3D web development, and Meta ad management with a direct factory corporate gifting and custom printing store in Jaipur. Accelerate your digital growth or order custom branded products at wholesale rates.
-                </p>
-                <div class="hero-v2-cta-row">
-                    <a href="#services" class="btn-hero-agency">
-                        <span>🚀 Explore Digital Marketing Services</span>
-                    </a>
-                    <a href="#featured-products" class="btn-hero-shop">
-                        <span>🎁 Shop Products</span>
-                    </a>
-                </div>
-                <div class="hero-v2-trust-strip">
-                    <span>🛡️ DS Assured Quality</span>
-                    <span>⚡ 24-48h Pan-India Dispatch</span>
-                    <span>📈 4.8x Average Campaign ROAS</span>
-                    <span>🤝 100% Free Reprint Guarantee</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- ====== SECTION 2: BUSINESS CATEGORIES ====== -->
-        <section class="business-categories-section" id="business-categories">
-            <div class="container">
-                <div class="text-center">
-                    <span class="workflow-tag">2 DIVISIONS · 1 UNIFIED BRAND</span>
-                    <h2 class="section-title-main">Explore Our Core Business Verticals</h2>
-                    <p class="section-sub-main">Select the path tailored for your brand — Full-service digital marketing agency or customized physical & digital products.</p>
-                </div>
-                <div class="business-categories-grid">
-                    <!-- Category A: Digital Marketing Agency -->
-                    <div class="biz-card biz-card-agency" data-anim="tilt-in-left">
-                        <div>
-                            <div class="biz-card-header">
-                                <div class="biz-card-icon">🚀</div>
-                                <div class="biz-card-title">
-                                    <span>Division 1 · Digital Agency</span>
-                                    <h3>Digital Marketing Agency</h3>
-                                </div>
-                            </div>
-                            <p class="biz-card-desc">Comprehensive growth marketing, high-ROAS paid ad management, and cinema-grade visual creatives designed to drive predictable revenue.</p>
-                            <ul class="biz-items-list">
-                                <li class="biz-item-bullet">Performance Marketing</li>
-                                <li class="biz-item-bullet">Meta Ads & Google Ads</li>
-                                <li class="biz-item-bullet">Social Media Marketing</li>
-                                <li class="biz-item-bullet">SEO & Local GMB SEO</li>
-                                <li class="biz-item-bullet">Creative Design & Video Editing</li>
-                                <li class="biz-item-bullet">Website Development</li>
-                                <li class="biz-item-bullet">Landing Page Development</li>
-                                <li class="biz-item-bullet">Lead Funnel Strategy</li>
-                            </ul>
-                        </div>
-                        <a href="#services" class="btn-biz-explore">
-                            <span>Explore Marketing Services ➔</span>
-                        </a>
+        <!-- ====== SECTION 1: HERO BANNER WITH DUAL BUSINESS CARDS ====== -->
+        <section class="hero-banner-v3" id="home">
+            <div class="container hero-v3-inner">
+                <div class="hero-v3-header text-center">
+                    <div class="hero-v3-badge">
+                        <span>🏢 UDYAM-RJ-17-0675057 · Factory Direct Gifting Store & Performance Growth Agency</span>
                     </div>
-
-                    <!-- Category B: Online Store -->
-                    <div class="biz-card biz-card-store" data-anim="tilt-in-right">
-                        <div>
-                            <div class="biz-card-header">
-                                <div class="biz-card-icon">🎁</div>
-                                <div class="biz-card-title">
-                                    <span>Division 2 · E-Commerce Store</span>
-                                    <h3>Online Store</h3>
-                                </div>
-                            </div>
-                            <p class="biz-card-desc">Factory-direct personalized gifts, laser-engraved executive merchandise, corporate hampers, and commercial printing products at wholesale rates.</p>
-                            <ul class="biz-items-list">
-                                <li class="biz-item-bullet">Personalized Gifts (Mugs, Pens)</li>
-                                <li class="biz-item-bullet">Corporate Gifts & Welcome Kits</li>
-                                <li class="biz-item-bullet">Executive Gift Hampers</li>
-                                <li class="biz-item-bullet">Custom Printing Products</li>
-                                <li class="biz-item-bullet">Smart Drinkware & LED Bottles</li>
-                                <li class="biz-item-bullet">Executive Diaries & Organizers</li>
-                                <li class="biz-item-bullet">Visiting Cards (350 GSM)</li>
-                                <li class="biz-item-bullet">Digital Design Products</li>
-                            </ul>
-                        </div>
-                        <a href="#featured-products" class="btn-biz-explore">
-                            <span>Explore Shop Products ➔</span>
-                        </a>
-                    </div>
+                    <h1 class="hero-v3-main-title">
+                        Grow Your Business. <span class="highlight-gold">Discover Products That Inspire.</span>
+                    </h1>
+                    <p class="hero-v3-sub-text">
+                        Two powerhouse divisions under one trusted brand — Custom laser printing & factory corporate gifting in Jaipur, paired with high-ROAS performance marketing, video editing, and 3D websites.
+                    </p>
                 </div>
-            </div>
-        </section>
 
-        <!-- ====== SECTION 3: FEATURED SERVICES ====== -->
-        <section class="scene scene-services" id="services">
-            <div class="scene-inner">
-                <div class="container">
-                    <div class="section-header text-center" data-anim="fade-up">
-                        <span class="section-tag">DIVISION 2 · DIGITAL GROWTH</span>
-                        <h2 class="section-title">Digital Marketing & Web Services</h2>
-                        <p class="section-subtitle">Looking to scale your brand online? We also build conversion websites, run high-ROAS Meta Ads, and produce cinema-grade promotional video ads.</p>
-                    </div>
-                    <div class="services-grid-v2">
-                        <!-- Service 1 -->
-                        <div class="svc-card card-3d" data-anim="tilt-in-left">
-                            <div class="svc-img-wrapper">
-                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.19 PM.jpeg" alt="Graphic Design Services" class="svc-img" loading="lazy">
+                <!-- TWO PROMINENT HERO CARDS (E-Commerce Card FIRST, Digital Marketing Card SECOND) -->
+                <div class="hero-dual-cards-grid">
+                    <!-- HERO CARD 1: E-COMMERCE & PRINTING SOLUTIONS (SHOWN FIRST) -->
+                    <div class="hero-biz-card hero-card-store" data-anim="tilt-in-left">
+                        <div class="hero-card-top-tag">
+                            <span class="tag-icon">🛍️</span>
+                            <span class="tag-title">DIVISION 1 · ONLINE GIFTING & PRINTING STORE</span>
+                            <span class="tag-badge-accent">FACTORY DIRECT</span>
+                        </div>
+                        <div class="hero-biz-body">
+                            <h2 class="hero-biz-title">Custom Gifting, Printing & Hampers</h2>
+                            <p class="hero-biz-desc">
+                                Order factory-manufactured personalized gifts at wholesale rates. Premium ceramic mugs, laser-engraved metal pens, smart temperature display bottles, A5 executive diaries, and customized employee welcome kits.
+                            </p>
+
+                            <div class="hero-pill-preview-grid">
+                                <div class="hero-preview-pill">☕ Personalized Mugs (₹199)</div>
+                                <div class="hero-preview-pill">🖊️ Laser Metal Pens (₹90)</div>
+                                <div class="hero-preview-pill">🌡️ Smart Temp Bottles (₹299)</div>
+                                <div class="hero-preview-pill">📓 Executive Diaries (₹279)</div>
+                                <div class="hero-preview-pill">🏢 Corporate Welcome Hampers</div>
+                                <div class="hero-preview-pill">📇 Visiting Cards (350 GSM)</div>
                             </div>
-                            <div class="svc-card-content">
-                                <h3>Graphic Design Services</h3>
-                                <p>Premium social media posts, branding, logo designs, and high-impact vector assets to elevate your brand presence.</p>
-                                <span class="svc-price">₹2500 (10 Posts)</span>
+
+                            <div class="hero-card-trust-row">
+                                <div class="trust-pill-mini">🚚 Free Pan-India Shipping</div>
+                                <div class="trust-pill-mini">⚡ 24-48h Fast Dispatch</div>
+                                <div class="trust-pill-mini">🛡️ 100% Quality Guaranteed</div>
                             </div>
                         </div>
-                        
-                        <!-- Service 2 -->
-                        <div class="svc-card card-3d" data-anim="tilt-in-right">
-                            <div class="svc-img-wrapper">
-                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.20 .jpeg" alt="4-Page Landing Page Design" class="svc-img" loading="lazy">
-                            </div>
-                            <div class="svc-card-content">
-                                <h3>4-Page Landing Page Design</h3>
-                                <p>High-converting landing pages built to turn traffic into qualified leads. Fully responsive, ultra-fast, and modern.</p>
-                                <span class="svc-price">Starting ₹5,000</span>
-                            </div>
-                        </div>
-
-                        <!-- Service 3 -->
-                        <div class="svc-card card-3d" data-anim="tilt-in-left">
-                            <div class="svc-img-wrapper">
-                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.20 P.jpeg" alt="Business/Corporate Website" class="svc-img" loading="lazy">
-                            </div>
-                            <div class="svc-card-content">
-                                <h3>Business/Corporate Website</h3>
-                                <p>Professional multi-page corporate websites with premium layouts, parallax scroll effects, and standard SEO optimization.</p>
-                                <span class="svc-price">Starting ₹10,000</span>
-                            </div>
-                        </div>
-
-                        <!-- Service 4 -->
-                        <div class="svc-card card-3d" data-anim="tilt-in-right">
-                            <div class="svc-img-wrapper">
-                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.20 PM.jpeg" alt="E-commerce Website" class="svc-img" loading="lazy">
-                            </div>
-                            <div class="svc-card-content">
-                                <h3>E-commerce Website</h3>
-                                <p>Fully functional online stores with secure cart, checkouts, payment gateway integration, and smooth customer flows.</p>
-                                <span class="svc-price">Starting ₹30,000</span>
-                            </div>
-                        </div>
-
-                        <!-- Service 5 -->
-                        <div class="svc-card card-3d" data-anim="tilt-in-left">
-                            <div class="svc-img-wrapper">
-                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.21 P.jpeg" alt="Google Ads Account Setup" class="svc-img" loading="lazy">
-                            </div>
-                            <div class="svc-card-content">
-                                <h3>Google Ads Account Setup</h3>
-                                <p>Expert configuration of your Google Ads manager, conversion pixels, keyword planning, and target audience settings.</p>
-                                <span class="svc-price">Starting ₹2,000</span>
-                            </div>
-                        </div>
-
-                        <!-- Service 6 -->
-                        <div class="svc-card card-3d" data-anim="tilt-in-right">
-                            <div class="svc-img-wrapper">
-                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.21 PM.jpeg" alt="Google Ads Campaign & Landing Page" class="svc-img" loading="lazy">
-                            </div>
-                            <div class="svc-card-content">
-                                <h3>Google Ads & Landing Page</h3>
-                                <p>Complete Google search/display campaigns setup paired with a custom high-performance landing page to maximize leads.</p>
-                                <span class="svc-price">Starting ₹10,000</span>
-                            </div>
-                        </div>
-
-                        <!-- Service 7 -->
-                        <div class="svc-card card-3d" data-anim="tilt-in-left">
-                            <div class="svc-img-wrapper">
-                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.21 rr.jpeg" alt="Meta Account & Business Suite Setup" class="svc-img" loading="lazy">
-                            </div>
-                            <div class="svc-card-content">
-                                <h3>Meta Business Suite Setup</h3>
-                                <p>Professional setup of Facebook Business Manager, Meta Pixel verification, product cataloging, and Instagram link setup.</p>
-                                <span class="svc-price">Starting ₹3,000</span>
-                            </div>
-                        </div>
-
-                        <!-- Service 8 -->
-                        <div class="svc-card card-3d" data-anim="tilt-in-right">
-                            <div class="svc-img-wrapper">
-                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.22 PMfd.jpeg" alt="Meta Ads Campaign & Content" class="svc-img" loading="lazy">
-                            </div>
-                            <div class="svc-card-content">
-                                <h3>Meta Ads Campaign & Content</h3>
-                                <p>Full-funnel Facebook and Instagram ad campaign management optimized for conversions, sales, and quality lead generation.</p>
-                                <span class="svc-price">Starting ₹10,000</span>
-                            </div>
-                        </div>
-
-                        <!-- Service 9 -->
-                        <div class="svc-card card-3d" data-anim="tilt-in-left">
-                            <div class="svc-img-wrapper">
-                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.22 PMv.jpeg" alt="Professional Video Services" class="svc-img" loading="lazy">
-                            </div>
-                            <div class="svc-card-content">
-                                <h3>Professional Video Services</h3>
-                                <p>Cinema-grade video ads, reels, promotional brand videos, and UGC content designed to drive traffic and hook viewers.</p>
-                                <span class="svc-price">Starting ₹2,000</span>
-                            </div>
+                        <div class="hero-biz-footer">
+                            <a href="#featured-products" class="btn-card-primary btn-gold">
+                                <span>🛒 Shop Products & View Deals ➔</span>
+                            </a>
+                            <a href="#corporate-gifting" class="btn-card-secondary">
+                                <span>🏢 Bulk Corporate Gifting RFQ</span>
+                            </a>
                         </div>
                     </div>
 
-                    <!-- Cross-Vertical Bridge: Digital Marketing -> Printing & Gifting -->
-                    <div class="dual-vertical-bridge-card" data-anim="fade-up">
-                        <div class="bridge-card-content">
-                            <span class="bridge-tag">NEED PHYSICAL BRANDING TOO?</span>
-                            <h3>Pair Your Digital Marketing With Custom Corporate Gifts</h3>
-                            <p>Give your brand tactile impact. Order custom laser-engraved metal pens, employee onboarding welcome kits, branded temperature bottles, luxury diaries, and 350 GSM visiting cards at direct factory wholesale rates.</p>
-                            <a href="#store-showcase" class="btn btn-primary" style="background: #25d366; border-color: #25d366; color: #fff;">
-                                <span>🎁 Shop Corporate Gifting Store ➔</span>
+                    <!-- HERO CARD 2: DIGITAL MARKETING AGENCY (SHOWN SECOND) -->
+                    <div class="hero-biz-card hero-card-agency" data-anim="tilt-in-right">
+                        <div class="hero-card-top-tag">
+                            <span class="tag-icon">🚀</span>
+                            <span class="tag-title">DIVISION 2 · PERFORMANCE MARKETING & CREATIVE</span>
+                            <span class="tag-badge-roas">4.8X AVG ROAS</span>
+                        </div>
+                        <div class="hero-biz-body">
+                            <h2 class="hero-biz-title">Digital Marketing & Performance Agency</h2>
+                            <p class="hero-biz-desc">
+                                Accelerate your revenue with high-conversion Meta Ads, Google Ads, cinema-grade promotional reels, viral video creatives, 3D landing pages, and #1 Google Maps local SEO positioning.
+                            </p>
+
+                            <div class="hero-pill-preview-grid">
+                                <div class="hero-preview-pill">📈 Meta & Google Performance Ads</div>
+                                <div class="hero-preview-pill">🎬 Cinematic Video Ads & Reels</div>
+                                <div class="hero-preview-pill">💻 3D Websites & Landing Pages</div>
+                                <div class="hero-preview-pill">📍 Local GMB & Map Ranking</div>
+                                <div class="hero-preview-pill">🎨 Brand Identity & Logo Design</div>
+                                <div class="hero-preview-pill">📊 Lead Generation Funnels</div>
+                            </div>
+
+                            <div class="hero-card-trust-row">
+                                <div class="trust-pill-mini">🏆 150+ Satisfied Clients</div>
+                                <div class="trust-pill-mini">📈 Measurable High ROAS</div>
+                                <div class="trust-pill-mini">📍 Jaipur (HQ) & Ludhiana Hub</div>
+                            </div>
+                        </div>
+                        <div class="hero-biz-footer">
+                            <a href="#services" class="btn-card-primary btn-cyan">
+                                <span>🚀 Explore Marketing Services ➔</span>
+                            </a>
+                            <a href="#contact" class="btn-card-secondary">
+                                <span>🎯 Schedule Free Growth Audit</span>
                             </a>
                         </div>
                     </div>
@@ -369,8 +250,7 @@
             </div>
         </section>
 
-        
-<!-- ====== SECTION 4: FEATURED PRODUCTS (STORE SHOWCASE) ====== -->
+        <!-- ====== SECTION 2: FEATURED PRODUCTS & E-COMMERCE SHOWCASE (SHOWN FIRST) ====== -->
         <section class="scene store-section hero-store-section" id="featured-products">
             <div id="store-showcase"></div>
             <div class="scene-inner" style="padding-top: 20px; padding-bottom: 30px;">
@@ -847,6 +727,8 @@
         
 
         <!-- ====== SECTION 5: BEST SELLERS AND NEW ARRIVALS ====== -->
+
+        <!-- ====== SECTION 3: BEST SELLERS & NEW ARRIVALS ====== -->
         <section class="merchandising-section" id="bestsellers-new">
             <div class="container">
                 <div class="section-header text-center" data-anim="fade-up">
@@ -971,6 +853,309 @@
         <!-- ====== SECTION 6: PORTFOLIO AND CASE STUDIES ====== -->
         <section class="scene scene-break" data-break-text="OUR WORK"></section>
         <!-- ====== SCENE 5: VIDEO CAMPAIGNS ====== -->
+
+        <!-- ====== SECTION 4: CUSTOM & CORPORATE GIFTING RFQ FORM ====== -->
+        <section class="corporate-gifting-section" id="corporate-gifting">
+            <div class="container">
+                <div class="section-header text-center" data-anim="fade-up">
+                    <span class="workflow-tag">BULK ORDERS & CUSTOM BRANDING</span>
+                    <h2 class="section-title-main">Custom & Corporate Gifting Quotation</h2>
+                    <p class="section-sub-main">Planning gifts for employee welcome kits, Diwali, real estate launches, conferences, or college fests? Share your requirements for a custom quotation and digital proof within 2 hours.</p>
+                </div>
+                <div class="corp-form-container" data-anim="fade-up">
+                    <form id="corporate-bulk-form" novalidate>
+                        <div class="corp-form-grid">
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-company">Company / Organization Name *</label>
+                                <input type="text" id="corp-company" class="corp-form-input" placeholder="e.g. Acme Tech Solutions" required>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-person">Contact Person Name *</label>
+                                <input type="text" id="corp-person" class="corp-form-input" placeholder="Your Name" required>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-phone">Phone / WhatsApp Number *</label>
+                                <input type="tel" id="corp-phone" class="corp-form-input" placeholder="98XXXXXXXX" required>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-email">Official Email Address</label>
+                                <input type="email" id="corp-email" class="corp-form-input" placeholder="name@company.com">
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-category">Product Category *</label>
+                                <select id="corp-category" class="corp-form-select" required>
+                                    <option value="">Select Primary Product Category</option>
+                                    <option value="Personalized Mugs">Personalized Mugs (Ceramic, Inner Color, Heart Handle)</option>
+                                    <option value="Laser Engraved Metal Pens">Laser Engraved Metal Pens (With/Without Luxury Box)</option>
+                                    <option value="Stainless Steel Card Holders">Stainless Steel Card Holders (Gold/Black/Matte)</option>
+                                    <option value="Executive Diaries & Notebooks">Executive Diaries & Notebooks (A5 Hardcover)</option>
+                                    <option value="Smart Drinkware & Temperature Bottles">Smart Drinkware & Temperature Bottles (500ml LED)</option>
+                                    <option value="Custom Keychains">Custom Metal/Leather Keychains (House/Oval/Round)</option>
+                                    <option value="Corporate Gift Hampers & Welcome Kits">Corporate Gift Hampers & Employee Welcome Kits</option>
+                                    <option value="Visiting Cards & Office Stationery">Visiting Cards (350 GSM) & Marketing Print</option>
+                                    <option value="Digital Products / Branding Design">Digital Products / Brand Identity Package</option>
+                                </select>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-qty">Required Quantity *</label>
+                                <select id="corp-qty" class="corp-form-select" required>
+                                    <option value="25-50 Pcs">25 - 50 Pcs (Small Team)</option>
+                                    <option value="50-100 Pcs" selected>50 - 100 Pcs (Standard Corporate)</option>
+                                    <option value="100-250 Pcs">100 - 250 Pcs (Mid-Size Event)</option>
+                                    <option value="250-500 Pcs">250 - 500 Pcs (Large Conference)</option>
+                                    <option value="500-1000+ Pcs">500 - 1000+ Pcs (Mega Bulk Wholesale)</option>
+                                </select>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-budget">Estimated Budget</label>
+                                <select id="corp-budget" class="corp-form-select">
+                                    <option value="Under ₹10,000">Under ₹10,000</option>
+                                    <option value="₹10,000 - ₹25,000" selected>₹10,000 - ₹25,000</option>
+                                    <option value="₹25,000 - ₹50,000">₹25,000 - ₹50,000</option>
+                                    <option value="₹50,000 - ₹1,00,000">₹50,000 - ₹1,00,000</option>
+                                    <option value="₹1,00,000+">₹1,00,000+ (Enterprise)</option>
+                                </select>
+                            </div>
+                            <div class="corp-form-field">
+                                <label class="corp-form-label" for="corp-timeline">Target Delivery Deadline *</label>
+                                <input type="text" id="corp-timeline" class="corp-form-input" placeholder="e.g. Within 5-7 days / Before Diwali" required>
+                            </div>
+                            <div class="corp-form-field corp-form-full">
+                                <label class="corp-form-label" for="corp-notes">Customization Details & Branding Notes</label>
+                                <textarea id="corp-notes" class="corp-form-textarea" rows="3" placeholder="Tell us about custom logo laser engraving, employee name personalization, packaging box requirements, or delivery city..."></textarea>
+                            </div>
+                            <div class="corp-form-field corp-form-full">
+                                <button type="submit" class="btn-corp-submit" id="btn-corp-submit">
+                                    <span>📩 Request Instant Corporate Bulk Quote & Proof</span>
+                                </button>
+                                <div id="corp-form-success" style="display: none; background: #e6f4ea; color: #137333; padding: 12px; border-radius: 8px; margin-top: 12px; font-weight: 700; text-align: center;">
+                                    ✓ Corporate inquiry received! Redirecting to WhatsApp for instant digital mockup...
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ====== SECTION 8: TESTIMONIALS AND TRUST ====== -->
+        <section class="scene scene-break" data-break-text="TESTIMONIALS"></section>
+        <!-- ====== SCENE 7: TESTIMONIALS ====== -->
+
+        <!-- ====== SECTION 5: DIGITAL MARKETING SERVICES ====== -->
+        <section class="scene scene-services" id="services">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">DIVISION 2 · DIGITAL GROWTH</span>
+                        <h2 class="section-title">Digital Marketing & Web Services</h2>
+                        <p class="section-subtitle">Looking to scale your brand online? We also build conversion websites, run high-ROAS Meta Ads, and produce cinema-grade promotional video ads.</p>
+                    </div>
+                    <div class="services-grid-v2">
+                        <!-- Service 1 -->
+                        <div class="svc-card card-3d" data-anim="tilt-in-left">
+                            <div class="svc-img-wrapper">
+                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.19 PM.jpeg" alt="Graphic Design Services" class="svc-img" loading="lazy">
+                            </div>
+                            <div class="svc-card-content">
+                                <h3>Graphic Design Services</h3>
+                                <p>Premium social media posts, branding, logo designs, and high-impact vector assets to elevate your brand presence.</p>
+                                <span class="svc-price">₹2500 (10 Posts)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Service 2 -->
+                        <div class="svc-card card-3d" data-anim="tilt-in-right">
+                            <div class="svc-img-wrapper">
+                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.20 .jpeg" alt="4-Page Landing Page Design" class="svc-img" loading="lazy">
+                            </div>
+                            <div class="svc-card-content">
+                                <h3>4-Page Landing Page Design</h3>
+                                <p>High-converting landing pages built to turn traffic into qualified leads. Fully responsive, ultra-fast, and modern.</p>
+                                <span class="svc-price">Starting ₹5,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Service 3 -->
+                        <div class="svc-card card-3d" data-anim="tilt-in-left">
+                            <div class="svc-img-wrapper">
+                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.20 P.jpeg" alt="Business/Corporate Website" class="svc-img" loading="lazy">
+                            </div>
+                            <div class="svc-card-content">
+                                <h3>Business/Corporate Website</h3>
+                                <p>Professional multi-page corporate websites with premium layouts, parallax scroll effects, and standard SEO optimization.</p>
+                                <span class="svc-price">Starting ₹10,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Service 4 -->
+                        <div class="svc-card card-3d" data-anim="tilt-in-right">
+                            <div class="svc-img-wrapper">
+                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.20 PM.jpeg" alt="E-commerce Website" class="svc-img" loading="lazy">
+                            </div>
+                            <div class="svc-card-content">
+                                <h3>E-commerce Website</h3>
+                                <p>Fully functional online stores with secure cart, checkouts, payment gateway integration, and smooth customer flows.</p>
+                                <span class="svc-price">Starting ₹30,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Service 5 -->
+                        <div class="svc-card card-3d" data-anim="tilt-in-left">
+                            <div class="svc-img-wrapper">
+                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.21 P.jpeg" alt="Google Ads Account Setup" class="svc-img" loading="lazy">
+                            </div>
+                            <div class="svc-card-content">
+                                <h3>Google Ads Account Setup</h3>
+                                <p>Expert configuration of your Google Ads manager, conversion pixels, keyword planning, and target audience settings.</p>
+                                <span class="svc-price">Starting ₹2,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Service 6 -->
+                        <div class="svc-card card-3d" data-anim="tilt-in-right">
+                            <div class="svc-img-wrapper">
+                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.21 PM.jpeg" alt="Google Ads Campaign & Landing Page" class="svc-img" loading="lazy">
+                            </div>
+                            <div class="svc-card-content">
+                                <h3>Google Ads & Landing Page</h3>
+                                <p>Complete Google search/display campaigns setup paired with a custom high-performance landing page to maximize leads.</p>
+                                <span class="svc-price">Starting ₹10,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Service 7 -->
+                        <div class="svc-card card-3d" data-anim="tilt-in-left">
+                            <div class="svc-img-wrapper">
+                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.21 rr.jpeg" alt="Meta Account & Business Suite Setup" class="svc-img" loading="lazy">
+                            </div>
+                            <div class="svc-card-content">
+                                <h3>Meta Business Suite Setup</h3>
+                                <p>Professional setup of Facebook Business Manager, Meta Pixel verification, product cataloging, and Instagram link setup.</p>
+                                <span class="svc-price">Starting ₹3,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Service 8 -->
+                        <div class="svc-card card-3d" data-anim="tilt-in-right">
+                            <div class="svc-img-wrapper">
+                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.22 PMfd.jpeg" alt="Meta Ads Campaign & Content" class="svc-img" loading="lazy">
+                            </div>
+                            <div class="svc-card-content">
+                                <h3>Meta Ads Campaign & Content</h3>
+                                <p>Full-funnel Facebook and Instagram ad campaign management optimized for conversions, sales, and quality lead generation.</p>
+                                <span class="svc-price">Starting ₹10,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Service 9 -->
+                        <div class="svc-card card-3d" data-anim="tilt-in-left">
+                            <div class="svc-img-wrapper">
+                                <img src="service photos/WhatsApp Image 2026-07-20 at 8.04.22 PMv.jpeg" alt="Professional Video Services" class="svc-img" loading="lazy">
+                            </div>
+                            <div class="svc-card-content">
+                                <h3>Professional Video Services</h3>
+                                <p>Cinema-grade video ads, reels, promotional brand videos, and UGC content designed to drive traffic and hook viewers.</p>
+                                <span class="svc-price">Starting ₹2,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cross-Vertical Bridge: Digital Marketing -> Printing & Gifting -->
+                    <div class="dual-vertical-bridge-card" data-anim="fade-up">
+                        <div class="bridge-card-content">
+                            <span class="bridge-tag">NEED PHYSICAL BRANDING TOO?</span>
+                            <h3>Pair Your Digital Marketing With Custom Corporate Gifts</h3>
+                            <p>Give your brand tactile impact. Order custom laser-engraved metal pens, employee onboarding welcome kits, branded temperature bottles, luxury diaries, and 350 GSM visiting cards at direct factory wholesale rates.</p>
+                            <a href="#store-showcase" class="btn btn-primary" style="background: #25d366; border-color: #25d366; color: #fff;">
+                                <span>🎁 Shop Corporate Gifting Store ➔</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+<!-- ====== SECTION 4: FEATURED PRODUCTS (STORE SHOWCASE) ====== -->
+
+        <!-- ====== SECTION 6: PERFORMANCE PACKAGES & PRICING ====== -->
+        <section class="scene scene-pricing" id="pricing">
+            <div class="scene-inner">
+                <div class="container">
+                    <div class="section-header text-center" data-anim="fade-up">
+                        <span class="section-tag">AFFORDABLE PLANS</span>
+                        <h2 class="section-title">Packages for Small Businesses</h2>
+                        <p class="section-subtitle">Transparent monthly retainers to scale your brand. No hidden fees.</p>
+                    </div>
+                    <div class="pricing-grid">
+                        <!-- Starter -->
+                        <div class="pricing-card card-3d" data-anim="tilt-in-left">
+                            <div class="pricing-header"><h3 class="pack-title">Essential Growth</h3><span class="pack-target">For local search & visual setup</span></div>
+                            <div class="pricing-price-block">
+                                <span class="original-price">₹15,000</span>
+                                <div class="active-price-row"><span class="currency">₹</span><span class="price-val">9,999</span><span class="period">/month</span></div>
+                                <span class="save-tag">SAVE 33%</span>
+                            </div>
+                            <ul class="pack-features">
+                                <li><span class="bullet">✓</span> <strong>GMB Setup & Maps Local SEO</strong></li>
+                                <li><span class="bullet">✓</span> <strong>5 Custom Reels / Video Ads</strong></li>
+                                <li><span class="bullet">✓</span> 10 Graphic Design Posts</li>
+                                <li><span class="bullet">✓</span> Social Media Posting (1 platform)</li>
+                                <li><span class="bullet">✓</span> Monthly Performance Growth Report</li>
+                            </ul>
+                            <div class="pricing-cta-row"><a href="https://wa.me/919509022983?text=Hi%20Design%20Suvidha,%20I%20want%20the%20Essential%20Growth%20Pack!" target="_blank" class="btn btn-glass btn-block">Inquire on WhatsApp</a></div>
+                        </div>
+                        <!-- Growth (Featured) -->
+                        <div class="pricing-card card-3d featured" data-anim="scale-up">
+                            <div class="featured-badge">MOST POPULAR</div>
+                            <div class="pricing-header"><h3 class="pack-title">Business Scale-Up</h3><span class="pack-target">Active local leads & social growth</span></div>
+                            <div class="pricing-price-block">
+                                <span class="original-price">₹35,000</span>
+                                <div class="active-price-row"><span class="currency">₹</span><span class="price-val">24,999</span><span class="period">/month</span></div>
+                                <span class="save-tag">SAVE 28%</span>
+                            </div>
+                            <ul class="pack-features">
+                                <li><span class="bullet">✓</span> <strong>GMB Domination & Reviews Strategy</strong></li>
+                                <li><span class="bullet">✓</span> <strong>15 Premium Video Ads & Hooks</strong></li>
+                                <li><span class="bullet">✓</span> <strong>Meta Ads Campaign Management</strong></li>
+                                <li><span class="bullet">✓</span> 20 Custom Graphic Design Posts</li>
+                                <li><span class="bullet">✓</span> Full Social Media Handling (Instagram & FB)</li>
+                                <li><span class="bullet">✓</span> Weekly Strategy Calls & Lead Reports</li>
+                            </ul>
+                            <div class="pricing-cta-row"><a href="https://wa.me/919509022983?text=Hi%20Design%20Suvidha,%20I%20want%20the%20Business%20Scale-Up%20Pack!" target="_blank" class="btn btn-primary btn-block">Scale Now via WhatsApp</a></div>
+                        </div>
+                        <!-- Elite -->
+                        <div class="pricing-card card-3d" data-anim="tilt-in-right">
+                            <div class="pricing-header"><h3 class="pack-title">Elite 3D Brand</h3><span class="pack-target">Complete digital market domination</span></div>
+                            <div class="pricing-price-block">
+                                <span class="original-price">₹75,000</span>
+                                <div class="active-price-row"><span class="currency">₹</span><span class="price-val">49,999</span><span class="period">/month</span></div>
+                                <span class="save-tag">SAVE 33%</span>
+                            </div>
+                            <ul class="pack-features">
+                                <li><span class="bullet">✓</span> <strong>Custom 3D Animated Website</strong></li>
+                                <li><span class="bullet">✓</span> <strong>30 Premium Video Ads & Voiceovers</strong></li>
+                                <li><span class="bullet">✓</span> Full Meta Ads & Advanced Retargeting</li>
+                                <li><span class="bullet">✓</span> Google Maps Rank Competitor Takeover</li>
+                                <li><span class="bullet">✓</span> Unlimited Graphic Design Requests</li>
+                                <li><span class="bullet">✓</span> Full Social Media Management (All platforms)</li>
+                                <li><span class="bullet">✓</span> Dedicated Account Growth Manager</li>
+                            </ul>
+                            <div class="pricing-cta-row"><a href="https://wa.me/919509022983?text=Hi%20Design%20Suvidha,%20I%20want%20the%20Elite%203D%20Brand%20Pack!" target="_blank" class="btn btn-glass btn-block">Inquire on WhatsApp</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+
+        <!-- ====== SECTION 7: CUSTOM & CORPORATE GIFTING (DEDICATED FORM) ====== -->
+
+        <!-- ====== SECTION 7: PORTFOLIO & CASE STUDIES ====== -->
         <section class="scene scene-portfolio" id="case-studies">
             <div class="scene-inner">
                 <div class="container">
@@ -1065,166 +1250,8 @@
         
         <section class="scene scene-break" data-break-text="AD PACKAGES"></section>
         <!-- ====== SCENE 4: PRICING ====== -->
-        <section class="scene scene-pricing" id="pricing">
-            <div class="scene-inner">
-                <div class="container">
-                    <div class="section-header text-center" data-anim="fade-up">
-                        <span class="section-tag">AFFORDABLE PLANS</span>
-                        <h2 class="section-title">Packages for Small Businesses</h2>
-                        <p class="section-subtitle">Transparent monthly retainers to scale your brand. No hidden fees.</p>
-                    </div>
-                    <div class="pricing-grid">
-                        <!-- Starter -->
-                        <div class="pricing-card card-3d" data-anim="tilt-in-left">
-                            <div class="pricing-header"><h3 class="pack-title">Essential Growth</h3><span class="pack-target">For local search & visual setup</span></div>
-                            <div class="pricing-price-block">
-                                <span class="original-price">₹15,000</span>
-                                <div class="active-price-row"><span class="currency">₹</span><span class="price-val">9,999</span><span class="period">/month</span></div>
-                                <span class="save-tag">SAVE 33%</span>
-                            </div>
-                            <ul class="pack-features">
-                                <li><span class="bullet">✓</span> <strong>GMB Setup & Maps Local SEO</strong></li>
-                                <li><span class="bullet">✓</span> <strong>5 Custom Reels / Video Ads</strong></li>
-                                <li><span class="bullet">✓</span> 10 Graphic Design Posts</li>
-                                <li><span class="bullet">✓</span> Social Media Posting (1 platform)</li>
-                                <li><span class="bullet">✓</span> Monthly Performance Growth Report</li>
-                            </ul>
-                            <div class="pricing-cta-row"><a href="https://wa.me/919509022983?text=Hi%20Design%20Suvidha,%20I%20want%20the%20Essential%20Growth%20Pack!" target="_blank" class="btn btn-glass btn-block">Inquire on WhatsApp</a></div>
-                        </div>
-                        <!-- Growth (Featured) -->
-                        <div class="pricing-card card-3d featured" data-anim="scale-up">
-                            <div class="featured-badge">MOST POPULAR</div>
-                            <div class="pricing-header"><h3 class="pack-title">Business Scale-Up</h3><span class="pack-target">Active local leads & social growth</span></div>
-                            <div class="pricing-price-block">
-                                <span class="original-price">₹35,000</span>
-                                <div class="active-price-row"><span class="currency">₹</span><span class="price-val">24,999</span><span class="period">/month</span></div>
-                                <span class="save-tag">SAVE 28%</span>
-                            </div>
-                            <ul class="pack-features">
-                                <li><span class="bullet">✓</span> <strong>GMB Domination & Reviews Strategy</strong></li>
-                                <li><span class="bullet">✓</span> <strong>15 Premium Video Ads & Hooks</strong></li>
-                                <li><span class="bullet">✓</span> <strong>Meta Ads Campaign Management</strong></li>
-                                <li><span class="bullet">✓</span> 20 Custom Graphic Design Posts</li>
-                                <li><span class="bullet">✓</span> Full Social Media Handling (Instagram & FB)</li>
-                                <li><span class="bullet">✓</span> Weekly Strategy Calls & Lead Reports</li>
-                            </ul>
-                            <div class="pricing-cta-row"><a href="https://wa.me/919509022983?text=Hi%20Design%20Suvidha,%20I%20want%20the%20Business%20Scale-Up%20Pack!" target="_blank" class="btn btn-primary btn-block">Scale Now via WhatsApp</a></div>
-                        </div>
-                        <!-- Elite -->
-                        <div class="pricing-card card-3d" data-anim="tilt-in-right">
-                            <div class="pricing-header"><h3 class="pack-title">Elite 3D Brand</h3><span class="pack-target">Complete digital market domination</span></div>
-                            <div class="pricing-price-block">
-                                <span class="original-price">₹75,000</span>
-                                <div class="active-price-row"><span class="currency">₹</span><span class="price-val">49,999</span><span class="period">/month</span></div>
-                                <span class="save-tag">SAVE 33%</span>
-                            </div>
-                            <ul class="pack-features">
-                                <li><span class="bullet">✓</span> <strong>Custom 3D Animated Website</strong></li>
-                                <li><span class="bullet">✓</span> <strong>30 Premium Video Ads & Voiceovers</strong></li>
-                                <li><span class="bullet">✓</span> Full Meta Ads & Advanced Retargeting</li>
-                                <li><span class="bullet">✓</span> Google Maps Rank Competitor Takeover</li>
-                                <li><span class="bullet">✓</span> Unlimited Graphic Design Requests</li>
-                                <li><span class="bullet">✓</span> Full Social Media Management (All platforms)</li>
-                                <li><span class="bullet">✓</span> Dedicated Account Growth Manager</li>
-                            </ul>
-                            <div class="pricing-cta-row"><a href="https://wa.me/919509022983?text=Hi%20Design%20Suvidha,%20I%20want%20the%20Elite%203D%20Brand%20Pack!" target="_blank" class="btn btn-glass btn-block">Inquire on WhatsApp</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        
-
-
-        <!-- ====== SECTION 7: CUSTOM & CORPORATE GIFTING (DEDICATED FORM) ====== -->
-        <section class="corporate-gifting-section" id="corporate-gifting">
-            <div class="container">
-                <div class="section-header text-center" data-anim="fade-up">
-                    <span class="workflow-tag">BULK ORDERS & CUSTOM BRANDING</span>
-                    <h2 class="section-title-main">Custom & Corporate Gifting Quotation</h2>
-                    <p class="section-sub-main">Planning gifts for employee welcome kits, Diwali, real estate launches, conferences, or college fests? Share your requirements for a custom quotation and digital proof within 2 hours.</p>
-                </div>
-                <div class="corp-form-container" data-anim="fade-up">
-                    <form id="corporate-bulk-form" novalidate>
-                        <div class="corp-form-grid">
-                            <div class="corp-form-field">
-                                <label class="corp-form-label" for="corp-company">Company / Organization Name *</label>
-                                <input type="text" id="corp-company" class="corp-form-input" placeholder="e.g. Acme Tech Solutions" required>
-                            </div>
-                            <div class="corp-form-field">
-                                <label class="corp-form-label" for="corp-person">Contact Person Name *</label>
-                                <input type="text" id="corp-person" class="corp-form-input" placeholder="Your Name" required>
-                            </div>
-                            <div class="corp-form-field">
-                                <label class="corp-form-label" for="corp-phone">Phone / WhatsApp Number *</label>
-                                <input type="tel" id="corp-phone" class="corp-form-input" placeholder="98XXXXXXXX" required>
-                            </div>
-                            <div class="corp-form-field">
-                                <label class="corp-form-label" for="corp-email">Official Email Address</label>
-                                <input type="email" id="corp-email" class="corp-form-input" placeholder="name@company.com">
-                            </div>
-                            <div class="corp-form-field">
-                                <label class="corp-form-label" for="corp-category">Product Category *</label>
-                                <select id="corp-category" class="corp-form-select" required>
-                                    <option value="">Select Primary Product Category</option>
-                                    <option value="Personalized Mugs">Personalized Mugs (Ceramic, Inner Color, Heart Handle)</option>
-                                    <option value="Laser Engraved Metal Pens">Laser Engraved Metal Pens (With/Without Luxury Box)</option>
-                                    <option value="Stainless Steel Card Holders">Stainless Steel Card Holders (Gold/Black/Matte)</option>
-                                    <option value="Executive Diaries & Notebooks">Executive Diaries & Notebooks (A5 Hardcover)</option>
-                                    <option value="Smart Drinkware & Temperature Bottles">Smart Drinkware & Temperature Bottles (500ml LED)</option>
-                                    <option value="Custom Keychains">Custom Metal/Leather Keychains (House/Oval/Round)</option>
-                                    <option value="Corporate Gift Hampers & Welcome Kits">Corporate Gift Hampers & Employee Welcome Kits</option>
-                                    <option value="Visiting Cards & Office Stationery">Visiting Cards (350 GSM) & Marketing Print</option>
-                                    <option value="Digital Products / Branding Design">Digital Products / Brand Identity Package</option>
-                                </select>
-                            </div>
-                            <div class="corp-form-field">
-                                <label class="corp-form-label" for="corp-qty">Required Quantity *</label>
-                                <select id="corp-qty" class="corp-form-select" required>
-                                    <option value="25-50 Pcs">25 - 50 Pcs (Small Team)</option>
-                                    <option value="50-100 Pcs" selected>50 - 100 Pcs (Standard Corporate)</option>
-                                    <option value="100-250 Pcs">100 - 250 Pcs (Mid-Size Event)</option>
-                                    <option value="250-500 Pcs">250 - 500 Pcs (Large Conference)</option>
-                                    <option value="500-1000+ Pcs">500 - 1000+ Pcs (Mega Bulk Wholesale)</option>
-                                </select>
-                            </div>
-                            <div class="corp-form-field">
-                                <label class="corp-form-label" for="corp-budget">Estimated Budget</label>
-                                <select id="corp-budget" class="corp-form-select">
-                                    <option value="Under ₹10,000">Under ₹10,000</option>
-                                    <option value="₹10,000 - ₹25,000" selected>₹10,000 - ₹25,000</option>
-                                    <option value="₹25,000 - ₹50,000">₹25,000 - ₹50,000</option>
-                                    <option value="₹50,000 - ₹1,00,000">₹50,000 - ₹1,00,000</option>
-                                    <option value="₹1,00,000+">₹1,00,000+ (Enterprise)</option>
-                                </select>
-                            </div>
-                            <div class="corp-form-field">
-                                <label class="corp-form-label" for="corp-timeline">Target Delivery Deadline *</label>
-                                <input type="text" id="corp-timeline" class="corp-form-input" placeholder="e.g. Within 5-7 days / Before Diwali" required>
-                            </div>
-                            <div class="corp-form-field corp-form-full">
-                                <label class="corp-form-label" for="corp-notes">Customization Details & Branding Notes</label>
-                                <textarea id="corp-notes" class="corp-form-textarea" rows="3" placeholder="Tell us about custom logo laser engraving, employee name personalization, packaging box requirements, or delivery city..."></textarea>
-                            </div>
-                            <div class="corp-form-field corp-form-full">
-                                <button type="submit" class="btn-corp-submit" id="btn-corp-submit">
-                                    <span>📩 Request Instant Corporate Bulk Quote & Proof</span>
-                                </button>
-                                <div id="corp-form-success" style="display: none; background: #e6f4ea; color: #137333; padding: 12px; border-radius: 8px; margin-top: 12px; font-weight: 700; text-align: center;">
-                                    ✓ Corporate inquiry received! Redirecting to WhatsApp for instant digital mockup...
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ====== SECTION 8: TESTIMONIALS AND TRUST ====== -->
-        <section class="scene scene-break" data-break-text="TESTIMONIALS"></section>
-        <!-- ====== SCENE 7: TESTIMONIALS ====== -->
+        <!-- ====== SECTION 8: TESTIMONIALS, TRUST & CONTACT ====== -->
         <section class="scene scene-testimonials" id="testimonials">
             <div class="scene-inner">
                 <div class="container">

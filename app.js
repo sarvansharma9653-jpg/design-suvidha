@@ -425,5 +425,88 @@ document.addEventListener('DOMContentLoaded', () => {
         homeSearchBtn.addEventListener('click', executeHomeSearch);
     }
 
+    // ============================================================
+    // HOMEPAGE QUICK BUY BOTTOM SHEET MODAL
+    // ============================================================
+    const quickModal = document.getElementById('quick-buy-modal');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalImg = document.getElementById('modal-product-img');
+    const modalTitle = document.getElementById('modal-product-title');
+    const modalPrice = document.getElementById('modal-product-price');
+    const modalStrike = document.getElementById('modal-product-strike');
+    const modalEngraveInput = document.getElementById('modal-engrave-input');
+    const modalWaSubmitBtn = document.getElementById('modal-wa-submit-btn');
+    const qtyButtons = document.querySelectorAll('.qty-btn');
+
+    let currentModalProduct = {
+        title: '',
+        price: '',
+        qty: '1 Pc (Sample)'
+    };
+
+    function updateModalWaLink() {
+        if (!modalWaSubmitBtn) return;
+        const engraveText = modalEngraveInput ? modalEngraveInput.value.trim() : '';
+        const customPart = engraveText ? `\nCustomisation/Logo: ${engraveText}` : '';
+        const message = `Hello Design Suvidha! I want to order from your Store:\n\n*Product:* ${currentModalProduct.title}\n*Price:* ${currentModalProduct.price}\n*Quantity:* ${currentModalProduct.qty}${customPart}\n\nPlease confirm availability and share payment/dispatch details.`;
+        modalWaSubmitBtn.href = `https://wa.me/918739904737?text=${encodeURIComponent(message)}`;
+    }
+
+    if (quickModal) {
+        // Wire up all "Order" buttons on homepage
+        document.querySelectorAll('#home-product-grid .product-card').forEach(card => {
+            const orderBtn = card.querySelector('.btn-order-wa');
+            if (!orderBtn) return;
+
+            orderBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const title = card.querySelector('.product-title')?.textContent.trim() || 'Product';
+                const price = card.querySelector('.price-main')?.textContent.trim() || '';
+                const strike = card.querySelector('.price-strike')?.textContent.trim() || '';
+                const img = card.querySelector('.product-thumb-img')?.getAttribute('src') || '';
+
+                currentModalProduct.title = title;
+                currentModalProduct.price = price;
+                currentModalProduct.qty = '1 Pc (Sample)';
+
+                if (modalTitle) modalTitle.textContent = title;
+                if (modalPrice) modalPrice.textContent = price;
+                if (modalStrike) modalStrike.textContent = strike;
+                if (modalImg) modalImg.src = img;
+                if (modalEngraveInput) modalEngraveInput.value = '';
+
+                // Reset qty buttons
+                qtyButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-qty') === '1'));
+
+                updateModalWaLink();
+                quickModal.classList.add('active');
+            });
+        });
+
+        // Close modal
+        if (modalCloseBtn) {
+            modalCloseBtn.addEventListener('click', () => quickModal.classList.remove('active'));
+        }
+        quickModal.addEventListener('click', (e) => {
+            if (e.target === quickModal) quickModal.classList.remove('active');
+        });
+
+        // Qty pills
+        qtyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                qtyButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentModalProduct.qty = `${btn.textContent.trim()}`;
+                updateModalWaLink();
+            });
+        });
+
+        // Custom details input
+        if (modalEngraveInput) {
+            modalEngraveInput.addEventListener('input', updateModalWaLink);
+        }
+    }
+
     console.log('🚀 Design Suvidha Fast Mobile Engine Initialized');
 });
+

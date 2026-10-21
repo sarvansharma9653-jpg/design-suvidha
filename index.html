@@ -136,6 +136,29 @@
             <div class="scene-inner" style="padding-top: 12px; padding-bottom: 30px;">
                 <div class="container">
 
+                    <!-- Dual-Business Primary Switcher (Hero Top) -->
+                    <div class="dual-vertical-spotlight hero-dual-spotlight" id="dual-business-nav">
+                        <div class="dual-spotlight-inner">
+                            <div class="spotlight-badge-title">
+                                <div class="spotlight-icon-box">🏢</div>
+                                <div class="spotlight-title-text">
+                                    <h4>Design Suvidha — 2 Business Divisions</h4>
+                                    <p>Corporate Printing & Gifting (Main Store) · Digital Marketing & Ads (Div 2)</p>
+                                </div>
+                            </div>
+                            <div class="dual-tabs-wrapper">
+                                <a href="#store-showcase" class="dual-tab-btn active highlight">
+                                    <span>🎁 Printing & Gifts Store</span>
+                                    <span class="dual-tab-badge">MAIN</span>
+                                </a>
+                                <a href="#services" class="dual-tab-btn">
+                                    <span>🚀 Digital Marketing Agency</span>
+                                    <span class="dual-tab-badge" style="background: rgba(108, 92, 231, 0.2); color: #a29bfe;">DIV 2</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Deal of the Day Banner (Amazon / Flipkart Style) -->
                     <div class="app-deal-banner" id="home-deal-banner" data-anim="zoom-in">
                         <div class="deal-banner-left">
@@ -522,6 +545,41 @@
                         <div class="stat-pill"><span class="sp-num">100% Free</span><span class="sp-lbl">Reprint Guarantee</span></div>
                     </div>
 
+                    <!-- 4-Step Proof Approval & Order Workflow -->
+                    <div class="workflow-steps-strip" id="workflow-steps">
+                        <div class="workflow-header text-center">
+                            <span class="workflow-tag">EASY 4-STEP B2B & RETAIL PROCESS</span>
+                            <h3 class="workflow-title">How Printing & Corporate Gifting Orders Work</h3>
+                            <p class="workflow-sub">100% digital proof approval before production starts — Zero hassle, guaranteed quality</p>
+                        </div>
+                        <div class="workflow-grid">
+                            <div class="workflow-step-card">
+                                <div class="wf-step-number">1</div>
+                                <div class="wf-icon">🛍️</div>
+                                <h4>1. Select Product</h4>
+                                <p>Choose from Mugs, Laser Metal Pens, Smart Bottles, Diaries, Visiting Cards, or Custom Corporate Kits.</p>
+                            </div>
+                            <div class="workflow-step-card">
+                                <div class="wf-step-number">2</div>
+                                <div class="wf-icon">💬</div>
+                                <h4>2. WhatsApp Details</h4>
+                                <p>Send your company logo, employee names, or custom artwork directly to <a href="https://wa.me/918739904737" target="_blank">+91 8739904737</a>.</p>
+                            </div>
+                            <div class="workflow-step-card">
+                                <div class="wf-step-number">3</div>
+                                <div class="wf-icon">✨</div>
+                                <h4>3. Free Digital Proof</h4>
+                                <p>We create a 2D/3D mockup preview within 2-4 hours. Production starts only after your WhatsApp approval.</p>
+                            </div>
+                            <div class="workflow-step-card">
+                                <div class="wf-step-number">4</div>
+                                <div class="wf-icon">🚚</div>
+                                <h4>4. Factory Print & Dispatch</h4>
+                                <p>Precision laser engraving / HD print, rigorous QC, and express Pan-India courier dispatch with live tracking.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Dual-Vertical Spotlight Card: Quick Jump to Division 2 (Digital Marketing) -->
                     <div class="dual-vertical-spotlight" style="margin: 20px auto 10px;">
                         <div class="dual-spotlight-inner">
@@ -662,6 +720,18 @@
                                 <p>Cinema-grade video ads, reels, promotional brand videos, and UGC content designed to drive traffic and hook viewers.</p>
                                 <span class="svc-price">Starting ₹2,000</span>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Cross-Vertical Bridge: Digital Marketing -> Printing & Gifting -->
+                    <div class="dual-vertical-bridge-card" data-anim="fade-up">
+                        <div class="bridge-card-content">
+                            <span class="bridge-tag">NEED PHYSICAL BRANDING TOO?</span>
+                            <h3>Pair Your Digital Marketing With Custom Corporate Gifts</h3>
+                            <p>Give your brand tactile impact. Order custom laser-engraved metal pens, employee onboarding welcome kits, branded temperature bottles, luxury diaries, and 350 GSM visiting cards at direct factory wholesale rates.</p>
+                            <a href="#store-showcase" class="btn btn-primary" style="background: #25d366; border-color: #25d366; color: #fff;">
+                                <span>🎁 Shop Corporate Gifting Store ➔</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -940,6 +1010,41 @@
             </div>
         </section>
     </main>
+
+    <!-- Quick Buy Bottom Sheet Modal (Flipkart & Amazon Mobile Style) -->
+    <div class="quick-buy-overlay" id="quick-buy-modal">
+        <div class="quick-buy-sheet">
+            <div class="sheet-handle-bar"></div>
+            <div class="sheet-header">
+                <img id="modal-product-img" src="" alt="" class="sheet-thumb-img">
+                <div class="sheet-title-info">
+                    <h3 id="modal-product-title">Product Title</h3>
+                    <div style="display: flex; gap: 8px; align-items: baseline;">
+                        <span id="modal-product-price" style="font-size: 20px; font-weight: 800; color: #007185;">₹0</span>
+                        <span id="modal-product-strike" style="font-size: 13px; color: #888; text-decoration: line-through;">₹0</span>
+                        <span class="star-rating-pill">4.8 ★</span>
+                    </div>
+                </div>
+                <button class="sheet-close-btn" id="modal-close-btn">&times;</button>
+            </div>
+
+            <p style="font-size: 13px; color: #565959; margin-bottom: 8px;">Select Quantity Tier (Wholesale Discount Applied):</p>
+            <div class="qty-pill-stack">
+                <button class="qty-btn active" data-qty="1">1 Pc (Sample)</button>
+                <button class="qty-btn" data-qty="10">10 Pcs</button>
+                <button class="qty-btn" data-qty="50">50 Pcs</button>
+                <button class="qty-btn" data-qty="100">100+ Pcs (Bulk)</button>
+            </div>
+
+            <label style="font-size: 13px; color: #0f1111; font-weight: 600; display: block; margin-bottom: 6px;">Customization Details (Optional):</label>
+            <input type="text" id="modal-engrave-input" class="custom-engrave-input" placeholder="e.g. Laser engrave name 'Arun Sharma' or Company Logo">
+
+            <a href="#" id="modal-wa-submit-btn" target="_blank" class="sheet-buy-wa-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.799-4.382 9.802-9.77.001-2.61-1.01-5.063-2.848-6.903C16.33 2.094 13.882 1.077 11.28 1.077 5.875 1.077 1.48 5.462 1.477 10.85c-.001 1.503.411 2.975 1.193 4.288l-.78 2.85 2.923-.766zm13.125-6.666c-.328-.164-1.94-.957-2.24-1.066-.3-.11-.518-.165-.736.165-.218.328-.846 1.066-1.037 1.284-.19.218-.38.245-.71.082-.328-.164-1.386-.51-2.64-1.627-.975-.87-1.633-1.946-1.824-2.274-.19-.328-.02-.505.144-.669.148-.148.328-.382.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.736-1.775-1.01-2.43-.267-.64-.56-.554-.736-.563-.17-.008-.38-.01-.59-.01-.21 0-.545.078-.83.392-.284.313-1.09 1.066-1.09 2.602 0 1.536 1.117 3.02 1.272 3.23.155.21 2.193 3.35 5.312 4.697.74.32 1.318.51 1.77.653.743.236 1.419.203 1.953.124.596-.089 1.94-.793 2.212-1.56.273-.765.273-1.42.19-1.557-.081-.137-.3-.218-.628-.382z"/></svg>
+                <span>Confirm Order on WhatsApp</span>
+            </a>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer-layout">

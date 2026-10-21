@@ -1497,4 +1497,231 @@ body {
     border-top: 1px solid #232f3e !important;
 }
 
+/* 11. Dual-Vertical Spotlight & Business Switcher (Amazon Light Theme) */
+.dual-vertical-spotlight {
+    background: #ffffff !important;
+    border: 1px solid #d5d9d9 !important;
+    border-top: 3px solid #ff9900 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    margin: 10px auto 20px !important;
+    border-radius: 12px !important;
+}
+
+.hero-dual-spotlight {
+    margin: 8px auto 16px !important;
+}
+
+.spotlight-title-text h4 {
+    color: #0f1111 !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+.spotlight-title-text p {
+    color: #565959 !important;
+    font-size: 12.5px !important;
+}
+
+.dual-tabs-wrapper {
+    background: #f0f2f2 !important;
+    border: 1px solid #d5d9d9 !important;
+    padding: 4px !important;
+    border-radius: 30px !important;
+}
+
+.dual-tab-btn {
+    color: #0f1111 !important;
+    font-size: 13px !important;
+    padding: 7px 16px !important;
+}
+
+.dual-tab-btn:hover {
+    color: #111111 !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.dual-tab-btn.active, .dual-tab-btn.highlight {
+    background: #131921 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(19, 25, 33, 0.3) !important;
+}
+
+.dual-tab-badge {
+    background: #ff9900 !important;
+    color: #111111 !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    padding: 1px 6px !important;
+    border-radius: 10px !important;
+}
+
+/* 12. 4-Step Ordering & Digital Proof Approval Workflow */
+.workflow-steps-strip {
+    background: #ffffff;
+    border: 1px solid #e7e7e7;
+    border-radius: 14px;
+    padding: 28px 24px;
+    margin: 30px auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.workflow-header {
+    margin-bottom: 24px;
+}
+
+.workflow-tag {
+    display: inline-block;
+    background: #eef9f9;
+    color: #007185;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    margin-bottom: 8px;
+    border: 1px solid #bce2f5;
+}
+
+.workflow-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f1111;
+    margin: 0 0 6px;
+}
+
+.workflow-sub {
+    font-size: 13.5px;
+    color: #565959;
+    margin: 0;
+}
+
+.workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.workflow-step-card {
+    background: #f7fafa;
+    border: 1px solid #e7e7e7;
+    border-radius: 12px;
+    padding: 18px 16px;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.workflow-step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: #d5d9d9;
+}
+
+.wf-step-number {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 24px;
+    font-weight: 900;
+    color: #d5d9d9;
+    line-height: 1;
+}
+
+.wf-icon {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.workflow-step-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f1111;
+    margin: 0 0 6px;
+}
+
+.workflow-step-card p {
+    font-size: 12.5px;
+    color: #565959;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.workflow-step-card p a {
+    color: #007185;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* 13. Dual-Vertical Cross-Bridge Card */
+.dual-vertical-bridge-card {
+    background: linear-gradient(135deg, #131921 0%, #232f3e 100%);
+    color: #ffffff;
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin: 35px 0 20px;
+    box-shadow: 0 4px 16px rgba(19, 25, 33, 0.25);
+}
+
+.bridge-tag {
+    display: inline-block;
+    background: rgba(255, 153, 0, 0.2);
+    color: #ffa41c;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 153, 0, 0.4);
+}
+
+.bridge-card-content h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 8px;
+}
+
+.bridge-card-content p {
+    font-size: 13.5px;
+    color: #d5d9d9;
+    line-height: 1.5;
+    max-width: 780px;
+    margin: 0 0 16px;
+}
+
+@media (max-width: 768px) {
+    .workflow-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .workflow-steps-strip {
+        padding: 20px 14px;
+    }
+    .workflow-title {
+        font-size: 17px;
+    }
+    .dual-spotlight-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .dual-tabs-wrapper {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .dual-tab-btn {
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+        font-size: 12px !important;
+        padding: 7px 10px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .workflow-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
 

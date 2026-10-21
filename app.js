@@ -1041,15 +1041,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const products = getLiveStoreProducts();
         let html = '';
 
+        let waOrderPhone = '918739904737';
+        try {
+            const s = JSON.parse(localStorage.getItem('ds_website_settings') || 'null');
+            if (s && s.whatsapp) waOrderPhone = s.whatsapp;
+        } catch(e) {}
+
         products.forEach(p => {
+            const stock = p.stock !== undefined ? p.stock : 50;
+            const isOutOfStock = stock === 0;
             const discPercent = p.strike ? Math.round(((p.strike - p.price) / p.strike) * 100) : 35;
             const featuresHtml = (p.features || []).map(f => `<div class="product-feat-bullet"><span class="feat-dot"></span><span>${f}</span></div>`).join('');
+            const badgeText = isOutOfStock ? 'Sold Out 🔴' : (p.badge || 'Best Seller 🔥');
+            const lowStockHtml = (!isOutOfStock && stock <= 15) ? `<span style="font-size: 11px; color: #b45309; font-weight: 700; display: block; margin-top: 2px;">⚠️ Only ${stock} left in stock!</span>` : '';
+
+            const actionButtons = isOutOfStock
+                ? `
+                    <button type="button" class="btn-add-cart disabled" style="opacity: 0.6; cursor: not-allowed; background: #e2e8f0; color: #64748b;" disabled>Sold Out</button>
+                    <a href="https://wa.me/${waOrderPhone}?text=${encodeURIComponent('Hello Design Suvidha, when will ' + p.title + ' be back in stock?')}" target="_blank" class="btn-buy-instant btn-order-wa" style="background: #475569;">Notify Me</a>
+                `
+                : `
+                    <button type="button" class="btn-add-cart" data-title="${p.title}" data-price="${p.price}" data-img="${p.img}">🛒 Add</button>
+                    <a href="https://wa.me/${waOrderPhone}?text=${encodeURIComponent('Hello Design Suvidha, I want to order ' + p.title + ' at Rs ' + p.price)}" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                `;
 
             html += `
                 <div class="product-card" data-cat="${p.category || 'mugs'}">
                     <div class="product-thumb-container">
                         <img src="${p.img || 'assets/products/product_1.jpg'}" alt="${p.title}" class="product-thumb-img" loading="lazy">
-                        <span class="product-badge-float">${p.badge || 'Best Seller 🔥'}</span>
+                        <span class="product-badge-float" ${isOutOfStock ? 'style="background: #dc2626; color: #fff;"' : ''}>${badgeText}</span>
                         <span class="product-discount-float">${discPercent}% OFF</span>
                         <span class="assured-badge">🛡️ DS Assured</span>
                     </div>
@@ -1066,6 +1086,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="product-features-list">
                             ${featuresHtml}
                         </div>
+                        ${lowStockHtml}
                         <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                         <div class="product-footer-row">
                             <div class="product-price-block">
@@ -1073,8 +1094,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div><span class="price-strike">${p.strike ? '₹' + p.strike : ''}</span><span class="price-unit"> Wholesale</span></div>
                             </div>
                             <div class="product-card-actions">
-                                <button type="button" class="btn-add-cart" data-title="${p.title}" data-price="${p.price}" data-img="${p.img}">🛒 Add</button>
-                                <a href="https://wa.me/918739904737?text=${encodeURIComponent('Hello Design Suvidha, I want to order ' + p.title + ' at Rs ' + p.price)}" target="_blank" class="btn-buy-instant btn-order-wa">Buy Now</a>
+                                ${actionButtons}
                             </div>
                         </div>
                     </div>
@@ -1540,6 +1560,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 800);
         });
     }
+
+    // ============================================================
+    // 18. SYNC ADMIN WEBSITE SETTINGS (Announcement, WhatsApp, etc.)
+    // ============================================================
+    try {
+        const customSettings = JSON.parse(localStorage.getItem('ds_website_settings') || 'null');
+        if (customSettings) {
+            if (customSettings.announcement) {
+                const annText = document.getElementById('announcement-text');
+                if (annText) annText.textContent = customSettings.announcement;
+            }
+            if (customSettings.whatsapp) {
+                document.querySelectorAll('a[href*="wa.me/"]').forEach(a => {
+                    a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/' + customSettings.whatsapp);
+                });
+            }
+        }
+    } catch (e) { console.error('Failed to apply custom website settings', e); }
 
     console.log('🚀 Design Suvidha Fast Mobile Engine Initialized');
 });

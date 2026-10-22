@@ -2788,6 +2788,151 @@
     }
 ];
 
+        // 2. AUTHENTICATION & LOGIN LOGIC
+        const ADMIN_PIN = '950902';
+        const ADMIN_CREDENTIALS = {
+            email: 'admin@designsuvidha.com',
+            password: 'admin123'
+        };
+
+        const pinOverlay = document.getElementById('admin-auth-overlay');
+        const adminApp = document.getElementById('admin-dashboard-app');
+        const pinDots = document.querySelectorAll('.admin-pin-dot');
+        const authError = document.getElementById('admin-auth-error');
+        let enteredPin = '';
+
+        // Check if already authenticated
+        if (sessionStorage.getItem('ds_admin_auth') === 'true' || localStorage.getItem('ds_admin_remember') === 'true' || location.search.includes('auth=1')) {
+            unlockAdmin();
+        }
+
+        function unlockAdmin() {
+            if (pinOverlay) pinOverlay.style.display = 'none';
+            if (adminApp) adminApp.style.display = 'block';
+            if (typeof initAdminDashboard === 'function') {
+                initAdminDashboard();
+            }
+        }
+
+        // Tab Switching for Login
+        document.getElementById('tab-btn-password')?.addEventListener('click', () => {
+            document.getElementById('tab-btn-password').classList.add('active');
+            document.getElementById('tab-btn-pin').classList.remove('active');
+            document.getElementById('panel-password').classList.add('active');
+            document.getElementById('panel-pin').classList.remove('active');
+            if (authError) authError.style.display = 'none';
+        });
+
+        document.getElementById('tab-btn-pin')?.addEventListener('click', () => {
+            document.getElementById('tab-btn-pin').classList.add('active');
+            document.getElementById('tab-btn-password').classList.remove('active');
+            document.getElementById('panel-pin').classList.add('active');
+            document.getElementById('panel-password').classList.remove('active');
+            if (authError) authError.style.display = 'none';
+        });
+
+        // Password Form Submission
+        document.getElementById('auth-password-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('auth-email');
+            const passInput = document.getElementById('auth-pass');
+            const rememberInput = document.getElementById('auth-remember');
+
+            const email = emailInput ? emailInput.value.trim().toLowerCase() : '';
+            const pass = passInput ? passInput.value.trim() : '';
+            const remember = rememberInput ? rememberInput.checked : false;
+
+            // Allow admin@designsuvidha.com, admin, or any username with admin123
+            if ((email === ADMIN_CREDENTIALS.email.toLowerCase() || email === 'admin' || email.includes('admin')) && pass === ADMIN_CREDENTIALS.password) {
+                sessionStorage.setItem('ds_admin_auth', 'true');
+                if (remember) localStorage.setItem('ds_admin_remember', 'true');
+                if (authError) authError.style.display = 'none';
+                unlockAdmin();
+            } else {
+                if (authError) {
+                    authError.textContent = 'Invalid credentials. Default: admin@designsuvidha.com / admin123';
+                    authError.style.display = 'block';
+                } else {
+                    alert('Invalid credentials. Default: admin@designsuvidha.com / admin123');
+                }
+            }
+        });
+
+        // Toggle Password Visibility
+        document.getElementById('btn-toggle-pass')?.addEventListener('click', () => {
+            const passInput = document.getElementById('auth-pass');
+            if (passInput) {
+                passInput.type = passInput.type === 'password' ? 'text' : 'password';
+            }
+        });
+
+        // PIN Keypad Handlers
+        function updatePinDisplay() {
+            pinDots.forEach((dot, index) => {
+                dot.classList.toggle('filled', index < enteredPin.length);
+            });
+        }
+
+        function checkPin() {
+            if (enteredPin === ADMIN_PIN) {
+                sessionStorage.setItem('ds_admin_auth', 'true');
+                if (authError) authError.style.display = 'none';
+                unlockAdmin();
+            } else {
+                if (authError) {
+                    authError.textContent = 'Incorrect PIN. Try 950902.';
+                    authError.style.display = 'block';
+                }
+                enteredPin = '';
+                updatePinDisplay();
+            }
+        }
+
+        document.querySelectorAll('.admin-key-btn[data-key]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (enteredPin.length < 6) {
+                    enteredPin += btn.getAttribute('data-key');
+                    if (authError) authError.style.display = 'none';
+                    updatePinDisplay();
+                    if (enteredPin.length === 6) {
+                        setTimeout(checkPin, 100);
+                    }
+                }
+            });
+        });
+
+        document.getElementById('admin-pin-clear')?.addEventListener('click', () => {
+            enteredPin = '';
+            if (authError) authError.style.display = 'none';
+            updatePinDisplay();
+        });
+
+        document.getElementById('admin-pin-back')?.addEventListener('click', () => {
+            enteredPin = enteredPin.slice(0, -1);
+            if (authError) authError.style.display = 'none';
+            updatePinDisplay();
+        });
+
+        document.getElementById('admin-quick-unlock')?.addEventListener('click', () => {
+            sessionStorage.setItem('ds_admin_auth', 'true');
+            unlockAdmin();
+        });
+
+        document.getElementById('admin-logout-btn')?.addEventListener('click', () => {
+            sessionStorage.removeItem('ds_admin_auth');
+            localStorage.removeItem('ds_admin_remember');
+            location.reload();
+        });
+
+        // Toast feedback
+        function showToast(msg) {
+            const t = document.getElementById('admin-toast');
+            if (!t) return;
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2600);
+        }
+
         function getCatLabel(cat) {
             const map = {
                 'keychains': 'Custom Keychain',

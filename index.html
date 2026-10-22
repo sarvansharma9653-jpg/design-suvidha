@@ -77,7 +77,7 @@
 </head>
 <body>
     <!-- TOP ANNOUNCEMENT BAR (Managed via Admin Portal) -->
-    <div class="top-announcement-bar" id="live-announcement-bar" style="background: linear-gradient(90deg, #131921, #232f3e); color: #ffd814; font-size: 12.5px; font-weight: 700; text-align: center; padding: 6px 12px; display: flex; align-items: center; justify-content: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.1);"><span id="announcement-text">🎉 SPECIAL OFFER: Flat 40% OFF on Corporate Gifting Hampers | Pan-India Free Delivery</span><a href="admin.html" style="color: #ffffff; font-size: 11px; text-decoration: underline; margin-left: 6px; opacity: 0.85;">Admin Login 🔒</a></div>
+    <div class="top-announcement-bar" id="live-announcement-bar" style="background: linear-gradient(90deg, #131921, #232f3e); color: #ffd814; font-size: 12.5px; font-weight: 700; text-align: center; padding: 6px 12px; display: flex; align-items: center; justify-content: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.1);"><span id="announcement-text">🎉 SPECIAL OFFER: Flat 40% OFF on Corporate Gifting Hampers | Pan-India Free Delivery</span></div>
     <div class="scroll-progress-bar" id="scroll-progress"></div>
 
     <!-- AMAZON-STYLE HIGH-CONVERSION HEADER -->
@@ -145,284 +145,307 @@
                     <span>☰ All Products</span>
                 </a>
 
-                <!-- PENS DROPDOWN (Printvenue Style) -->
+                <!-- 1. CORPORATE GIFTING DROPDOWN -->
                 <div class="subnav-dropdown">
                     <button type="button" class="subnav-dropdown-trigger">
-                        <span>🖊️ Pens</span> <span class="arrow-down">▾</span>
+                        <span>🎁 Corporate Gifting</span> <span class="arrow-down">▾</span>
                     </button>
                     <div class="subnav-mega-menu">
                         <div class="mega-menu-header">
-                            <span class="mega-menu-title">🖊️ Laser Metal & Branded Pens</span>
-                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('pens')">View All Pens ➔</a>
+                            <span class="mega-menu-title">🎁 Corporate Gifting Collection</span>
+                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('corporate-gifting')">View All (7 Categories) ➔</a>
                         </div>
-                        <div class="mega-menu-grid">
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-click')">
-                                <img src="assets/products/product_20.jpg" alt="Metal Click Pen" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Classic Metal Click Pen</div>
-                                    <div class="mega-product-price">₹90 <span class="mega-product-strike">₹150</span></div>
+                        <div class="mega-category-list-grid">
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('keychains')">
+                                <span class="mega-cat-icon">🔑</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Keychains</div>
+                                    <div class="mega-cat-sub">Laser Engraved Metal & PU Leather</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-magnetic-gel')">
-                                <img src="assets/products/product_24.jpg" alt="Magnetic Gel Pen" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Magnetic Gel Metal Pen</div>
-                                    <div class="mega-product-price">₹199 <span class="mega-product-strike">₹299</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('pens')">
+                                <span class="mega-cat-icon">🖊️</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Pens</div>
+                                    <div class="mega-cat-sub">Metal Click, Roller & Gel Pens</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-black-twist')">
-                                <img src="assets/products/product_27.jpg" alt="Black Twist Pen" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Black Metal Twist Pen</div>
-                                    <div class="mega-product-price">₹229 <span class="mega-product-strike">₹350</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('card-holder')">
+                                <span class="mega-cat-icon">💳</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Card Holder</div>
+                                    <div class="mega-cat-sub">Stainless Steel & Leather Wallets</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-textured-grip')">
-                                <img src="assets/products/product_29.jpg" alt="Textured Grip Pen" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Textured Grip Metal Pen</div>
-                                    <div class="mega-product-price">₹199 <span class="mega-product-strike">₹300</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('mugs')">
+                                <span class="mega-cat-icon">☕</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Mugs</div>
+                                    <div class="mega-cat-sub">Ceramic, Magic Color Reveal & Heart Mugs</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-gold-accent')">
-                                <img src="assets/products/product_31.jpg" alt="Gold Accent Pen" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Gold Accent Luxury Pen</div>
-                                    <div class="mega-product-price">₹249 <span class="mega-product-strike">₹399</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('diaries')">
+                                <span class="mega-cat-icon">📓</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Diaries</div>
+                                    <div class="mega-cat-sub">Executive PU Leather & Magnetic Planners</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-pen-box')">
-                                <img src="assets/products/product_21.jpg" alt="Pen Gift Box" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Plastic Pen Gift Box</div>
-                                    <div class="mega-product-price">₹45 <span class="mega-product-strike">₹80</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('drinkware')">
+                                <span class="mega-cat-icon">🍶</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Drinkware</div>
+                                    <div class="mega-cat-sub">Smart Temperature LED & Steel Flasks</div>
                                 </div>
-                            </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('mouse-pad')">
+                                <span class="mega-cat-icon">🖱️</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Mouse Pad</div>
+                                    <div class="mega-cat-sub">Non-Slip Rubber & Extended Desk Mats</div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- MUGS DROPDOWN -->
+                <!-- 2. PRINTING SOLUTIONS DROPDOWN (Wide Mega Menu) -->
                 <div class="subnav-dropdown">
                     <button type="button" class="subnav-dropdown-trigger">
-                        <span>☕ Mugs</span> <span class="arrow-down">▾</span>
+                        <span>🖨️ Printing Solutions</span> <span class="arrow-down">▾</span>
                     </button>
-                    <div class="subnav-mega-menu">
+                    <div class="subnav-mega-menu subnav-mega-menu-wide">
                         <div class="mega-menu-header">
-                            <span class="mega-menu-title">☕ Custom Ceramic & Magic Mugs</span>
-                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('mugs')">View All Mugs ➔</a>
+                            <span class="mega-menu-title">🖨️ Commercial & Business Printing Solutions</span>
+                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('printing-solutions')">View All (15 Categories) ➔</a>
                         </div>
-                        <div class="mega-menu-grid">
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-mug-magic')">
-                                <img src="assets/products/product_1.jpg" alt="Magic Mug" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Magic Color Reveal Mug</div>
-                                    <div class="mega-product-price">₹199 <span class="mega-product-strike">₹350</span></div>
+                        <div class="mega-links-3col-grid">
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('visiting-cards')">
+                                <span class="mega-cat-icon">📇</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Visiting cards</div>
+                                    <div class="mega-cat-sub">350 GSM Matt / Gloss / Velvet</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-mug-white')">
-                                <img src="assets/products/product_2.jpg" alt="White Ceramic Mug" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">White Ceramic Photo Mug</div>
-                                    <div class="mega-product-price">₹149 <span class="mega-product-strike">₹250</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('pamphlets-flyers')">
+                                <span class="mega-cat-icon">📄</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Pamphlets & Flyers</div>
+                                    <div class="mega-cat-sub">A4 & A5 Multi-Color Promo Handouts</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-mug-black')">
-                                <img src="assets/products/product_4.jpg" alt="Black Mug" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Matte Black Photo Mug</div>
-                                    <div class="mega-product-price">₹179 <span class="mega-product-strike">₹280</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('posters')">
+                                <span class="mega-cat-icon">🖼️</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Posters</div>
+                                    <div class="mega-cat-sub">High-Resolution Gloss & Matt Display</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-mug-dual-heart')">
-                                <img src="assets/products/product_5.jpg" alt="Heart Mug" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Golden Dual Heart Mug</div>
-                                    <div class="mega-product-price">₹219 <span class="mega-product-strike">₹350</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('letter-heads')">
+                                <span class="mega-cat-icon">📑</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Letter Heads</div>
+                                    <div class="mega-cat-sub">Executive Bond 100 GSM Paper</div>
                                 </div>
-                            </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('invoice-paper')">
+                                <span class="mega-cat-icon">🧾</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Invoice Paper</div>
+                                    <div class="mega-cat-sub">Single & Carbonless Duplicate Sheets</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('envelopes')">
+                                <span class="mega-cat-icon">✉️</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Envelopes</div>
+                                    <div class="mega-cat-sub">Standard & Window Mailers with Logo</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('medical-files')">
+                                <span class="mega-cat-icon">📁</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Medical Files</div>
+                                    <div class="mega-cat-sub">Hospital & Clinic Patient Folders</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('stickers-labels')">
+                                <span class="mega-cat-icon">🏷️</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Stickers & Labels</div>
+                                    <div class="mega-cat-sub">Custom Die-Cut Waterproof Vinyl</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('invoice-books')">
+                                <span class="mega-cat-icon">📒</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Invoice Books</div>
+                                    <div class="mega-cat-sub">Numbered Carbonless Billbooks</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('tags')">
+                                <span class="mega-cat-icon">🔖</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Tags</div>
+                                    <div class="mega-cat-sub">Garment & Product Hang Tags</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('atm-cards-patches')">
+                                <span class="mega-cat-icon">💳</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">ATM cards Patches</div>
+                                    <div class="mega-cat-sub">Protective Designer Card Skins</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('shooting-targets')">
+                                <span class="mega-cat-icon">🎯</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Shooting Targets</div>
+                                    <div class="mega-cat-sub">Heavy Card Stock Target Sheets</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('id-cards')">
+                                <span class="mega-cat-icon">🪪</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">ID cards</div>
+                                    <div class="mega-cat-sub">Thermal Printed PVC Employee Cards</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('lanyards')">
+                                <span class="mega-cat-icon">🎗️</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Lanyards</div>
+                                    <div class="mega-cat-sub">Custom Sublimation Satin Neck Bands</div>
+                                </div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('id-card-holder')">
+                                <span class="mega-cat-icon">🪪</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">ID card Holder</div>
+                                    <div class="mega-cat-sub">Hard Acrylic & Soft Silicon Casings</div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- CARD HOLDERS DROPDOWN -->
+                <!-- 3. SIGNAGE PRINTING DROPDOWN (Wide Mega Menu) -->
                 <div class="subnav-dropdown">
                     <button type="button" class="subnav-dropdown-trigger">
-                        <span>📇 Card Holders</span> <span class="arrow-down">▾</span>
+                        <span>🏢 Signage Printing</span> <span class="arrow-down">▾</span>
                     </button>
-                    <div class="subnav-mega-menu">
+                    <div class="subnav-mega-menu subnav-mega-menu-wide">
                         <div class="mega-menu-header">
-                            <span class="mega-menu-title">📇 Executive Visiting Card Holders</span>
-                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('cardholders')">View All ➔</a>
+                            <span class="mega-menu-title">🏢 Outdoor & Indoor Signage Printing</span>
+                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('signage-printing')">View All (13 Categories) ➔</a>
                         </div>
-                        <div class="mega-menu-grid">
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-card-magnetic')">
-                                <img src="assets/products/product_19.jpg" alt="Magnetic Card Holder" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Magnetic Cap Card Holder</div>
-                                    <div class="mega-product-price">₹229 <span class="mega-product-strike">₹350</span></div>
+                        <div class="mega-links-3col-grid">
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('vinyl-printing')">
+                                <span class="mega-cat-icon">🟦</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Vinyl Printing</div>
+                                    <div class="mega-cat-sub">Eco-Solvent Self-Adhesive Rolls</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-card-leather')">
-                                <img src="assets/products/product_17.jpg" alt="PU Leather Card Holder" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">PU Leather Card Case</div>
-                                    <div class="mega-product-price">₹189 <span class="mega-product-strike">₹299</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('flex-printing')">
+                                <span class="mega-cat-icon">🚩</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Flex Printing</div>
+                                    <div class="mega-cat-sub">All-Weather Outdoor Hoardings & Banners</div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DIARIES DROPDOWN -->
-                <div class="subnav-dropdown">
-                    <button type="button" class="subnav-dropdown-trigger">
-                        <span>📓 Diaries</span> <span class="arrow-down">▾</span>
-                    </button>
-                    <div class="subnav-mega-menu">
-                        <div class="mega-menu-header">
-                            <span class="mega-menu-title">📓 Executive & Corporate Diaries</span>
-                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('diaries')">View All Diaries ➔</a>
-                        </div>
-                        <div class="mega-menu-grid">
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-diary-magnetic')">
-                                <img src="assets/products/product_48.jpg" alt="Magnetic Lock Diary" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Magnetic Lock Executive Diary</div>
-                                    <div class="mega-product-price">₹299 <span class="mega-product-strike">₹450</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('one-way-vision')">
+                                <span class="mega-cat-icon">👁️</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">One-way Vision</div>
+                                    <div class="mega-cat-sub">Perforated Glass Film for Showrooms & Cars</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-diary-color-reveal')">
-                                <img src="assets/products/product_49.jpg" alt="Color Reveal Diary" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Color Reveal A5 Diary</div>
-                                    <div class="mega-product-price">₹279 <span class="mega-product-strike">₹399</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('vinyl-sunboard-3mm')">
+                                <span class="mega-cat-icon">📐</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Vinyl with Sunboard (3 MM)</div>
+                                    <div class="mega-cat-sub">Lightweight Indoor Wall Display Panels</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-diary-roundlock')">
-                                <img src="assets/products/product_50.jpg" alt="Round Lock Diary" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Royal Round Lock Diary</div>
-                                    <div class="mega-product-price">₹329 <span class="mega-product-strike">₹499</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('vinyl-sunboard-5mm')">
+                                <span class="mega-cat-icon">📏</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Vinyl with Sunboard (5 MM)</div>
+                                    <div class="mega-cat-sub">Heavy Rigid Exhibition & Office Boards</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-diary-gold-border')">
-                                <img src="assets/products/product_51.jpg" alt="Gold Border Diary" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Gold Border Premium Diary</div>
-                                    <div class="mega-product-price">₹289 <span class="mega-product-strike">₹420</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('retro-flex')">
+                                <span class="mega-cat-icon">✨</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Retro Flex</div>
+                                    <div class="mega-cat-sub">High-Reflective Night Glow Highway Flex</div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DRINKWARE DROPDOWN -->
-                <div class="subnav-dropdown">
-                    <button type="button" class="subnav-dropdown-trigger">
-                        <span>🌡️ Drinkware</span> <span class="arrow-down">▾</span>
-                    </button>
-                    <div class="subnav-mega-menu">
-                        <div class="mega-menu-header">
-                            <span class="mega-menu-title">🌡️ Smart Temperature Bottles & Flasks</span>
-                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('bottles')">View All Bottles ➔</a>
-                        </div>
-                        <div class="mega-menu-grid">
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-bottle-led-smart')">
-                                <img src="assets/products/product_7.jpg" alt="Smart Temp Bottle" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Smart LED Temp Bottle (500ml)</div>
-                                    <div class="mega-product-price">₹299 <span class="mega-product-strike">₹499</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('retro-vinyl')">
+                                <span class="mega-cat-icon">🌟</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Retro Vinyl</div>
+                                    <div class="mega-cat-sub">Safety & Directional Reflective Stickers</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-bottle-vacuum-flask')">
-                                <img src="assets/products/product_9.jpg" alt="Matte Vacuum Flask" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Matte Vacuum Insulated Flask</div>
-                                    <div class="mega-product-price">₹349 <span class="mega-product-strike">₹550</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('tramilite')">
+                                <span class="mega-cat-icon">💡</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Tramilite</div>
+                                    <div class="mega-cat-sub">Diffused Lightbox Glow Media</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-bottle-bamboo-steel')">
-                                <img src="assets/products/product_11.jpg" alt="Bamboo Steel Bottle" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Bamboo Eco Stainless Bottle</div>
-                                    <div class="mega-product-price">₹389 <span class="mega-product-strike">₹599</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('3h-vinyl')">
+                                <span class="mega-cat-icon">🛡️</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">3H Vinyl</div>
+                                    <div class="mega-cat-sub">Scratch-Resistant Ultra Gloss Vinyl</div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- KEYCHAINS DROPDOWN -->
-                <div class="subnav-dropdown">
-                    <button type="button" class="subnav-dropdown-trigger">
-                        <span>🔑 Keychains</span> <span class="arrow-down">▾</span>
-                    </button>
-                    <div class="subnav-mega-menu">
-                        <div class="mega-menu-header">
-                            <span class="mega-menu-title">🔑 Laser Engraved Metal Keychains</span>
-                            <a href="#featured-products" class="mega-menu-view-all" onclick="filterLiveCategory('keychains')">View All Keychains ➔</a>
-                        </div>
-                        <div class="mega-menu-grid">
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-house')">
-                                <img src="assets/products/product_36.jpg" alt="House Keychain" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">House Shape Metal Keychain</div>
-                                    <div class="mega-product-price">₹99 <span class="mega-product-strike">₹160</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('frosted-film')">
+                                <span class="mega-cat-icon">❄️</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Frosted Film</div>
+                                    <div class="mega-cat-sub">Architectural Glass Privacy Film</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-round')">
-                                <img src="assets/products/product_38.jpg" alt="Round Keychain" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Round Metal Medallion Keychain</div>
-                                    <div class="mega-product-price">₹89 <span class="mega-product-strike">₹149</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('canvas-matt')">
+                                <span class="mega-cat-icon">🎨</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Canvas Matt</div>
+                                    <div class="mega-cat-sub">Museum Textured Cotton Canvas</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-capsule')">
-                                <img src="assets/products/product_40.jpg" alt="Capsule Keychain" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Capsule Metal Keychain</div>
-                                    <div class="mega-product-price">₹99 <span class="mega-product-strike">₹169</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('canvas-gloss')">
+                                <span class="mega-cat-icon">✨</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Canvas Gloss</div>
+                                    <div class="mega-cat-sub">Vibrant Art Reproduction Lustre Canvas</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-carabiner')">
-                                <img src="assets/products/product_42.jpg" alt="Carabiner Keychain" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Carabiner Dual Ring Keychain</div>
-                                    <div class="mega-product-price">₹129 <span class="mega-product-strike">₹210</span></div>
+                            </a>
+                            <a href="#featured-products" class="mega-cat-link-card" onclick="filterLiveCategory('backlit-flex')">
+                                <span class="mega-cat-icon">💡</span>
+                                <div class="mega-cat-info">
+                                    <div class="mega-cat-name">Backlit Flex</div>
+                                    <div class="mega-cat-sub">Uniform Glow Translucent Glow Signs</div>
                                 </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-leather')">
-                                <img src="assets/products/product_44.jpg" alt="Leather Keychain" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Premium PU Leather Keychain</div>
-                                    <div class="mega-product-price">₹119 <span class="mega-product-strike">₹199</span></div>
-                                </div>
-                            </div>
-                            <div class="mega-product-item" onclick="openProductDetailModal('prod-keychain-opener')">
-                                <img src="assets/products/product_46.jpg" alt="Bottle Opener Keychain" class="mega-product-thumb">
-                                <div class="mega-product-meta">
-                                    <div class="mega-product-name">Carabiner Bottle Opener Keychain</div>
-                                    <div class="mega-product-price">₹139 <span class="mega-product-strike">₹220</span></div>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <a href="#corporate-gifting" class="subnav-link subnav-bulk-pill"><span>🏢 Corporate Hampers (Bulk RFQ)</span></a>
                 <a href="#services" class="subnav-link subnav-agency-pill"><span>🚀 Digital Marketing Agency</span></a>
-                <a href="admin.html" class="subnav-link" style="color: #ffd814; font-weight: 800; background: rgba(255, 216, 20, 0.15); border: 1px solid rgba(255, 216, 20, 0.4); border-radius: 4px; padding: 4px 10px;"><span>📊 Admin Panel (Products, Stock & Analytics)</span></a>
             </div>
         </div>
-    </header>
     </header>
 
     <!-- Mobile Navigation Drawer -->
     <div class="mobile-nav-drawer" id="mobile-drawer">
         <nav class="mobile-nav-links">
             <a href="#home" class="mobile-link active">🏠 Home</a>
-            <a href="admin.html" class="mobile-link" style="color: #ffd814; font-weight: 800; background: rgba(255,216,20,0.12); border-left: 3px solid #ffd814;">🔐 Seller Admin Panel (Store Manager)</a>
+            
             <a href="#featured-products" class="mobile-link" style="color: #ff9900; font-weight: 700;">🎁 Shop Products (E-Commerce Store)</a>
             <a href="#bestsellers-new" class="mobile-link">🔥 Best Sellers & New Arrivals</a>
             <a href="#corporate-gifting" class="mobile-link">🏢 Corporate & Bulk Gifting RFQ</a>
@@ -545,17 +568,37 @@
                                 <div class="app-cat-circle">🌟</div>
                                 <span class="app-cat-name">All Items</span>
                             </button>
-                            <button class="app-cat-item" data-story-cat="mugs">
-                                <div class="app-cat-circle">☕</div>
-                                <span class="app-cat-name">Mugs</span>
+                            <button class="app-cat-item" data-story-cat="corporate-gifting">
+                                <div class="app-cat-circle">🎁</div>
+                                <span class="app-cat-name">Corporate Gifting</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="printing-solutions">
+                                <div class="app-cat-circle">🖨️</div>
+                                <span class="app-cat-name">Printing</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="signage-printing">
+                                <div class="app-cat-circle">🏢</div>
+                                <span class="app-cat-name">Signage</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="visiting-cards">
+                                <div class="app-cat-circle">📇</div>
+                                <span class="app-cat-name">Visiting Cards</span>
                             </button>
                             <button class="app-cat-item" data-story-cat="pens">
                                 <div class="app-cat-circle">🖊️</div>
                                 <span class="app-cat-name">Metal Pens</span>
                             </button>
-                            <button class="app-cat-item" data-story-cat="cardholders">
-                                <div class="app-cat-circle">💳</div>
-                                <span class="app-cat-name">Card Holders</span>
+                            <button class="app-cat-item" data-story-cat="mugs">
+                                <div class="app-cat-circle">☕</div>
+                                <span class="app-cat-name">Mugs</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="id-cards">
+                                <div class="app-cat-circle">🪪</div>
+                                <span class="app-cat-name">ID & Lanyards</span>
+                            </button>
+                            <button class="app-cat-item" data-story-cat="vinyl-printing">
+                                <div class="app-cat-circle">🟦</div>
+                                <span class="app-cat-name">Vinyl & Sunboard</span>
                             </button>
                             <button class="app-cat-item" data-story-cat="diaries">
                                 <div class="app-cat-circle">📓</div>
@@ -569,23 +612,23 @@
                                 <div class="app-cat-circle">🔑</div>
                                 <span class="app-cat-name">Keychains</span>
                             </button>
-                            <button class="app-cat-item" data-story-cat="mousepads">
-                                <div class="app-cat-circle">🖱️</div>
-                                <span class="app-cat-name">Mousepads</span>
-                            </button>
                         </div>
                     </div>
 
                     <!-- Quick Category Pills -->
                     <div class="store-filter-bar" id="home-store-filters">
-                        <button class="store-filter-btn active" data-home-cat="all">🌟 All Bestsellers</button>
-                        <button class="store-filter-btn" data-home-cat="mugs">☕ Mugs (from ₹199)</button>
-                        <button class="store-filter-btn" data-home-cat="pens">🖊️ Metal Pens (from ₹90)</button>
-                        <button class="store-filter-btn" data-home-cat="cardholders">💳 Card Holders (₹149)</button>
-                        <button class="store-filter-btn" data-home-cat="diaries">📓 Diaries (from ₹279)</button>
-                        <button class="store-filter-btn" data-home-cat="drinkware">🍶 Smart Drinkware (from ₹299)</button>
-                        <button class="store-filter-btn" data-home-cat="keychains">🔑 Keychains (from ₹89)</button>
-                        <button class="store-filter-btn" data-home-cat="mousepads">🖱️ Mousepads (₹99)</button>
+                        <button class="store-filter-btn active" data-home-cat="all">🌟 All Items</button>
+                        <button class="store-filter-btn" data-home-cat="corporate-gifting">🎁 Corporate Gifting</button>
+                        <button class="store-filter-btn" data-home-cat="printing-solutions">🖨️ Printing Solutions</button>
+                        <button class="store-filter-btn" data-home-cat="signage-printing">🏢 Signage Printing</button>
+                        <button class="store-filter-btn" data-home-cat="visiting-cards">📇 Visiting Cards</button>
+                        <button class="store-filter-btn" data-home-cat="pens">🖊️ Metal Pens</button>
+                        <button class="store-filter-btn" data-home-cat="mugs">☕ Mugs</button>
+                        <button class="store-filter-btn" data-home-cat="id-cards">🪪 ID Cards</button>
+                        <button class="store-filter-btn" data-home-cat="stickers-labels">🏷️ Stickers & Labels</button>
+                        <button class="store-filter-btn" data-home-cat="flex-printing">🚩 Flex Printing</button>
+                        <button class="store-filter-btn" data-home-cat="vinyl-printing">🟦 Vinyl Printing</button>
+                        <button class="store-filter-btn" data-home-cat="diaries">📓 Diaries</button>
                     </div>
 
                     <!-- Product Grid (Top Trending Showcase) -->
@@ -1690,9 +1733,14 @@
                         </div>
                     </div>
                     <div class="corp-form-field corp-form-full">
-                        <button type="submit" class="btn-checkout-trigger" id="btn-submit-order" style="font-size: 15px;">
-                            <span>Confirm Order & Connect on WhatsApp 💬</span>
-                        </button>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <button type="button" class="btn-checkout-trigger" id="btn-pay-razorpay" style="font-size: 15px; background: linear-gradient(135deg, #0b5fff, #002970); color: #fff; border: none; font-weight: 800; border-radius: 8px; padding: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(11,95,255,0.35);">
+                                <span>💳 Pay Online with Razorpay (UPI, GPay, Card, NetBanking)</span>
+                            </button>
+                            <button type="submit" class="btn-checkout-trigger" id="btn-submit-order" style="font-size: 14px; background: #25D366; color: #fff;">
+                                <span>Confirm Order & Connect on WhatsApp 💬</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -1823,6 +1871,12 @@
                             Classic design, everyday performance. Premium metal body with smooth click action. Permanent & elegant laser engraved brand or name.
                         </p>
 
+                        <div id="pdp-video-box" style="display: none; margin: 10px 0 6px;">
+                            <a id="pdp-video-btn" href="#" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: #e02424; color: #fff; font-size: 12.5px; font-weight: 700; border-radius: 6px; text-decoration: none; box-shadow: 0 2px 8px rgba(224, 36, 36, 0.3);">
+                                <span>▶️ Watch Product Video / Reel Demo</span>
+                            </a>
+                        </div>
+
                         <!-- Personalization Input (Printvenue style) -->
                         <div class="pdp-personalize-box">
                             <label class="pdp-personalize-label">
@@ -1930,7 +1984,7 @@
                 <div class="footer-link-col"><h4 class="footer-heading">Digital Services</h4><ul class="footer-links"><li><a href="#services">Video Creation</a></li><li><a href="#services">Meta Ads</a></li><li><a href="#services">Website Design</a></li><li><a href="#services">GMB & SEO</a></li><li><a href="#services">Graphic Design</a></li><li><a href="#services">Social Media</a></li></ul></div>
                 <div class="footer-link-col"><h4 class="footer-heading">Gifting Store</h4><ul class="footer-links"><li><a href="store.html">🛍️ Online Store (All Items)</a></li><li><a href="store.html">Personalised Mugs</a></li><li><a href="store.html">Laser Metal Pens</a></li><li><a href="store.html">Smart Drinkware</a></li><li><a href="store.html">Executive Diaries</a></li><li><a href="store.html">Business Printing</a></li></ul></div>
                 <div class="footer-link-col"><h4 class="footer-heading">Agency & Legal</h4><ul class="footer-links"><li><a href="#pricing">Agency Packages</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms & Conditions</a></li><li><a href="refund.html">Refund & Reprint Policy</a></li><li><a href="#presence">Jaipur & Ludhiana Offices</a></li>
-                        <li><a href="admin.html" style="color: #ff9900; font-weight: 700;">🔐 Admin Seller Dashboard</a></li></ul></div>
+                        <li><a href="#contact">Jaipur HQ & Support</a></li></ul></div>
             </div>
         </div>
         <div class="footer-bottom"><div class="container footer-bottom-container"><p class="copyright-txt">© 2026 Design Suvidha (UDYAM-RJ-17-0675057). All rights reserved.</p><div class="footer-socials"><a href="https://wa.me/918739904737" target="_blank" class="social-icon">WA</a><a href="https://designsuvidha.com/store" class="social-icon">STORE</a></div></div></div>
@@ -1980,6 +2034,7 @@
         </a>
     </nav>
 
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

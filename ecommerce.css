@@ -3154,6 +3154,42 @@ body {
     gap: 10px;
 }
 
+/* Wide Mega Menu for Printing Solutions & Signage Printing */
+.subnav-mega-menu-wide {
+    min-width: 760px;
+    max-width: 920px;
+    left: -120px;
+}
+
+.subnav-mega-menu-wide .mega-menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-height: 440px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.subnav-mega-menu-wide .mega-menu-grid::-webkit-scrollbar {
+    width: 5px;
+}
+
+.subnav-mega-menu-wide .mega-menu-grid::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.mega-product-thumb-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
 .mega-product-item {
     display: flex;
     align-items: center;

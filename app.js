@@ -347,7 +347,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Filter cards
         document.querySelectorAll('#home-product-grid .product-card').forEach(card => {
             const cardCat = card.getAttribute('data-cat');
-            if (selectedCat === 'all' || cardCat === selectedCat) {
+            const cardGroup = card.getAttribute('data-group');
+            if (selectedCat === 'all' || cardCat === selectedCat || cardGroup === selectedCat) {
                 card.style.display = 'flex';
                 card.style.animation = 'fadeInUp 0.35s ease forwards';
             } else {
@@ -513,13 +514,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ================================================// ============================================================
     // DYNAMIC PRODUCTS LOADER (Google Drive Catalog + Admin Sync)
     // ============================================================
-    const CURRENT_CATALOG_VERSION = 'ds_v3_accurate_drive_catalog';
+    const CURRENT_CATALOG_VERSION = 'ds_v4_all_categories';
 
     const DEFAULT_STORE_PRODUCTS = [
     {
         "id": "prod-mug-morning",
+        "sku": "DS-MUG-101",
+        "stock": 50,
         "title": "Morning Ceramic Mug – 330 ml",
         "category": "mugs",
+        "group": "corporate-gifting",
         "catLabel": "Personalised Mug",
         "price": 199,
         "strike": 299,
@@ -534,8 +538,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-mug-inner-color",
+        "sku": "DS-MUG-102",
+        "stock": 45,
         "title": "Choose Your Color Inner Mug – 330 ml",
         "category": "mugs",
+        "group": "corporate-gifting",
         "catLabel": "Personalised Mug",
         "price": 230,
         "strike": 340,
@@ -550,8 +557,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-mug-heartbeat",
+        "sku": "DS-MUG-103",
+        "stock": 30,
         "title": "Heartbeat Mug – 330 ml (Heart-Shaped Handle)",
         "category": "mugs",
+        "group": "corporate-gifting",
         "catLabel": "Personalised Mug",
         "price": 249,
         "strike": 380,
@@ -566,8 +576,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-mug-mini-chai",
+        "sku": "DS-MUG-104",
+        "stock": 60,
         "title": "Mini Ceramic Chai Mug – 190 ml",
         "category": "mugs",
+        "group": "corporate-gifting",
         "catLabel": "Personalised Mug",
         "price": 199,
         "strike": 280,
@@ -582,8 +595,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-cardholder-solid",
+        "sku": "DS-CRD-105",
+        "stock": 40,
         "title": "Solid Series Card Holder",
         "category": "cardholders",
+        "group": "corporate-gifting",
         "catLabel": "Card Holder",
         "price": 149,
         "strike": 249,
@@ -598,8 +614,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-cardholder-signature",
+        "sku": "DS-CRD-106",
+        "stock": 35,
         "title": "Signature Pattern Card Holder",
         "category": "cardholders",
+        "group": "corporate-gifting",
         "catLabel": "Card Holder",
         "price": 179,
         "strike": 299,
@@ -614,8 +633,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-cardholder-commander",
+        "sku": "DS-CRD-107",
+        "stock": 25,
         "title": "Commander Edition Card Holder",
         "category": "cardholders",
+        "group": "corporate-gifting",
         "catLabel": "Card Holder",
         "price": 189,
         "strike": 299,
@@ -630,8 +652,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-cardholder-goldaccent",
+        "sku": "DS-CRD-108",
+        "stock": 50,
         "title": "Gold Accent Card Holder",
         "category": "cardholders",
+        "group": "corporate-gifting",
         "catLabel": "Card Holder",
         "price": 199,
         "strike": 320,
@@ -646,8 +671,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-cardholder-magnetic",
+        "sku": "DS-CRD-109",
+        "stock": 35,
         "title": "NextGen Magnetic Visiting Card Case",
         "category": "cardholders",
+        "group": "corporate-gifting",
         "catLabel": "Card Holder",
         "price": 229,
         "strike": 350,
@@ -662,8 +690,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-pen-click",
+        "sku": "DS-PEN-110",
+        "stock": 120,
         "title": "Classic Metal Click Pen",
         "category": "pens",
+        "group": "corporate-gifting",
         "catLabel": "Branded Metal Pen",
         "price": 90,
         "strike": 150,
@@ -678,8 +709,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-pen-box",
+        "sku": "DS-BOX-111",
+        "stock": 80,
         "title": "Plastic Pen Presentation Box",
         "category": "pens",
+        "group": "corporate-gifting",
         "catLabel": "Pen Gift Box",
         "price": 45,
         "strike": 80,
@@ -694,8 +728,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-pen-magnetic-gel",
+        "sku": "DS-PEN-112",
+        "stock": 40,
         "title": "Premium Magnetic Gel Metal Pen",
         "category": "pens",
+        "group": "corporate-gifting",
         "catLabel": "Branded Metal Pen",
         "price": 199,
         "strike": 299,
@@ -710,8 +747,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-pen-black-twist",
+        "sku": "DS-PEN-113",
+        "stock": 55,
         "title": "Premium Black Metal Pen (Twist Action)",
         "category": "pens",
+        "group": "corporate-gifting",
         "catLabel": "Branded Metal Pen",
         "price": 229,
         "strike": 350,
@@ -726,8 +766,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-pen-textured-grip",
+        "sku": "DS-PEN-114",
+        "stock": 45,
         "title": "Premium Textured Grip Metal Pen",
         "category": "pens",
+        "group": "corporate-gifting",
         "catLabel": "Branded Metal Pen",
         "price": 199,
         "strike": 300,
@@ -742,8 +785,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-pen-gold-accent",
+        "sku": "DS-PEN-115",
+        "stock": 50,
         "title": "Premium Gold Accent Metal Pen",
         "category": "pens",
+        "group": "corporate-gifting",
         "catLabel": "Branded Metal Pen",
         "price": 249,
         "strike": 399,
@@ -758,8 +804,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-keychain-oval",
+        "sku": "DS-KEY-116",
+        "stock": 90,
         "title": "Silver Oval Metal Keychain",
         "category": "keychains",
+        "group": "corporate-gifting",
         "catLabel": "Custom Keychain",
         "price": 89,
         "strike": 149,
@@ -774,8 +823,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-keychain-house",
+        "sku": "DS-KEY-117",
+        "stock": 75,
         "title": "House Shape Metal Keychain",
         "category": "keychains",
+        "group": "corporate-gifting",
         "catLabel": "Custom Keychain",
         "price": 99,
         "strike": 160,
@@ -790,8 +842,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-keychain-round",
+        "sku": "DS-KEY-118",
+        "stock": 85,
         "title": "Round Metal Keychain",
         "category": "keychains",
+        "group": "corporate-gifting",
         "catLabel": "Custom Keychain",
         "price": 89,
         "strike": 149,
@@ -806,8 +861,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-keychain-capsule",
+        "sku": "DS-KEY-119",
+        "stock": 65,
         "title": "Capsule Metal Keychain",
         "category": "keychains",
+        "group": "corporate-gifting",
         "catLabel": "Custom Keychain",
         "price": 99,
         "strike": 169,
@@ -822,8 +880,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-keychain-carabiner",
+        "sku": "DS-KEY-120",
+        "stock": 60,
         "title": "Carabiner Dual Ring Keychain",
         "category": "keychains",
+        "group": "corporate-gifting",
         "catLabel": "Custom Keychain",
         "price": 129,
         "strike": 210,
@@ -838,8 +899,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-keychain-leather",
+        "sku": "DS-KEY-121",
+        "stock": 50,
         "title": "Premium PU Leather Keychain",
         "category": "keychains",
+        "group": "corporate-gifting",
         "catLabel": "Custom Keychain",
         "price": 119,
         "strike": 199,
@@ -854,8 +918,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-keychain-opener",
+        "sku": "DS-KEY-122",
+        "stock": 70,
         "title": "Carabiner Bottle Opener Keychain",
         "category": "keychains",
+        "group": "corporate-gifting",
         "catLabel": "Custom Keychain",
         "price": 139,
         "strike": 220,
@@ -870,8 +937,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-diary-magnetic",
+        "sku": "DS-DIR-123",
+        "stock": 40,
         "title": "Magnetic Lock Executive Diary",
         "category": "diaries",
+        "group": "corporate-gifting",
         "catLabel": "Executive Diary",
         "price": 299,
         "strike": 450,
@@ -886,8 +956,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-diary-color-reveal",
+        "sku": "DS-DIR-124",
+        "stock": 35,
         "title": "Color Reveal Executive Diary (A5)",
         "category": "diaries",
+        "group": "corporate-gifting",
         "catLabel": "Executive Diary",
         "price": 279,
         "strike": 399,
@@ -902,8 +975,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-diary-roundlock",
+        "sku": "DS-DIR-125",
+        "stock": 25,
         "title": "Royal Round Lock Executive Diary",
         "category": "diaries",
+        "group": "corporate-gifting",
         "catLabel": "Executive Diary",
         "price": 329,
         "strike": 499,
@@ -918,8 +994,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-diary-gold-border",
+        "sku": "DS-DIR-126",
+        "stock": 30,
         "title": "Gold Double-Border Executive Diary",
         "category": "diaries",
+        "group": "corporate-gifting",
         "catLabel": "Executive Diary",
         "price": 349,
         "strike": 520,
@@ -934,9 +1013,12 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-mousepad-desk",
+        "sku": "DS-PAD-127",
+        "stock": 80,
         "title": "Non-Slip Custom Mouse Pad (7x9.5\")",
         "category": "mousepads",
-        "catLabel": "Office Accessory",
+        "group": "corporate-gifting",
+        "catLabel": "Custom Mousepad",
         "price": 99,
         "strike": 199,
         "badge": "Best Value 🖱️",
@@ -950,8 +1032,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-bottle-temperature",
+        "sku": "DS-BOT-128",
+        "stock": 45,
         "title": "Smart LED Temperature Bottle – 500 ml",
         "category": "drinkware",
+        "group": "corporate-gifting",
         "catLabel": "Smart Drinkware",
         "price": 299,
         "strike": 499,
@@ -966,8 +1051,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-bottle-rope",
+        "sku": "DS-BOT-129",
+        "stock": 40,
         "title": "Vacuum Bottle with Carry Rope – 500 ml",
         "category": "drinkware",
+        "group": "corporate-gifting",
         "catLabel": "Smart Drinkware",
         "price": 349,
         "strike": 550,
@@ -982,8 +1070,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-bottle-matte-black",
-        "title": "Matte Black Vacuum Bottle – 500 ml",
+        "sku": "DS-BOT-130",
+        "stock": 35,
+        "title": "Matte Black Slim Vacuum Bottle – 500 ml",
         "category": "drinkware",
+        "group": "corporate-gifting",
         "catLabel": "Smart Drinkware",
         "price": 449,
         "strike": 680,
@@ -998,8 +1089,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "id": "prod-tumbler-straw",
+        "sku": "DS-BOT-131",
+        "stock": 30,
         "title": "Vacuum Tumbler with Straw – 900 ml",
         "category": "drinkware",
+        "group": "corporate-gifting",
         "catLabel": "Smart Drinkware",
         "price": 549,
         "strike": 850,
@@ -1010,6 +1104,538 @@ document.addEventListener('DOMContentLoaded', () => {
             "Massive 900 ml Hydration Capacity",
             "18/8 Stainless Steel Double-Wall Vacuum",
             "Reusable Straw & Ergonomic Carry Handle"
+        ]
+    },
+    {
+        "id": "prod-print-visiting-cards",
+        "sku": "DS-PRN-201",
+        "stock": 100,
+        "title": "Premium Matte Visiting Cards (Pack of 100)",
+        "category": "visiting-cards",
+        "group": "printing-solutions",
+        "catLabel": "Visiting Cards",
+        "price": 199,
+        "strike": 350,
+        "badge": "Top Seller 📇",
+        "img": "assets/products/printing/visiting_cards.svg",
+        "desc": "Premium 350 GSM matte laminated business cards with sharp digital offset print. Available in Single and Double side printing.",
+        "features": [
+            "350 GSM Heavy Art Card Stock",
+            "Velvet Smooth Thermal Matte Lamination",
+            "Standard 3.5 x 2.0 Inch Precision Cut"
+        ]
+    },
+    {
+        "id": "prod-print-flyers",
+        "sku": "DS-PRN-202",
+        "stock": 75,
+        "title": "A5 Glossy Promotional Flyers & Pamphlets",
+        "category": "pamphlets-flyers",
+        "group": "printing-solutions",
+        "catLabel": "Pamphlets & Flyers",
+        "price": 349,
+        "strike": 599,
+        "badge": "High Impact 📄",
+        "img": "assets/products/printing/pamphlets_flyers.svg",
+        "desc": "130 GSM high-gloss art paper flyers ideal for marketing campaigns, store launches, events, and leaflet distributions.",
+        "features": [
+            "130/170 GSM Vibrant Gloss Art Paper",
+            "A5 Size (148 x 210 mm) Full Color",
+            "Fast 24-48 Hour Turnaround Dispatch"
+        ]
+    },
+    {
+        "id": "prod-print-posters",
+        "sku": "DS-PRN-203",
+        "stock": 60,
+        "title": "Custom Commercial Matte Posters (12x18\")",
+        "category": "posters",
+        "group": "printing-solutions",
+        "catLabel": "Custom Posters",
+        "price": 99,
+        "strike": 180,
+        "badge": "HD Quality 🖼️",
+        "img": "assets/products/printing/posters.svg",
+        "desc": "300 GSM photo quality digital poster print. Perfect for showrooms, retail stores, cafes, events, and motivational wall decor.",
+        "features": [
+            "300 GSM Thick Heavy Photo Card",
+            "12 x 18 Inch Full Bleed Edge Print",
+            "Rich Saturation & High Contrast Pigments"
+        ]
+    },
+    {
+        "id": "prod-print-letterheads",
+        "sku": "DS-PRN-204",
+        "stock": 50,
+        "title": "Executive Bond Letter Heads (100 GSM)",
+        "category": "letterheads",
+        "group": "printing-solutions",
+        "catLabel": "Letter Heads",
+        "price": 399,
+        "strike": 650,
+        "badge": "Official Stationery ✉️",
+        "img": "assets/products/printing/letterheads.svg",
+        "desc": "Premium 100 GSM super royal executive bond paper. Printer friendly for both Laser & Inkjet office printing.",
+        "features": [
+            "100 GSM Super White Bond Paper",
+            "Standard A4 Size (210 x 297 mm)",
+            "Sharp Crisp Logo & Watermark Printing"
+        ]
+    },
+    {
+        "id": "prod-print-invoice-paper",
+        "sku": "DS-PRN-205",
+        "stock": 40,
+        "title": "Continuous Computer Invoice Paper (1-Part / 2-Part)",
+        "category": "invoice-paper",
+        "group": "printing-solutions",
+        "catLabel": "Invoice Paper",
+        "price": 499,
+        "strike": 750,
+        "badge": "GST Ready 📑",
+        "img": "assets/products/printing/invoice_paper.svg",
+        "desc": "Continuous sprocket feed computer stationary for dot matrix printers. Clean perforation and jam-free operation.",
+        "features": [
+            "Single & Multi-Part Carbonless Options",
+            "Standard 10x12 / 15x12 Inch Dimensions",
+            "Clean Edge Perforated Margins"
+        ]
+    },
+    {
+        "id": "prod-print-envelopes",
+        "sku": "DS-PRN-206",
+        "stock": 80,
+        "title": "Custom Printed Business Envelopes (Pack of 100)",
+        "category": "envelopes",
+        "group": "printing-solutions",
+        "catLabel": "Custom Envelopes",
+        "price": 349,
+        "strike": 500,
+        "badge": "Brand Identity ✉️",
+        "img": "assets/products/printing/envelopes.svg",
+        "desc": "Custom printed corporate envelopes available in 9.5x4.5 inch (DL) and A4 document size with adhesive peel & seal strip.",
+        "features": [
+            "100 GSM High Quality Paper Stock",
+            "Available in Window & Non-Window",
+            "Peel & Seal Ultra Strong Adhesive Flap"
+        ]
+    },
+    {
+        "id": "prod-print-medical-files",
+        "sku": "DS-PRN-207",
+        "stock": 50,
+        "title": "Hospital & Clinic Patient Record Files",
+        "category": "medical-files",
+        "group": "printing-solutions",
+        "catLabel": "Medical Files",
+        "price": 299,
+        "strike": 480,
+        "badge": "Healthcare Spec 📁",
+        "img": "assets/products/printing/medical_files.svg",
+        "desc": "Heavy duty 350 GSM laminated hospital patient folders with metal cobra clip. Keeps prescriptions and reports organized.",
+        "features": [
+            "350 GSM Heavy Board with Gloss Lamination",
+            "Fitted with Heavy Duty Metal Cobra Clip",
+            "Custom Department & Hospital Branding"
+        ]
+    },
+    {
+        "id": "prod-print-stickers",
+        "sku": "DS-PRN-208",
+        "stock": 120,
+        "title": "Custom Waterproof Die-Cut Vinyl Stickers",
+        "category": "stickers-labels",
+        "group": "printing-solutions",
+        "catLabel": "Stickers & Labels",
+        "price": 149,
+        "strike": 250,
+        "badge": "Waterproof 🏷️",
+        "img": "assets/products/printing/stickers_labels.svg",
+        "desc": "Full color die-cut adhesive vinyl stickers and product packaging labels. Tear-proof, oil-proof, and weather resistant.",
+        "features": [
+            "100% Waterproof Synthetic Vinyl Material",
+            "Precision Die-Cut in Any Custom Shape",
+            "Strong Permanent Adhesive Backing"
+        ]
+    },
+    {
+        "id": "prod-print-invoice-books",
+        "sku": "DS-PRN-209",
+        "stock": 60,
+        "title": "Carbonless Duplicate Invoice Bill Books (100 Sets)",
+        "category": "invoice-books",
+        "group": "printing-solutions",
+        "catLabel": "Invoice Bill Books",
+        "price": 229,
+        "strike": 380,
+        "badge": "Carbonless 📖",
+        "img": "assets/products/printing/invoice_books.svg",
+        "desc": "Self-copying NCR paper bill books with sequential serial numbering and hardboard binding with wrap-around shield.",
+        "features": [
+            "100 Sets Duplicate / Triplicate NCR Paper",
+            "Sequential Serial Numbering Included",
+            "Sturdy Stitch Binding with Perforation"
+        ]
+    },
+    {
+        "id": "prod-print-tags",
+        "sku": "DS-PRN-210",
+        "stock": 90,
+        "title": "Garment & Product Price Hang Tags (Pack of 100)",
+        "category": "tags",
+        "group": "printing-solutions",
+        "catLabel": "Custom Tags",
+        "price": 179,
+        "strike": 299,
+        "badge": "Die-Cut 🏷️",
+        "img": "assets/products/printing/tags.svg",
+        "desc": "High GSM cardstock product hang tags with eyelet hole punch. Perfect for apparel brands, luggage, and artisan gifts.",
+        "features": [
+            "350 GSM Rigid Matt Finished Cardstock",
+            "Pre-Punched 4mm Center String Hole",
+            "Front & Back Full Color Offset Print"
+        ]
+    },
+    {
+        "id": "prod-print-atm-patches",
+        "sku": "DS-PRN-211",
+        "stock": 110,
+        "title": "Protective ATM / Credit Card Skin Decals",
+        "category": "atm-patches",
+        "group": "printing-solutions",
+        "catLabel": "ATM Card Patches",
+        "price": 69,
+        "strike": 129,
+        "badge": "Trending 💳",
+        "img": "assets/products/printing/atm_patches.svg",
+        "desc": "Ultra-thin anti-scratch skin stickers tailored for chip and swipe cards without hindering ATM machine insertion.",
+        "features": [
+            "Ultra-Thin 80 Micron Anti-Scratch Vinyl",
+            "Precision Micro-Chip Window Cutout",
+            "Leaves Zero Sticky Residue on Removal"
+        ]
+    },
+    {
+        "id": "prod-print-shooting-targets",
+        "sku": "DS-PRN-212",
+        "stock": 45,
+        "title": "Precision Shooting Targets Scoring Sheets (50 Pcs)",
+        "category": "shooting-targets",
+        "group": "printing-solutions",
+        "catLabel": "Shooting Targets",
+        "price": 189,
+        "strike": 300,
+        "badge": "High Visibility 🎯",
+        "img": "assets/products/printing/shooting_targets.svg",
+        "desc": "High visibility circular bullseye and silhouette shooting target sheets for airgun, archery, and shooting training.",
+        "features": [
+            "High Contrast High-Visibility Scoring Rings",
+            "Clean Hole Puncturing Thick Paper",
+            "Available in 10x10 and 14x14 Inch Sizes"
+        ]
+    },
+    {
+        "id": "prod-print-id-cards",
+        "sku": "DS-PRN-213",
+        "stock": 150,
+        "title": "Custom Printed PVC Smart ID Cards",
+        "category": "id-cards",
+        "group": "printing-solutions",
+        "catLabel": "PVC ID Cards",
+        "price": 59,
+        "strike": 110,
+        "badge": "Durable PVC 🆔",
+        "img": "assets/products/printing/id_cards.svg",
+        "desc": "High-gloss thermal fused PVC cards for corporate employees, schools, and event visitors. Waterproof and fade-proof.",
+        "features": [
+            "CR80 Standard Credit-Card Size (0.76 mm)",
+            "Thermal Fused Waterproof Non-Fading Color",
+            "Optional Barcode / QR Code Integration"
+        ]
+    },
+    {
+        "id": "prod-print-lanyards",
+        "sku": "DS-PRN-214",
+        "stock": 130,
+        "title": "Sublimation Printed Satin Lanyards (20mm)",
+        "category": "lanyards",
+        "group": "printing-solutions",
+        "catLabel": "Printed Lanyards",
+        "price": 45,
+        "strike": 85,
+        "badge": "Satin Finish 🎗️",
+        "img": "assets/products/printing/lanyards.svg",
+        "desc": "Full color all-over digital sublimation printed neck lanyards equipped with heavy-duty metal dog hook and safety release.",
+        "features": [
+            "20mm Silky Soft Heavy Satin Ribbon",
+            "Double-Sided Vibrant Sublimation Branding",
+            "Heavy-Duty Metal Swivel Dog Hook"
+        ]
+    },
+    {
+        "id": "prod-print-id-holder",
+        "sku": "DS-PRN-215",
+        "stock": 140,
+        "title": "Hard Acrylic & Plastic ID Card Holders",
+        "category": "id-card-holder",
+        "group": "printing-solutions",
+        "catLabel": "ID Card Holder",
+        "price": 25,
+        "strike": 50,
+        "badge": "Crystal Clear 🪪",
+        "img": "assets/products/printing/id_card_holder.svg",
+        "desc": "Crystal clear transparent protective case for standard ID badges. Protects against dust, moisture, and bending.",
+        "features": [
+            "Crystal Clear Rigid Acrylic Casing",
+            "Dual Orientation: Vertical & Horizontal",
+            "Universal Slot Compatible with All Lanyards"
+        ]
+    },
+    {
+        "id": "prod-sign-vinyl",
+        "sku": "DS-SGN-301",
+        "stock": 50,
+        "title": "Eco-Solvent High-Res Self Adhesive Vinyl Print",
+        "category": "vinyl-printing",
+        "group": "signage-printing",
+        "catLabel": "Vinyl Printing",
+        "price": 35,
+        "strike": 60,
+        "badge": "High-Res 🎨",
+        "img": "assets/products/signage/vinyl_printing.svg",
+        "desc": "High-resolution 1440 DPI eco-solvent self-adhesive vinyl printing for indoor displays, vehicle branding, and posters.",
+        "features": [
+            "1440 DPI Ultra High Definition Print",
+            "Weatherproof & UV Sunlight Resistant",
+            "Strong Self-Adhesive Backing"
+        ]
+    },
+    {
+        "id": "prod-sign-flex",
+        "sku": "DS-SGN-302",
+        "stock": 80,
+        "title": "Star Heavy Duty Flex Banner Printing (Per Sq Ft)",
+        "category": "flex-printing",
+        "group": "signage-printing",
+        "catLabel": "Flex Printing",
+        "price": 15,
+        "strike": 28,
+        "badge": "Outdoor Tough 📢",
+        "img": "assets/products/signage/flex_printing.svg",
+        "desc": "Durable Star Media heavy frontlit flex for outdoor road hoardings, shopfront banners, and event backdrops.",
+        "features": [
+            "Heavy Duty Tear-Resistant PVC Fabric",
+            "Vibrant Weather-Proof Solvent Inks",
+            "Free Eyelet Rings & Margin Reinforcement"
+        ]
+    },
+    {
+        "id": "prod-sign-one-way-vision",
+        "sku": "DS-SGN-303",
+        "stock": 40,
+        "title": "Perforated One-Way Vision Glass Film (Per Sq Ft)",
+        "category": "one-way-vision",
+        "group": "signage-printing",
+        "catLabel": "One-way Vision",
+        "price": 75,
+        "strike": 120,
+        "badge": "Glass Branding 🪟",
+        "img": "assets/products/signage/one_way_vision.svg",
+        "desc": "Perforated micro-hole vinyl film for showroom windows and glass facades. Outside sees brand print, inside sees clear view.",
+        "features": [
+            "60/40 Perforation Micro-Pore Ratio",
+            "Total Daytime Privacy with Clear Inside Vision",
+            "Sun Protection & Heat Reduction"
+        ]
+    },
+    {
+        "id": "prod-sign-sunboard-3mm",
+        "sku": "DS-SGN-304",
+        "stock": 55,
+        "title": "Vinyl Mounted on Sunboard (3 MM) (Per Sq Ft)",
+        "category": "vinyl-sunboard-3mm",
+        "group": "signage-printing",
+        "catLabel": "Sunboard (3 MM)",
+        "price": 65,
+        "strike": 95,
+        "badge": "Rigid Display 📐",
+        "img": "assets/products/signage/sunboard_3mm.svg",
+        "desc": "High-res matte/gloss vinyl laminated and mounted on 3mm rigid PVC foam sunboard for wall branding, menu boards, and booths.",
+        "features": [
+            "High-Density 3 MM Lightweight Sunboard",
+            "Smooth Anti-Bubble Hydraulic Lamination",
+            "Easy Installation with Double-Sided Foam Tape"
+        ]
+    },
+    {
+        "id": "prod-sign-sunboard-5mm",
+        "sku": "DS-SGN-305",
+        "stock": 45,
+        "title": "Vinyl Mounted on Sunboard (5 MM) (Per Sq Ft)",
+        "category": "vinyl-sunboard-5mm",
+        "group": "signage-printing",
+        "catLabel": "Sunboard (5 MM)",
+        "price": 85,
+        "strike": 135,
+        "badge": "Heavy Duty 📏",
+        "img": "assets/products/signage/sunboard_5mm.svg",
+        "desc": "Heavy duty 5mm rigid sunboard sign with laminated protective vinyl for long lasting directional signs and commercial branding.",
+        "features": [
+            "Thick 5 MM Non-Bending Rigid Core",
+            "Scratch Resistant UV Matte Protective Film",
+            "Ideal for High-Traffic Commercial Spaces"
+        ]
+    },
+    {
+        "id": "prod-sign-retro-flex",
+        "sku": "DS-SGN-306",
+        "stock": 30,
+        "title": "High-Reflective Retro Night-Glow Flex (Per Sq Ft)",
+        "category": "retro-flex",
+        "group": "signage-printing",
+        "catLabel": "Retro Flex",
+        "price": 65,
+        "strike": 100,
+        "badge": "Night Glow 🌟",
+        "img": "assets/products/signage/retro_flex.svg",
+        "desc": "High-grade reflective flex fabric that glows brightly when illuminated by headlights. Essential for highway hoardings and toll roads.",
+        "features": [
+            "Micro-Prismatic Night Light Reflection",
+            "Exceptional Visibility up to 300+ Meters",
+            "Tough Heavy-Duty Weather Resistance"
+        ]
+    },
+    {
+        "id": "prod-sign-retro-vinyl",
+        "sku": "DS-SGN-307",
+        "stock": 35,
+        "title": "3M Grade Retro Reflective Vinyl Sheeting (Per Sq Ft)",
+        "category": "retro-vinyl",
+        "group": "signage-printing",
+        "catLabel": "Retro Vinyl",
+        "price": 110,
+        "strike": 175,
+        "badge": "Safety Grade 💡",
+        "img": "assets/products/signage/retro_vinyl.svg",
+        "desc": "Industrial grade retro reflective vinyl for safety signs, emergency signs, parking boards, and vehicle caution stickers.",
+        "features": [
+            "Certified High-Intensity Prismatic Reflection",
+            "Permanent Solvent-Based Acrylic Adhesive",
+            "7-Year Outdoor Durability Life"
+        ]
+    },
+    {
+        "id": "prod-sign-tramilite",
+        "sku": "DS-SGN-308",
+        "stock": 25,
+        "title": "Light-Diffusing Tramilite Translucent Print (Per Sq Ft)",
+        "category": "tramilite",
+        "group": "signage-printing",
+        "catLabel": "Tramilite",
+        "price": 95,
+        "strike": 150,
+        "badge": "Light Diffuser 💎",
+        "img": "assets/products/signage/tramilite.svg",
+        "desc": "Specialized optical light-diffusing translucent film for backlit lightboxes, slim LED frames, and premium indoor illumination.",
+        "features": [
+            "Superior Light Transmission & Color Uniformity",
+            "Prevents LED Hot-Spotting and Shadowing",
+            "Smooth High-Definition Surface Finish"
+        ]
+    },
+    {
+        "id": "prod-sign-3h-vinyl",
+        "sku": "DS-SGN-309",
+        "stock": 30,
+        "title": "Heavy Duty Scratch-Proof 3H Vinyl (Per Sq Ft)",
+        "category": "3h-vinyl",
+        "group": "signage-printing",
+        "catLabel": "3H Vinyl",
+        "price": 85,
+        "strike": 130,
+        "badge": "Scratch-Proof 🛡️",
+        "img": "assets/products/signage/3h_vinyl.svg",
+        "desc": "Hard-coated 3H pencil hardness scratch-resistant vinyl for floor graphics, industrial machines, and outdoor kiosks.",
+        "features": [
+            "3H Certified Hard-Coated Scratch Resistance",
+            "Ultra-Tack Industrial Solvent Adhesive",
+            "Resistant to Foot Traffic and Cleaning Chemicals"
+        ]
+    },
+    {
+        "id": "prod-sign-frosted-film",
+        "sku": "DS-SGN-310",
+        "stock": 40,
+        "title": "Privacy Dusted Crystal Frosted Window Film (Per Sq Ft)",
+        "category": "frosted-film",
+        "group": "signage-printing",
+        "catLabel": "Frosted Film",
+        "price": 60,
+        "strike": 95,
+        "badge": "Privacy Glass ❄️",
+        "img": "assets/products/signage/frosted_film.svg",
+        "desc": "Dusted crystal privacy film for office glass partitions, conference rooms, and shower cabins. Supports custom plotter logo cutting.",
+        "features": [
+            "Translucent Privacy with Natural Daylight Entry",
+            "Precision Plotter Cutting for Logos & Stripes",
+            "Bubble-Free Wet Application Vinyl"
+        ]
+    },
+    {
+        "id": "prod-sign-canvas-matt",
+        "sku": "DS-SGN-311",
+        "stock": 30,
+        "title": "Museum Quality Cotton Canvas Matt Art Print (Per Sq Ft)",
+        "category": "canvas-matt",
+        "group": "signage-printing",
+        "catLabel": "Canvas Matt",
+        "price": 120,
+        "strike": 195,
+        "badge": "Museum Quality 🖼️",
+        "img": "assets/products/signage/canvas_matt.svg",
+        "desc": "380 GSM heavyweight 100% cotton canvas with textured matte finish. Museum quality archival reproduction for fine art & photography.",
+        "features": [
+            "380 GSM Heavy Pure Cotton Textured Canvas",
+            "Zero Glare Non-Reflective Matt Surface",
+            "Archival Fade-Proof 100+ Year Inks"
+        ]
+    },
+    {
+        "id": "prod-sign-canvas-gloss",
+        "sku": "DS-SGN-312",
+        "stock": 30,
+        "title": "High-Vibrancy Photographic Canvas Gloss (Per Sq Ft)",
+        "category": "canvas-gloss",
+        "group": "signage-printing",
+        "catLabel": "Canvas Gloss",
+        "price": 135,
+        "strike": 220,
+        "badge": "Vibrant Art ✨",
+        "img": "assets/products/signage/canvas_gloss.svg",
+        "desc": "High-gloss top-coated canvas creating deep blacks and rich vibrant colors. Ready for wooden gallery wrap framing.",
+        "features": [
+            "High Gloss Protective Varnish Topcoat",
+            "Deep Color Depth & High Dynamic Range",
+            "Stretchable Without Cracking or Flaking"
+        ]
+    },
+    {
+        "id": "prod-sign-backlit-flex",
+        "sku": "DS-SGN-313",
+        "stock": 45,
+        "title": "High-Luminance Backlit Glow Signboard Flex (Per Sq Ft)",
+        "category": "backlit-flex",
+        "group": "signage-printing",
+        "catLabel": "Backlit Flex",
+        "price": 45,
+        "strike": 75,
+        "badge": "Glow Sign 💡",
+        "img": "assets/products/signage/backlit_flex.svg",
+        "desc": "High-luminance translucent flex optimized for LED/fluorescent glow sign boards, night signage, and shop name boards.",
+        "features": [
+            "High Optical Translucency for Maximum Glow",
+            "Double-Strike Color Print for Non-Faded Glow",
+            "Heavy-Duty Anti-Fungus Outdoor PVC Fabric"
         ]
     }
 ];
@@ -1069,7 +1695,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
             html += `
-                <div class="product-card" data-cat="${p.category || 'mugs'}" data-id="${p.id}">
+                <div class="product-card" data-cat="${p.category || 'mugs'}" data-group="${p.group || ''}" data-id="${p.id}">
                     <div class="product-thumb-container" style="position: relative;">
                         <button type="button" class="card-wishlist-btn ${isWishlisted ? 'active' : ''}" data-id="${p.id}" title="Save to Wishlist">♥</button>
                         <img src="${p.img || 'assets/products/product_1.jpg'}" alt="${p.title}" class="product-thumb-img card-pdp-trigger" data-id="${p.id}" loading="lazy" style="cursor: pointer;">
@@ -1821,6 +2447,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (pdpDescription) pdpDescription.textContent = p.desc || 'Premium quality customized gift with high-precision printing or laser engraving.';
 
+        // Video link display
+        const pdpVideoBox = document.getElementById('pdp-video-box');
+        const pdpVideoBtn = document.getElementById('pdp-video-btn');
+        if (pdpVideoBox && pdpVideoBtn) {
+            if (p.video && p.video.trim()) {
+                pdpVideoBox.style.display = 'block';
+                pdpVideoBtn.href = p.video.trim();
+            } else {
+                pdpVideoBox.style.display = 'none';
+            }
+        }
+
         // Image
         if (pdpMainImg) {
             pdpMainImg.src = p.img || 'assets/products/product_1.jpg';
@@ -2163,7 +2801,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cards.forEach(c => {
             const cardCat = c.getAttribute('data-cat');
-            if (catName === 'all' || cardCat === catName) {
+            const cardGroup = c.getAttribute('data-group');
+            if (catName === 'all' || cardCat === catName || cardGroup === catName) {
                 c.style.display = 'flex';
             } else {
                 c.style.display = 'none';
@@ -2178,6 +2817,145 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize wishlist count
     updateWishlistUI();
+
+    
+    // ============================================================
+    // 21. RAZORPAY PAYMENT GATEWAY & SECRET ADMIN SHORTCUT
+    // ============================================================
+    function initRazorpayIntegration() {
+        const payBtn = document.getElementById('btn-pay-razorpay');
+        if (!payBtn) return;
+
+        payBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('co-name')?.value.trim();
+            const phone = document.getElementById('co-phone')?.value.trim();
+            const email = document.getElementById('co-email')?.value.trim();
+            const address = document.getElementById('co-address')?.value.trim();
+            const city = document.getElementById('co-city')?.value.trim();
+            const pincode = document.getElementById('co-pincode')?.value.trim();
+            const notes = document.getElementById('co-custom-notes')?.value.trim();
+
+            if (!name || !phone || !address || !city || !pincode) {
+                alert('Please enter your full delivery address and mobile number before paying.');
+                return;
+            }
+
+            const total = getCartSubtotal();
+            if (total <= 0) {
+                alert('Your shopping cart is empty!');
+                return;
+            }
+
+            let razorpayKey = 'rzp_test_placeholder';
+            try {
+                const s = JSON.parse(localStorage.getItem('ds_website_settings') || '{}');
+                if (s.razorpayKey && s.razorpayKey.trim()) {
+                    razorpayKey = s.razorpayKey.trim();
+                }
+            } catch(err) {}
+
+            const orderId = 'DS-ORD-' + Math.floor(100000 + Math.random() * 900000);
+            const orderDate = new Date().toLocaleDateString('en-IN', {
+                year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+
+            const finalizeOrder = (paymentId) => {
+                const newOrder = {
+                    orderId: orderId,
+                    date: orderDate,
+                    items: [...cart],
+                    subtotal: total,
+                    total: total,
+                    customer: { name, phone, email, address, city, pincode, notes },
+                    status: 'Paid via Razorpay (' + (paymentId || 'SUCCESS') + ')',
+                    paymentId: paymentId || 'rzp_paid'
+                };
+
+                try {
+                    const pastOrders = JSON.parse(localStorage.getItem('ds_orders') || '[]');
+                    pastOrders.unshift(newOrder);
+                    localStorage.setItem('ds_orders', JSON.stringify(pastOrders));
+                } catch (err) {
+                    console.error('Failed saving order', err);
+                }
+
+                let itemsText = cart.map(it => '• ' + it.title + ' (Qty: ' + it.qty + ') - ₹' + (it.price * it.qty)).join('\n');
+                let waMsg = '*PAYMENT RECEIVED VIA RAZORPAY* 💳\n' +
+                            '*Order ID:* ' + orderId + '\n' +
+                            '*Payment ID:* ' + (paymentId || 'Verified') + '\n' +
+                            '*Customer:* ' + name + ' (' + phone + ')\n' +
+                            '*Delivery Address:* ' + address + ', ' + city + ' - ' + pincode + '\n\n' +
+                            '*ITEMS:*\n' + itemsText + '\n\n' +
+                            '*Total Paid:* ₹' + total + ' (Free Pan-India Delivery)\n' +
+                            (notes ? '*Notes:* ' + notes + '\n\n' : '\n') +
+                            'Order verified. Please initiate dispatch and share consignment tracking!';
+
+                cart = [];
+                saveCart();
+                renderCart();
+                closeCheckoutModal();
+                const form = document.getElementById('checkout-form');
+                if (form) form.reset();
+
+                alert('🎉 Payment of ₹' + total + ' Successful via Razorpay!\n\nOrder ID: ' + orderId + '\nRedirecting to WhatsApp for instant confirmation...');
+                window.open('https://wa.me/918739904737?text=' + encodeURIComponent(waMsg), '_blank');
+            };
+
+            if (typeof Razorpay === 'undefined') {
+                alert('Razorpay gateway SDK is still loading or blocked by your browser. You can still confirm your order via WhatsApp.');
+                return;
+            }
+
+            const options = {
+                key: razorpayKey,
+                amount: Math.round(total * 100),
+                currency: "INR",
+                name: "Design Suvidha",
+                description: "Order #" + orderId + " - Factory Direct Printing",
+                image: "design suvidha logo.png",
+                handler: function (response) {
+                    finalizeOrder(response.razorpay_payment_id);
+                },
+                prefill: {
+                    name: name,
+                    email: email || 'order@designsuvidha.com',
+                    contact: phone
+                },
+                theme: {
+                    color: "#ff9900"
+                }
+            };
+
+            try {
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (resp){
+                    alert('Payment was not completed: ' + (resp.error?.description || 'Cancelled by user'));
+                });
+                rzp.open();
+            } catch (err) {
+                console.error('Razorpay open failed:', err);
+                if (razorpayKey === 'rzp_test_placeholder') {
+                    const testMock = confirm("⚠️ Razorpay is currently in Test / Setup Mode.\n(Configure your live Razorpay Key in the Admin Portal under Settings).\n\nWould you like to simulate a successful payment test now?");
+                    if (testMock) {
+                        finalizeOrder('rzp_test_mock_' + Date.now());
+                    }
+                } else {
+                    alert('Razorpay error: ' + err.message);
+                }
+            }
+        });
+    }
+
+    initRazorpayIntegration();
+
+    // Secret Admin Shortcut: Ctrl + Shift + A
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+            e.preventDefault();
+            window.location.href = 'admin.html';
+        }
+    });
 
     console.log('🚀 Design Suvidha Fast Mobile Engine Initialized');
 });

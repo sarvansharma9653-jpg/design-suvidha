@@ -13,6 +13,7 @@ netlify-deploy/
 
 # Ignore heavy media assets (frames, images, video campaigns)
 video frames/
+frame 2/
 
 # Ignore specific large videos (>50MB) to prevent Git push failures
 video creative our client project/makeup artist demo video44-1.mp4

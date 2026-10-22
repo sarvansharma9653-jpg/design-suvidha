@@ -1,6 +1,18 @@
 {
   "rewrites": [
     {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/designsuvidha.admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/designsuvidha-admin",
+      "destination": "/admin.html"
+    },
+    {
       "source": "/crm",
       "destination": "/crm.html"
     },

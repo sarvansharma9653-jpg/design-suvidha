@@ -5,93 +5,8 @@
 
 const DEFAULT_PIN = '950902';
 
-// Initial Sample Data (if first load)
-const INITIAL_LEADS = [
-    {
-        id: 'lead-1',
-        name: 'Arun Sharma',
-        phone: '917707978068',
-        business: 'Performance Marketing & Ads',
-        service: 'Meta Ads & Landing Page',
-        stage: 'new',
-        dealValue: 10000,
-        notes: 'Client requested WhatsApp Cloud API integration and lead generation campaign.',
-        unread: 1,
-        lastUpdated: new Date().toISOString(),
-        messages: [
-            {
-                id: 'm-1',
-                sender: 'customer',
-                text: 'Hi, I need Meta & Google Ads service for my business.',
-                timestamp: new Date(Date.now() - 3600000).toISOString()
-            },
-            {
-                id: 'm-2',
-                sender: 'business',
-                text: 'Hello Arun! Welcome to Design Suvidha. We specialize in high-converting ads and landing pages. What is your daily ads budget?',
-                timestamp: new Date(Date.now() - 1800000).toISOString()
-            },
-            {
-                id: 'm-3',
-                sender: 'customer',
-                text: 'We want qualified leads for our local services. Can you share packages?',
-                timestamp: new Date(Date.now() - 600000).toISOString()
-            }
-        ]
-    },
-    {
-        id: 'lead-2',
-        name: 'Rajesh Verma',
-        phone: '919509022983',
-        business: 'FitPro Gym Center',
-        service: 'Graphic Design',
-        stage: 'in_progress',
-        dealValue: 2500,
-        notes: 'Interested in ₹2500 for 10 Posts graphic design package.',
-        unread: 0,
-        lastUpdated: new Date(Date.now() - 7200000).toISOString(),
-        messages: [
-            {
-                id: 'm-4',
-                sender: 'customer',
-                text: 'Hello, what is included in the ₹2500 for 10 posts graphic design plan?',
-                timestamp: new Date(Date.now() - 7200000).toISOString()
-            },
-            {
-                id: 'm-5',
-                sender: 'business',
-                text: 'Hi Rajesh! It includes 10 custom high-resolution social media posts, story graphics, custom brand colors, and 2 rounds of revisions.',
-                timestamp: new Date(Date.now() - 7000000).toISOString()
-            }
-        ]
-    },
-    {
-        id: 'lead-3',
-        name: 'Pooja Makeovers',
-        phone: '918739904737',
-        business: 'Beauty Salon & Academy',
-        service: 'Corporate Website',
-        stage: 'proposal',
-        dealValue: 10000,
-        notes: 'Proposal sent for multi-page salon portfolio website with booking inquiry form.',
-        unread: 0,
-        lastUpdated: new Date(Date.now() - 86400000).toISOString(),
-        messages: [
-            {
-                id: 'm-6',
-                sender: 'customer',
-                text: 'Can we add a video gallery to the corporate website package?',
-                timestamp: new Date(Date.now() - 86400000).toISOString()
-            },
-            {
-                id: 'm-7',
-                sender: 'business',
-                text: 'Yes Pooja! We can easily embed your YouTube shorts and client portfolio reels directly into the website.',
-                timestamp: new Date(Date.now() - 82000000).toISOString()
-            }
-        ]
-    }
-];
+// Initial Sample Data (empty by default so real store orders take priority)
+const INITIAL_LEADS = [];
 
 // App State
 let currentPinInput = '';
@@ -217,13 +132,15 @@ function loadLeadsState() {
     if (saved) {
         try {
             leads = JSON.parse(saved);
+            // Clean out legacy mock leads
+            leads = leads.filter(l => l.id !== 'lead-1' && l.id !== 'lead-2' && l.id !== 'lead-3');
         } catch (e) {
-            leads = INITIAL_LEADS;
+            leads = [];
         }
     } else {
-        leads = INITIAL_LEADS;
-        saveLeadsState();
+        leads = [];
     }
+    saveLeadsState();
     updateGlobalCounters();
     syncPaidOrdersIntoCrm();
 }
@@ -237,21 +154,22 @@ async function syncPaidOrdersIntoCrm() {
                 let updated = false;
                 data.orders.forEach(ord => {
                     const cleanPhone = (ord.customer_phone || '').replace(/[^0-9]/g, '');
-                    const leadId = 'order-' + (ord.order_id || ord.id);
-                    const existing = leads.find(l => l.id === leadId || (cleanPhone && l.phone && l.phone.includes(cleanPhone.slice(-10))));
+                    const leadId = 'order-' + ord.order_id;
+                    const existing = leads.find(l => l.id === leadId || l.orderId === ord.order_id);
 
                     const itemsText = (ord.items || []).map(i => `${i.title} (x${i.qty})`).join(', ');
 
                     if (!existing) {
                         leads.unshift({
                             id: leadId,
+                            orderId: ord.order_id,
                             name: ord.customer_name || 'Customer',
-                            phone: cleanPhone || '918739904737',
+                            phone: cleanPhone.startsWith('91') ? cleanPhone : ('91' + cleanPhone),
                             business: 'Online Store Customer',
-                            service: `Paid Order #${ord.order_id}`,
+                            service: `Order #${ord.order_id}`,
                             stage: 'won',
                             dealValue: ord.total || 0,
-                            notes: `Order #${ord.order_id} placed on store.\nItems: ${itemsText}\nAddress: ${ord.delivery_address}, ${ord.city} - ${ord.pincode}\nPayment ID: ${ord.payment_id}`,
+                            notes: `Order #${ord.order_id} - ${itemsText}\nDelivery: ${ord.delivery_address}, ${ord.city} - ${ord.pincode}\nPayment ID: ${ord.payment_id}`,
                             unread: 1,
                             lastUpdated: ord.created_at || new Date().toISOString(),
                             orderData: ord,
@@ -259,7 +177,7 @@ async function syncPaidOrdersIntoCrm() {
                                 {
                                     id: 'msg-' + ord.order_id,
                                     sender: 'customer',
-                                    text: `🛍️ New Order #${ord.order_id} placed!\n• Items: ${itemsText}\n• Total Paid: ₹${ord.total}\n• Delivery to: ${ord.delivery_address}, ${ord.city} - ${ord.pincode}`,
+                                    text: `🛍️ New Order #${ord.order_id} confirmed & paid!\n• Items: ${itemsText}\n• Total Paid: ₹${ord.total}\n• Delivery: ${ord.delivery_address}, ${ord.city} - ${ord.pincode}\n• Payment ID: ${ord.payment_id}`,
                                     timestamp: ord.created_at || new Date().toISOString()
                                 }
                             ]
@@ -357,9 +275,29 @@ function selectContact(contactId) {
     stageEl.className = `stage-pill pill-${contact.stage || 'new'}`;
     stageEl.textContent = formatStageLabel(contact.stage);
 
-    // Direct links
-    document.getElementById('direct-wa-link').href = `https://wa.me/${contact.phone}`;
-    document.getElementById('direct-call-link').href = `tel:+${contact.phone}`;
+    // Direct links with prefilled order slip
+    let waText = `Namaste ${contact.name}! Greetings from Design Suvidha.`;
+    if (contact.orderData) {
+        const ord = contact.orderData;
+        const items = (ord.items || []).map(i => `• ${i.title} (Qty: ${i.qty}) - ₹${i.price * i.qty}`).join('\n');
+        waText = `*ORDER CONFIRMATION* 🛍️\n\n` +
+                 `Dear *${contact.name}*,\n` +
+                 `Thank you for your order on Design Suvidha! Your payment has been verified.\n\n` +
+                 `• *Order ID:* #${ord.order_id}\n` +
+                 `• *Total Paid:* ₹${ord.total}\n` +
+                 `• *Items Ordered:*\n${items}\n` +
+                 `• *Delivery Address:* ${ord.delivery_address}, ${ord.city} - ${ord.pincode}\n` +
+                 (ord.design_file_url ? `• *Artwork Link:* ${ord.design_file_url}\n` : '') +
+                 `\nWe are preparing your custom print order!\n🌐 https://designsuvidha.com`;
+    }
+    const directWaEl = document.getElementById('direct-wa-link');
+    if (directWaEl) {
+        directWaEl.href = `https://wa.me/${contact.phone}?text=${encodeURIComponent(waText)}`;
+    }
+    const directCallEl = document.getElementById('direct-call-link');
+    if (directCallEl) {
+        directCallEl.href = `tel:+${contact.phone}`;
+    }
 
     // Update Right Sidebar Info
     document.getElementById('lead-name-val').textContent = contact.name;

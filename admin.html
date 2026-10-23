@@ -1667,7 +1667,7 @@
 
     <!-- ================= ADMIN LOGIC ================= -->
     <script>
-        const CURRENT_CATALOG_VERSION = 'ds_v4_all_categories';
+        const CURRENT_CATALOG_VERSION = 'ds_v5_live_sync';
 
         // 1. DEFAULT 31 VERIFIED PRODUCTS WITH STOCK & SKU
         const DEFAULT_PRODUCTS = [
@@ -1679,7 +1679,7 @@
         "category": "mugs",
         "group": "corporate-gifting",
         "catLabel": "Personalised Mug",
-        "price": 199,
+        "price": 1,
         "strike": 299,
         "badge": "Best Seller 🔥",
         "img": "assets/products/product_1.jpg",
@@ -3002,12 +3002,39 @@
             return DEFAULT_PRODUCTS;
         }
 
-        function saveProducts(products) {
+        async function saveProducts(products) {
             localStorage.setItem('ds_products', JSON.stringify(products));
             localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
             renderProductsTable();
             renderInventoryTable();
             updateStatsAndAnalytics();
+
+            // Cloud sync so updates immediately reflect on all devices
+            try {
+                await fetch('/api/products', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(products)
+                });
+                showToast('Products synced to cloud successfully!');
+            } catch(e) {
+                console.warn('Cloud sync error:', e);
+            }
+        }
+
+        async function syncCloudProducts() {
+            try {
+                const resp = await fetch('/api/products');
+                if (resp.ok) {
+                    const data = await resp.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        localStorage.setItem('ds_products', JSON.stringify(data));
+                        renderProductsTable();
+                        renderInventoryTable();
+                        updateStatsAndAnalytics();
+                    }
+                }
+            } catch(e) {}
         }
 
         // 4. RENDER PRODUCTS TABLE
@@ -3769,6 +3796,7 @@
         function initAdminDashboard() {
             renderProductsTable();
             renderInventoryTable();
+            syncCloudProducts();
             fetchCloudOrders();
             renderRFQs();
             loadSavedSettings();

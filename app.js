@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ================================================// ============================================================
     // DYNAMIC PRODUCTS LOADER (Google Drive Catalog + Admin Sync)
     // ============================================================
-    const CURRENT_CATALOG_VERSION = 'ds_v4_all_categories';
+    const CURRENT_CATALOG_VERSION = 'ds_v5_live_sync';
 
     const DEFAULT_STORE_PRODUCTS = [
     {
@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "category": "mugs",
         "group": "corporate-gifting",
         "catLabel": "Personalised Mug",
-        "price": 199,
+        "price": 1,
         "strike": 299,
         "badge": "Best Seller 🔥",
         "img": "assets/products/product_1.jpg",
@@ -1660,6 +1660,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return DEFAULT_STORE_PRODUCTS;
     }
 
+    async function syncCloudProducts() {
+        try {
+            const resp = await fetch('/api/products');
+            if (resp.ok) {
+                const cloudProds = await resp.json();
+                if (Array.isArray(cloudProds) && cloudProds.length > 0) {
+                    localStorage.setItem('ds_products', JSON.stringify(cloudProds));
+                    renderLiveHomeProductsGrid();
+                }
+            }
+        } catch (e) {
+            console.warn('Could not sync products from cloud:', e);
+        }
+    }
+
     function renderLiveHomeProductsGrid() {
         const grid = document.getElementById('home-product-grid');
         if (!grid) return;
@@ -1779,6 +1794,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Call live render on DOM load
     renderLiveHomeProductsGrid();
+    syncCloudProducts();
 
     // 14. E-COMMERCE CART ENGINE & LOCALSTORAGE PERSISTENCE
     // ============================================================

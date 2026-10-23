@@ -1919,9 +1919,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const existingItem = cart.find(item => item.title === cleanTitle);
         if (existingItem) {
-            existingItem.qty += addQty;
+            if (options.overwrite) {
+                existingItem.qty = addQty;
+            } else {
+                existingItem.qty += addQty;
+            }
             if (options.designFile) existingItem.designFile = options.designFile;
             if (options.designName) existingItem.designName = options.designName;
+            if (options.customText) existingItem.customText = options.customText;
         } else {
             cart.push({
                 title: cleanTitle,
@@ -1981,6 +1986,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const subtotal = getCartSubtotal();
         if (coSummarySubtotal) coSummarySubtotal.textContent = '₹' + subtotal.toLocaleString('en-IN');
         if (coSummaryTotal) coSummaryTotal.textContent = '₹' + subtotal.toLocaleString('en-IN');
+
+        const coItems = document.getElementById('co-summary-items');
+        if (coItems) {
+            coItems.innerHTML = cart.map(item => `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <span style="color: #0f1111; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">
+                        • ${item.title} <span style="color: #565959; font-weight: normal;">(× ${item.qty})</span>
+                    </span>
+                    <strong style="color: #0f1111;">₹${(item.price * item.qty).toLocaleString('en-IN')}</strong>
+                </div>
+            `).join('');
+        }
+
         if (checkoutModal) checkoutModal.classList.add('active');
     }
 
@@ -2724,7 +2742,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // "⚡ Buy It Now" Button Handler: Adds customized product and directly opens checkout modal
+    // "⚡ Buy It Now" Button Handler: Sets exact product & selected quantity, directly opens checkout modal
     if (pdpBuyNowBtn) {
         pdpBuyNowBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -2737,24 +2755,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const noteStr = customParts.length > 0 ? ` [${customParts.join(', ')}]` : '';
             const fullTitle = currentPdpProduct.title + noteStr;
+            const chosenQty = Math.max(1, parseInt(currentPdpQty, 10) || 1);
 
-            // Add to cart with full customization & quantity
-            addToCart(fullTitle, currentPdpProduct.price, currentPdpProduct.img, currentPdpQty, {
-                silent: true,
+            // Direct "Buy It Now": Set cart strictly to this item with exact selected quantity
+            // This prevents multiple clicks on "Buy It Now" from accumulating quantities/prices
+            cart = [{
+                title: fullTitle,
+                price: currentPdpProduct.price,
+                img: currentPdpProduct.img,
+                qty: chosenQty,
                 customText: customText,
-                designName: currentPdpUploadedDesignName,
-                designFile: currentPdpUploadedDesign
-            });
+                designFile: currentPdpUploadedDesign,
+                designName: currentPdpUploadedDesignName
+            }];
+            saveCart();
+            renderCart();
 
             // Close PDP modal
             closeProductDetailModal();
 
-            // Populate checkout custom notes
+            // Populate checkout custom notes cleanly
             const coNotes = document.getElementById('co-custom-notes');
-            if (coNotes && customParts.length > 0) {
-                const currentVal = coNotes.value.trim();
-                const noteVal = customParts.join(' | ');
-                coNotes.value = currentVal ? `${currentVal}\n${noteVal}` : noteVal;
+            if (coNotes) {
+                coNotes.value = customParts.length > 0 ? customParts.join(' | ') : '';
             }
 
             // Sync design to checkout modal upload display

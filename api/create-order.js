@@ -16,8 +16,8 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const key_id = process.env.RAZORPAY_KEY_ID;
-    const key_secret = process.env.RAZORPAY_KEY_SECRET;
+    const key_id = (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_ID.trim()) || 'rzp_live_TrHEz6RpcSg3uA';
+    const key_secret = (process.env.RAZORPAY_KEY_SECRET && process.env.RAZORPAY_KEY_SECRET.trim()) || 'gCzYBav8l4ybL4KfZqxQFaVJ';
 
     if (!key_id || !key_secret) {
       return res.status(401).json({

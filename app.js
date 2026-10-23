@@ -2297,6 +2297,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Order Success Box Handlers
+    const orderSuccessModal = document.getElementById('order-success-modal');
+    const orderSuccessCloseBtn = document.getElementById('order-success-close-btn');
+    const orderSuccessContinueBtn = document.getElementById('order-success-continue-btn');
+    const orderSuccessViewAllBtn = document.getElementById('order-success-view-all-btn');
+
+    function closeOrderSuccessModal() {
+        if (orderSuccessModal) orderSuccessModal.classList.remove('active');
+    }
+
+    if (orderSuccessCloseBtn) orderSuccessCloseBtn.addEventListener('click', closeOrderSuccessModal);
+    if (orderSuccessContinueBtn) {
+        orderSuccessContinueBtn.addEventListener('click', () => {
+            closeOrderSuccessModal();
+            const fp = document.getElementById('featured-products');
+            if (fp) fp.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+    if (orderSuccessViewAllBtn) {
+        orderSuccessViewAllBtn.addEventListener('click', () => {
+            closeOrderSuccessModal();
+            openAccountModal();
+        });
+    }
+    if (orderSuccessModal) {
+        orderSuccessModal.addEventListener('click', (e) => {
+            if (e.target === orderSuccessModal) closeOrderSuccessModal();
+        });
+    }
+
     // ============================================================
     // 17. SECTION 5: MERCHANDISING TABS FILTER
     // ============================================================
@@ -3167,7 +3197,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const originalBtnHtml = payBtn.innerHTML;
             payBtn.disabled = true;
-            payBtn.innerHTML = '<span>⏳ Initializing Razorpay Order...</span>';
+            payBtn.innerHTML = '<span>⏳ Opening Secure Payment...</span>';
 
             const orderId = 'DS-ORD-' + Math.floor(100000 + Math.random() * 900000);
             const orderDate = new Date().toLocaleDateString('en-IN', {
@@ -3192,8 +3222,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     customer: { name, phone, email, address, city, pincode, notes },
                     designFile: finalDesignUrl || checkoutUploadedDesign || currentPdpUploadedDesign || null,
                     designName: finalDesignName,
-                    status: 'Paid via Razorpay (' + (paymentId || 'SUCCESS') + ')',
-                    paymentId: paymentId || 'rzp_paid',
+                    status: 'In Production',
+                    paymentId: paymentId || 'online_paid',
                     razorpayOrderId: rzpOrderId || '',
                     paymentStatus: 'PAID',
                     verified: true
@@ -3208,17 +3238,62 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 let itemsText = cart.map(it => '• ' + it.title + ' (Qty: ' + it.qty + ') - ₹' + (it.price * it.qty)).join('\n');
-                let waMsg = '*PAYMENT VERIFIED VIA RAZORPAY* 💳\n' +
+                let waMsg = '*ORDER CONFIRMED & PAYMENT VERIFIED* 💳\n' +
                             '*Order ID:* ' + orderId + '\n' +
-                            '*Razorpay Payment ID:* ' + (paymentId || 'Verified') + '\n' +
-                            (rzpOrderId ? '*Razorpay Order ID:* ' + rzpOrderId + '\n' : '') +
+                            '*Payment Reference:* ' + (paymentId || 'Verified') + '\n' +
                             '*Customer:* ' + name + ' (' + phone + ')\n' +
                             '*Delivery Address:* ' + address + ', ' + city + ' - ' + pincode + '\n\n' +
-                            '*ITEMS:*\n' + itemsText + '\n\n' +
+                            '*ITEMS ORDERED:*\n' + itemsText + '\n\n' +
                             '*Total Paid:* ₹' + total + ' (Free Pan-India Delivery)\n' +
                             (notes ? '*Notes:* ' + notes + '\n' : '') +
-                            (finalDesignUrl ? '*Uploaded Design / Logo Link:* ' + finalDesignUrl + '\n\n' : (finalDesignName ? '*Design File Attached:* ' + finalDesignName + '\n\n' : '\n')) +
+                            (finalDesignUrl ? '*Uploaded Artwork Link:* ' + finalDesignUrl + '\n\n' : (finalDesignName ? '*Design File:* ' + finalDesignName + '\n\n' : '\n')) +
                             'Payment signature verified successfully. Please dispatch my order and share courier tracking!';
+
+                // Populate Order Box (#order-success-modal)
+                const successModal = document.getElementById('order-success-modal');
+                const successDetails = document.getElementById('order-success-details');
+                const successWaBtn = document.getElementById('order-success-wa-btn');
+
+                if (successDetails) {
+                    const itemsHtml = cart.map(it => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span style="font-weight: 600; color: #0f1111;">• ${it.title} <span style="color: #565959; font-weight: normal;">(× ${it.qty})</span></span>
+                            <strong style="color: #007185;">₹${(it.price * it.qty).toLocaleString('en-IN')}</strong>
+                        </div>
+                    `).join('');
+
+                    successDetails.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; margin-bottom: 8px;">
+                            <span style="font-size: 13px; font-weight: 800; color: #007185; background: #e7f4f5; padding: 2px 8px; border-radius: 4px;">Order #${orderId}</span>
+                            <span style="font-size: 11.5px; color: #666;">${orderDate}</span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            ${itemsHtml}
+                        </div>
+                        ${finalDesignUrl ? `
+                            <div style="margin: 8px 0; display: flex; align-items: center; gap: 8px; background: #f0fdf4; padding: 6px 10px; border-radius: 6px; border: 1px solid #bbf7d0;">
+                                <img src="${finalDesignUrl}" alt="Artwork" style="width: 36px; height: 36px; object-fit: cover; border-radius: 4px; border: 1px solid #86efac;">
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="font-size: 11.5px; font-weight: 700; color: #166534;">🖼️ Custom Artwork Attached</div>
+                                    <a href="${finalDesignUrl}" target="_blank" style="font-size: 11px; color: #15803d; text-decoration: underline; font-weight: 600;">View Uploaded Design</a>
+                                </div>
+                            </div>
+                        ` : ''}
+                        <div style="border-top: 1px dashed #eee; padding-top: 8px; margin-top: 8px;">
+                            <div style="font-size: 12px; color: #565959; margin-bottom: 4px;">
+                                📍 <strong>Delivery Address:</strong> ${address}, ${city} - ${pincode}
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+                                <span style="font-size: 11.5px; font-weight: 800; color: #007600; background: #e6f4ea; padding: 2px 8px; border-radius: 4px;">✓ Online Payment Verified</span>
+                                <span style="font-size: 16px; font-weight: 800; color: #0f1111;">Total Paid: ₹${total.toLocaleString('en-IN')}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (successWaBtn) {
+                    successWaBtn.href = 'https://wa.me/918739904737?text=' + encodeURIComponent(waMsg);
+                }
 
                 cart = [];
                 saveCart();
@@ -3227,13 +3302,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const form = document.getElementById('checkout-form');
                 if (form) form.reset();
 
-                alert('🎉 Payment of ₹' + total + ' Successful & Verified via Razorpay!\n\nOrder ID: ' + orderId + '\nPayment ID: ' + paymentId + '\n\nOrder has been securely saved to Supabase Cloud! Opening WhatsApp for instant order confirmation...');
-                window.open('https://wa.me/918739904737?text=' + encodeURIComponent(waMsg), '_blank');
-
-                // Auto open Customer Account order box to show live confirmed order
-                setTimeout(() => {
-                    openAccountModal();
-                }, 1200);
+                // Open Order Success Box modal directly
+                if (successModal) {
+                    successModal.classList.add('active');
+                }
             };
 
             try {

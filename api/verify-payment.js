@@ -174,6 +174,44 @@ module.exports = async (req, res) => {
             console.warn('Google Sheet webhook sync warning:', sheetErr.message);
           }
         }
+        // Automated WhatsApp Message Dispatch via Meta Cloud API
+        try {
+          const WHATSAPP_PHONE_ID = process.env.WHATSAPP_PHONE_ID || '1277049988834738';
+          const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN || 'EAAYNF1uyJxYBSe6te3ssyYJMA0PZC44UJqDTovYk9zW7EQZBLBNsbECCpiHFk1vukUKaF0pZAXrZBNYuZBZAOcZBIGbh9In4FlIZBPV3PImx2icwBe3LBfZAjfDx1jgqsGrlHj5aqVwlY5JhDGLuZBxe9lAiw92I2uKq683mYfeuH2g5F20OXITuiiMiTEPCpP4gZDZD';
+
+          let cleanCustPhone = (orderRow.customer_phone || '').replace(/[^0-9]/g, '');
+          if (cleanCustPhone.length === 10) cleanCustPhone = '91' + cleanCustPhone;
+
+          if (cleanCustPhone && cleanCustPhone.length >= 12 && WHATSAPP_PHONE_ID && WHATSAPP_TOKEN) {
+            const itemsSummary = (items || []).map(i => `${i.title} (Qty: ${i.qty}) - ₹${i.price * i.qty}`).join('\n• ');
+            const waBody = `*ORDER CONFIRMED & PAID* 🛍️\n\n` +
+                           `Dear ${orderRow.customer_name},\n` +
+                           `Thank you for your order on Design Suvidha! Your payment has been verified successfully.\n\n` +
+                           `• *Order ID:* ${orderRow.order_id}\n` +
+                           `• *Total Paid:* ₹${orderRow.total}\n` +
+                           `• *Items:* \n• ${itemsSummary}\n` +
+                           `• *Delivery Address:* ${orderRow.delivery_address}, ${orderRow.city} - ${orderRow.pincode}\n` +
+                           (finalDesignUrl ? `• *Artwork Link:* ${finalDesignUrl}\n` : '') +
+                           `\nOur factory team has received your order and begun printing. We will update you with courier tracking soon!\n\n` +
+                           `Design Suvidha - Factory Direct Custom Printing\nhttps://designsuvidha.com`;
+
+            await fetch(`https://graph.facebook.com/v22.0/${WHATSAPP_PHONE_ID}/messages`, {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${WHATSAPP_TOKEN}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                messaging_product: 'whatsapp',
+                to: cleanCustPhone,
+                type: 'text',
+                text: { preview_url: false, body: waBody }
+              })
+            }).catch(e => console.warn('Meta WhatsApp API automated message error:', e.message));
+          }
+        } catch(waErr) {
+          console.warn('WhatsApp auto-dispatch error:', waErr.message);
+        }
       } catch (insertErr) {
         console.error('Error inserting order to Supabase:', insertErr);
       }

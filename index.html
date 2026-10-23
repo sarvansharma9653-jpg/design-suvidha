@@ -113,8 +113,8 @@
                     </a>
 
                     <button type="button" class="ds-action-item" id="open-account-btn" title="View Order History & Profile">
-                        <span class="action-sub">Hello, Sign In</span>
-                        <strong class="action-main">👤 My Account</strong>
+                        <span class="action-sub">Orders & Account</span>
+                        <strong class="action-main">📦 My Orders</strong>
                     </button>
 
                     <button type="button" class="ds-wishlist-btn" id="open-wishlist-btn" title="View Saved Products">
@@ -1757,7 +1757,7 @@
                     <div class="corp-form-field corp-form-full">
                         <div style="display: flex; flex-direction: column; gap: 10px;">
                             <button type="button" class="btn-checkout-trigger" id="btn-pay-razorpay" style="font-size: 15px; background: linear-gradient(135deg, #0b5fff, #002970); color: #fff; border: none; font-weight: 800; border-radius: 8px; padding: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(11,95,255,0.35);">
-                                <span>💳 Pay Online with Razorpay (UPI, GPay, Card, NetBanking)</span>
+                                <span>💳 Pay Online (UPI, GPay, PhonePe, Paytm, Card, NetBanking)</span>
                             </button>
                             <button type="submit" class="btn-checkout-trigger" id="btn-submit-order" style="font-size: 14px; background: #25D366; color: #fff;">
                                 <span>Confirm Order & Connect on WhatsApp 💬</span>
@@ -1766,6 +1766,53 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Dedicated Customer Order Success & Live Tracking Box -->
+    <div class="dialog-modal-overlay" id="order-success-modal">
+        <div class="dialog-modal-card" style="max-width: 520px; text-align: left; padding: 22px;">
+            <button type="button" class="dialog-close-btn" id="order-success-close-btn">&times;</button>
+            
+            <div style="text-align: center; margin-bottom: 14px;">
+                <div style="width: 54px; height: 54px; background: #e6f4ea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 8px; color: #137333;">✓</div>
+                <span class="workflow-tag" style="background: #e6f4ea; color: #137333; font-weight: 800;">ORDER CONFIRMED</span>
+                <h3 style="margin: 6px 0 2px; font-size: 22px; font-weight: 800; color: #0f1111;">Payment Successful!</h3>
+                <p style="margin: 0; font-size: 13px; color: #565959;">Your customized gift order has been placed into production.</p>
+            </div>
+
+            <!-- Live Order Progress Tracker -->
+            <div style="background: #f7fafa; border: 1px solid #e7e7e7; border-radius: 8px; padding: 12px; margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; color: #565959; margin-bottom: 8px;">
+                    <span style="color: #007600;">✓ Payment Done</span>
+                    <span style="color: #007185;">⚙️ In Production</span>
+                    <span>🚚 Dispatch</span>
+                    <span>📦 Delivery</span>
+                </div>
+                <div style="height: 6px; background: #e0e0e0; border-radius: 3px; overflow: hidden; position: relative;">
+                    <div style="width: 50%; height: 100%; background: linear-gradient(90deg, #007600, #007185); border-radius: 3px;"></div>
+                </div>
+            </div>
+
+            <!-- Dynamic Order Details Box -->
+            <div id="order-success-details" style="background: #fff; border: 1px solid #d5d9d9; border-radius: 8px; padding: 14px; margin-bottom: 14px; font-size: 13px; max-height: 280px; overflow-y: auto;">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <a href="#" id="order-success-wa-btn" target="_blank" style="background: #25D366; color: #fff; text-decoration: none; font-size: 13.5px; font-weight: 700; padding: 11px; border-radius: 8px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 8px rgba(37,211,102,0.3);">
+                    <span>💬 Receive Tracking Updates on WhatsApp</span>
+                </a>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" id="order-success-view-all-btn" style="flex: 1; background: #f0f2f2; border: 1px solid #d5d9d9; padding: 9px; border-radius: 8px; font-size: 12.5px; font-weight: 700; color: #0f1111; cursor: pointer;">
+                        📦 View All My Orders
+                    </button>
+                    <button type="button" id="order-success-continue-btn" style="flex: 1; background: #007185; border: none; padding: 9px; border-radius: 8px; font-size: 12.5px; font-weight: 700; color: #fff; cursor: pointer;">
+                        🛍️ Continue Shopping
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 

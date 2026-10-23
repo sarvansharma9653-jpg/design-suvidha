@@ -2826,7 +2826,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payBtn = document.getElementById('btn-pay-razorpay');
         if (!payBtn) return;
 
-        payBtn.addEventListener('click', (e) => {
+        payBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             const name = document.getElementById('co-name')?.value.trim();
             const phone = document.getElementById('co-phone')?.value.trim();
@@ -2847,20 +2847,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            let razorpayKey = 'rzp_test_placeholder';
-            try {
-                const s = JSON.parse(localStorage.getItem('ds_website_settings') || '{}');
-                if (s.razorpayKey && s.razorpayKey.trim()) {
-                    razorpayKey = s.razorpayKey.trim();
-                }
-            } catch(err) {}
+            if (typeof Razorpay === 'undefined') {
+                alert('Razorpay Checkout SDK is still loading or blocked by your browser. Please check your internet connection or use WhatsApp order.');
+                return;
+            }
+
+            const originalBtnHtml = payBtn.innerHTML;
+            payBtn.disabled = true;
+            payBtn.innerHTML = '<span>⏳ Initializing Razorpay Order...</span>';
 
             const orderId = 'DS-ORD-' + Math.floor(100000 + Math.random() * 900000);
             const orderDate = new Date().toLocaleDateString('en-IN', {
                 year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
             });
 
-            const finalizeOrder = (paymentId) => {
+            const finalizeOrder = (paymentId, rzpOrderId) => {
                 const newOrder = {
                     orderId: orderId,
                     date: orderDate,
@@ -2869,7 +2870,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     total: total,
                     customer: { name, phone, email, address, city, pincode, notes },
                     status: 'Paid via Razorpay (' + (paymentId || 'SUCCESS') + ')',
-                    paymentId: paymentId || 'rzp_paid'
+                    paymentId: paymentId || 'rzp_paid',
+                    razorpayOrderId: rzpOrderId || '',
+                    verified: true
                 };
 
                 try {
@@ -2881,15 +2884,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 let itemsText = cart.map(it => '• ' + it.title + ' (Qty: ' + it.qty + ') - ₹' + (it.price * it.qty)).join('\n');
-                let waMsg = '*PAYMENT RECEIVED VIA RAZORPAY* 💳\n' +
+                let waMsg = '*PAYMENT VERIFIED VIA RAZORPAY* 💳\n' +
                             '*Order ID:* ' + orderId + '\n' +
-                            '*Payment ID:* ' + (paymentId || 'Verified') + '\n' +
+                            '*Razorpay Payment ID:* ' + (paymentId || 'Verified') + '\n' +
+                            (rzpOrderId ? '*Razorpay Order ID:* ' + rzpOrderId + '\n' : '') +
                             '*Customer:* ' + name + ' (' + phone + ')\n' +
                             '*Delivery Address:* ' + address + ', ' + city + ' - ' + pincode + '\n\n' +
-                            '*ITEMS:*\n' + itemsText + '\n\n' +
+                            '*ITEMS:*\\\n' + itemsText + '\n\n' +
                             '*Total Paid:* ₹' + total + ' (Free Pan-India Delivery)\n' +
                             (notes ? '*Notes:* ' + notes + '\n\n' : '\n') +
-                            'Order verified. Please initiate dispatch and share consignment tracking!';
+                            'Payment signature verified successfully. Please dispatch my order and share courier tracking!';
 
                 cart = [];
                 saveCart();
@@ -2898,51 +2902,109 @@ document.addEventListener('DOMContentLoaded', () => {
                 const form = document.getElementById('checkout-form');
                 if (form) form.reset();
 
-                alert('🎉 Payment of ₹' + total + ' Successful via Razorpay!\n\nOrder ID: ' + orderId + '\nRedirecting to WhatsApp for instant confirmation...');
+                alert('🎉 Payment of ₹' + total + ' Successful & Verified via Razorpay!\n\nOrder ID: ' + orderId + '\nPayment ID: ' + paymentId + '\n\nRedirecting to WhatsApp for instant order confirmation and dispatch receipt...');
                 window.open('https://wa.me/918739904737?text=' + encodeURIComponent(waMsg), '_blank');
             };
 
-            if (typeof Razorpay === 'undefined') {
-                alert('Razorpay gateway SDK is still loading or blocked by your browser. You can still confirm your order via WhatsApp.');
-                return;
-            }
-
-            const options = {
-                key: razorpayKey,
-                amount: Math.round(total * 100),
-                currency: "INR",
-                name: "Design Suvidha",
-                description: "Order #" + orderId + " - Factory Direct Printing",
-                image: "design suvidha logo.png",
-                handler: function (response) {
-                    finalizeOrder(response.razorpay_payment_id);
-                },
-                prefill: {
-                    name: name,
-                    email: email || 'order@designsuvidha.com',
-                    contact: phone
-                },
-                theme: {
-                    color: "#ff9900"
-                }
-            };
-
             try {
-                const rzp = new Razorpay(options);
-                rzp.on('payment.failed', function (resp){
-                    alert('Payment was not completed: ' + (resp.error?.description || 'Cancelled by user'));
+                // STEP 1: Call Backend to Create Razorpay Order
+                const createResp = await fetch('/api/create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        amount: Math.round(total * 100), // amount in paise
+                        currency: 'INR',
+                        receipt: orderId,
+                        notes: {
+                            order_id: orderId,
+                            customer_name: name,
+                            customer_phone: phone,
+                            city: city
+                        }
+                    })
                 });
-                rzp.open();
-            } catch (err) {
-                console.error('Razorpay open failed:', err);
-                if (razorpayKey === 'rzp_test_placeholder') {
-                    const testMock = confirm("⚠️ Razorpay is currently in Test / Setup Mode.\n(Configure your live Razorpay Key in the Admin Portal under Settings).\n\nWould you like to simulate a successful payment test now?");
-                    if (testMock) {
-                        finalizeOrder('rzp_test_mock_' + Date.now());
-                    }
-                } else {
-                    alert('Razorpay error: ' + err.message);
+
+                const orderData = await createResp.json();
+
+                if (!createResp.ok || !orderData.order_id) {
+                    throw new Error(orderData.error || 'Failed to create order on server');
                 }
+
+                // STEP 2: Configure & Open Razorpay Standard Checkout Modal
+                const options = {
+                    key: orderData.key_id,
+                    amount: orderData.amount,
+                    currency: orderData.currency || 'INR',
+                    name: 'Design Suvidha',
+                    description: 'Order #' + orderId + ' - Factory Direct Custom Printing',
+                    image: 'design suvidha logo.png',
+                    order_id: orderData.order_id, // Mandatory Razorpay order ID created on backend
+                    handler: async function (response) {
+                        // Received: razorpay_payment_id, razorpay_order_id, razorpay_signature
+                        payBtn.disabled = true;
+                        payBtn.innerHTML = '<span>🔐 Verifying Payment Signature...</span>';
+
+                        try {
+                            // STEP 3: Verify Signature on Backend
+                            const verifyResp = await fetch('/api/verify-payment', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature
+                                })
+                            });
+
+                            const verifyData = await verifyResp.json();
+
+                            if (verifyResp.ok && verifyData.verified) {
+                                finalizeOrder(response.razorpay_payment_id, response.razorpay_order_id);
+                            } else {
+                                alert('⚠️ Payment verification failed: ' + (verifyData.error || 'Signature mismatch. Transaction not marked as paid.'));
+                            }
+                        } catch (verErr) {
+                            console.error('Signature verification network error:', verErr);
+                            alert('Network error during verification. Your payment ID is ' + response.razorpay_payment_id + '. Please contact Design Suvidha support.');
+                        } finally {
+                            payBtn.disabled = false;
+                            payBtn.innerHTML = originalBtnHtml;
+                        }
+                    },
+                    prefill: {
+                        name: name,
+                        email: email || 'order@designsuvidha.com',
+                        contact: phone
+                    },
+                    theme: {
+                        color: '#ff9900'
+                    },
+                    modal: {
+                        ondismiss: function () {
+                            payBtn.disabled = false;
+                            payBtn.innerHTML = originalBtnHtml;
+                            console.log('Razorpay checkout modal closed by user');
+                        }
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (resp) {
+                    payBtn.disabled = false;
+                    payBtn.innerHTML = originalBtnHtml;
+                    const errDesc = resp.error?.description || 'Payment was declined or cancelled';
+                    alert('❌ Payment Failed: ' + errDesc + (resp.error?.reason ? '\nReason: ' + resp.error.reason : ''));
+                });
+
+                payBtn.disabled = false;
+                payBtn.innerHTML = originalBtnHtml;
+                rzp.open();
+
+            } catch (err) {
+                console.error('Razorpay checkout initialization error:', err);
+                payBtn.disabled = false;
+                payBtn.innerHTML = originalBtnHtml;
+                alert('Could not start Razorpay checkout: ' + err.message + '\n\nYou can also use the "Confirm Order on WhatsApp" button.');
             }
         });
     }

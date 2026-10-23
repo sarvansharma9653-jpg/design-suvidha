@@ -4,5 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node api/webhook.js"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "razorpay": "^2.9.8"
   }
 }

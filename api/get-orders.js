@@ -44,6 +44,17 @@ module.exports = async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const phone = url.searchParams.get('phone');
     const order_id = url.searchParams.get('order_id');
+    const isAdmin = url.searchParams.get('admin') === 'true';
+
+    // PRIVACY & SECURITY: Non-admin users can ONLY see their own orders by phone or order_id
+    if (!isAdmin && !phone && !order_id) {
+      return res.status(200).json({
+        success: true,
+        count: 0,
+        orders: [],
+        message: 'Mobile number or order ID is required to view your orders.'
+      });
+    }
 
     let query = supabase
       .from('orders')
@@ -54,9 +65,18 @@ module.exports = async (req, res) => {
     // Filter by customer phone if customer lookup
     if (phone) {
       const cleanPhone = phone.replace(/[^0-9]/g, '').slice(-10);
-      query = query.ilike('customer_phone', `%${cleanPhone}%`);
+      if (cleanPhone.length >= 10) {
+        query = query.ilike('customer_phone', `%${cleanPhone}%`);
+      } else {
+        return res.status(200).json({
+          success: true,
+          count: 0,
+          orders: [],
+          message: 'Please enter a valid 10-digit mobile number.'
+        });
+      }
     } else if (order_id) {
-      query = query.eq('order_id', order_id);
+      query = query.eq('order_id', order_id.trim());
     }
 
     const { data: orders, error } = await query;

@@ -2194,9 +2194,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let orders = [];
 
-        // 1. Fetch live paid orders from Supabase Cloud
+        // If user has not entered a phone number yet, prompt them instead of showing other people's orders
+        const cleanUserPhone = (userPhone || '').replace(/[^0-9]/g, '').slice(-10);
+        if (!cleanUserPhone || cleanUserPhone.length < 10) {
+            if (contentBox) {
+                contentBox.innerHTML = `
+                    <div style="text-align: center; padding: 28px 12px; color: #565959;">
+                        <div style="font-size: 36px; margin-bottom: 8px;">📱</div>
+                        <p style="font-size: 14px; margin: 0; font-weight: 700; color: #0f1111;">Track Your Orders</p>
+                        <p style="font-size: 12.5px; color: #64748b; margin-top: 6px; line-height: 1.5;">Apne orders dekhne ke liye upar apna 10-digit mobile number enter karke <strong>'Find Orders'</strong> dabayein.<br><span style="font-size: 11px; color: #007600; font-weight: 600;">🔒 Privacy Protected: Sirf aapke phone number ke orders dikhenge.</span></p>
+                    </div>
+                `;
+            }
+            return;
+        }
+
+        // 1. Fetch live paid orders for THIS phone number only from Supabase Cloud
         try {
-            const url = userPhone ? `/api/get-orders?phone=${encodeURIComponent(userPhone)}` : '/api/get-orders';
+            const url = `/api/get-orders?phone=${encodeURIComponent(cleanUserPhone)}`;
             const res = await fetch(url);
             if (res.ok) {
                 const data = await res.json();
@@ -2224,11 +2239,14 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn('Could not fetch cloud orders:', fetchErr);
         }
 
-        // 2. Fallback to localStorage if offline
+        // 2. Fallback to localStorage if offline (Strictly filter for this phone number)
         if (orders.length === 0) {
             try {
                 const localOrders = JSON.parse(localStorage.getItem('ds_orders') || '[]');
-                orders = localOrders.filter(o => o.paymentStatus === 'PAID' || o.verified);
+                orders = localOrders.filter(o => {
+                    const oPhone = ((o.customer && o.customer.phone) || '').replace(/[^0-9]/g, '').slice(-10);
+                    return oPhone === cleanUserPhone && (o.paymentStatus === 'PAID' || o.verified);
+                });
             } catch (e) {}
         }
 

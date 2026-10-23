@@ -2094,30 +2094,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const finalDesignName = checkoutUploadedDesignName || currentPdpUploadedDesignName || '';
 
-            const newOrder = {
-                orderId: orderId,
-                date: orderDate,
-                items: [...cart],
-                subtotal: total,
-                total: total,
-                customer: { name, phone, email, address, city, pincode, notes },
-                designFile: checkoutUploadedDesign || currentPdpUploadedDesign || null,
-                designName: finalDesignName,
-                status: 'Placed · Awaiting Dispatch'
-            };
+            // Note: Inquiries without online payment are routed directly to WhatsApp for manual confirmation
+            // and are not saved as 'PAID' orders in the system.
 
-            // Save to ds_orders
-            try {
-                const pastOrders = JSON.parse(localStorage.getItem('ds_orders') || '[]');
-                pastOrders.unshift(newOrder);
-                localStorage.setItem('ds_orders', JSON.stringify(pastOrders));
-            } catch (err) {
-                console.error('Failed to save order to localStorage', err);
-            }
-
-            // Construct WhatsApp Order Message
+            // Construct WhatsApp Order Inquiry Message
             let itemsText = cart.map(it => '• ' + it.title + ' (Qty: ' + it.qty + ') - ₹' + (it.price * it.qty)).join('\n');
-            let waMsg = '*NEW ORDER PLACED ON DESIGNSUVIDHA.COM* 🛍️\n' +
+            let waMsg = '*NEW ORDER INQUIRY (AWAITING PAYMENT)* 🛍️\n' +
                         '*Order ID:* ' + orderId + '\n' +
                         '*Customer Name:* ' + name + '\n' +
                         '*Phone:* ' + phone + '\n' +
@@ -2150,51 +2132,152 @@ document.addEventListener('DOMContentLoaded', () => {
     const accountCloseBtn = document.getElementById('account-close-btn');
     const accountOrdersList = document.getElementById('account-orders-list');
 
-    function renderAccountOrders() {
+    async function renderAccountOrders(searchPhone = null) {
         if (!accountOrdersList) return;
+
+        let userPhone = searchPhone;
+        if (!userPhone) {
+            userPhone = localStorage.getItem('ds_customer_phone') || '';
+        }
+
+        // Render search bar and container
+        accountOrdersList.innerHTML = `
+            <div style="background: #f7fafa; border: 1px solid #d5d9d9; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+                <label style="display: block; font-size: 12.5px; font-weight: 700; color: #0f1111; margin-bottom: 6px;">
+                    Track Orders by Mobile Number 📱
+                </label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="tel" id="co-account-phone-input" placeholder="Enter 10-digit mobile number..." value="${userPhone}" style="flex: 1; padding: 8px 12px; border: 1px solid #888c8c; border-radius: 6px; font-size: 13.5px; outline: none;">
+                    <button type="button" id="co-account-phone-search-btn" style="background: #007185; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 13px;">Find Orders</button>
+                </div>
+            </div>
+            <div id="account-orders-content" style="text-align: center; padding: 20px; color: #666;">
+                <div style="font-size: 24px; margin-bottom: 6px;">⏳</div>
+                <p style="margin: 0; font-size: 13px;">Loading verified orders from Supabase cloud...</p>
+            </div>
+        `;
+
+        const phoneInput = document.getElementById('co-account-phone-input');
+        const searchBtn = document.getElementById('co-account-phone-search-btn');
+        const contentBox = document.getElementById('account-orders-content');
+
+        if (searchBtn && phoneInput) {
+            searchBtn.addEventListener('click', () => {
+                const p = phoneInput.value.trim();
+                if (!p) {
+                    alert('Please enter your 10-digit mobile number.');
+                    return;
+                }
+                localStorage.setItem('ds_customer_phone', p);
+                renderAccountOrders(p);
+            });
+            phoneInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') searchBtn.click();
+            });
+        }
+
         let orders = [];
+
+        // 1. Fetch live paid orders from Supabase Cloud
         try {
-            orders = JSON.parse(localStorage.getItem('ds_orders') || '[]');
-        } catch (e) {
-            orders = [];
+            const url = userPhone ? `/api/get-orders?phone=${encodeURIComponent(userPhone)}` : '/api/get-orders';
+            const res = await fetch(url);
+            if (res.ok) {
+                const data = await res.json();
+                if (data && data.orders && data.orders.length > 0) {
+                    orders = data.orders.map(o => ({
+                        orderId: o.order_id,
+                        date: new Date(o.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                        items: Array.isArray(o.items) ? o.items : [],
+                        total: o.total,
+                        status: o.order_status || 'New Order',
+                        paymentId: o.payment_id,
+                        designFile: o.design_file_url,
+                        designName: o.design_name,
+                        customer: {
+                            name: o.customer_name,
+                            phone: o.customer_phone,
+                            address: o.delivery_address,
+                            city: o.city,
+                            pincode: o.pincode
+                        }
+                    }));
+                }
+            }
+        } catch (fetchErr) {
+            console.warn('Could not fetch cloud orders:', fetchErr);
+        }
+
+        // 2. Fallback to localStorage if offline
+        if (orders.length === 0) {
+            try {
+                const localOrders = JSON.parse(localStorage.getItem('ds_orders') || '[]');
+                orders = localOrders.filter(o => o.paymentStatus === 'PAID' || o.verified);
+            } catch (e) {}
         }
 
         if (orders.length === 0) {
-            accountOrdersList.innerHTML = `
-                <div style="text-align: center; padding: 25px 10px; color: #565959;" id="account-no-orders">
-                    <div style="font-size: 35px; margin-bottom: 8px;">📦</div>
-                    <p style="font-size: 13.5px; margin: 0; font-weight: 600; color: #0f1111;">No past orders found in this session.</p>
-                    <p style="font-size: 12px; color: #888; margin-top: 4px;">Orders placed on this device will be tracked here automatically.</p>
-                </div>
-            `;
+            if (contentBox) {
+                contentBox.innerHTML = `
+                    <div style="text-align: center; padding: 25px 10px; color: #565959;" id="account-no-orders">
+                        <div style="font-size: 35px; margin-bottom: 8px;">📦</div>
+                        <p style="font-size: 13.5px; margin: 0; font-weight: 700; color: #0f1111;">No verified paid orders found${userPhone ? ' for ' + userPhone : ''}.</p>
+                        <p style="font-size: 12px; color: #888; margin-top: 4px;">Orders placed with Razorpay payment appear here instantly.</p>
+                    </div>
+                `;
+            }
             return;
         }
 
-        let ordersHtml = '<div style="display: flex; flex-direction: column; gap: 12px; max-height: 380px; overflow-y: auto; padding-right: 4px;">';
+        let ordersHtml = '<div style="display: flex; flex-direction: column; gap: 14px; max-height: 420px; overflow-y: auto; padding-right: 4px;">';
         orders.forEach(ord => {
-            const itemsSummary = (ord.items || []).map(i => i.title + ' (' + i.qty + ')').join(', ');
+            const itemsList = (ord.items || []).map(i => `
+                <div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 4px;">
+                    <span style="color: #0f1111;">• ${i.title} <strong>× ${i.qty}</strong></span>
+                    <strong style="color: #007185;">₹${(i.price * i.qty).toLocaleString('en-IN')}</strong>
+                </div>
+            `).join('');
+
             ordersHtml += `
-                <div style="background: #fdfdfd; border: 1px solid #e7e7e7; border-radius: 8px; padding: 12px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-size: 12px; font-weight: 800; color: #007185; background: #e7f4f5; padding: 2px 8px; border-radius: 4px;">${ord.orderId}</span>
+                <div style="background: #fff; border: 1px solid #d5d9d9; border-radius: 8px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #f0f0f0; padding-bottom: 6px;">
+                        <span style="font-size: 12.5px; font-weight: 800; color: #007185; background: #e7f4f5; padding: 2px 8px; border-radius: 4px;">${ord.orderId}</span>
                         <span style="font-size: 11px; color: #666;">${ord.date}</span>
                     </div>
-                    <p style="margin: 4px 0 6px; font-size: 12.5px; color: #0f1111; line-height: 1.4;"><strong>Items:</strong> ${itemsSummary}</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #eee; padding-top: 8px; margin-top: 6px;">
-                        <div>
-                            <span style="font-size: 11px; color: #666;">Status: </span>
-                            <span style="font-size: 11.5px; font-weight: 700; color: #137333;">${ord.status || 'Active'}</span>
-                        </div>
-                        <div style="font-size: 14px; font-weight: 800; color: #0f1111;">₹${ord.total}</div>
+
+                    <div style="margin-bottom: 8px;">
+                        ${itemsList}
                     </div>
-                    <div style="margin-top: 8px; text-align: right;">
-                        <a href="https://wa.me/918739904737?text=${encodeURIComponent('Hello Design Suvidha, I want to track my Order: ' + ord.orderId)}" target="_blank" style="font-size: 11.5px; color: #007185; text-decoration: underline; font-weight: 700;">Track on WhatsApp ➔</a>
+
+                    ${ord.designFile ? `
+                        <div style="margin: 8px 0; display: flex; align-items: center; gap: 8px; background: #f9fafb; padding: 6px 10px; border-radius: 6px; border: 1px solid #e5e7eb;">
+                            <img src="${ord.designFile}" alt="Artwork" style="width: 38px; height: 38px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-size: 11.5px; font-weight: 700; color: #111827; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">🖼️ Design: ${ord.designName || 'Uploaded Artwork'}</div>
+                                <a href="${ord.designFile}" target="_blank" download style="font-size: 11px; color: #2563eb; text-decoration: underline; font-weight: 600;">View & Download File ➔</a>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #eee; padding-top: 8px; margin-top: 8px;">
+                        <div>
+                            <span style="font-size: 11px; color: #007600; font-weight: 800; background: #e6f4ea; padding: 2px 6px; border-radius: 4px;">✓ PAID (${ord.paymentId || 'Razorpay'})</span>
+                            <div style="font-size: 11px; color: #565959; margin-top: 4px;">Status: <strong style="color: #0f1111;">${ord.status || 'In Production'}</strong></div>
+                        </div>
+                        <div style="font-size: 15px; font-weight: 800; color: #0f1111;">₹${(ord.total || 0).toLocaleString('en-IN')}</div>
+                    </div>
+
+                    <div style="margin-top: 10px; text-align: right; border-top: 1px solid #f5f5f5; padding-top: 6px;">
+                        <a href="https://wa.me/918739904737?text=${encodeURIComponent('Hello Design Suvidha, I want tracking updates on my verified Order: ' + ord.orderId)}" target="_blank" style="font-size: 11.5px; color: #007185; text-decoration: underline; font-weight: 700;">Track Delivery on WhatsApp ➔</a>
                     </div>
                 </div>
             `;
         });
         ordersHtml += '</div>';
-        accountOrdersList.innerHTML = ordersHtml;
+
+        if (contentBox) {
+            contentBox.innerHTML = ordersHtml;
+        }
     }
 
     function openAccountModal() {
@@ -3091,8 +3174,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
             });
 
-            const finalizeOrder = (paymentId, rzpOrderId) => {
+            const finalizeOrder = (paymentId, rzpOrderId, cloudOrder, designUrl) => {
                 const finalDesignName = checkoutUploadedDesignName || currentPdpUploadedDesignName || '';
+                const finalDesignUrl = designUrl || (cloudOrder && cloudOrder.design_file_url) || null;
+
+                // Save customer phone for auto-tracking in My Orders
+                try {
+                    localStorage.setItem('ds_customer_phone', phone);
+                } catch(e) {}
 
                 const newOrder = {
                     orderId: orderId,
@@ -3101,11 +3190,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     subtotal: total,
                     total: total,
                     customer: { name, phone, email, address, city, pincode, notes },
-                    designFile: checkoutUploadedDesign || currentPdpUploadedDesign || null,
+                    designFile: finalDesignUrl || checkoutUploadedDesign || currentPdpUploadedDesign || null,
                     designName: finalDesignName,
                     status: 'Paid via Razorpay (' + (paymentId || 'SUCCESS') + ')',
                     paymentId: paymentId || 'rzp_paid',
                     razorpayOrderId: rzpOrderId || '',
+                    paymentStatus: 'PAID',
                     verified: true
                 };
 
@@ -3127,7 +3217,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             '*ITEMS:*\n' + itemsText + '\n\n' +
                             '*Total Paid:* ₹' + total + ' (Free Pan-India Delivery)\n' +
                             (notes ? '*Notes:* ' + notes + '\n' : '') +
-                            (finalDesignName ? '*Design File Attached:* ' + finalDesignName + ' (Customer will share artwork on WhatsApp)\n\n' : '\n') +
+                            (finalDesignUrl ? '*Uploaded Design / Logo Link:* ' + finalDesignUrl + '\n\n' : (finalDesignName ? '*Design File Attached:* ' + finalDesignName + '\n\n' : '\n')) +
                             'Payment signature verified successfully. Please dispatch my order and share courier tracking!';
 
                 cart = [];
@@ -3137,8 +3227,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const form = document.getElementById('checkout-form');
                 if (form) form.reset();
 
-                alert('🎉 Payment of ₹' + total + ' Successful & Verified via Razorpay!\n\nOrder ID: ' + orderId + '\nPayment ID: ' + paymentId + '\n\nRedirecting to WhatsApp for instant order confirmation and dispatch receipt...');
+                alert('🎉 Payment of ₹' + total + ' Successful & Verified via Razorpay!\n\nOrder ID: ' + orderId + '\nPayment ID: ' + paymentId + '\n\nOrder has been securely saved to Supabase Cloud! Opening WhatsApp for instant order confirmation...');
                 window.open('https://wa.me/918739904737?text=' + encodeURIComponent(waMsg), '_blank');
+
+                // Auto open Customer Account order box to show live confirmed order
+                setTimeout(() => {
+                    openAccountModal();
+                }, 1200);
             };
 
             try {
@@ -3180,21 +3275,30 @@ document.addEventListener('DOMContentLoaded', () => {
                         payBtn.innerHTML = '<span>🔐 Verifying Payment Signature...</span>';
 
                         try {
-                            // STEP 3: Verify Signature on Backend
+                            // STEP 3: Verify Signature on Backend & Save to Supabase Cloud
                             const verifyResp = await fetch('/api/verify-payment', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
                                     razorpay_order_id: response.razorpay_order_id,
                                     razorpay_payment_id: response.razorpay_payment_id,
-                                    razorpay_signature: response.razorpay_signature
+                                    razorpay_signature: response.razorpay_signature,
+                                    order_details: {
+                                        orderId: orderId,
+                                        customer: { name, phone, email, address, city, pincode, notes },
+                                        items: [...cart],
+                                        subtotal: total,
+                                        total: total,
+                                        designFile: checkoutUploadedDesign || currentPdpUploadedDesign || null,
+                                        designName: checkoutUploadedDesignName || currentPdpUploadedDesignName || ''
+                                    }
                                 })
                             });
 
                             const verifyData = await verifyResp.json();
 
                             if (verifyResp.ok && verifyData.verified) {
-                                finalizeOrder(response.razorpay_payment_id, response.razorpay_order_id);
+                                finalizeOrder(response.razorpay_payment_id, response.razorpay_order_id, verifyData.order, verifyData.design_url);
                             } else {
                                 alert('⚠️ Payment verification failed: ' + (verifyData.error || 'Signature mismatch. Transaction not marked as paid.'));
                             }

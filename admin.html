@@ -1077,6 +1077,9 @@
                         <p class="admin-page-sub">Real-time revenue, order metrics, stock alerts and store performance.</p>
                     </div>
                     <div style="display: flex; gap: 8px;">
+                        <button type="button" class="btn-primary-action" onclick="fetchCloudOrders(true)">
+                            🔄 Sync Supabase Orders
+                        </button>
                         <button type="button" class="btn-secondary-action" onclick="exportOrdersCSV()">
                             📥 Export Orders CSV
                         </button>
@@ -1337,6 +1340,9 @@
                         <p class="admin-page-sub">Orders placed by customers through the cart & checkout workflow.</p>
                     </div>
                     <div style="display: flex; gap: 8px;">
+                        <button type="button" class="btn-primary-action" onclick="fetchCloudOrders(true)">
+                            🔄 Sync Supabase Orders
+                        </button>
                         <button type="button" class="btn-secondary-action" onclick="exportOrdersCSV()">
                             📥 Export Orders CSV
                         </button>
@@ -3298,17 +3304,54 @@
             renderInventoryTable();
         });
 
-        // 7. CUSTOMER ORDERS & STATUS UPDATE
+        // 7. CUSTOMER ORDERS & STATUS UPDATE (SUPABASE CLOUD SYNC)
+        let cloudOrdersLoaded = false;
+
         function getStoredOrders() {
             let orders = [];
             try {
                 orders = JSON.parse(localStorage.getItem('ds_orders') || '[]');
             } catch (e) { orders = []; }
-            if (orders.length === 0) {
-                orders = [...SAMPLE_ORDERS];
-                localStorage.setItem('ds_orders', JSON.stringify(orders));
-            }
             return orders;
+        }
+
+        async function fetchCloudOrders(showNotice = false) {
+            try {
+                const res = await fetch('/api/get-orders?admin=true');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.orders) {
+                        const mapped = data.orders.map(o => ({
+                            orderId: o.order_id,
+                            date: new Date(o.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                            customer: {
+                                name: o.customer_name,
+                                phone: o.customer_phone,
+                                email: o.customer_email,
+                                address: o.delivery_address,
+                                city: o.city,
+                                pincode: o.pincode,
+                                notes: o.notes
+                            },
+                            items: Array.isArray(o.items) ? o.items : [],
+                            total: o.total,
+                            subtotal: o.subtotal,
+                            status: o.order_status || 'New Order',
+                            paymentId: o.payment_id,
+                            paymentStatus: o.payment_status,
+                            designFile: o.design_file_url,
+                            designName: o.design_name
+                        }));
+                        localStorage.setItem('ds_orders', JSON.stringify(mapped));
+                        cloudOrdersLoaded = true;
+                        if (showNotice) showToast('Synced ' + mapped.length + ' verified orders from Supabase Cloud!');
+                    }
+                }
+            } catch (err) {
+                console.warn('Could not sync from cloud:', err);
+            }
+            renderOrders();
+            updateStatsAndAnalytics();
         }
 
         function saveOrders(orders) {
@@ -3333,34 +3376,48 @@
             });
 
             if (filtered.length === 0) {
-                ordersList.innerHTML = '<div style="text-align: center; padding: 40px; background: #fff; border-radius: 12px; border: 1px solid var(--adm-border); color: var(--adm-muted);">No customer orders matching search criteria.</div>';
+                ordersList.innerHTML = '<div style="text-align: center; padding: 40px; background: #fff; border-radius: 12px; border: 1px solid var(--adm-border); color: var(--adm-muted);">' +
+                    '<div style="font-size: 32px; margin-bottom: 8px;">☁️</div>' +
+                    '<div style="font-weight: 700; color: var(--adm-navy);">No verified paid customer orders found.</div>' +
+                    '<div style="font-size: 12.5px; margin-top: 4px;">Only orders with verified Razorpay payment appear here. <button type="button" onclick="fetchCloudOrders(true)" style="background: none; border: none; color: var(--adm-primary); font-weight: 700; cursor: pointer; text-decoration: underline;">Click to re-sync cloud orders</button></div>' +
+                '</div>';
                 return;
             }
 
             let html = '';
             filtered.forEach(ord => {
                 const cust = ord.customer || {};
-                const itemsText = (ord.items || []).map(i => i.title + ' (x' + i.qty + ') - ₹' + (i.price * i.qty)).join('<br>');
+                const itemsText = (ord.items || []).map(i => '• ' + i.title + ' (x' + i.qty + ') - ₹' + (i.price * i.qty)).join('<br>');
                 const curStatus = ord.status || 'New Order';
 
-                html += '<div class="order-card-row">' +
+                html += '<div class="order-card-row" style="background: #fff; border: 1px solid var(--adm-border); border-radius: 12px; padding: 18px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">' +
                     '<div style="flex: 1; min-width: 280px;">' +
-                        '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px;">' +
-                            '<span class="badge-pill badge-blue" style="font-size: 13px;">' + ord.orderId + '</span>' +
+                        '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">' +
+                            '<span class="badge-pill badge-blue" style="font-size: 13px; font-weight: 800;">' + ord.orderId + '</span>' +
+                            '<span style="background: #ecfdf5; color: #047857; font-weight: 800; font-size: 11.5px; padding: 2px 8px; border-radius: 4px; border: 1px solid #a7f3d0;">✓ PAID via Razorpay' + (ord.paymentId ? ' (' + ord.paymentId + ')' : '') + '</span>' +
                             '<span style="font-size: 12px; color: var(--adm-muted);">📅 ' + ord.date + '</span>' +
                         '</div>' +
-                        '<h4 style="margin: 0 0 4px; font-size: 15px; color: var(--adm-navy);">' + (cust.name || 'Customer') + ' · <a href="tel:' + cust.phone + '" style="color: var(--adm-primary);">' + cust.phone + '</a></h4>' +
-                        '<p style="margin: 0 0 6px; font-size: 13px; color: var(--adm-muted);">📍 ' + (cust.address || '') + ', ' + (cust.city || '') + (cust.pincode ? ' - ' + cust.pincode : '') + '</p>' +
-                        '<div style="font-size: 13px; color: var(--adm-navy); background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 6px;">' +
-                            '<strong>Ordered Items:</strong><br>' + itemsText +
-                            (cust.notes ? '<div style="margin-top: 4px; font-size: 12px; color: #b45309;"><strong>Engraving/Custom Notes:</strong> ' + cust.notes + '</div>' : '') +
+                        '<h4 style="margin: 0 0 4px; font-size: 15px; color: var(--adm-navy);">' + (cust.name || 'Customer') + ' · <a href="tel:' + cust.phone + '" style="color: var(--adm-primary); font-weight: 700;">' + cust.phone + '</a>' + (cust.email ? ' · <span style="font-size: 12px; color: #64748b;">' + cust.email + '</span>' : '') + '</h4>' +
+                        '<p style="margin: 0 0 8px; font-size: 13px; color: var(--adm-muted);">📍 ' + (cust.address || '') + ', ' + (cust.city || '') + (cust.pincode ? ' - ' + cust.pincode : '') + '</p>' +
+                        '<div style="font-size: 13px; color: var(--adm-navy); background: #f8fafc; padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 6px;">' +
+                            '<strong style="color: #334155;">Ordered Items:</strong><br>' + itemsText +
+                            (cust.notes ? '<div style="margin-top: 6px; font-size: 12px; color: #b45309;"><strong>Engraving/Custom Notes:</strong> ' + cust.notes + '</div>' : '') +
                         '</div>' +
+                        (ord.designFile ? (
+                            '<div style="margin-top: 10px; display: flex; align-items: center; gap: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 8px 12px; border-radius: 8px;">' +
+                                '<img src="' + ord.designFile + '" alt="Artwork" style="width: 48px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid #86efac;">' +
+                                '<div style="flex: 1; min-width: 0;">' +
+                                    '<div style="font-size: 12px; font-weight: 700; color: #166534;">🖼️ Customer Artwork: ' + (ord.designName || 'Uploaded Design File') + '</div>' +
+                                    '<a href="' + ord.designFile + '" target="_blank" download style="display: inline-block; margin-top: 2px; font-size: 11.5px; color: #15803d; font-weight: 800; text-decoration: underline;">View & Download Original High-Res Artwork ➔</a>' +
+                                '</div>' +
+                            '</div>'
+                        ) : '') +
                     '</div>' +
-                    '<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">' +
-                        '<div style="font-size: 22px; font-weight: 800; color: var(--adm-navy);">₹' + (ord.total || ord.subtotal || 0) + '</div>' +
+                    '<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px; min-width: 200px;">' +
+                        '<div style="font-size: 24px; font-weight: 900; color: var(--adm-navy);">₹' + (ord.total || ord.subtotal || 0) + '</div>' +
                         '<div style="display: flex; align-items: center; gap: 6px;">' +
                             '<span style="font-size: 12px; color: var(--adm-muted); font-weight: 600;">Status:</span>' +
-                            '<select class="admin-select-filter" style="padding: 4px 8px; font-size: 12px;" onchange="updateOrderStatus(\'' + ord.orderId + '\', this.value)">' +
+                            '<select class="admin-select-filter" style="padding: 5px 10px; font-size: 12px; font-weight: 700; border-radius: 6px;" onchange="updateOrderStatus(\'' + ord.orderId + '\', this.value)">' +
                                 '<option value="New Order"' + (curStatus === 'New Order' ? ' selected' : '') + '>🟡 New Order</option>' +
                                 '<option value="In Production"' + (curStatus === 'In Production' ? ' selected' : '') + '>⚙️ In Production</option>' +
                                 '<option value="Dispatched"' + (curStatus === 'Dispatched' ? ' selected' : '') + '>🚚 Dispatched</option>' +
@@ -3368,7 +3425,7 @@
                                 '<option value="Cancelled"' + (curStatus === 'Cancelled' ? ' selected' : '') + '>🔴 Cancelled</option>' +
                             '</select>' +
                         '</div>' +
-                        '<a href="https://wa.me/91' + (cust.phone || '').replace(/[^0-9]/g, '') + '?text=' + encodeURIComponent('Hello ' + (cust.name || 'Customer') + ', Design Suvidha here regarding your Order ' + ord.orderId + ' (Status: ' + curStatus + ')') + '" target="_blank" style="background: #25d366; color: #fff; text-decoration: none; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">' +
+                        '<a href="https://wa.me/91' + (cust.phone || '').replace(/[^0-9]/g, '') + '?text=' + encodeURIComponent('Hello ' + (cust.name || 'Customer') + ', Design Suvidha here regarding your confirmed Order #' + ord.orderId + ' (Status: ' + curStatus + ')') + '" target="_blank" style="background: #25d366; color: #fff; text-decoration: none; font-size: 12px; font-weight: 700; padding: 7px 14px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(37,211,102,0.25);">' +
                             '💬 WhatsApp Customer' +
                         '</a>' +
                     '</div>' +
@@ -3377,13 +3434,21 @@
             ordersList.innerHTML = html;
         }
 
-        window.updateOrderStatus = function(orderId, newStatus) {
+        window.updateOrderStatus = async function(orderId, newStatus) {
+            try {
+                await fetch('/api/get-orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'update_status', order_id: orderId, new_status: newStatus })
+                });
+            } catch(e) {
+                console.warn('Failed cloud status update:', e);
+            }
             const orders = getStoredOrders();
             const ord = orders.find(o => o.orderId === orderId);
-            if (!ord) return;
-            ord.status = newStatus;
+            if (ord) ord.status = newStatus;
             saveOrders(orders);
-            showToast('Order ' + orderId + ' marked as ' + newStatus);
+            showToast('Order ' + orderId + ' updated to: ' + newStatus);
         };
 
         document.getElementById('admin-order-search')?.addEventListener('input', renderOrders);
@@ -3675,7 +3740,7 @@
             if (tabName === 'analytics') updateStatsAndAnalytics();
             if (tabName === 'products') renderProductsTable();
             if (tabName === 'inventory') renderInventoryTable();
-            if (tabName === 'orders') renderOrders();
+            if (tabName === 'orders') fetchCloudOrders();
             if (tabName === 'inquiries') renderRFQs();
         };
 
@@ -3690,7 +3755,7 @@
         function initAdminDashboard() {
             renderProductsTable();
             renderInventoryTable();
-            renderOrders();
+            fetchCloudOrders();
             renderRFQs();
             loadSavedSettings();
             updateStatsAndAnalytics();

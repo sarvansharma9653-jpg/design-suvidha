@@ -1086,8 +1086,8 @@ body {
 
 /* 2. Amazon Dark Navy Header & Prominent Search Bar */
 .header-nav {
-    background: #131921 !important; /* Signature Amazon Dark Navy */
-    border-bottom: 1px solid #232f3e !important;
+    background: #0f172a !important; /* Signature Amazon Dark Navy */
+    border-bottom: 1px solid #1e293b !important;
     position: sticky !important;
     top: 0 !important;
 }
@@ -1098,7 +1098,7 @@ body {
 
 .nav-link:hover, .nav-link.active {
     color: #ffffff !important;
-    background: #232f3e !important;
+    background: #1e293b !important;
 }
 
 .amazon-search-bar-row {
@@ -1162,7 +1162,7 @@ body {
 
 /* 3. Amazon Delivery Location Strip */
 .app-location-strip {
-    background: #232f3e !important;
+    background: #1e293b !important;
     color: #ffffff !important;
     border-bottom: 1px solid #37475a !important;
     padding: 7px 16px !important;
@@ -1245,7 +1245,7 @@ body {
 }
 
 .dual-tab-btn.active, .dual-tab-btn.highlight {
-    background: #131921 !important;
+    background: #0f172a !important;
     color: #ffffff !important;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
 }
@@ -1431,9 +1431,9 @@ body {
 }
 
 .store-filter-btn.active {
-    background: #131921 !important;
+    background: #0f172a !important;
     color: #ffffff !important;
-    border-color: #131921 !important;
+    border-color: #0f172a !important;
     box-shadow: 0 2px 8px rgba(19, 25, 33, 0.3) !important;
 }
 
@@ -1476,9 +1476,9 @@ body {
 }
 
 .footer-layout {
-    background: #131921 !important;
+    background: #0f172a !important;
     color: #d5d9d9 !important;
-    border-top: 1px solid #232f3e !important;
+    border-top: 1px solid #1e293b !important;
 }
 
 .footer-heading {
@@ -1494,7 +1494,7 @@ body {
 }
 
 .footer-bottom {
-    border-top: 1px solid #232f3e !important;
+    border-top: 1px solid #1e293b !important;
 }
 
 /* 11. Dual-Vertical Spotlight & Business Switcher (Amazon Light Theme) */
@@ -1541,7 +1541,7 @@ body {
 }
 
 .dual-tab-btn.active, .dual-tab-btn.highlight {
-    background: #131921 !important;
+    background: #0f172a !important;
     color: #ffffff !important;
     box-shadow: 0 2px 6px rgba(19, 25, 33, 0.3) !important;
 }
@@ -1653,7 +1653,7 @@ body {
 
 /* 13. Dual-Vertical Cross-Bridge Card */
 .dual-vertical-bridge-card {
-    background: linear-gradient(135deg, #131921 0%, #232f3e 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     color: #ffffff;
     border-radius: 14px;
     padding: 26px 28px;
@@ -1770,7 +1770,7 @@ body {
 }
 
 .cart-count-badge {
-    background: #131921;
+    background: #0f172a;
     color: #ffffff;
     font-size: 11px;
     font-weight: 800;
@@ -1841,7 +1841,7 @@ body {
 }
 
 .btn-hero-agency {
-    background: #131921;
+    background: #0f172a;
     color: #ffffff !important;
     padding: 13px 26px;
     border-radius: 30px;
@@ -1856,7 +1856,7 @@ body {
 }
 
 .btn-hero-agency:hover {
-    background: #232f3e;
+    background: #1e293b;
     transform: translateY(-2px);
 }
 
@@ -1941,7 +1941,7 @@ body {
 }
 
 .biz-card-agency {
-    border-top: 4px solid #131921;
+    border-top: 4px solid #0f172a;
 }
 
 .biz-card-store {
@@ -1966,7 +1966,7 @@ body {
 }
 
 .biz-card-agency .biz-card-icon {
-    background: #131921;
+    background: #0f172a;
     color: #ffffff;
 }
 
@@ -2035,12 +2035,12 @@ body {
 }
 
 .biz-card-agency .btn-biz-explore {
-    background: #131921;
+    background: #0f172a;
     color: #ffffff;
 }
 
 .biz-card-agency .btn-biz-explore:hover {
-    background: #232f3e;
+    background: #1e293b;
 }
 
 .biz-card-store .btn-biz-explore {
@@ -2131,9 +2131,9 @@ body {
 }
 
 .merch-tab-btn.active {
-    background: #131921;
+    background: #0f172a;
     color: #ffffff;
-    border-color: #131921;
+    border-color: #0f172a;
 }
 
 /* Section 7: Dedicated Custom & Corporate Gifting Form */
@@ -2248,7 +2248,7 @@ body {
 }
 
 .cart-drawer-header {
-    background: #131921;
+    background: #0f172a;
     color: #ffffff;
     padding: 18px 20px;
     display: flex;
@@ -2485,7 +2485,7 @@ body {
     left: 0;
     right: 0;
     z-index: 99999;
-    background: #131921 !important;
+    background: #0f172a !important;
     border-bottom: none !important;
     padding: 0 !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
@@ -2765,7 +2765,7 @@ body {
 
 /* Sub-Nav Category Strip */
 .ds-subnav-strip {
-    background: #232f3e;
+    background: #1e293b;
     padding: 6px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     overflow-x: auto;
@@ -3492,7 +3492,7 @@ body {
 
 .subnav-dropdown-trigger:hover,
 .subnav-dropdown:hover .subnav-dropdown-trigger {
-    background: #131921;
+    background: #0f172a;
     border-color: #ffd814;
     color: #ffd814;
 }
@@ -4008,7 +4008,7 @@ body {
 }
 
 .preview-pill {
-    background: #232f3e;
+    background: #1e293b;
     color: #ffd814;
     padding: 2px 8px;
     border-radius: 4px;
@@ -4444,3 +4444,63 @@ body {
     }
 }
 
+
+/* GMB Location Pill (Left of Search Box) */
+.ds-gmb-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    padding: 5px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #ffffff !important;
+    transition: all 0.22s ease;
+    flex-shrink: 0;
+}
+
+.ds-gmb-pill:hover {
+    background: rgba(0, 113, 133, 0.35);
+    border-color: #00d2d3 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 210, 211, 0.25);
+}
+
+.gmb-pin-icon {
+    font-size: 18px;
+    filter: drop-shadow(0 1px 4px rgba(234, 67, 53, 0.5));
+}
+
+.ds-gmb-pill .loc-label {
+    font-size: 10px;
+    color: #38bdf8;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    line-height: 1.1;
+}
+
+.gmb-pulse-dot {
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.ds-gmb-pill .loc-city {
+    font-size: 12.5px;
+    color: #ffffff;
+    font-weight: 750;
+    line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+    .ds-gmb-pill {
+        display: none !important;
+    }
+}

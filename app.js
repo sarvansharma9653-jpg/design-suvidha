@@ -1713,6 +1713,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="product-card" data-cat="${p.category || 'mugs'}" data-group="${p.group || ''}" data-id="${p.id}">
                     <div class="product-thumb-container" style="position: relative;">
                         <button type="button" class="card-wishlist-btn ${isWishlisted ? 'active' : ''}" data-id="${p.id}" title="Save to Wishlist">♥</button>
+                        <button type="button" class="card-share-btn" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}" data-img="${p.img || ''}" title="Share Product">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+                        </button>
                         <img src="${p.img || 'assets/products/product_1.jpg'}" alt="${p.title}" class="product-thumb-img card-pdp-trigger" data-id="${p.id}" loading="lazy" style="cursor: pointer;">
                         <span class="product-badge-float" ${isOutOfStock ? 'style="background: #dc2626; color: #fff;"' : ''}>${badgeText}</span>
                         <span class="product-discount-float">${discPercent}% OFF</span>
@@ -1782,6 +1785,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 const prod = products.find(item => item.id === prodId);
                 if (prod && typeof toggleWishlist === 'function') {
                     toggleWishlist(prod);
+                }
+            });
+        });
+
+        // Wire card share buttons
+        grid.querySelectorAll('.card-share-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                const prodId = btn.getAttribute('data-id');
+                const title = btn.getAttribute('data-title');
+                const price = btn.getAttribute('data-price');
+                const img = btn.getAttribute('data-img');
+                const prod = products.find(item => item.id === prodId) || { id: prodId, title, price, img };
+                if (typeof openProductShareModal === 'function') {
+                    openProductShareModal(prod);
                 }
             });
         });
@@ -3473,6 +3492,154 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initRazorpayIntegration();
+
+    // ============================================================
+    // 22. PRODUCT SHARE SYSTEM (NATIVE & POPUP MODAL)
+    // ============================================================
+    function initProductShareSystem() {
+        const shareModal = document.getElementById('product-share-modal');
+        const shareModalCloseBtn = document.getElementById('share-modal-close-btn');
+        const shareModalImg = document.getElementById('share-modal-img');
+        const shareModalName = document.getElementById('share-modal-name');
+        const shareModalPrice = document.getElementById('share-modal-price');
+        const shareBtnWa = document.getElementById('share-btn-wa');
+        const shareBtnCopy = document.getElementById('share-btn-copy');
+        const shareBtnFb = document.getElementById('share-btn-fb');
+        const shareBtnNative = document.getElementById('share-btn-native');
+        const globalShareToast = document.getElementById('global-share-toast');
+        const globalToastMsg = document.getElementById('global-toast-msg');
+
+        let toastTimeout = null;
+
+        function showShareToast(message) {
+            if (!globalShareToast) return;
+            if (globalToastMsg) globalToastMsg.textContent = message;
+            globalShareToast.classList.add('active');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                globalShareToast.classList.remove('active');
+            }, 2800);
+        }
+
+        window.openProductShareModal = function(prod) {
+            if (!prod) return;
+
+            const prodTitle = prod.title || 'Custom Gift Product';
+            const prodPrice = prod.price ? `₹${prod.price}/-` : '';
+            const prodImg = prod.img || 'assets/products/product_1.jpg';
+            const origin = window.location.origin || 'https://designsuvidha.com';
+            const shareUrl = `${origin}/#prod-${prod.id || 'deal'}`;
+            const shareMsg = `Check out this amazing product on Design Suvidha! 🛍️\n\n*${prodTitle}*\n💰 Wholesale Price: ${prodPrice}\n🚚 Fast Pan-India Delivery\n\nOrder or view details here:\n${shareUrl}`;
+
+            // Mobile native share integration
+            if (navigator.share && /Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+                navigator.share({
+                    title: `${prodTitle} | Design Suvidha`,
+                    text: `🔥 ${prodTitle} at wholesale rate ${prodPrice} on Design Suvidha! Free Delivery:`,
+                    url: shareUrl
+                }).catch(e => {
+                    if (e.name !== 'AbortError') {
+                        openShareModalFallback(prodTitle, prodPrice, prodImg, shareUrl, shareMsg);
+                    }
+                });
+                return;
+            }
+
+            openShareModalFallback(prodTitle, prodPrice, prodImg, shareUrl, shareMsg);
+        };
+
+        function openShareModalFallback(title, price, img, url, msg) {
+            if (!shareModal) return;
+
+            if (shareModalImg) shareModalImg.src = img;
+            if (shareModalName) shareModalName.textContent = title;
+            if (shareModalPrice) shareModalPrice.innerHTML = `${price} <span style="font-size: 11.5px; color: #64748b; font-weight: normal;">Wholesale</span>`;
+
+            // WhatsApp Share
+            if (shareBtnWa) {
+                shareBtnWa.href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+            }
+
+            // Facebook Share
+            if (shareBtnFb) {
+                shareBtnFb.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            }
+
+            // Native Share button (if supported on desktop e.g. Chrome)
+            if (shareBtnNative) {
+                if (navigator.share) {
+                    shareBtnNative.style.display = 'flex';
+                    shareBtnNative.onclick = () => {
+                        navigator.share({
+                            title: `${title} | Design Suvidha`,
+                            text: msg,
+                            url: url
+                        }).catch(() => {});
+                    };
+                } else {
+                    shareBtnNative.style.display = 'none';
+                }
+            }
+
+            // Copy Link button
+            if (shareBtnCopy) {
+                shareBtnCopy.onclick = async () => {
+                    try {
+                        await navigator.clipboard.writeText(`${title} - ${price}\n${url}`);
+                        const copyTxt = document.getElementById('share-copy-text');
+                        if (copyTxt) copyTxt.textContent = 'Link Copied! ✓';
+                        showShareToast('Product link copied to clipboard! 📋');
+                        setTimeout(() => {
+                            if (copyTxt) copyTxt.textContent = 'Copy Product Link';
+                        }, 2200);
+                    } catch (err) {
+                        showShareToast('Link copied: ' + url);
+                    }
+                };
+            }
+
+            shareModal.classList.add('active');
+        }
+
+        function closeShareModal() {
+            if (shareModal) shareModal.classList.remove('active');
+        }
+
+        if (shareModalCloseBtn) {
+            shareModalCloseBtn.addEventListener('click', closeShareModal);
+        }
+        if (shareModal) {
+            shareModal.addEventListener('click', (e) => {
+                if (e.target === shareModal) closeShareModal();
+            });
+        }
+
+        // Wire any static card share buttons on page
+        document.querySelectorAll('.card-share-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                const card = btn.closest('.product-card');
+                const prodId = btn.getAttribute('data-id') || card?.getAttribute('data-id');
+                const title = btn.getAttribute('data-title') || card?.querySelector('.product-title')?.textContent.trim() || 'Custom Product';
+                const price = btn.getAttribute('data-price') || card?.querySelector('.price-main')?.textContent.trim() || '';
+                const img = btn.getAttribute('data-img') || card?.querySelector('.product-thumb-img')?.getAttribute('src') || '';
+                window.openProductShareModal({ id: prodId, title, price, img });
+            });
+        });
+
+        // Wire PDP modal share button
+        const pdpShareBtn = document.getElementById('pdp-share-btn');
+        if (pdpShareBtn) {
+            pdpShareBtn.addEventListener('click', () => {
+                if (currentPdpProduct && typeof window.openProductShareModal === 'function') {
+                    window.openProductShareModal(currentPdpProduct);
+                }
+            });
+        }
+    }
+
+    initProductShareSystem();
 
     // Secret Admin Shortcut: Ctrl + Shift + A
     document.addEventListener('keydown', (e) => {

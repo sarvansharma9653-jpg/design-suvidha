@@ -2702,6 +2702,67 @@ body {
     color: #ffffff;
 }
 
+/* Header Social Media Follow Icons (Right Next to Cart) */
+.header-social-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-left: 6px;
+    padding-left: 8px;
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.hdr-social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    flex-shrink: 0;
+}
+
+.hdr-social-icon svg {
+    width: 17px;
+    height: 17px;
+    transition: transform 0.22s ease;
+}
+
+.hdr-social-icon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.hdr-social-icon:hover svg {
+    transform: scale(1.15);
+}
+
+/* YouTube Red */
+.hdr-social-icon.hdr-yt:hover {
+    background: #ff0000;
+    border-color: #ff0000;
+    color: #ffffff;
+}
+
+/* Instagram Vibrant Gradient */
+.hdr-social-icon.hdr-ig:hover {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    border-color: #d6249f;
+    color: #ffffff;
+}
+
+/* Facebook Official Blue */
+.hdr-social-icon.hdr-fb:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+    color: #ffffff;
+}
+
 /* Sub-Nav Category Strip */
 .ds-subnav-strip {
     background: #232f3e;
@@ -3339,6 +3400,22 @@ body {
         display: none !important;
     }
 
+    .header-social-links {
+        margin-left: 4px;
+        padding-left: 6px;
+        gap: 5px;
+    }
+
+    .hdr-social-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .hdr-social-icon svg {
+        width: 14px;
+        height: 14px;
+    }
+
     .hero-dual-cards-grid {
         grid-template-columns: 1fr;
         gap: 14px;
@@ -3354,6 +3431,17 @@ body {
 
     .ds-search-wrapper {
         max-width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .ds-cart-text {
+        display: none !important;
+    }
+    .header-social-links {
+        gap: 4px;
+        margin-left: 2px;
+        padding-left: 4px;
     }
 }
 

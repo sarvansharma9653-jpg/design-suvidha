@@ -572,7 +572,7 @@ ul { list-style: none; }
 .form-feedback-message.error { background: hsla(330, 85%, 60%, 0.1); border: 1px solid hsla(330, 85%, 60%, 0.3); color: var(--accent-pink); }
 
 /* --- FOOTER --- */
-.footer-layout { border-top: 1px solid var(--border-glass); padding: 60px 0 0; background: hsla(232, 25%, 3%, 0.9); position: relative; z-index: 10; }
+.footer-layout { border-top: 1px solid rgba(56, 189, 248, 0.25); padding: 60px 0 0; background: linear-gradient(180deg, #062b33 0%, #03181c 100%) !important; position: relative; z-index: 10; }
 .footer-container { display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 48px; }
 .footer-logo-img { height: 36px; margin-bottom: 14px; }
 .brand-bio { font-size: 13px; color: var(--text-muted); max-width: 300px; }

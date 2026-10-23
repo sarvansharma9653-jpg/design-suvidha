@@ -2153,7 +2153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div id="account-orders-content" style="text-align: center; padding: 20px; color: #666;">
                 <div style="font-size: 24px; margin-bottom: 6px;">⏳</div>
-                <p style="margin: 0; font-size: 13px;">Loading verified orders from Supabase cloud...</p>
+                <p style="margin: 0; font-size: 13px; font-weight: 600; color: #0f1111;">Loading your verified orders...</p>
             </div>
         `;
 
@@ -2231,12 +2231,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let ordersHtml = '<div style="display: flex; flex-direction: column; gap: 14px; max-height: 420px; overflow-y: auto; padding-right: 4px;">';
         orders.forEach(ord => {
-            const itemsList = (ord.items || []).map(i => `
-                <div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 4px;">
-                    <span style="color: #0f1111;">• ${i.title} <strong>× ${i.qty}</strong></span>
-                    <strong style="color: #007185;">₹${(i.price * i.qty).toLocaleString('en-IN')}</strong>
-                </div>
-            `).join('');
+            const itemsList = (ord.items || []).map(i => {
+                const imgUrl = i.img || 'design suvidha logo.png';
+                return `
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; background: #f8fafc; padding: 8px 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+                            <img src="${imgUrl}" alt="${i.title}" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid #cbd5e1; flex-shrink: 0; background: #fff;">
+                            <div style="min-width: 0;">
+                                <div style="font-weight: 700; color: #0f1111; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px;">${i.title}</div>
+                                <div style="font-size: 11.5px; color: #64748b; margin-top: 2px;">Qty: <strong>${i.qty}</strong> · ₹${i.price} each</div>
+                            </div>
+                        </div>
+                        <strong style="color: #007185; font-size: 14px; flex-shrink: 0;">₹${(i.price * i.qty).toLocaleString('en-IN')}</strong>
+                    </div>
+                `;
+            }).join('');
 
             ordersHtml += `
                 <div style="background: #fff; border: 1px solid #d5d9d9; border-radius: 8px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
@@ -3255,12 +3264,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const successWaBtn = document.getElementById('order-success-wa-btn');
 
                 if (successDetails) {
-                    const itemsHtml = cart.map(it => `
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                            <span style="font-weight: 600; color: #0f1111;">• ${it.title} <span style="color: #565959; font-weight: normal;">(× ${it.qty})</span></span>
-                            <strong style="color: #007185;">₹${(it.price * it.qty).toLocaleString('en-IN')}</strong>
-                        </div>
-                    `).join('');
+                    const itemsHtml = cart.map(it => {
+                        const imgUrl = it.img || 'design suvidha logo.png';
+                        return `
+                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; background: #f8fafc; padding: 6px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <img src="${imgUrl}" alt="${it.title}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; border: 1px solid #cbd5e1; flex-shrink: 0; background: #fff;">
+                                    <div>
+                                        <div style="font-weight: 700; color: #0f1111; font-size: 12.5px;">${it.title}</div>
+                                        <div style="font-size: 11.5px; color: #64748b;">Qty: <strong>${it.qty}</strong> · ₹${it.price} each</div>
+                                    </div>
+                                </div>
+                                <strong style="color: #007185; font-size: 13.5px;">₹${(it.price * it.qty).toLocaleString('en-IN')}</strong>
+                            </div>
+                        `;
+                    }).join('');
 
                     successDetails.innerHTML = `
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; margin-bottom: 8px;">

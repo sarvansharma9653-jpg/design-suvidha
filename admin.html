@@ -1078,7 +1078,7 @@
                     </div>
                     <div style="display: flex; gap: 8px;">
                         <button type="button" class="btn-primary-action" onclick="fetchCloudOrders(true)">
-                            🔄 Sync Supabase Orders
+                            🔄 Refresh Orders
                         </button>
                         <button type="button" class="btn-secondary-action" onclick="exportOrdersCSV()">
                             📥 Export Orders CSV
@@ -1341,7 +1341,7 @@
                     </div>
                     <div style="display: flex; gap: 8px;">
                         <button type="button" class="btn-primary-action" onclick="fetchCloudOrders(true)">
-                            🔄 Sync Supabase Orders
+                            🔄 Refresh Orders
                         </button>
                         <button type="button" class="btn-secondary-action" onclick="exportOrdersCSV()">
                             📥 Export Orders CSV
@@ -3344,7 +3344,7 @@
                         }));
                         localStorage.setItem('ds_orders', JSON.stringify(mapped));
                         cloudOrdersLoaded = true;
-                        if (showNotice) showToast('Synced ' + mapped.length + ' verified orders from Supabase Cloud!');
+                        if (showNotice) showToast('Synced ' + mapped.length + ' verified orders successfully!');
                     }
                 }
             } catch (err) {
@@ -3377,9 +3377,9 @@
 
             if (filtered.length === 0) {
                 ordersList.innerHTML = '<div style="text-align: center; padding: 40px; background: #fff; border-radius: 12px; border: 1px solid var(--adm-border); color: var(--adm-muted);">' +
-                    '<div style="font-size: 32px; margin-bottom: 8px;">☁️</div>' +
+                    '<div style="font-size: 32px; margin-bottom: 8px;">📦</div>' +
                     '<div style="font-weight: 700; color: var(--adm-navy);">No verified paid customer orders found.</div>' +
-                    '<div style="font-size: 12.5px; margin-top: 4px;">Only orders with verified Razorpay payment appear here. <button type="button" onclick="fetchCloudOrders(true)" style="background: none; border: none; color: var(--adm-primary); font-weight: 700; cursor: pointer; text-decoration: underline;">Click to re-sync cloud orders</button></div>' +
+                    '<div style="font-size: 12.5px; margin-top: 4px;">Only orders with verified payment appear here. <button type="button" onclick="fetchCloudOrders(true)" style="background: none; border: none; color: var(--adm-primary); font-weight: 700; cursor: pointer; text-decoration: underline;">Click to refresh orders</button></div>' +
                 '</div>';
                 return;
             }
@@ -3387,20 +3387,34 @@
             let html = '';
             filtered.forEach(ord => {
                 const cust = ord.customer || {};
-                const itemsText = (ord.items || []).map(i => '• ' + i.title + ' (x' + i.qty + ') - ₹' + (i.price * i.qty)).join('<br>');
+                const itemsHtml = (ord.items || []).map(i => {
+                    const imgUrl = i.img || 'design suvidha logo.png';
+                    return `
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; background: #fff; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+                                <img src="${imgUrl}" alt="${i.title}" style="width: 48px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid #cbd5e1; flex-shrink: 0; background: #fff;">
+                                <div style="min-width: 0;">
+                                    <strong style="color: #0f172a; font-size: 13.5px; display: block;">${i.title}</strong>
+                                    <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Qty: <strong>${i.qty}</strong> · ₹${i.price} each</div>
+                                </div>
+                            </div>
+                            <strong style="color: #0f766e; font-size: 14.5px; flex-shrink: 0;">₹${(i.price * i.qty).toLocaleString('en-IN')}</strong>
+                        </div>
+                    `;
+                }).join('');
                 const curStatus = ord.status || 'New Order';
 
                 html += '<div class="order-card-row" style="background: #fff; border: 1px solid var(--adm-border); border-radius: 12px; padding: 18px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">' +
                     '<div style="flex: 1; min-width: 280px;">' +
                         '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">' +
                             '<span class="badge-pill badge-blue" style="font-size: 13px; font-weight: 800;">' + ord.orderId + '</span>' +
-                            '<span style="background: #ecfdf5; color: #047857; font-weight: 800; font-size: 11.5px; padding: 2px 8px; border-radius: 4px; border: 1px solid #a7f3d0;">✓ PAID via Razorpay' + (ord.paymentId ? ' (' + ord.paymentId + ')' : '') + '</span>' +
+                            '<span style="background: #ecfdf5; color: #047857; font-weight: 800; font-size: 11.5px; padding: 2px 8px; border-radius: 4px; border: 1px solid #a7f3d0;">✓ PAID ONLINE' + (ord.paymentId ? ' (' + ord.paymentId + ')' : '') + '</span>' +
                             '<span style="font-size: 12px; color: var(--adm-muted);">📅 ' + ord.date + '</span>' +
                         '</div>' +
                         '<h4 style="margin: 0 0 4px; font-size: 15px; color: var(--adm-navy);">' + (cust.name || 'Customer') + ' · <a href="tel:' + cust.phone + '" style="color: var(--adm-primary); font-weight: 700;">' + cust.phone + '</a>' + (cust.email ? ' · <span style="font-size: 12px; color: #64748b;">' + cust.email + '</span>' : '') + '</h4>' +
                         '<p style="margin: 0 0 8px; font-size: 13px; color: var(--adm-muted);">📍 ' + (cust.address || '') + ', ' + (cust.city || '') + (cust.pincode ? ' - ' + cust.pincode : '') + '</p>' +
                         '<div style="font-size: 13px; color: var(--adm-navy); background: #f8fafc; padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 6px;">' +
-                            '<strong style="color: #334155;">Ordered Items:</strong><br>' + itemsText +
+                            '<strong style="color: #334155; margin-bottom: 6px; display: block;">Ordered Items:</strong>' + itemsHtml +
                             (cust.notes ? '<div style="margin-top: 6px; font-size: 12px; color: #b45309;"><strong>Engraving/Custom Notes:</strong> ' + cust.notes + '</div>' : '') +
                         '</div>' +
                         (ord.designFile ? (

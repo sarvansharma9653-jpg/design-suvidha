@@ -225,6 +225,58 @@ function loadLeadsState() {
         saveLeadsState();
     }
     updateGlobalCounters();
+    syncPaidOrdersIntoCrm();
+}
+
+async function syncPaidOrdersIntoCrm() {
+    try {
+        const resp = await fetch('/api/get-orders?admin=true');
+        if (resp.ok) {
+            const data = await resp.json();
+            if (data && data.orders && data.orders.length > 0) {
+                let updated = false;
+                data.orders.forEach(ord => {
+                    const cleanPhone = (ord.customer_phone || '').replace(/[^0-9]/g, '');
+                    const leadId = 'order-' + (ord.order_id || ord.id);
+                    const existing = leads.find(l => l.id === leadId || (cleanPhone && l.phone && l.phone.includes(cleanPhone.slice(-10))));
+
+                    const itemsText = (ord.items || []).map(i => `${i.title} (x${i.qty})`).join(', ');
+
+                    if (!existing) {
+                        leads.unshift({
+                            id: leadId,
+                            name: ord.customer_name || 'Customer',
+                            phone: cleanPhone || '918739904737',
+                            business: 'Online Store Customer',
+                            service: `Paid Order #${ord.order_id}`,
+                            stage: 'won',
+                            dealValue: ord.total || 0,
+                            notes: `Order #${ord.order_id} placed on store.\nItems: ${itemsText}\nAddress: ${ord.delivery_address}, ${ord.city} - ${ord.pincode}\nPayment ID: ${ord.payment_id}`,
+                            unread: 1,
+                            lastUpdated: ord.created_at || new Date().toISOString(),
+                            orderData: ord,
+                            messages: [
+                                {
+                                    id: 'msg-' + ord.order_id,
+                                    sender: 'customer',
+                                    text: `🛍️ New Order #${ord.order_id} placed!\n• Items: ${itemsText}\n• Total Paid: ₹${ord.total}\n• Delivery to: ${ord.delivery_address}, ${ord.city} - ${ord.pincode}`,
+                                    timestamp: ord.created_at || new Date().toISOString()
+                                }
+                            ]
+                        });
+                        updated = true;
+                    }
+                });
+                if (updated) {
+                    saveLeadsState();
+                    renderConversations();
+                    renderLeadsTable();
+                }
+            }
+        }
+    } catch (e) {
+        console.warn('CRM orders sync warning:', e);
+    }
 }
 
 function saveLeadsState() {
@@ -478,6 +530,7 @@ function startWebhookPolling() {
                     processIncomingEvents(data.events);
                 }
             }
+            syncPaidOrdersIntoCrm();
         } catch (e) {
             // Ignore background polling errors
         }

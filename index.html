@@ -1718,6 +1718,27 @@
                         <label class="corp-form-label" for="co-custom-notes">Customization Details / Logo Note</label>
                         <textarea id="co-custom-notes" class="corp-form-textarea" rows="2" placeholder="e.g. Laser engrave 'Arun Sharma' or Company Logo on Pens / Diaries"></textarea>
                     </div>
+                    <div class="corp-form-field corp-form-full">
+                        <label class="corp-form-label" style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Attach Design / Logo File (Optional):</span>
+                            <span style="font-size: 11px; font-weight: normal; color: #565959;">Images, PDF, CDR</span>
+                        </label>
+                        <div class="co-upload-dropzone" id="co-upload-dropzone" style="border: 1px dashed #007185; border-radius: 6px; padding: 10px 14px; background: #fff; cursor: pointer;">
+                            <input type="file" id="co-design-file-input" accept="image/*,.pdf,.cdr,.ai,.psd" style="display: none;">
+                            <div id="co-upload-prompt" style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 16px;">📎</span>
+                                <span style="font-size: 12.5px; font-weight: 600; color: #007185;">Click to attach design or logo file</span>
+                            </div>
+                            <div id="co-upload-success" style="display: none; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                                    <img id="co-upload-thumb" src="" alt="" style="width: 26px; height: 26px; object-fit: cover; border-radius: 4px; display: none;">
+                                    <span id="co-upload-filename" style="font-size: 12px; font-weight: 700; color: #0f1111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px;">file.png</span>
+                                    <span style="font-size: 11px; color: #007600; font-weight: 700;">(Attached)</span>
+                                </div>
+                                <button type="button" id="co-upload-remove-btn" style="background: none; border: none; color: #dc2626; font-size: 14px; cursor: pointer; font-weight: 800;">✕</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="corp-form-field corp-form-full" style="background: #f7fafa; padding: 14px; border-radius: 8px; border: 1px solid #e7e7e7;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
                             <span style="font-size: 13px; color: #565959;">Items Subtotal:</span>
@@ -1877,15 +1898,46 @@
                             </a>
                         </div>
 
-                        <!-- Personalization Input (Printvenue style) -->
+                        <!-- Personalization & Design Upload Input (Printvenue style) -->
                         <div class="pdp-personalize-box">
-                            <label class="pdp-personalize-label">
-                                <span>✍️ Personalize with Name / Company Logo:</span>
+                            <label class="pdp-personalize-label" for="pdp-engrave-text">
+                                <span>✍️ Personalize with Name / Text:</span>
                             </label>
-                            <input type="text" id="pdp-engrave-text" class="pdp-personalize-input" placeholder="e.g. Laser engrave name 'Arun Sharma' or Company Logo">
+                            <input type="text" id="pdp-engrave-text" class="pdp-personalize-input" placeholder="e.g. Laser engrave name 'Arun Sharma' or Company Name">
                             <div class="pdp-personalize-preview">
                                 <span>Engraving Preview:</span>
                                 <span class="preview-pill" id="pdp-preview-pill">YOUR NAME HERE</span>
+                            </div>
+
+                            <!-- Upload Custom Design / Logo / Photo -->
+                            <div class="pdp-upload-container" style="margin-top: 12px; border-top: 1px dashed #d5d9d9; padding-top: 10px;">
+                                <label class="pdp-personalize-label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <span>📸 Upload Your Design / Photo / Logo:</span>
+                                    <span style="font-size: 11px; font-weight: 500; color: #565959;">JPG, PNG, PDF (Max 25MB)</span>
+                                </label>
+                                <div class="pdp-upload-dropzone" id="pdp-upload-dropzone" style="border: 2px dashed #007185; border-radius: 8px; padding: 12px; text-align: center; background: #f7fafa; cursor: pointer; transition: all 0.2s ease;">
+                                    <input type="file" id="pdp-design-file-input" accept="image/*,.pdf,.cdr,.ai,.psd" style="display: none;">
+                                    
+                                    <div id="pdp-upload-prompt" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                        <span style="font-size: 20px;">📁</span>
+                                        <div>
+                                            <span style="font-size: 13px; font-weight: 700; color: #007185; text-decoration: underline;">Click to Upload Design / Photo</span>
+                                            <div style="font-size: 11px; color: #666; margin-top: 2px;">Attach your artwork, company logo or photo</div>
+                                        </div>
+                                    </div>
+
+                                    <div id="pdp-upload-success" style="display: none; align-items: center; justify-content: space-between; gap: 10px;">
+                                        <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                                            <img id="pdp-upload-thumb" src="" alt="Design Preview" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #d5d9d9; display: none;">
+                                            <span id="pdp-upload-doc-icon" style="font-size: 26px; display: none;">📄</span>
+                                            <div style="text-align: left; min-width: 0;">
+                                                <div id="pdp-upload-filename" style="font-size: 12.5px; font-weight: 700; color: #0f1111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px;">artwork.png</div>
+                                                <span style="font-size: 11px; color: #007600; font-weight: 700;">✓ Design File Attached Ready for Print</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" id="pdp-upload-remove-btn" style="background: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer;">✕ Remove</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -1903,7 +1955,7 @@
 
                             <div class="pdp-actions-row">
                                 <button type="button" class="pdp-btn-cart" id="pdp-add-cart-btn">🛒 Add to Cart</button>
-                                <a href="#" id="pdp-buynow-btn" target="_blank" class="pdp-btn-buynow">⚡ Buy It Now</a>
+                                <button type="button" id="pdp-buynow-btn" class="pdp-btn-buynow">⚡ Buy It Now</button>
                                 <button type="button" class="pdp-btn-wishlist" id="pdp-wishlist-toggle-btn" title="Add to Wishlist">♥</button>
                             </div>
                         </div>

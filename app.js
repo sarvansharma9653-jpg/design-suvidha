@@ -1911,25 +1911,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function addToCart(title, price, img) {
+    function addToCart(title, price, img, qty = 1, options = {}) {
         const cleanPrice = parseInt(String(price).replace(/[^0-9]/g, ''), 10) || 0;
         const cleanTitle = title || 'Custom Gift Product';
         const cleanImg = img || 'design suvidha logo.png';
+        const addQty = Math.max(1, parseInt(qty, 10) || 1);
 
         const existingItem = cart.find(item => item.title === cleanTitle);
         if (existingItem) {
-            existingItem.qty += 1;
+            existingItem.qty += addQty;
+            if (options.designFile) existingItem.designFile = options.designFile;
+            if (options.designName) existingItem.designName = options.designName;
         } else {
             cart.push({
                 title: cleanTitle,
                 price: cleanPrice,
                 img: cleanImg,
-                qty: 1
+                qty: addQty,
+                customText: options.customText || '',
+                designFile: options.designFile || null,
+                designName: options.designName || ''
             });
         }
         saveCart();
         renderCart();
-        openCart();
+        if (!options.silent) {
+            openCart();
+        }
     }
 
     // Bind Add-to-Cart buttons across all cards
@@ -1988,6 +1996,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Checkout modal design file upload
+    const coDropzone = document.getElementById('co-upload-dropzone');
+    const coFileInput = document.getElementById('co-design-file-input');
+    const coPrompt = document.getElementById('co-upload-prompt');
+    const coSuccess = document.getElementById('co-upload-success');
+    const coThumb = document.getElementById('co-upload-thumb');
+    const coFilename = document.getElementById('co-upload-filename');
+    const coRemoveBtn = document.getElementById('co-upload-remove-btn');
+
+    let checkoutUploadedDesign = null;
+    let checkoutUploadedDesignName = '';
+
+    if (coDropzone && coFileInput) {
+        coDropzone.addEventListener('click', (e) => {
+            if (e.target === coRemoveBtn) return;
+            coFileInput.click();
+        });
+
+        coFileInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            checkoutUploadedDesignName = file.name;
+            if (coFilename) coFilename.textContent = file.name;
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    checkoutUploadedDesign = ev.target.result;
+                    if (coThumb) {
+                        coThumb.src = ev.target.result;
+                        coThumb.style.display = 'block';
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else {
+                checkoutUploadedDesign = file.name;
+                if (coThumb) coThumb.style.display = 'none';
+            }
+
+            if (coPrompt) coPrompt.style.display = 'none';
+            if (coSuccess) coSuccess.style.display = 'flex';
+        });
+
+        if (coRemoveBtn) {
+            coRemoveBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                coFileInput.value = '';
+                checkoutUploadedDesign = null;
+                checkoutUploadedDesignName = '';
+                if (coPrompt) coPrompt.style.display = 'flex';
+                if (coSuccess) coSuccess.style.display = 'none';
+            });
+        }
+    }
+
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -2010,6 +2074,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
             });
 
+            const finalDesignName = checkoutUploadedDesignName || currentPdpUploadedDesignName || '';
+
             const newOrder = {
                 orderId: orderId,
                 date: orderDate,
@@ -2017,6 +2083,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 subtotal: total,
                 total: total,
                 customer: { name, phone, email, address, city, pincode, notes },
+                designFile: checkoutUploadedDesign || currentPdpUploadedDesign || null,
+                designName: finalDesignName,
                 status: 'Placed · Awaiting Dispatch'
             };
 
@@ -2039,7 +2107,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         '*Delivery Address:* ' + address + ', ' + city + ' - ' + pincode + '\n\n' +
                         '*ORDER ITEMS:*\n' + itemsText + '\n\n' +
                         '*Total Payable:* ₹' + total + ' (Pan-India Free Shipping)\n' +
-                        (notes ? '*Customization/Notes:* ' + notes + '\n\n' : '\n') +
+                        (notes ? '*Customization/Notes:* ' + notes + '\n' : '') +
+                        (finalDesignName ? '*Design File Attached:* ' + finalDesignName + ' (Customer will share artwork on WhatsApp)\n\n' : '\n') +
                         'Please share UPI QR / Bank details for payment confirmation and tracking slip. Thank you!';
 
             // Reset cart
@@ -2421,6 +2490,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPdpProduct = null;
     let currentPdpIndex = 0;
     let currentPdpQty = 1;
+    let currentPdpUploadedDesign = null;
+    let currentPdpUploadedDesignName = '';
 
     window.openProductDetailModal = function(productId) {
         const products = getLiveStoreProducts();
@@ -2479,6 +2550,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pdpQtyDisplay) pdpQtyDisplay.textContent = '1';
         if (pdpEngraveText) pdpEngraveText.value = '';
         if (pdpPreviewPill) pdpPreviewPill.textContent = 'YOUR NAME HERE';
+
+        // Reset Design File Upload
+        currentPdpUploadedDesign = null;
+        currentPdpUploadedDesignName = '';
+        const pdpFileInputEl = document.getElementById('pdp-design-file-input');
+        if (pdpFileInputEl) pdpFileInputEl.value = '';
+        const pdpPromptEl = document.getElementById('pdp-upload-prompt');
+        const pdpSuccessEl = document.getElementById('pdp-upload-success');
+        if (pdpPromptEl) pdpPromptEl.style.display = 'flex';
+        if (pdpSuccessEl) pdpSuccessEl.style.display = 'none';
 
         // Update Buy Now link
         updatePdpBuyNowLink();
@@ -2560,6 +2641,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // PDP Design File Upload Handling
+    const pdpDropzone = document.getElementById('pdp-upload-dropzone');
+    const pdpFileInput = document.getElementById('pdp-design-file-input');
+    const pdpPrompt = document.getElementById('pdp-upload-prompt');
+    const pdpSuccess = document.getElementById('pdp-upload-success');
+    const pdpThumb = document.getElementById('pdp-upload-thumb');
+    const pdpDocIcon = document.getElementById('pdp-upload-doc-icon');
+    const pdpFilename = document.getElementById('pdp-upload-filename');
+    const pdpRemoveBtn = document.getElementById('pdp-upload-remove-btn');
+
+    if (pdpDropzone && pdpFileInput) {
+        pdpDropzone.addEventListener('click', (e) => {
+            if (e.target === pdpRemoveBtn) return;
+            pdpFileInput.click();
+        });
+
+        pdpFileInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            currentPdpUploadedDesignName = file.name;
+            if (pdpFilename) pdpFilename.textContent = file.name;
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    currentPdpUploadedDesign = ev.target.result;
+                    if (pdpThumb) {
+                        pdpThumb.src = ev.target.result;
+                        pdpThumb.style.display = 'block';
+                    }
+                    if (pdpDocIcon) pdpDocIcon.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                currentPdpUploadedDesign = file.name;
+                if (pdpThumb) pdpThumb.style.display = 'none';
+                if (pdpDocIcon) pdpDocIcon.style.display = 'block';
+            }
+
+            if (pdpPrompt) pdpPrompt.style.display = 'none';
+            if (pdpSuccess) pdpSuccess.style.display = 'flex';
+            updatePdpBuyNowLink();
+        });
+
+        if (pdpRemoveBtn) {
+            pdpRemoveBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                pdpFileInput.value = '';
+                currentPdpUploadedDesign = null;
+                currentPdpUploadedDesignName = '';
+                if (pdpPrompt) pdpPrompt.style.display = 'flex';
+                if (pdpSuccess) pdpSuccess.style.display = 'none';
+                updatePdpBuyNowLink();
+            });
+        }
+    }
+
     function updatePdpBuyNowLink() {
         if (!pdpBuyNowBtn || !currentPdpProduct) return;
         let waPhone = '918739904737';
@@ -2569,28 +2708,96 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch(e) {}
 
         const engrave = (pdpEngraveText && pdpEngraveText.value.trim()) ? pdpEngraveText.value.trim() : 'Standard / No Engraving';
+        const designText = currentPdpUploadedDesignName ? `\n• Uploaded Design: "${currentPdpUploadedDesignName}" (Attached)` : '';
         const totalPrice = currentPdpProduct.price * currentPdpQty;
 
         const msg = `*INSTANT ORDER: ${currentPdpProduct.title}* 🛍️\n` +
                     `• Quantity: ${currentPdpQty} Pc(s)\n` +
                     `• Unit Price: ₹${currentPdpProduct.price}\n` +
                     `• Total Payable: ₹${totalPrice}\n` +
-                    `• Customization / Engraving: "${engrave}"\n\n` +
+                    `• Customization / Engraving: "${engrave}"` +
+                    designText + `\n\n` +
                     `Please share payment details (UPI QR / Bank) and mockup preview. Thank you!`;
 
-        pdpBuyNowBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`;
+        if (pdpBuyNowBtn.tagName === 'A') {
+            pdpBuyNowBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`;
+        }
+    }
+
+    // "⚡ Buy It Now" Button Handler: Adds customized product and directly opens checkout modal
+    if (pdpBuyNowBtn) {
+        pdpBuyNowBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!currentPdpProduct) return;
+
+            const customText = pdpEngraveText ? pdpEngraveText.value.trim() : '';
+            const customParts = [];
+            if (customText) customParts.push(`Custom: ${customText}`);
+            if (currentPdpUploadedDesignName) customParts.push(`Design: ${currentPdpUploadedDesignName}`);
+
+            const noteStr = customParts.length > 0 ? ` [${customParts.join(', ')}]` : '';
+            const fullTitle = currentPdpProduct.title + noteStr;
+
+            // Add to cart with full customization & quantity
+            addToCart(fullTitle, currentPdpProduct.price, currentPdpProduct.img, currentPdpQty, {
+                silent: true,
+                customText: customText,
+                designName: currentPdpUploadedDesignName,
+                designFile: currentPdpUploadedDesign
+            });
+
+            // Close PDP modal
+            closeProductDetailModal();
+
+            // Populate checkout custom notes
+            const coNotes = document.getElementById('co-custom-notes');
+            if (coNotes && customParts.length > 0) {
+                const currentVal = coNotes.value.trim();
+                const noteVal = customParts.join(' | ');
+                coNotes.value = currentVal ? `${currentVal}\n${noteVal}` : noteVal;
+            }
+
+            // Sync design to checkout modal upload display
+            if (currentPdpUploadedDesignName) {
+                const coFilename = document.getElementById('co-upload-filename');
+                const coThumb = document.getElementById('co-upload-thumb');
+                const coPrompt = document.getElementById('co-upload-prompt');
+                const coSuccess = document.getElementById('co-upload-success');
+                if (coFilename) coFilename.textContent = currentPdpUploadedDesignName;
+                if (coThumb && currentPdpUploadedDesign && currentPdpUploadedDesign.startsWith('data:image')) {
+                    coThumb.src = currentPdpUploadedDesign;
+                    coThumb.style.display = 'block';
+                }
+                if (coPrompt) coPrompt.style.display = 'none';
+                if (coSuccess) coSuccess.style.display = 'flex';
+            }
+
+            // Open Secure Checkout Modal immediately
+            if (typeof openCheckoutModal === 'function') {
+                openCheckoutModal();
+            }
+        });
     }
 
     // Add to Cart from PDP
     if (pdpAddCartBtn) {
         pdpAddCartBtn.addEventListener('click', () => {
             if (!currentPdpProduct) return;
-            const customNote = (pdpEngraveText && pdpEngraveText.value.trim()) ? ` [Engrave: ${pdpEngraveText.value.trim()}]` : '';
-            const fullTitle = currentPdpProduct.title + customNote;
-            
-            for (let i = 0; i < currentPdpQty; i++) {
-                addToCart(fullTitle, currentPdpProduct.price, currentPdpProduct.img);
-            }
+            const customText = pdpEngraveText ? pdpEngraveText.value.trim() : '';
+            const customParts = [];
+            if (customText) customParts.push(`Custom: ${customText}`);
+            if (currentPdpUploadedDesignName) customParts.push(`Design: ${currentPdpUploadedDesignName}`);
+
+            const noteStr = customParts.length > 0 ? ` [${customParts.join(', ')}]` : '';
+            const fullTitle = currentPdpProduct.title + noteStr;
+
+            addToCart(fullTitle, currentPdpProduct.price, currentPdpProduct.img, currentPdpQty, {
+                silent: false,
+                customText: customText,
+                designName: currentPdpUploadedDesignName,
+                designFile: currentPdpUploadedDesign
+            });
+
             closeProductDetailModal();
         });
     }
@@ -2862,6 +3069,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const finalizeOrder = (paymentId, rzpOrderId) => {
+                const finalDesignName = checkoutUploadedDesignName || currentPdpUploadedDesignName || '';
+
                 const newOrder = {
                     orderId: orderId,
                     date: orderDate,
@@ -2869,6 +3078,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     subtotal: total,
                     total: total,
                     customer: { name, phone, email, address, city, pincode, notes },
+                    designFile: checkoutUploadedDesign || currentPdpUploadedDesign || null,
+                    designName: finalDesignName,
                     status: 'Paid via Razorpay (' + (paymentId || 'SUCCESS') + ')',
                     paymentId: paymentId || 'rzp_paid',
                     razorpayOrderId: rzpOrderId || '',
@@ -2890,9 +3101,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             (rzpOrderId ? '*Razorpay Order ID:* ' + rzpOrderId + '\n' : '') +
                             '*Customer:* ' + name + ' (' + phone + ')\n' +
                             '*Delivery Address:* ' + address + ', ' + city + ' - ' + pincode + '\n\n' +
-                            '*ITEMS:*\\\n' + itemsText + '\n\n' +
+                            '*ITEMS:*\n' + itemsText + '\n\n' +
                             '*Total Paid:* ₹' + total + ' (Free Pan-India Delivery)\n' +
-                            (notes ? '*Notes:* ' + notes + '\n\n' : '\n') +
+                            (notes ? '*Notes:* ' + notes + '\n' : '') +
+                            (finalDesignName ? '*Design File Attached:* ' + finalDesignName + ' (Customer will share artwork on WhatsApp)\n\n' : '\n') +
                             'Payment signature verified successfully. Please dispatch my order and share courier tracking!';
 
                 cart = [];

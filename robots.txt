@@ -1,0 +1,31 @@
+# robots.txt for Design Suvidha (https://designsuvidha.com)
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /crm.html
+Disallow: /api/
+
+# AI Crawlers & Answer Engines (AEO / GEO Optimization)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# XML Sitemap Location
+Sitemap: https://designsuvidha.com/sitemap.xml

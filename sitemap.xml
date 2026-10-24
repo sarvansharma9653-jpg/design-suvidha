@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Primary Homepage & E-commerce Catalog -->
+    <url>
+        <loc>https://designsuvidha.com/</loc>
+        <lastmod>2026-10-24</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://designsuvidha.com/design%20suvidha%20logo.png</image:loc>
+            <image:title>Design Suvidha - Printing Solutions, Corporate Gifting &amp; Digital Marketing</image:title>
+            <image:caption>Premier Custom Printing Solutions and Corporate Gifting in Jaipur</image:caption>
+        </image:image>
+    </url>
+
+    <!-- Dedicated Online Store -->
+    <url>
+        <loc>https://designsuvidha.com/store.html</loc>
+        <lastmod>2026-10-24</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Legal & Policy Pages (Trust Signals for Google & AI Engines) -->
+    <url>
+        <loc>https://designsuvidha.com/privacy.html</loc>
+        <lastmod>2026-10-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+    </url>
+
+    <url>
+        <loc>https://designsuvidha.com/terms.html</loc>
+        <lastmod>2026-10-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+    </url>
+
+    <url>
+        <loc>https://designsuvidha.com/refund.html</loc>
+        <lastmod>2026-10-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+    </url>
+
+</urlset>

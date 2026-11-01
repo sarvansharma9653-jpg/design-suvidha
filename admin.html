@@ -1662,6 +1662,22 @@
                         <input type="text" id="form-sku" class="admin-form-input" placeholder="e.g. DS-MUG-101">
                     </div>
 
+                    <div>
+                        <label class="admin-form-label" for="form-min-qty">
+                            <span>Minimum Order Qty (MOQ) *</span>
+                            <span style="font-size: 10.5px; color: var(--adm-muted); font-weight: normal;">(Min allowed)</span>
+                        </label>
+                        <input type="number" id="form-min-qty" class="admin-form-input" value="1" min="1" placeholder="e.g. 1, 10, 50" required>
+                    </div>
+
+                    <div>
+                        <label class="admin-form-label" for="form-max-qty">
+                            <span>Maximum Order Qty</span>
+                            <span style="font-size: 10.5px; color: var(--adm-muted); font-weight: normal;">(Max limit per order)</span>
+                        </label>
+                        <input type="number" id="form-max-qty" class="admin-form-input" value="1000" min="1" placeholder="e.g. 500, 1000">
+                    </div>
+
                     <div class="admin-form-full">
                         <label class="admin-form-label" for="form-image-select">Product Photograph *</label>
                         <div style="display: flex; gap: 8px;">
@@ -3198,6 +3214,7 @@
                     '<td>' +
                         '<strong>' + p.title + '</strong>' +
                         '<div style="font-size: 11.5px; color: var(--adm-muted); margin-top: 2px;">SKU: ' + (p.sku || p.id) + '</div>' +
+                        '<div style="font-size: 11px; color: #0284c7; font-weight: 700; margin-top: 2px;">📦 Min: ' + (p.minQty || 1) + ' Pc | Max: ' + (p.maxQty || 1000) + '</div>' +
                     '</td>' +
                     '<td><span class="badge-pill badge-blue">' + (p.catLabel || p.category).toUpperCase() + '</span></td>' +
                     '<td><strong style="color: var(--adm-navy);">₹' + p.price + '/-</strong></td>' +
@@ -3398,6 +3415,8 @@
             document.getElementById('modal-heading').textContent = 'Add New Product';
             modalImages = [imageSelect.value || 'assets/products/product_1.jpg'];
             renderModalImagesGallery();
+            if (document.getElementById('form-min-qty')) document.getElementById('form-min-qty').value = '1';
+            if (document.getElementById('form-max-qty')) document.getElementById('form-max-qty').value = '1000';
             if (document.getElementById('form-video')) document.getElementById('form-video').value = '';
             if (document.getElementById('form-image-file')) document.getElementById('form-image-file').value = '';
             if (imageCustom) imageCustom.value = '';
@@ -3460,6 +3479,8 @@
             const strike = parseInt(document.getElementById('form-strike').value, 10) || 0;
             const stock = parseInt(document.getElementById('form-stock').value, 10) || 0;
             const sku = document.getElementById('form-sku').value.trim() || ('DS-' + category.toUpperCase() + '-' + Math.floor(100 + Math.random()*900));
+            const minQty = Math.max(1, parseInt(document.getElementById('form-min-qty')?.value, 10) || 1);
+            const maxQty = Math.max(minQty, parseInt(document.getElementById('form-max-qty')?.value, 10) || 1000);
             const desc = document.getElementById('form-desc').value.trim();
             const featuresStr = document.getElementById('form-features').value.trim();
             const features = featuresStr ? featuresStr.split(',').map(s => s.trim()) : [];
@@ -3472,7 +3493,7 @@
             const existingIndex = products.findIndex(p => p.id === id);
             const video = document.getElementById('form-video') ? document.getElementById('form-video').value.trim() : '';
             const catLabel = getCatLabel(category);
-            const productData = { id, title, category, catLabel, price, strike, badge, img, images, video, desc, features, stock, sku };
+            const productData = { id, title, category, catLabel, price, strike, badge, img, images, minQty, maxQty, video, desc, features, stock, sku };
 
             if (existingIndex !== -1) {
                 products[existingIndex] = productData;
@@ -3498,6 +3519,8 @@
             document.getElementById('form-strike').value = p.strike || '';
             document.getElementById('form-stock').value = p.stock !== undefined ? p.stock : 50;
             document.getElementById('form-sku').value = p.sku || '';
+            if (document.getElementById('form-min-qty')) document.getElementById('form-min-qty').value = p.minQty !== undefined ? p.minQty : 1;
+            if (document.getElementById('form-max-qty')) document.getElementById('form-max-qty').value = p.maxQty !== undefined ? p.maxQty : 1000;
             if (document.getElementById('form-video')) document.getElementById('form-video').value = p.video || '';
             document.getElementById('form-desc').value = p.desc || '';
             document.getElementById('form-features').value = (p.features || []).join(', ');

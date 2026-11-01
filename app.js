@@ -1699,13 +1699,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const lowStockHtml = (!isOutOfStock && stock <= 15) ? `<span style="font-size: 11px; color: #b45309; font-weight: 700; display: block; margin-top: 2px;">⚠️ Only ${stock} left in stock!</span>` : '';
             const isWishlisted = wishlist.some(item => item.id === p.id);
 
+            const minOrderQty = (p.minQty && p.minQty > 0) ? parseInt(p.minQty, 10) : 1;
+            const maxOrderQty = (p.maxQty && p.maxQty > 0) ? parseInt(p.maxQty, 10) : 1000;
+            const moqBadgeHtml = minOrderQty > 1
+                ? `<div style="margin: 4px 0 2px;"><span style="display: inline-block; font-size: 10.5px; background: #e0f2fe; color: #0369a1; font-weight: 800; padding: 2px 7px; border-radius: 4px; border: 1px solid #bae6fd;">📦 Min Order: ${minOrderQty} Pcs</span></div>`
+                : '';
+
             const actionButtons = isOutOfStock
                 ? `
                     <button type="button" class="btn-add-cart disabled" style="opacity: 0.6; cursor: not-allowed; background: #e2e8f0; color: #64748b;" disabled>Sold Out</button>
                     <a href="https://wa.me/${waOrderPhone}?text=${encodeURIComponent('Hello Design Suvidha, when will ' + p.title + ' be back in stock?')}" target="_blank" class="btn-buy-instant btn-order-wa" style="background: #475569;">Notify Me</a>
                 `
                 : `
-                    <button type="button" class="btn-add-cart" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}" data-img="${p.img}">🛒 Add</button>
+                    <button type="button" class="btn-add-cart" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}" data-img="${p.img}" data-min-qty="${minOrderQty}">🛒 Add</button>
                     <button type="button" class="btn-buy-instant btn-open-pdp" data-id="${p.id}" style="background: #ffa41c; color: #0f1111; border: none; font-weight: 800; cursor: pointer; padding: 7px 12px; border-radius: 6px;">Buy Now</button>
                 `;
 
@@ -1750,6 +1756,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="product-features-list">
                             ${featuresHtml}
                         </div>
+                        ${moqBadgeHtml}
                         ${lowStockHtml}
                         <span class="free-delivery-badge">🚚 Fast Dispatch · 100% Quality Assurance</span>
                         <div class="product-footer-row">
@@ -1775,8 +1782,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const title = btn.getAttribute('data-title');
                 const price = btn.getAttribute('data-price');
                 const img = btn.getAttribute('data-img');
+                const minQty = parseInt(btn.getAttribute('data-min-qty') || '1', 10);
                 if (typeof addToCart === 'function') {
-                    addToCart(title, price, img);
+                    addToCart(title, price, img, minQty);
                 }
             });
         });
@@ -2809,7 +2817,14 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPdpIndex = idx;
         const p = products[idx];
         currentPdpProduct = p;
-        currentPdpQty = 1;
+        const pMinQty = (p.minQty && p.minQty > 0) ? parseInt(p.minQty, 10) : 1;
+        const pMaxQty = (p.maxQty && p.maxQty > 0) ? parseInt(p.maxQty, 10) : 1000;
+        currentPdpQty = pMinQty;
+
+        const pdpQtyHintEl = document.getElementById('pdp-qty-hint');
+        if (pdpQtyHintEl) {
+            pdpQtyHintEl.textContent = `(Min: ${pMinQty} Pc${pMinQty > 1 ? 's' : ''} · Max: ${pMaxQty})`;
+        }
 
         // Populate elements
         if (pdpBreadcrumbCat) pdpBreadcrumbCat.textContent = (p.catLabel || p.category || 'GIFTING').toUpperCase();
@@ -2898,7 +2913,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Reset Qty & Personalization
-        if (pdpQtyDisplay) pdpQtyDisplay.textContent = '1';
+        if (pdpQtyDisplay) pdpQtyDisplay.textContent = currentPdpQty;
         if (pdpEngraveText) pdpEngraveText.value = '';
         if (pdpPreviewPill) pdpPreviewPill.textContent = 'YOUR NAME HERE';
 
@@ -3001,22 +3016,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Quantity modifiers in PDP
+    // Quantity modifiers in PDP (Enforcing minQty & maxQty limits)
     if (pdpQtyMinus) {
         pdpQtyMinus.addEventListener('click', () => {
-            if (currentPdpQty > 1) {
+            const minAllowed = (currentPdpProduct && currentPdpProduct.minQty) ? parseInt(currentPdpProduct.minQty, 10) : 1;
+            if (currentPdpQty > minAllowed) {
                 currentPdpQty -= 1;
                 if (pdpQtyDisplay) pdpQtyDisplay.textContent = currentPdpQty;
                 updatePdpBuyNowLink();
+            } else {
+                alert(`Is product ke liye minimum order ${minAllowed} quantity zaroori hai.`);
             }
         });
     }
 
     if (pdpQtyPlus) {
         pdpQtyPlus.addEventListener('click', () => {
-            currentPdpQty += 1;
-            if (pdpQtyDisplay) pdpQtyDisplay.textContent = currentPdpQty;
-            updatePdpBuyNowLink();
+            const maxAllowed = (currentPdpProduct && currentPdpProduct.maxQty) ? parseInt(currentPdpProduct.maxQty, 10) : 1000;
+            const stockLimit = (currentPdpProduct && currentPdpProduct.stock !== undefined) ? currentPdpProduct.stock : 1000;
+            const effectiveMax = Math.min(maxAllowed, stockLimit > 0 ? stockLimit : maxAllowed);
+
+            if (currentPdpQty < effectiveMax) {
+                currentPdpQty += 1;
+                if (pdpQtyDisplay) pdpQtyDisplay.textContent = currentPdpQty;
+                updatePdpBuyNowLink();
+            } else {
+                alert(`Is product ke liye maximum ${effectiveMax} quantity tak hi order kiya ja sakta hai.`);
+            }
         });
     }
 

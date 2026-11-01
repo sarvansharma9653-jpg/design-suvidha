@@ -1709,14 +1709,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button type="button" class="btn-buy-instant btn-open-pdp" data-id="${p.id}" style="background: #ffa41c; color: #0f1111; border: none; font-weight: 800; cursor: pointer; padding: 7px 12px; border-radius: 6px;">Buy Now</button>
                 `;
 
+            const pImages = (Array.isArray(p.images) && p.images.length > 0)
+                ? p.images
+                : [p.img || 'assets/products/product_1.jpg'];
+            const hasMultipleImages = pImages.length > 1;
+
+            const carouselControlsHtml = hasMultipleImages ? `
+                <button type="button" class="card-carousel-btn card-carousel-prev" data-id="${p.id}" title="Previous Photo" aria-label="Previous Photo">‹</button>
+                <button type="button" class="card-carousel-btn card-carousel-next" data-id="${p.id}" title="Next Photo" aria-label="Next Photo">›</button>
+                <div class="card-carousel-dots">
+                    ${pImages.map((_, i) => `<span class="card-carousel-dot ${i === 0 ? 'active' : ''}" data-id="${p.id}" data-idx="${i}"></span>`).join('')}
+                </div>
+                <span class="card-image-count-badge">📷 1/${pImages.length}</span>
+            ` : '';
+
             html += `
                 <div class="product-card" data-cat="${p.category || 'mugs'}" data-group="${p.group || ''}" data-id="${p.id}">
-                    <div class="product-thumb-container" style="position: relative;">
+                    <div class="product-thumb-container" style="position: relative;" data-id="${p.id}" data-current-img="0" data-total-imgs="${pImages.length}">
                         <button type="button" class="card-wishlist-btn ${isWishlisted ? 'active' : ''}" data-id="${p.id}" title="Save to Wishlist">♥</button>
-                        <button type="button" class="card-share-btn" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}" data-img="${p.img || ''}" title="Share Product">
+                        <button type="button" class="card-share-btn" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}" data-img="${pImages[0]}" title="Share Product">
                             <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
                         </button>
-                        <img src="${p.img || 'assets/products/product_1.jpg'}" alt="${p.title}" class="product-thumb-img card-pdp-trigger" data-id="${p.id}" loading="lazy" style="cursor: pointer;">
+                        <img src="${pImages[0]}" alt="${p.title}" class="product-thumb-img card-pdp-trigger" data-id="${p.id}" loading="lazy" style="cursor: pointer;">
+                        ${carouselControlsHtml}
                         <span class="product-badge-float" ${isOutOfStock ? 'style="background: #dc2626; color: #fff;"' : ''}>${badgeText}</span>
                         <span class="product-discount-float">${discPercent}% OFF</span>
                         <span class="assured-badge">🛡️ DS Assured</span>
@@ -1787,6 +1802,104 @@ document.addEventListener('DOMContentLoaded', () => {
                     toggleWishlist(prod);
                 }
             });
+        });
+
+        function updateCardSlideImage(card, p, index) {
+            const container = card.querySelector('.product-thumb-container');
+            const imgEl = card.querySelector('.product-thumb-img');
+            const countBadge = card.querySelector('.card-image-count-badge');
+            const pImages = (Array.isArray(p.images) && p.images.length > 0) ? p.images : [p.img];
+            if (!container || !imgEl || !pImages[index]) return;
+
+            container.setAttribute('data-current-img', index);
+            imgEl.style.opacity = '0.35';
+            imgEl.src = pImages[index];
+            imgEl.onload = () => { imgEl.style.opacity = '1'; };
+
+            if (countBadge) {
+                countBadge.textContent = `📷 ${index + 1}/${pImages.length}`;
+            }
+
+            const dots = card.querySelectorAll('.card-carousel-dot');
+            dots.forEach((d, i) => {
+                if (i === index) d.classList.add('active');
+                else d.classList.remove('active');
+            });
+        }
+
+        // Wire card carousel prev / next buttons
+        grid.querySelectorAll('.card-carousel-prev').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = btn.closest('.product-card');
+                const container = card.querySelector('.product-thumb-container');
+                const prodId = btn.getAttribute('data-id');
+                const p = products.find(x => x.id === prodId);
+                const pImages = (p && Array.isArray(p.images) && p.images.length > 0) ? p.images : (p ? [p.img] : []);
+                if (!p || pImages.length <= 1) return;
+                
+                let curr = parseInt(container.getAttribute('data-current-img') || '0', 10);
+                curr = (curr - 1 + pImages.length) % pImages.length;
+                updateCardSlideImage(card, p, curr);
+            });
+        });
+
+        grid.querySelectorAll('.card-carousel-next').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = btn.closest('.product-card');
+                const container = card.querySelector('.product-thumb-container');
+                const prodId = btn.getAttribute('data-id');
+                const p = products.find(x => x.id === prodId);
+                const pImages = (p && Array.isArray(p.images) && p.images.length > 0) ? p.images : (p ? [p.img] : []);
+                if (!p || pImages.length <= 1) return;
+                
+                let curr = parseInt(container.getAttribute('data-current-img') || '0', 10);
+                curr = (curr + 1) % pImages.length;
+                updateCardSlideImage(card, p, curr);
+            });
+        });
+
+        grid.querySelectorAll('.card-carousel-dot').forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = dot.closest('.product-card');
+                const prodId = dot.getAttribute('data-id');
+                const idx = parseInt(dot.getAttribute('data-idx') || '0', 10);
+                const p = products.find(x => x.id === prodId);
+                if (!p) return;
+                updateCardSlideImage(card, p, idx);
+            });
+        });
+
+        // Touch swipe support on cards for mobile users
+        grid.querySelectorAll('.product-thumb-container').forEach(thumb => {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            thumb.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            thumb.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 40) {
+                    const card = thumb.closest('.product-card');
+                    const prodId = card.getAttribute('data-id');
+                    const p = products.find(x => x.id === prodId);
+                    const pImages = (p && Array.isArray(p.images) && p.images.length > 0) ? p.images : (p ? [p.img] : []);
+                    if (!p || pImages.length <= 1) return;
+                    let curr = parseInt(thumb.getAttribute('data-current-img') || '0', 10);
+                    if (diff > 0) {
+                        curr = (curr + 1) % pImages.length;
+                    } else {
+                        curr = (curr - 1 + pImages.length) % pImages.length;
+                    }
+                    updateCardSlideImage(card, p, curr);
+                }
+            }, { passive: true });
         });
 
         // Wire card share buttons
@@ -2723,11 +2836,55 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Image
-        if (pdpMainImg) {
-            pdpMainImg.src = p.img || 'assets/products/product_1.jpg';
-            pdpMainImg.alt = p.title;
+        // Multiple Images Carousel in PDP
+        const pImages = (Array.isArray(p.images) && p.images.length > 0)
+            ? p.images
+            : [p.img || 'assets/products/product_1.jpg'];
+        let currentPdpImgIndex = 0;
+
+        function setPdpGalleryImage(idx) {
+            currentPdpImgIndex = (idx + pImages.length) % pImages.length;
+            if (pdpMainImg && pImages[currentPdpImgIndex]) {
+                pdpMainImg.style.opacity = '0.35';
+                pdpMainImg.src = pImages[currentPdpImgIndex];
+                pdpMainImg.onload = () => { pdpMainImg.style.opacity = '1'; };
+            }
+            const strip = document.getElementById('pdp-thumbnails-strip');
+            if (strip) {
+                strip.querySelectorAll('.pdp-thumb-tile').forEach((tile, i) => {
+                    if (i === currentPdpImgIndex) tile.classList.add('active');
+                    else tile.classList.remove('active');
+                });
+            }
         }
+
+        // Render thumbnails strip
+        const pdpThumbStrip = document.getElementById('pdp-thumbnails-strip');
+        if (pdpThumbStrip) {
+            if (pImages.length > 1) {
+                pdpThumbStrip.style.display = 'flex';
+                pdpThumbStrip.innerHTML = pImages.map((src, i) => `
+                    <div class="pdp-thumb-tile ${i === 0 ? 'active' : ''}" data-idx="${i}" title="View photo ${i + 1}">
+                        <img src="${src}" alt="Product Photo ${i + 1}">
+                    </div>
+                `).join('');
+
+                pdpThumbStrip.querySelectorAll('.pdp-thumb-tile').forEach(tile => {
+                    tile.addEventListener('click', () => {
+                        const idx = parseInt(tile.getAttribute('data-idx') || '0', 10);
+                        setPdpGalleryImage(idx);
+                    });
+                });
+            } else {
+                pdpThumbStrip.style.display = 'none';
+                pdpThumbStrip.innerHTML = '';
+            }
+        }
+
+        setPdpGalleryImage(0);
+        window._activePdpSlideNext = () => setPdpGalleryImage(currentPdpImgIndex + 1);
+        window._activePdpSlidePrev = () => setPdpGalleryImage(currentPdpImgIndex - 1);
+        window._activePdpHasMultipleImages = pImages.length > 1;
 
         // Features list
         if (pdpFeaturesList) {
@@ -2785,23 +2942,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Prev / Next Product Navigation
+    // Prev / Next Navigation in PDP (Slides product photos if multiple, or flips products)
     if (pdpBtnPrev) {
         pdpBtnPrev.addEventListener('click', (e) => {
             e.stopPropagation();
-            const products = getLiveStoreProducts();
-            currentPdpIndex = (currentPdpIndex - 1 + products.length) % products.length;
-            window.openProductDetailModal(products[currentPdpIndex].id);
+            if (window._activePdpHasMultipleImages && typeof window._activePdpSlidePrev === 'function') {
+                window._activePdpSlidePrev();
+            } else {
+                const products = getLiveStoreProducts();
+                currentPdpIndex = (currentPdpIndex - 1 + products.length) % products.length;
+                window.openProductDetailModal(products[currentPdpIndex].id);
+            }
         });
     }
 
     if (pdpBtnNext) {
         pdpBtnNext.addEventListener('click', (e) => {
             e.stopPropagation();
-            const products = getLiveStoreProducts();
-            currentPdpIndex = (currentPdpIndex + 1) % products.length;
-            window.openProductDetailModal(products[currentPdpIndex].id);
+            if (window._activePdpHasMultipleImages && typeof window._activePdpSlideNext === 'function') {
+                window._activePdpSlideNext();
+            } else {
+                const products = getLiveStoreProducts();
+                currentPdpIndex = (currentPdpIndex + 1) % products.length;
+                window.openProductDetailModal(products[currentPdpIndex].id);
+            }
         });
+    }
+
+    // Touch swipe support in PDP stage
+    if (pdpStage) {
+        let touchStageStartX = 0;
+        let touchStageEndX = 0;
+        pdpStage.addEventListener('touchstart', (e) => {
+            touchStageStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        pdpStage.addEventListener('touchend', (e) => {
+            touchStageEndX = e.changedTouches[0].screenX;
+            const diff = touchStageStartX - touchStageEndX;
+            if (Math.abs(diff) > 40 && window._activePdpHasMultipleImages) {
+                if (diff > 0 && typeof window._activePdpSlideNext === 'function') {
+                    window._activePdpSlideNext();
+                } else if (diff < 0 && typeof window._activePdpSlidePrev === 'function') {
+                    window._activePdpSlidePrev();
+                }
+            }
+        }, { passive: true });
     }
 
     // Personalization Live Preview & URL updater

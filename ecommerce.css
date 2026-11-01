@@ -316,20 +316,120 @@
 .product-thumb-container {
     position: relative;
     width: 100%;
-    height: 240px;
-    background: #0f111e;
+    height: 250px;
+    background: #ffffff;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .product-thumb-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain !important; /* Full product image visible without zoom/crop */
+    padding: 10px;
+    transition: transform 0.35s ease, opacity 0.25s ease;
+    background: #ffffff;
+    user-select: none;
 }
 
 .product-card:hover .product-thumb-img {
-    transform: scale(1.08);
+    transform: scale(1.03);
+}
+
+/* Product Card Carousel Controls (Multi-Image Slider) */
+.card-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #cbd5e1;
+    border-radius: 50%;
+    color: #0f172a;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 6;
+    padding: 0;
+}
+
+.product-thumb-container:hover .card-carousel-btn {
+    opacity: 1;
+}
+
+.card-carousel-btn:hover {
+    background: #ffd814;
+    border-color: #fcd200;
+    transform: translateY(-50%) scale(1.1);
+    color: #000;
+}
+
+.card-carousel-prev {
+    left: 8px;
+}
+
+.card-carousel-next {
+    right: 8px;
+}
+
+.card-carousel-dots {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 6;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(4px);
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+.card-carousel-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.card-carousel-dot.active {
+    background: #ffd814;
+    width: 14px;
+    border-radius: 4px;
+}
+
+.card-image-count-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(15, 23, 42, 0.75);
+    color: #ffffff;
+    font-size: 10.5px;
+    font-weight: 750;
+    padding: 2px 7px;
+    border-radius: 6px;
+    z-index: 5;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .product-badge-float {
@@ -981,8 +1081,19 @@
     }
 
     .product-thumb-container {
-        height: 160px !important;
+        height: 180px !important;
     }
+
+    .card-carousel-btn {
+        opacity: 0.9 !important;
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 15px !important;
+    }
+
+    .card-carousel-prev { left: 4px !important; }
+    .card-carousel-next { right: 4px !important; }
+    .card-image-count-badge { font-size: 9px !important; padding: 1px 5px !important; }
 
     .product-badge-float {
         font-size: 9.5px !important;
@@ -3936,6 +4047,50 @@ body {
     align-items: center;
     justify-content: center;
     gap: 6px;
+}
+
+/* PDP Multi-Image Gallery & Thumbnails Strip */
+.pdp-thumbnails-strip {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 6px 4px;
+    margin-top: 6px;
+    -webkit-overflow-scrolling: touch;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pdp-thumb-tile {
+    width: 62px;
+    height: 62px;
+    border-radius: 8px;
+    border: 2px solid #cbd5e1;
+    background: #ffffff;
+    padding: 3px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdp-thumb-tile.active {
+    border-color: #ff9900;
+    box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.35);
+    transform: scale(1.05);
+}
+
+.pdp-thumb-tile:hover {
+    border-color: #007185;
+}
+
+.pdp-thumb-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
 }
 
 /* Right Details Column */

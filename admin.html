@@ -917,8 +917,120 @@
             width: 60px;
             height: 60px;
             border-radius: 8px;
-            object-fit: cover;
+            object-fit: contain;
+            background: #ffffff;
             border: 1px solid var(--adm-border);
+        }
+
+        /* Admin Multiple Images Gallery Grid */
+        .admin-images-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .admin-image-tile {
+            position: relative;
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .admin-image-tile.is-cover {
+            border-color: #007185;
+            box-shadow: 0 0 0 2px rgba(0, 113, 133, 0.2);
+        }
+
+        .tile-img-wrap {
+            position: relative;
+            width: 100%;
+            height: 90px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .tile-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain !important;
+            padding: 4px;
+        }
+
+        .tile-cover-badge {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            background: #007185;
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .tile-idx-badge {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            background: rgba(15, 23, 42, 0.7);
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 750;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        .tile-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 6px;
+            background: #ffffff;
+            gap: 4px;
+        }
+
+        .btn-tile-action {
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 4px;
+            padding: 3px 6px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.18s ease;
+        }
+
+        .btn-make-cover {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+            flex: 1;
+        }
+
+        .btn-make-cover:hover {
+            background: #0284c7;
+            color: #ffffff;
+        }
+
+        .btn-remove-img {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .btn-remove-img:hover {
+            background: #ef4444;
+            color: #ffffff;
         }
 
         /* Toast feedback */
@@ -1622,19 +1734,34 @@
                                 <option value="custom">-- Or Enter Custom Image URL / Upload from PC/Phone --</option>
                             </select>
                         </div>
-                        <input type="text" id="form-image-custom" class="admin-form-input" placeholder="Or paste image URL (e.g. assets/products/product_X.jpg)" style="margin-top: 6px; display: none;">
-                        <div style="margin-top: 6px;">
-                            <label style="font-size: 11.5px; font-weight: 700; color: var(--adm-navy); display: block; margin-bottom: 2px;">📁 Or Upload Photograph from Device:</label>
-                            <input type="file" id="form-image-file" accept="image/*" class="admin-form-input" style="padding: 6px; font-size: 12px;">
+                        <div style="display: flex; gap: 6px; margin-top: 8px;">
+                            <input type="text" id="form-image-custom" class="admin-form-input" placeholder="Or paste custom image URL (e.g. assets/products/product_X.jpg)" style="flex: 1;">
+                            <button type="button" id="btn-add-custom-url" class="btn-secondary-action" style="padding: 6px 12px; font-size: 11.5px; white-space: nowrap;">+ Add URL</button>
+                            <button type="button" id="btn-add-preset-img" class="btn-secondary-action" style="padding: 6px 12px; font-size: 11.5px; white-space: nowrap;">+ Add Dropdown Graphic</button>
                         </div>
 
-                        <div class="image-preview-box">
-                            <img src="assets/products/product_1.jpg" alt="Preview" id="form-image-preview" class="preview-img-tag">
-                            <div style="font-size: 12px; color: var(--adm-muted);">
-                                <strong>Live Image Preview</strong><br>
-                                <span>High quality graphic rendered on product card.</span>
+                        <div style="margin-top: 10px; background: #f0fdf4; border: 1.5px dashed #86efac; border-radius: 8px; padding: 10px;">
+                            <label style="font-size: 12px; font-weight: 800; color: #166534; display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <span>📸 Upload Photographs from Phone / PC (Select Multiple Allowed):</span>
+                                <span id="form-images-counter" style="color: #007185; font-size: 11px;">(1 Image)</span>
+                            </label>
+                            <input type="file" id="form-image-file" multiple accept="image/*" class="admin-form-input" style="padding: 6px; font-size: 12px; background: #ffffff;">
+                            <span style="font-size: 11px; color: #15803d; display: block; margin-top: 3px;">
+                                ✨ <strong>Carousel Auto-Slide:</strong> Ek se zyada photos upload karne par product card aur product popup me customer ko slider / carousel dikhai dega.
+                            </span>
+                        </div>
+
+                        <div id="form-images-gallery-section" style="margin-top: 12px;">
+                            <div style="font-size: 12px; font-weight: 800; color: var(--adm-navy); display: flex; justify-content: space-between; align-items: center;">
+                                <span>🖼️ Product Carousel Images Gallery:</span>
+                                <span style="font-size: 10.5px; color: var(--adm-muted); font-weight: normal;">First image is Cover Photo</span>
+                            </div>
+                            <div id="form-images-gallery" class="admin-images-gallery-grid">
+                                <!-- Populated dynamically by JavaScript -->
                             </div>
                         </div>
+
+                        <input type="hidden" id="form-image-preview-dummy">
                     </div>
 
                     <div class="admin-form-full">
@@ -3065,7 +3192,9 @@
                     : (stock <= 15 ? '<span class="badge-pill badge-yellow">⚠️ Low (' + stock + ')</span>' : '<span class="badge-pill badge-green">🟢 ' + stock + ' in stock</span>');
 
                 html += '<tr>' +
-                    '<td><img src="' + (p.img || 'assets/products/product_1.jpg') + '" alt="' + p.title + '" class="table-thumb"></td>' +
+                    '<td><div style="text-align: center;"><img src="' + (p.img || 'assets/products/product_1.jpg') + '" alt="' + p.title + '" class="table-thumb" style="object-fit: contain; background: #fff;">' +
+    ((Array.isArray(p.images) && p.images.length > 1) ? '<div style="font-size: 10px; color: #007185; font-weight: 800; margin-top: 2px;">📷 ' + p.images.length + ' Photos</div>' : '') +
+    '</div></td>' +
                     '<td>' +
                         '<strong>' + p.title + '</strong>' +
                         '<div style="font-size: 11.5px; color: var(--adm-muted); margin-top: 2px;">SKU: ' + (p.sku || p.id) + '</div>' +
@@ -3173,22 +3302,105 @@
             }
         };
 
-        // 6. ADD / EDIT PRODUCT MODAL
+        // 6. ADD / EDIT PRODUCT MODAL (WITH MULTI-IMAGE CAROUSEL SUPPORT)
         const modal = document.getElementById('product-modal');
         const form = document.getElementById('product-form');
         const imageSelect = document.getElementById('form-image-select');
         const imageCustom = document.getElementById('form-image-custom');
-        const imagePreview = document.getElementById('form-image-preview');
+
+        let modalImages = [];
+
+        // Helper: Resize & Compress Uploaded Photos client-side to prevent localStorage/network limits
+        function compressImageFile(file, maxWidth = 1200, maxHeight = 1200, quality = 0.85) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        let w = img.width;
+                        let h = img.height;
+                        if (w > maxWidth || h > maxHeight) {
+                            if (w > h) {
+                                h = Math.round((h * maxWidth) / w);
+                                w = maxWidth;
+                            } else {
+                                w = Math.round((w * maxHeight) / h);
+                                h = maxHeight;
+                            }
+                        }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = w;
+                        canvas.height = h;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = () => resolve(e.target.result);
+                    img.src = e.target.result;
+                };
+                reader.onerror = () => resolve(null);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function renderModalImagesGallery() {
+            const container = document.getElementById('form-images-gallery');
+            const counter = document.getElementById('form-images-counter');
+            if (!container) return;
+
+            if (modalImages.length === 0) {
+                modalImages = ['assets/products/product_1.jpg'];
+            }
+
+            if (counter) {
+                counter.textContent = `(${modalImages.length} Image${modalImages.length > 1 ? 's in Carousel' : ''})`;
+            }
+
+            container.innerHTML = modalImages.map((src, idx) => `
+                <div class="admin-image-tile ${idx === 0 ? 'is-cover' : ''}">
+                    <div class="tile-img-wrap">
+                        <img src="${src}" alt="Product Photo ${idx + 1}">
+                        ${idx === 0 ? '<span class="tile-cover-badge">★ Cover</span>' : `<span class="tile-idx-badge">#${idx + 1}</span>`}
+                    </div>
+                    <div class="tile-actions">
+                        ${idx > 0 
+                            ? `<button type="button" class="btn-tile-action btn-make-cover" onclick="setAsCoverImage(${idx})" title="Make this image the primary cover photo">Make Cover</button>` 
+                            : '<span style="font-size: 10px; color: #007185; font-weight: 800;">✓ Main</span>'
+                        }
+                        <button type="button" class="btn-tile-action btn-remove-img" onclick="removeModalImage(${idx})" title="Remove photo from carousel">✕</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.setAsCoverImage = function(index) {
+            if (index > 0 && index < modalImages.length) {
+                const item = modalImages.splice(index, 1)[0];
+                modalImages.unshift(item);
+                renderModalImagesGallery();
+                showToast('✓ Set as Main Cover photo');
+            }
+        };
+
+        window.removeModalImage = function(index) {
+            if (modalImages.length <= 1) {
+                showToast('⚠️ Product must have at least 1 image.');
+                return;
+            }
+            modalImages.splice(index, 1);
+            renderModalImagesGallery();
+            showToast('Photo removed from carousel');
+        };
 
         function openAddModal() {
             form.reset();
             document.getElementById('form-product-id').value = '';
             document.getElementById('modal-heading').textContent = 'Add New Product';
-            imageSelect.value = 'assets/products/product_1.jpg';
-            imageCustom.style.display = 'none';
-            imagePreview.src = 'assets/products/product_1.jpg';
+            modalImages = [imageSelect.value || 'assets/products/product_1.jpg'];
+            renderModalImagesGallery();
             if (document.getElementById('form-video')) document.getElementById('form-video').value = '';
             if (document.getElementById('form-image-file')) document.getElementById('form-image-file').value = '';
+            if (imageCustom) imageCustom.value = '';
             modal.classList.add('active');
         }
 
@@ -3197,35 +3409,45 @@
         document.getElementById('btn-close-modal')?.addEventListener('click', () => modal.classList.remove('active'));
         document.getElementById('btn-cancel-modal')?.addEventListener('click', () => modal.classList.remove('active'));
 
-        imageSelect?.addEventListener('change', () => {
-            if (imageSelect.value === 'custom') {
-                imageCustom.style.display = 'block';
-                imageCustom.focus();
+        // Preset Dropdown Add Button
+        document.getElementById('btn-add-preset-img')?.addEventListener('click', () => {
+            const val = imageSelect.value;
+            if (val && val !== 'custom') {
+                modalImages.push(val);
+                renderModalImagesGallery();
+                showToast('✓ Graphic added to carousel (' + modalImages.length + ' total)');
+            }
+        });
+
+        // Custom URL Add Button
+        document.getElementById('btn-add-custom-url')?.addEventListener('click', () => {
+            const val = imageCustom?.value.trim();
+            if (val) {
+                modalImages.push(val);
+                imageCustom.value = '';
+                renderModalImagesGallery();
+                showToast('✓ Image URL added to carousel (' + modalImages.length + ' total)');
             } else {
-                imageCustom.style.display = 'none';
-                imagePreview.src = imageSelect.value;
+                showToast('⚠️ Please enter an image URL');
             }
         });
 
-        
-        // Image File Upload Listener
-        document.getElementById('form-image-file')?.addEventListener('change', (e) => {
-            const file = e.target.files && e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    imagePreview.src = ev.target.result;
-                    imageSelect.value = 'custom';
-                    imageCustom.style.display = 'block';
-                    imageCustom.value = ev.target.result;
-                    showToast('✓ Image uploaded from device');
-                };
-                reader.readAsDataURL(file);
+        // Multiple Image Files Upload Listener
+        document.getElementById('form-image-file')?.addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files || []);
+            if (files.length === 0) return;
+            showToast(`Processing ${files.length} photo(s)...`);
+            let added = 0;
+            for (const file of files) {
+                const dataUrl = await compressImageFile(file);
+                if (dataUrl) {
+                    modalImages.push(dataUrl);
+                    added++;
+                }
             }
-        });
-
-        imageCustom?.addEventListener('input', () => {
-            if (imageCustom.value.trim()) imagePreview.src = imageCustom.value.trim();
+            renderModalImagesGallery();
+            showToast(`✓ ${added} photo(s) added to product carousel! Total: ${modalImages.length}`);
+            e.target.value = '';
         });
 
         form?.addEventListener('submit', (e) => {
@@ -3242,16 +3464,15 @@
             const featuresStr = document.getElementById('form-features').value.trim();
             const features = featuresStr ? featuresStr.split(',').map(s => s.trim()) : [];
 
-            let img = imageSelect.value;
-            if (img === 'custom') {
-                img = imageCustom.value.trim() || 'assets/products/product_1.jpg';
-            }
+            // Images array & primary cover
+            const images = modalImages.length > 0 ? [...modalImages] : ['assets/products/product_1.jpg'];
+            const img = images[0];
 
             const products = getStoredProducts();
             const existingIndex = products.findIndex(p => p.id === id);
             const video = document.getElementById('form-video') ? document.getElementById('form-video').value.trim() : '';
             const catLabel = getCatLabel(category);
-            const productData = { id, title, category, catLabel, price, strike, badge, img, video, desc, features, stock, sku };
+            const productData = { id, title, category, catLabel, price, strike, badge, img, images, video, desc, features, stock, sku };
 
             if (existingIndex !== -1) {
                 products[existingIndex] = productData;
@@ -3261,7 +3482,7 @@
 
             saveProducts(products);
             modal.classList.remove('active');
-            showToast('✓ Product "' + title + '" saved successfully!');
+            showToast('✓ Product "' + title + '" saved with ' + images.length + ' carousel photos!');
         });
 
         window.editProduct = function(id) {
@@ -3281,24 +3502,13 @@
             document.getElementById('form-desc').value = p.desc || '';
             document.getElementById('form-features').value = (p.features || []).join(', ');
 
-            let foundOption = false;
-            for (let opt of imageSelect.options) {
-                if (opt.value === p.img) {
-                    imageSelect.value = p.img;
-                    foundOption = true;
-                    break;
-                }
-            }
-            if (!foundOption) {
-                imageSelect.value = 'custom';
-                imageCustom.style.display = 'block';
-                imageCustom.value = p.img;
-            } else {
-                imageCustom.style.display = 'none';
-            }
-            imagePreview.src = p.img;
+            // Populate multiple images
+            modalImages = (Array.isArray(p.images) && p.images.length > 0)
+                ? [...p.images]
+                : (p.img ? [p.img] : ['assets/products/product_1.jpg']);
+            renderModalImagesGallery();
 
-            document.getElementById('modal-heading').textContent = 'Edit Product';
+            document.getElementById('modal-heading').textContent = 'Edit Product (' + p.title + ')';
             modal.classList.add('active');
         };
 

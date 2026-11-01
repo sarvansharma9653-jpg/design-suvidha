@@ -1745,7 +1745,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         <h3 class="product-title card-pdp-trigger" data-id="${p.id}" style="cursor: pointer;" title="Click to view details & customize">${p.title}</h3>
-                        <p class="product-desc">${p.desc || ''}</p>
+                        <p class="product-desc card-pdp-trigger" data-id="${p.id}" style="cursor: pointer;" title="Click to read full description">${p.desc || ''}</p>
+                        ${p.desc && p.desc.length > 60 ? `<button type="button" class="btn-card-readmore card-pdp-trigger" data-id="${p.id}">Read More ➔</button>` : ''}
                         <div class="product-features-list">
                             ${featuresHtml}
                         </div>

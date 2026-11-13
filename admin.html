@@ -1810,7 +1810,7 @@
 
     <!-- ================= ADMIN LOGIC ================= -->
     <script>
-        const CURRENT_CATALOG_VERSION = 'ds_v5_live_sync';
+        const CURRENT_CATALOG_VERSION = 'ds_v6_cdn_sync';
 
         // 1. DEFAULT 31 VERIFIED PRODUCTS WITH STOCK & SKU
         const DEFAULT_PRODUCTS = [
@@ -3127,41 +3127,51 @@
         function getStoredProducts() {
             try {
                 const version = localStorage.getItem('ds_catalog_version');
-                if (version !== CURRENT_CATALOG_VERSION) {
-                    localStorage.setItem('ds_products', JSON.stringify(DEFAULT_PRODUCTS));
-                    localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
-                    return DEFAULT_PRODUCTS;
-                }
                 const data = localStorage.getItem('ds_products');
                 if (data) {
                     const parsed = JSON.parse(data);
                     if (Array.isArray(parsed) && parsed.length > 0) return parsed;
                 }
+                if (version !== CURRENT_CATALOG_VERSION) {
+                    localStorage.setItem('ds_products', JSON.stringify(DEFAULT_PRODUCTS));
+                    localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
+                    return DEFAULT_PRODUCTS;
+                }
             } catch (e) {
-                console.error(e);
+                console.error('getStoredProducts error:', e);
             }
-            localStorage.setItem('ds_products', JSON.stringify(DEFAULT_PRODUCTS));
-            localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
             return DEFAULT_PRODUCTS;
         }
 
         async function saveProducts(products) {
-            localStorage.setItem('ds_products', JSON.stringify(products));
-            localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
+            try {
+                localStorage.setItem('ds_products', JSON.stringify(products));
+                localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
+            } catch(lsErr) {
+                console.warn('LocalStorage save error (using memory/cloud):', lsErr);
+            }
             renderProductsTable();
             renderInventoryTable();
             updateStatsAndAnalytics();
 
             // Cloud sync so updates immediately reflect on all devices
             try {
-                await fetch('/api/products', {
+                showToast('Syncing to cloud...');
+                const res = await fetch('/api/products', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(products)
                 });
-                showToast('Products synced to cloud successfully!');
+                if (res.ok) {
+                    showToast('✓ Products saved & synced to cloud!');
+                } else {
+                    const err = await res.json().catch(() => ({}));
+                    console.warn('Cloud sync response error:', err);
+                    showToast('⚠️ Saved locally. Cloud: ' + (err.error || res.statusText));
+                }
             } catch(e) {
-                console.warn('Cloud sync error:', e);
+                console.warn('Cloud sync network error:', e);
+                showToast('⚠️ Saved locally. Cloud sync pending connection.');
             }
         }
 
@@ -3171,13 +3181,18 @@
                 if (resp.ok) {
                     const data = await resp.json();
                     if (Array.isArray(data) && data.length > 0) {
-                        localStorage.setItem('ds_products', JSON.stringify(data));
+                        try {
+                            localStorage.setItem('ds_products', JSON.stringify(data));
+                            localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
+                        } catch(e) {}
                         renderProductsTable();
                         renderInventoryTable();
                         updateStatsAndAnalytics();
                     }
                 }
-            } catch(e) {}
+            } catch(e) {
+                console.warn('Cloud product sync fetch error:', e);
+            }
         }
 
         // 4. RENDER PRODUCTS TABLE
@@ -3451,59 +3466,96 @@
             }
         });
 
-        // Multiple Image Files Upload Listener
+        // Multiple Image Files Upload Listener (Auto-uploads to Supabase Storage CDN)
         document.getElementById('form-image-file')?.addEventListener('change', async (e) => {
             const files = Array.from(e.target.files || []);
             if (files.length === 0) return;
-            showToast(`Processing ${files.length} photo(s)...`);
+            showToast(`Uploading ${files.length} photo(s) to cloud CDN...`);
             let added = 0;
             for (const file of files) {
-                const dataUrl = await compressImageFile(file);
+                const dataUrl = await compressImageFile(file, 1200, 1200, 0.85);
                 if (dataUrl) {
+                    try {
+                        const uploadRes = await fetch('/api/upload-image', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                image: dataUrl,
+                                filename: file.name.replace(/\.[^/.]+$/, '')
+                            })
+                        });
+                        if (uploadRes.ok) {
+                            const upData = await uploadRes.json();
+                            if (upData.url) {
+                                modalImages.push(upData.url);
+                                added++;
+                                continue;
+                            }
+                        }
+                    } catch(upErr) {
+                        console.warn('Upload to /api/upload-image failed, using local format:', upErr);
+                    }
                     modalImages.push(dataUrl);
                     added++;
                 }
             }
             renderModalImagesGallery();
-            showToast(`✓ ${added} photo(s) added to product carousel! Total: ${modalImages.length}`);
+            showToast(`✓ ${added} photo(s) ready in carousel! Total: ${modalImages.length}`);
             e.target.value = '';
         });
 
-        form?.addEventListener('submit', (e) => {
+        form?.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const id = document.getElementById('form-product-id').value || 'prod-' + Date.now();
-            const title = document.getElementById('form-title').value.trim();
-            const category = document.getElementById('form-category').value;
-            const badge = document.getElementById('form-badge').value.trim();
-            const price = parseInt(document.getElementById('form-price').value, 10) || 0;
-            const strike = parseInt(document.getElementById('form-strike').value, 10) || 0;
-            const stock = parseInt(document.getElementById('form-stock').value, 10) || 0;
-            const sku = document.getElementById('form-sku').value.trim() || ('DS-' + category.toUpperCase() + '-' + Math.floor(100 + Math.random()*900));
-            const minQty = Math.max(1, parseInt(document.getElementById('form-min-qty')?.value, 10) || 1);
-            const maxQty = Math.max(minQty, parseInt(document.getElementById('form-max-qty')?.value, 10) || 1000);
-            const desc = document.getElementById('form-desc').value.trim();
-            const featuresStr = document.getElementById('form-features').value.trim();
-            const features = featuresStr ? featuresStr.split(',').map(s => s.trim()) : [];
-
-            // Images array & primary cover
-            const images = modalImages.length > 0 ? [...modalImages] : ['assets/products/product_1.jpg'];
-            const img = images[0];
-
-            const products = getStoredProducts();
-            const existingIndex = products.findIndex(p => p.id === id);
-            const video = document.getElementById('form-video') ? document.getElementById('form-video').value.trim() : '';
-            const catLabel = getCatLabel(category);
-            const productData = { id, title, category, catLabel, price, strike, badge, img, images, minQty, maxQty, video, desc, features, stock, sku };
-
-            if (existingIndex !== -1) {
-                products[existingIndex] = productData;
-            } else {
-                products.unshift(productData);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Save Product';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Saving Product...';
             }
 
-            saveProducts(products);
-            modal.classList.remove('active');
-            showToast('✓ Product "' + title + '" saved with ' + images.length + ' carousel photos!');
+            try {
+                const id = document.getElementById('form-product-id').value || 'prod-' + Date.now();
+                const title = document.getElementById('form-title').value.trim();
+                const category = document.getElementById('form-category').value;
+                const badge = document.getElementById('form-badge').value.trim();
+                const price = parseInt(document.getElementById('form-price').value, 10) || 0;
+                const strike = parseInt(document.getElementById('form-strike').value, 10) || 0;
+                const stock = parseInt(document.getElementById('form-stock').value, 10) || 0;
+                const sku = document.getElementById('form-sku').value.trim() || ('DS-' + category.toUpperCase() + '-' + Math.floor(100 + Math.random()*900));
+                const minQty = Math.max(1, parseInt(document.getElementById('form-min-qty')?.value, 10) || 1);
+                const maxQty = Math.max(minQty, parseInt(document.getElementById('form-max-qty')?.value, 10) || 1000);
+                const desc = document.getElementById('form-desc').value.trim();
+                const featuresStr = document.getElementById('form-features').value.trim();
+                const features = featuresStr ? featuresStr.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+                // Images array & primary cover
+                const images = modalImages.length > 0 ? [...modalImages] : ['assets/products/product_1.jpg'];
+                const img = images[0];
+
+                const products = getStoredProducts();
+                const existingIndex = products.findIndex(p => p.id === id);
+                const video = document.getElementById('form-video') ? document.getElementById('form-video').value.trim() : '';
+                const catLabel = getCatLabel(category);
+                const productData = { id, title, category, catLabel, price, strike, badge, img, images, minQty, maxQty, video, desc, features, stock, sku };
+
+                if (existingIndex !== -1) {
+                    products[existingIndex] = productData;
+                } else {
+                    products.unshift(productData);
+                }
+
+                await saveProducts(products);
+                modal.classList.remove('active');
+                showToast('✓ Product "' + title + '" saved successfully!');
+            } catch (err) {
+                console.error('Error saving product in admin:', err);
+                alert('Could not save product: ' + (err.message || err));
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
+            }
         });
 
         window.editProduct = function(id) {

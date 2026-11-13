@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ================================================// ============================================================
     // DYNAMIC PRODUCTS LOADER (Google Drive Catalog + Admin Sync)
     // ============================================================
-    const CURRENT_CATALOG_VERSION = 'ds_v5_live_sync';
+    const CURRENT_CATALOG_VERSION = 'ds_v6_cdn_sync';
 
     const DEFAULT_STORE_PRODUCTS = [
     {
@@ -1643,20 +1643,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function getLiveStoreProducts() {
         try {
             const version = localStorage.getItem('ds_catalog_version');
-            if (version !== CURRENT_CATALOG_VERSION) {
-                localStorage.setItem('ds_products', JSON.stringify(DEFAULT_STORE_PRODUCTS));
-                localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
-                return DEFAULT_STORE_PRODUCTS;
-            }
             const stored = localStorage.getItem('ds_products');
             if (stored) {
                 const parsed = JSON.parse(stored);
                 if (Array.isArray(parsed) && parsed.length > 0) return parsed;
             }
+            if (version !== CURRENT_CATALOG_VERSION) {
+                try {
+                    localStorage.setItem('ds_products', JSON.stringify(DEFAULT_STORE_PRODUCTS));
+                    localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
+                } catch(e) {}
+                return DEFAULT_STORE_PRODUCTS;
+            }
         } catch (e) { console.error(e); }
-        // Initialize localStorage with defaults
-        localStorage.setItem('ds_products', JSON.stringify(DEFAULT_STORE_PRODUCTS));
-        localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
         return DEFAULT_STORE_PRODUCTS;
     }
 
@@ -1666,7 +1665,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (resp.ok) {
                 const cloudProds = await resp.json();
                 if (Array.isArray(cloudProds) && cloudProds.length > 0) {
-                    localStorage.setItem('ds_products', JSON.stringify(cloudProds));
+                    try {
+                        localStorage.setItem('ds_products', JSON.stringify(cloudProds));
+                        localStorage.setItem('ds_catalog_version', CURRENT_CATALOG_VERSION);
+                    } catch(e) {}
                     renderLiveHomeProductsGrid();
                 }
             }

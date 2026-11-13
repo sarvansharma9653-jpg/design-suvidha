@@ -1,0 +1,30 @@
+name: Keep Supabase & Backend Alive
+
+on:
+  schedule:
+    # Run every 2 days at 04:30 AM UTC (10:00 AM IST) to prevent 7-day inactivity pause
+    - cron: '30 4 */2 * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase Database & Storage APIs
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVvbXVzYXBrYmhkaGhnY3FlY3p2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5Mjc0NDYwOCwiZXhwIjoyMTA4MzIwNjA4fQ.m94zoKCtmJhDYoq4E3tX_7pIeE3eh7qZ0tJxag_ckPU' }}
+        run: |
+          echo "Pinging Supabase Database REST API..."
+          curl -s -f -X GET "https://eomusapkbhdhhgcqeczv.supabase.co/rest/v1/orders?select=id&limit=1" \
+            -H "apikey: $SUPABASE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_KEY" || echo "DB ping finished"
+
+          echo "Pinging Supabase Storage API..."
+          curl -s -f -X GET "https://eomusapkbhdhhgcqeczv.supabase.co/storage/v1/bucket" \
+            -H "apikey: $SUPABASE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_KEY" || echo "Storage ping finished"
+
+          echo "Pinging Live Website Products API..."
+          curl -s -f -X GET "https://designsuvidha.com/api/products" || echo "Website ping finished"
+
+          echo "Supabase keepalive ping completed successfully!"

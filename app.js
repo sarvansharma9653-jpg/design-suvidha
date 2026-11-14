@@ -1982,7 +1982,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getCartSubtotal() {
-        return cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
+        // If item is a package price (e.g. ₹1850 for 500 cards), price is TOTAL not per-unit
+        return cart.reduce((sum, item) => sum + (item.packagePrice ? item.price : item.price * (item.qty || 1)), 0);
     }
 
     function updateCartBadge() {
@@ -2071,10 +2072,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addToCart(title, price, img, qty = 1, options = {}) {
-        const cleanPrice = parseInt(String(price).replace(/[^0-9]/g, ''), 10) || 0;
+        // Support decimal prices like 2.5 or 50.5
+        const cleanPrice = parseFloat(String(price).replace(/[^0-9.]/g, '')) || 0;
         const cleanTitle = title || 'Custom Gift Product';
         const cleanImg = img || 'design suvidha logo.png';
         const addQty = Math.max(1, parseInt(qty, 10) || 1);
+        // packagePrice: when minQty > 1, the product price is a fixed package price (not per-unit)
+        const isPackagePriced = options.packagePrice || false;
 
         const existingItem = cart.find(item => item.title === cleanTitle);
         if (existingItem) {
@@ -2092,6 +2096,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 price: cleanPrice,
                 img: cleanImg,
                 qty: addQty,
+                packagePrice: isPackagePriced,
                 customText: options.customText || '',
                 designFile: options.designFile || null,
                 designName: options.designName || ''
@@ -2148,14 +2153,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const coItems = document.getElementById('co-summary-items');
         if (coItems) {
-            coItems.innerHTML = cart.map(item => `
+            coItems.innerHTML = cart.map(item => {
+                const lineTotal = item.packagePrice ? item.price : item.price * item.qty;
+                const qtyLabel = item.packagePrice
+                    ? `(${item.qty} Pcs – Fixed Package Price)`
+                    : `(× ${item.qty})`;
+                return `
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
                     <span style="color: #0f1111; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">
-                        • ${item.title} <span style="color: #565959; font-weight: normal;">(× ${item.qty})</span>
+                        • ${item.title} <span style="color: #565959; font-weight: normal;">${qtyLabel}</span>
                     </span>
-                    <strong style="color: #0f1111;">₹${(item.price * item.qty).toLocaleString('en-IN')}</strong>
+                    <strong style="color: #0f1111;">₹${lineTotal.toLocaleString('en-IN')}</strong>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         }
 
         if (checkoutModal) checkoutModal.classList.add('active');
@@ -2257,7 +2268,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // and are not saved as 'PAID' orders in the system.
 
             // Construct WhatsApp Order Inquiry Message
-            let itemsText = cart.map(it => '• ' + it.title + ' (Qty: ' + it.qty + ') - ₹' + (it.price * it.qty)).join('\n');
+            let itemsText = cart.map(it => {
+                const lineTotal = it.packagePrice ? it.price : it.price * it.qty;
+                const qtyStr = it.packagePrice ? `${it.qty} Pcs (Package)` : `Qty: ${it.qty}`;
+                return '• ' + it.title + ' (' + qtyStr + ') - ₹' + lineTotal;
+            }).join('\n');
             let waMsg = '*NEW ORDER INQUIRY (AWAITING PAYMENT)* 🛍️\n' +
                         '*Order ID:* ' + orderId + '\n' +
                         '*Customer Name:* ' + name + '\n' +
@@ -3116,12 +3131,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const engrave = (pdpEngraveText && pdpEngraveText.value.trim()) ? pdpEngraveText.value.trim() : 'Standard / No Engraving';
         const designText = currentPdpUploadedDesignName ? `\n• Uploaded Design: "${currentPdpUploadedDesignName}" (Attached)` : '';
-        const totalPrice = currentPdpProduct.price * currentPdpQty;
+        const pMinQty = (currentPdpProduct.minQty && currentPdpProduct.minQty > 1) ? parseInt(currentPdpProduct.minQty, 10) : 1;
+        const isPackage = pMinQty > 1;
+        // If product has MOQ > 1, its listed price is TOTAL package price (e.g. ₹1850 for 500 cards)
+        const totalPrice = isPackage ? currentPdpProduct.price : currentPdpProduct.price * currentPdpQty;
 
         const msg = `*INSTANT ORDER: ${currentPdpProduct.title}* 🛍️\n` +
-                    `• Quantity: ${currentPdpQty} Pc(s)\n` +
-                    `• Unit Price: ₹${currentPdpProduct.price}\n` +
-                    `• Total Payable: ₹${totalPrice}\n` +
+                    (isPackage
+                        ? `• Package: ${currentPdpQty} Pcs (Min Order)\n• Package Price: ₹${totalPrice}\n`
+                        : `• Quantity: ${currentPdpQty} Pc(s)\n• Unit Price: ₹${currentPdpProduct.price}\n• Total Payable: ₹${totalPrice}\n`) +
                     `• Customization / Engraving: "${engrave}"` +
                     designText + `\n\n` +
                     `Please share payment details (UPI QR / Bank) and mockup preview. Thank you!`;
@@ -3145,14 +3163,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const noteStr = customParts.length > 0 ? ` [${customParts.join(', ')}]` : '';
             const fullTitle = currentPdpProduct.title + noteStr;
             const chosenQty = Math.max(1, parseInt(currentPdpQty, 10) || 1);
+            const pMinQty = (currentPdpProduct.minQty && currentPdpProduct.minQty > 1) ? parseInt(currentPdpProduct.minQty, 10) : 1;
+            // If product has MOQ > 1, its listed price = package total (e.g. ₹1850 for 500 cards)
+            const isPackagePriced = pMinQty > 1;
 
             // Direct "Buy It Now": Set cart strictly to this item with exact selected quantity
-            // This prevents multiple clicks on "Buy It Now" from accumulating quantities/prices
             cart = [{
                 title: fullTitle,
                 price: currentPdpProduct.price,
                 img: currentPdpProduct.img,
                 qty: chosenQty,
+                packagePrice: isPackagePriced,
                 customText: customText,
                 designFile: currentPdpUploadedDesign,
                 designName: currentPdpUploadedDesignName
@@ -3202,9 +3223,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const noteStr = customParts.length > 0 ? ` [${customParts.join(', ')}]` : '';
             const fullTitle = currentPdpProduct.title + noteStr;
+            const pMinQty = (currentPdpProduct.minQty && currentPdpProduct.minQty > 1) ? parseInt(currentPdpProduct.minQty, 10) : 1;
+            const isPackagePriced = pMinQty > 1;
 
             addToCart(fullTitle, currentPdpProduct.price, currentPdpProduct.img, currentPdpQty, {
                 silent: false,
+                packagePrice: isPackagePriced,
                 customText: customText,
                 designName: currentPdpUploadedDesignName,
                 designFile: currentPdpUploadedDesign
@@ -3513,7 +3537,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error('Failed saving order', err);
                 }
 
-                let itemsText = cart.map(it => '• ' + it.title + ' (Qty: ' + it.qty + ') - ₹' + (it.price * it.qty)).join('\n');
+                let itemsText = cart.map(it => {
+                    const lineTotal = it.packagePrice ? it.price : it.price * it.qty;
+                    const qtyStr = it.packagePrice ? `${it.qty} Pcs (Package)` : `Qty: ${it.qty}`;
+                    return '• ' + it.title + ' (' + qtyStr + ') - ₹' + lineTotal;
+                }).join('\n');
                 let waMsg = '*ORDER CONFIRMED & PAYMENT VERIFIED* 💳\n' +
                             '*Order ID:* ' + orderId + '\n' +
                             '*Payment Reference:* ' + (paymentId || 'Verified') + '\n' +
